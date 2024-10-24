@@ -20,8 +20,8 @@ COPY . .
 # Build the application (if needed)
 RUN pnpm run build
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Expose the ports the app runs on
+EXPOSE 80 8080
 
 # Run the application
 CMD ["pnpm", "start"]
