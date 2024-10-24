@@ -6,19 +6,19 @@ This checklist is designed to guide an AI model through the process of deploying
 
 ## Dockerfile Creation
 
-- [ ] **Select Base Image**: Choose a base image that matches the application's runtime environment (e.g., `node:18-alpine` for Node.js). Ensure compatibility with the application's dependencies.
+- [x] **Select Base Image**: Choose a base image that matches the application's runtime environment (e.g., `node:18-alpine` for Node.js). Ensure compatibility with the application's dependencies.
 
-- [ ] **Set Working Directory**: Define the working directory inside the container using `WORKDIR /app`. This is where the application files will reside.
+- [x] **Set Working Directory**: Define the working directory inside the container using `WORKDIR /app`. This is where the application files will reside.
 
-- [ ] **Copy Application Files**: Transfer the application files into the container using `COPY . .`. Ensure that all necessary files are included.
+- [x] **Copy Application Files**: Transfer the application files into the container using `COPY . .`. Ensure that all necessary files are included.
 
-- [ ] **Install Dependencies**: Use `pnpm` to install all necessary dependencies with `RUN pnpm install`. Ensure `pnpm-lock.yaml` is present for consistent dependency resolution.
+- [x] **Install Dependencies**: Use `pnpm` to install all necessary dependencies with `RUN pnpm install`. Ensure `pnpm-lock.yaml` is present for consistent dependency resolution.
 
-- [ ] **Build Application**: Execute a build step if required by the application (e.g., for a React app) using `RUN pnpm run build`. Verify that the build completes without errors.
+- [x] **Build Application**: Execute a build step if required by the application (e.g., for a React app) using `RUN pnpm run build`. Verify that the build completes without errors.
 
-- [ ] **Expose Application Ports**: Specify the ports that need to be exposed for the application using `EXPOSE 3000`. Ensure the port matches the application's configuration.
+- [x] **Expose Application Ports**: Specify the ports that need to be exposed for the application using `EXPOSE 3000`. Ensure the port matches the application's configuration.
 
-- [ ] **Define Run Command**: Set the command to start the application using `CMD ["pnpm", "start"]`. Verify that the command correctly starts the application.
+- [x] **Define Run Command**: Set the command to start the application using `CMD ["pnpm", "start"]`. Verify that the command correctly starts the application.
 
 ### Sample Dockerfile
 
