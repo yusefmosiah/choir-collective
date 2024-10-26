@@ -100,6 +100,7 @@
 │   ├── Model_Ring.md
 │   ├── Model_ThreadEvolution.md
 │   ├── Plan_Hyperconverge.md
+│   ├── Porting_Checklist.md
 │   ├── Reward_Explained.md
 │   ├── Reward_Service.md
 │   ├── Reward_Summary.md
@@ -151,6 +152,7 @@
 │   │   ├── Combined_Meta.md
 │   │   ├── Combined_Model.md
 │   │   ├── Combined_Plan.md
+│   │   ├── Combined_Porting.md
 │   │   ├── Combined_Reward.md
 │   │   ├── Combined_Solana.md
 │   │   ├── Combined_State.md
@@ -218,4 +220,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 188 files
+28 directories, 190 files

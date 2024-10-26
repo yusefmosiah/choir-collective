@@ -110,6 +110,7 @@ tree.md
 │   ├── Model_Ring.md
 │   ├── Model_ThreadEvolution.md
 │   ├── Plan_Hyperconverge.md
+│   ├── Porting_Checklist.md
 │   ├── Reward_Explained.md
 │   ├── Reward_Service.md
 │   ├── Reward_Summary.md
@@ -161,6 +162,7 @@ tree.md
 │   │   ├── Combined_Meta.md
 │   │   ├── Combined_Model.md
 │   │   ├── Combined_Plan.md
+│   │   ├── Combined_Porting.md
 │   │   ├── Combined_Reward.md
 │   │   ├── Combined_Solana.md
 │   │   ├── Combined_State.md
@@ -228,7 +230,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 188 files
+28 directories, 190 files
 
 
 ==
@@ -333,7 +335,7 @@ all_docs=$(find docs -maxdepth 1 -name "*.md" ! -name "tree.md")
 # Base patterns that define the core structure of each level
 base_patterns=(
     "Level_0_ tree.md scripts/ Solana_ Frontend_ Backend_ Deploy_ Implementation_ Data_ Error_ Reward_"
-    "Level_1_ Entry_ Dev_ Plan_ Tech_ Crystallization_ Thread"
+    "Level_1_ Entry_ Dev_ Plan_ Tech_ Crystallization_ Thread Porting_"
     "Level_2_ Core_State Core_Types Core_Blueprint Impl_ State_"
     "Level_3_ Core_Economics Theory_Game Theory_Implementation V10_ V12_"
     "Level_4_ Core_Convergence Theory_Stake Model_ Meta_Overview"
