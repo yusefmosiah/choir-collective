@@ -67,7 +67,7 @@ tree.md
 │   ├── Entry_Guide.md
 │   ├── Entry_InverseEquity.md
 │   ├── Entry_Overview.md
-│   ├── Entry_QA.md
+│   ├── Entry_Q&A.md
 │   ├── Entry_Vision.md
 │   ├── Error_Correction_Layers.md
 │   ├── Frontend_AIResponse.md

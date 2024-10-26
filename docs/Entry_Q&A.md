@@ -254,6 +254,7 @@ ASSUMPTION future_development:
 
 ## On Divestment Proportions
 
+
 Q: Why use quantum mechanics for divestment calculations rather than simple proportions?
 
 A: The quantum harmonic oscillator model captures deep truths about collaborative systems:
@@ -452,5 +453,3 @@ The quantum harmonic model captures these nuances because it separates:
 - Co-author count that normalizes both measures
 
 This helps explain why mature communities can be very active (high frequency) while maintaining stability (low temperature).
-
-
