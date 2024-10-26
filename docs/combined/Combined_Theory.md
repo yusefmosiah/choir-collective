@@ -2220,47 +2220,68 @@ This document describes the quantum harmonic oscillator model that governs threa
 Choir uses four key measurements to manage thread behavior:
 
 ## 1. Thread Temperature
+
 Measures how "hot" (active/volatile) or "cool" (stable) a thread is:
+
 - Higher when there's lots of activity and tokens
 - Lower as threads age and stabilize
 - Affects how much it costs to join
 
 The temperature T is calculated from the extensive energy E and number of co-authors N:
+
 - Total energy E = token_balance + message_rate (extensive scaling with N)
 - Temperature T = E/N (intensive, remains finite as N → ∞)
-- Cooling factor = 1 + √(age_days * N) (critical slowing down)
+- Cooling factor = 1 + √(age_days \* N) (critical slowing down)
 - Final temperature = T/cooling_factor
 
 ## 2. Thread Frequency
+
 Measures how fast a thread is evolving:
+
 - Increases with more messages and authors
 - Higher for valuable threads (more tokens)
 - Helps determine stake requirements
 
 The natural frequency ω is calculated for N coupled oscillators:
+
 - Message mode ω_m = message_rate/√N (Anderson normalization)
 - Value mode ω_v = log(1 + token_balance/N)
 - Coupling constant g = 1/N (mean field scaling)
 - Collective frequency ω = √((ω_m² + ω_v²)/2 + gN)
 
-## 3. Required Stake
-Calculates how much it costs to join a thread:
+## 3. Stake Dynamics
+
+Calculates the natural stake level for thread participation:
 - Higher for active/valuable threads
 - Lower for stable/quiet threads
-- Prevents spam while enabling growth
+- Creates quantum energy barriers
 
-Uses the quantum harmonic oscillator energy level formula:
+Uses the quantum harmonic oscillator formula:
 P(q) = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
 
 Where:
-- S₀ = Base stake quantum (minimum stake)
+- S₀ = Base stake quantum
 - ℏ = Reduced Planck constant (scaling factor)
 - ω = Thread natural frequency
 - k = Boltzmann constant
 - T = Thread temperature
 
+This quantum mechanical model:
+- Defines natural energy levels
+- Creates resonance patterns
+- Enables phase transitions
+- Guides value discovery
+
+Users' stake choices relative to these natural levels reveal:
+- Pattern recognition ability
+- Risk assessment accuracy
+- Market understanding
+- Strategic positioning
+
 ## 4. Divestment Payout
+
 Calculates tokens received when exiting a thread:
+
 - Based on thread's quantum state
 - Preserves energy conservation
 - Maintains system stability
@@ -2269,17 +2290,20 @@ Uses the oscillator decoupling formula:
 Payout = min((ℏω)/(N-1), balance/(N-1))
 
 Where:
+
 - ℏω = Total thread energy (coupling constant × frequency)
 - N = Number of co-authors
 - balance = Current token balance
 
 This formula ensures:
+
 1. Energy conservation during oscillator decoupling
 2. Fair distribution of remaining energy
 3. Prevention of excessive withdrawals
 4. Maintenance of thread stability
 
 The min() function prevents excessive payouts when:
+
 - Thread has low token balance but high frequency
 - Ensures remaining oscillators maintain viable energy levels
 - Preserves thread coherence during transitions
@@ -2289,18 +2313,21 @@ The min() function prevents excessive payouts when:
 The four core calculations work together to create thread dynamics:
 
 1. **Activity Effects**
+
    - Higher message rate increases frequency
    - Increases temperature
    - Raises stake requirements
    - Affects divestment payouts
 
 2. **Coupling Effects**
+
    - More co-authors increases frequency
    - Strengthens coupling (g)
    - Modifies stake scaling
    - Adjusts divestment shares
 
 3. **Energy Effects**
+
    - Token balance affects frequency
    - Contributes to temperature
    - Influences stake requirements
@@ -2317,18 +2344,21 @@ The four core calculations work together to create thread dynamics:
 The system exhibits key quantum harmonic oscillator properties:
 
 1. **Energy Quantization**
+
    - Discrete stake levels
    - Energy level spacing (ℏω)
    - Ground state energy (S₀/2)
    - Quantized divestments
 
 2. **Metastable States**
+
    - Temperature indicates phase transition readiness
    - Natural cooling enables crystallization
    - Energy barriers between states
    - Stable divestment patterns
 
 3. **Coupling Effects**
+
    - Co-authors as coupled oscillators
    - Resonance between threads
    - Collective state transitions
@@ -2341,6 +2371,7 @@ The system exhibits key quantum harmonic oscillator properties:
    - Balanced divestment mechanics
 
 This creates a self-regulating system where:
+
 - Active threads require higher stakes
 - Stable threads crystallize at lower stakes
 - Coupling strength guides evolution
@@ -2350,28 +2381,31 @@ This creates a self-regulating system where:
 ## Alternative Harmonic Model
 
 When a spec is REJECTED:
+
 - Temperature (T) increases because:
-  * Stake energy flows into thread balance (increases E)
-  * No new co-author (N stays same)
-  * Results in higher E/N ratio
-  * Creates "heated" state from rejection
+  - Stake energy flows into thread balance (increases E)
+  - No new co-author (N stays same)
+  - Results in higher E/N ratio
+  - Creates "heated" state from rejection
 - Frequency (ω) unchanged/slightly decreases because:
-  * No new message in history (ω_m same)
-  * No new co-author coupling
-  * Thread becomes more volatile but not faster
+  - No new message in history (ω_m same)
+  - No new co-author coupling
+  - Thread becomes more volatile but not faster
 
 When a spec is APPROVED:
+
 - Temperature (T) moderates because:
-  * Stake energy distributes to approvers (leaves thread)
-  * New co-author added (increases N)
-  * E/N ratio decreases
-  * Creates more stable state
+  - Stake energy distributes to approvers (leaves thread)
+  - New co-author added (increases N)
+  - E/N ratio decreases
+  - Creates more stable state
 - Frequency (ω) increases because:
-  * New message adds to rate (increases ω_m)
-  * New co-author strengthens coupling
-  * Thread evolves faster but cooler
+  - New message adds to rate (increases ω_m)
+  - New co-author strengthens coupling
+  - Thread evolves faster but cooler
 
 This creates interesting dynamics:
+
 - Rejections "heat up" threads by accumulating energy
 - Approvals "cool down" threads while accelerating them
 - Hot threads become harder to join (higher stake requirements)
@@ -2381,6 +2415,7 @@ This creates interesting dynamics:
 ## Natural Selection Through Temperature
 
 1. Hot (High Rejection) Threads:
+
 - High temperature from accumulated rejected stakes
 - Higher stake requirements (expensive to bid)
 - Only confident/quality bidders attempt
@@ -2388,6 +2423,7 @@ This creates interesting dynamics:
 - Self-selecting for valuable content
 
 2. Cool (High Approval) Threads:
+
 - Lower temperature from distributed stakes
 - Lower stake requirements (welcoming)
 - More experimental bids possible
@@ -2395,6 +2431,7 @@ This creates interesting dynamics:
 - Natural incubator for new contributors
 
 The temperature acts as an emergent reputation system:
+
 - Frequent rejections = "prove your worth" thread
 - Frequent approvals = "newcomers welcome" thread
 - No explicit rules needed
@@ -2402,6 +2439,7 @@ The temperature acts as an emergent reputation system:
 - Different threads find different equilibria
 
 This creates a beautiful ecosystem where:
+
 - Some threads crystallize as high-standards venues
 - Others remain fluid exploration spaces
 - Bidders can self-select appropriate venues
@@ -2411,24 +2449,28 @@ This creates a beautiful ecosystem where:
 ## Thermodynamic Elegance
 
 1. Natural Quality Gradients:
+
 - Hot threads (high rejection rate) = high energy barrier to entry
 - Like trying to add energy to an already energetic system
 - Only high-value contributions can overcome the barrier
 - Natural protection against low-quality noise
 
 2. Thermal Evolution:
+
 - Cool threads act as nurseries for new ideas
 - Low energy barriers enable experimentation
 - Successful threads naturally heat up over time
 - Creates natural progression paths
 
 3. Energy Conservation:
+
 - Rejected stakes stay in thread (increases internal energy)
 - Approved stakes distribute to approvers (energy flows out)
 - Temperature directly reflects thread's accumulated standards
 - No artificial reputation systems needed
 
 4. Phase Transitions:
+
 - Threads can transition between hot/cold states
 - Quality standards emerge from energy dynamics
 - Different equilibrium states serve different purposes
@@ -2437,12 +2479,14 @@ This creates a beautiful ecosystem where:
 ## Token Flow Dynamics
 
 1. **Rejection Flow**
+
    - Stake flows to thread
    - Increases thread energy
    - Raises temperature
    - Creates quality filter
 
 2. **Split Decision Flow**
+
    - Approvers' stake to Treasury
    - Treasury funds citations
    - Maintains circulation
@@ -2453,6 +2497,42 @@ This creates a beautiful ecosystem where:
    - Funds citation rewards
    - Creates sustainable flow
    - Supports network growth
+
+## Bid Sizing Analytics
+
+1. **Relative Bid Ratio**
+
+   - Actual bid / Recommended stake
+   - Indicates bidder confidence
+   - Helps evaluate risk appetite
+   - Creates natural reputation signal
+
+2. **Approval Success Rate**
+
+   - Percentage of bids approved
+   - Filtered by bid size ratio
+   - Historical performance tracking
+   - Risk-adjusted success metrics
+
+3. **Co-author Metrics**
+
+   - Approval percentage
+   - Split decision frequency
+   - Stake-weighted decisions
+   - Pattern recognition scores
+
+4. **Combined Analytics**
+   - Bid size × Success rate
+   - Risk-adjusted returns
+   - Pattern recognition ability
+   - Market reading capability
+
+This creates a rich set of emergent metrics without enforcing artificial limits, allowing:
+
+- Natural price discovery
+- Skill-based reputation
+- Risk management signals
+- Pattern recognition rewards
 
 
 ==
