@@ -55,13 +55,13 @@ VERSION transition_system:
      MATCH decision:
        CASE Reject:
          // Temperature increases
-         thread.energy += stake_amount
+         thread.energy += stake_amount  // Stake flows to thread
          thread.temperature = thread.energy / thread.co_authors.len()
          // Frequency unchanged
 
        CASE Approve:
          // Temperature moderates
-         distribute_energy_to_approvers(stake_amount)
+         distribute_energy_to_approvers(stake_amount)  // Stake to approvers
          add_co_author(author)
          thread.temperature = thread.energy / thread.co_authors.len()
          // Frequency increases
