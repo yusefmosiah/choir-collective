@@ -172,7 +172,6 @@
 │   │   ├── combiner.sh
 │   │   └── update_tree.sh
 │   └── tree.md
-├── frontend-old.yml
 ├── next-env.d.ts
 ├── next.config.mjs
 ├── package.json
@@ -221,4 +220,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 191 files
+28 directories, 190 files
