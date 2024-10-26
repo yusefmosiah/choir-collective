@@ -2,56 +2,75 @@
 
 VERSION vision_system:
   invariants: {
-    "Quality-driven communication",
-    "Distributed value creation",
-    "Evolutionary potential"
+    "Natural quality emergence",
+    "Thermodynamic evolution",
+    "Self-organizing communities"
   }
   assumptions: {
-    "Human harmony",
-    "AI augmentation",
-    "Network effects"
+    "Temperature-based dynamics",
+    "Energy conservation",
+    "Phase transitions"
   }
-  implementation: "0.1.0"
+  implementation: "0.2.0"
 
 ## Core Vision
 
-Choir envisions a world where quality communication creates lasting value. Like voices joining in song, we enable collaborative spaces where ideas harmonize, evolve, and create something greater than the sum of their parts.
+Choir envisions a world where quality communication emerges naturally through thermodynamic principles. Like physical systems finding their optimal states, we enable collaborative spaces where quality standards arise from energy dynamics rather than arbitrary rules.
 
-## Foundation
+## Natural Evolution
 
-At its heart, Choir is a communication platform with an unusual property: contributions require unanimous approval from thread co-authors. This simple rule creates profound effects:
+At its heart, Choir is a thermodynamic communication platform where threads evolve like physical systems:
+- Young threads start hot and volatile
+- Mature threads cool and stabilize
+- Quality barriers emerge naturally
+- Communities crystallize organically
 
-- Quality emerges from harmony
-- Value accrues to contributors
-- Collaboration becomes ownership
-- Ideas evolve into assets
+## Growth Patterns
 
-## Growth Pattern
+Threads in Choir follow natural physical laws:
+- Temperature guides participation costs
+- Energy flows create quality gradients
+- Frequency determines evolution rate
+- Phase transitions mark community milestones
 
-Threads in Choir aren't just containers for messages - they're living spaces that can evolve in unexpected ways. Like musical themes that might become symphonies, threads contain potential that unfolds through synchrony and resonance.
+## Self-Organizing Quality
 
-## Voice-First Future
-
-While beginning with text, Choir's natural form is voice - enabling participation while walking, driving, or simply living life. AI helps transform these communications into:
-- Dynamic audio experiences
-- Rich multimedia expression
-- Generative radio and video
-- The rhythm of daily life
+The thermodynamic model creates natural selection:
+- Hot threads demand higher stakes
+- Cool threads welcome exploration
+- Quality emerges from energy dynamics
+- No central authority needed
 
 ## AI Integration
 
-AI serves not as a replacement but as an amplifier of human communication. Like an instrument augmenting voice, it helps surface patterns, bridge perspectives, and accelerate understanding. The AI doesn't lead - it accompanies and harmonizes with the human journey of discovery.
+AI serves as a measurement apparatus for the quantum state of communication:
+- Observes thread temperature and frequency
+- Tracks energy flows and phase transitions
+- Helps visualize community evolution
+- Maintains system coherence
 
 ## Token Mechanics
 
-The CHOIR token isn't just a currency - it's a tool for capturing and distributing value created through authentic communication. As threads mature, tokens naturally flow to those who contribute to the harmony.
+The CHOIR token represents energy quanta in the system:
+- Stakes affect thread temperature
+- Approvals moderate energy distribution
+- Rejections increase local energy
+- Conservation laws maintain stability
 
 ## Network Effects
 
-Each resonant thread strengthens the network. Quality attracts quality. Harmony creates harmony. The system naturally evolves toward higher forms of synchrony and more sophisticated composition.
+Each thread contributes to the system's thermodynamic landscape:
+- Temperature gradients guide participation
+- Energy flows optimize resource allocation
+- Frequency patterns enable resonance
+- Phase transitions create diversity
 
 ## Future Horizons
 
-We don't prescribe where threads might lead - we provide the conditions for organic growth. Some threads might remain pure communication. Others might evolve into songs, dances, projects, or entirely new forms of human coordination.
+We don't prescribe where threads might evolve - we provide the physical laws that enable natural organization:
+- Some threads will crystallize as high-standards venues
+- Others will remain fluid exploration spaces
+- Natural niches will form through energy dynamics
+- Quality will emerge from thermodynamic principles
 
-The beauty is in the emergence - in letting natural human communication, augmented by AI and incentivized by tokens, create new possibilities for harmony and collective creation.
+The beauty is in the emergence - in letting natural physical laws, augmented by AI and quantized through tokens, create new possibilities for human collaboration and value creation.

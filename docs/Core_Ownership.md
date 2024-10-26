@@ -2,124 +2,133 @@
 
 VERSION ownership_system:
   invariants: {
-    "Thread must have at least one co-author",
-    "Co-author rights are non-transferable",
-    "Thread energy conservation",
-    "Quantum state coherence"
+    "Energy conservation",
+    "Temperature coherence",
+    "Frequency stability"
   }
   assumptions: {
-    "Harmonic co-authorship model",
-    "Quantum divestment mechanics",
-    "Thread energy distribution"
+    "Thermodynamic evolution",
+    "Natural cooling",
+    "Phase transitions"
   }
-  implementation: "0.1.0"
+  implementation: "0.2.0"
 
 ## Core Ownership Concepts
 
-ASSUMPTION co_authorship:
-  "Unanimous approval for new oscillators (co-authors)"
-  "Coupling strength scales with 1/N"
-  "Must maintain phase coherence"
+ASSUMPTION ownership_model:
+  "Temperature-based access control"
+  "Energy-driven participation"
+  "Must maintain thermodynamic stability"
 
-ASSUMPTION divestment:
-  "Quantum oscillator decoupling model"
-  "Energy conservation during transitions"
-  "Anderson-normalized distributions"
+## Thread Thermodynamics
 
-## Thread Ownership
-
-1. **Ownership Properties**
-   - Messages as wave packets
-   - Threads as coupled oscillator systems
-   - Token balances as system energy
-
-2. **Co-authorship Rules**
+1. **State Properties**
    ```typescript
-   type ThreadOscillator = {
-     author: PublicKey
-     couplingStrength: number  // g = 1/N
-     phaseAlignment: number    // coherence metric
-     energyLevel: number       // quantized stakes
+   type ThreadState = {
+     energy: number,           // E (total thread energy)
+     temperature: number,      // T = E/N (energy per co-author)
+     frequency: number,        // ω (evolution rate)
+     co_authors: PublicKey[],  // N (system size)
+     cooling_factor: number    // κ (age-based cooling)
    }
    ```
 
-## Token Integration
-
-ASSUMPTION token_mechanics:
-  "Quantum harmonic distribution model"
-  "Energy level quantization"
-  "Must maintain wave function coherence"
-
-1. **Token Flow**
+2. **Energy Distribution**
    ```typescript
-   type TokenDistribution = {
-     threadEnergy: number        // ℏω total energy
-     oscillatorCount: number     // N co-authors
-     temperature: number         // T thread temperature
-     couplingConstant: number   // g coupling strength
-   }
-   ```
-
-2. **Divestment Process**
-   ```typescript
-   function calculateDivestment(thread: Thread): number {
-     const ℏ = PLATFORM_COUPLING_CONSTANT
-     const ω = calculateThreadFrequency(thread)
-     const N = thread.coAuthors.length
-     const balance = thread.tokenBalance
-
-     // Quantum oscillator decoupling formula
-     return Math.min((ℏ * ω)/(N-1), balance/(N-1))
+   type EnergyFlow = {
+     rejection: {
+       effect: "Increases thread energy",
+       temperature: "Rises (E/N increases)",
+       frequency: "Unchanged"
+     },
+     approval: {
+       effect: "Distributes energy to approvers",
+       temperature: "Moderates (E/N decreases)",
+       frequency: "Increases"
+     }
    }
    ```
 
 ## Access Control
 
-ASSUMPTION access_model:
-  "Quantum state-based access levels"
-  "Energy barrier thresholds"
-  "Must maintain eigenstate integrity"
+1. **Temperature-Based Barriers**
+   - Hot threads: Higher stake requirements
+   - Cool threads: Lower barriers to entry
+   - Natural selection through energy requirements
+   - Quality emerges from temperature gradients
 
-1. **Co-author Rights**
-   - Full wavefunction access
-   - Phase alignment rights
-   - Decoupling (divestment) rights
-
-2. **Non-co-author Access**
-   - Observable state access
-   - Stake-based coupling requests
-   - Measurement-based views
+2. **Frequency-Based Evolution**
+   - Higher frequency = faster evolution
+   - Co-author coupling strengthens frequency
+   - Natural resonance patterns emerge
+   - System self-organizes through harmonics
 
 ## State Management
 
-ASSUMPTION state_handling:
-  "Solana as quantum state oracle"
-  "Coherent state transitions"
-  "Must maintain wave equation solutions"
-
-1. **Ownership State**
+1. **Energy Conservation**
    ```typescript
-   type ThreadState = {
-     oscillators: ThreadOscillator[]
-     frequency: number          // ω thread frequency
-     temperature: number        // T thread temperature
-     energyLevels: number[]    // Quantized energy states
-   }
+   PROPERTY energy_conservation:
+     thread.energy = sum(stakes) - sum(distributions)
+     INVARIANT: energy >= 0
    ```
 
-2. **Content State**
-   - Content as wave packets
-   - Hashes as quantum numbers
-   - Metadata as observables
+2. **Temperature Evolution**
+   ```typescript
+   FUNCTION evolve_temperature(thread: Thread, time: Duration):
+     cooling = 1 + sqrt(time.days * thread.co_authors.length)
+     thread.temperature = thread.energy / (thread.co_authors.length * cooling)
+   ```
+
+3. **Frequency Management**
+   ```typescript
+   FUNCTION calculate_frequency(thread: Thread):
+     message_mode = thread.message_rate / sqrt(N)
+     value_mode = log(1 + thread.energy/N)
+     coupling = 1/N
+     return sqrt((message_mode² + value_mode²)/2 + coupling*N)
+   ```
+
+## Phase Transitions
+
+1. **Thread Evolution**
+   - Young threads start hot and volatile
+   - Mature threads cool and stabilize
+   - Quality barriers emerge naturally
+   - Communities crystallize organically
+
+2. **State Changes**
+   ```typescript
+   TYPE PhaseTransition =
+     | Heating   // Rejection increases temperature
+     | Cooling   // Natural age-based evolution
+     | Coupling  // New co-author changes frequency
+     | Resonance // Activity aligns with frequency
+   ```
 
 ## Implementation Notes
 
-NOTE future_extensions:
-  "Current model uses basic quantum mechanics"
-  "May add advanced wave dynamics"
-  "Must maintain quantum consistency"
+NOTE thermodynamic_implementation:
+  "Current model uses classical thermodynamics"
+  "May introduce quantum effects"
+  "Must preserve energy conservation"
 
-NOTE scalability:
+NOTE scaling_considerations:
   "Anderson normalization for large N"
-  "Critical slowing down handling"
-  "Must preserve coherent scaling"
+  "Natural cooling prevents instability"
+  "Must maintain coherent evolution"
+
+## Future Directions
+
+1. **Advanced Thermodynamics**
+   - Multi-thread energy coupling
+   - Complex phase transitions
+   - Quantum coherence effects
+   - Resonance amplification
+
+2. **Ecosystem Evolution**
+   - Thread temperature networks
+   - Energy flow optimization
+   - Natural niche formation
+   - Self-organizing quality standards
+
+Through this thermodynamic model, thread ownership becomes an emergent property of natural energy flows and temperature evolution, creating a self-organizing system that maintains quality through physical principles rather than arbitrary rules.

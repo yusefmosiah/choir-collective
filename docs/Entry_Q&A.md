@@ -11,7 +11,7 @@ assumptions: {
 "Understanding paths",
 "Insight emergence"
 }
-implementation: "0.1.0"
+implementation: "0.2.0"
 
 ---
 
@@ -449,3 +449,149 @@ The quantum harmonic model captures these nuances because it separates:
 - Co-author count that normalizes both measures
 
 This helps explain why mature communities can be very active (high frequency) while maintaining stability (low temperature).
+
+## On Thread Temperature
+
+Q: How does thread temperature affect participation?
+
+A: Thread temperature is a fascinating emergent property:
+
+1. Hot Threads (High Rejection Rate)
+   - Higher energy barriers to entry
+   - More expensive to submit specs
+   - Attracts confident/quality bidders
+   - Natural filter for serious contributors
+   - Self-selects for valuable content
+
+2. Cool Threads (High Approval Rate)
+   - Lower energy barriers
+   - More welcoming to new voices
+   - Enables experimentation
+   - Nurtures emerging ideas
+   - Acts as an incubator
+
+This creates a natural ecosystem where:
+- Some threads crystallize as high-standards venues
+- Others remain fluid exploration spaces
+- Participants can self-select appropriate venues
+- Quality emerges through natural thermodynamics
+- No central authority needed
+
+## On Approval Dynamics
+
+Q: What happens when a message is approved or rejected?
+
+A: The system follows natural thermodynamic principles:
+
+1. When Rejected:
+   - Temperature increases because:
+     * Stake energy flows into thread balance
+     * No new co-author (N stays same)
+     * Results in higher E/N ratio
+     * Creates "heated" state from rejection
+   - Frequency stays stable because:
+     * No new message in history
+     * No new co-author coupling
+     * Thread becomes more volatile but not faster
+
+2. When Approved:
+   - Temperature moderates because:
+     * Stake energy distributes to approvers
+     * New co-author added (increases N)
+     * E/N ratio decreases
+     * Creates more stable state
+   - Frequency increases because:
+     * New message adds to rate
+     * New co-author strengthens coupling
+     * Thread evolves faster but cooler
+
+## On Thread Evolution
+
+Q: How do threads change over time?
+
+A: Threads follow natural evolutionary patterns:
+
+1. Temperature Effects
+   - Cool threads act as nurseries for new ideas
+   - Successful threads naturally heat up
+   - Quality barriers emerge organically
+   - Creates natural progression paths
+
+2. Energy Conservation
+   - Rejected stakes increase thread energy
+   - Approved stakes distribute outward
+   - Temperature reflects accumulated standards
+   - No artificial reputation systems needed
+
+3. Phase Transitions
+   - Threads can shift between hot/cool states
+   - Quality standards emerge from energy dynamics
+   - Different equilibrium states serve different purposes
+   - System self-organizes into diverse niches
+
+——
+
+## On Quality and Accessibility
+
+Q: Don't high-quality threads need high barriers to entry?
+
+A: Actually, the quantum harmonic oscillator model reveals something counterintuitive but profound: the best threads aren't necessarily the most expensive to join. Here's why:
+
+1. Temperature vs Frequency
+   - Temperature (T) = chaos/volatility
+   - Frequency (ω) = organization/coherence
+   - High T = expensive but chaotic
+   - High ω = efficient and welcoming
+
+2. Natural Evolution
+   - Chaotic threads (high T, low ω) = expensive but noisy
+   - Mature threads (low T, high ω) = accessible and valuable
+   - Quality comes from coherence (ω), not heat (T)
+   - Like a well-tuned instrument vs random noise
+
+3. Practical Examples
+   - A heated argument = high temperature, low coherence, expensive to join
+   - A focused discussion = lower temperature, high coherence, more accessible
+   - An expert community = high frequency, moderate temperature, naturally selective
+
+This creates a beautiful dynamic where:
+- Quality emerges from harmony, not barriers
+- The best threads become naturally accessible
+- Value comes from organization, not exclusivity
+- Communities evolve toward optimal states
+
+It's like how the best conversations aren't the loudest or most exclusive - they're the ones with the clearest signal and most natural flow.
+
+——
+
+## On Recognizing Thread Potential
+
+Q: How can you identify valuable threads early?
+
+A: The thermodynamic model reveals something fascinating about thread potential:
+
+1. High Energy States
+   - A chaotic thread (high T) contains lots of potential energy
+   - If you can see a pattern others miss (recognize latent ω)
+   - That energy could crystallize into something valuable
+   - Like seeing order in apparent chaos
+
+2. Pattern Recognition
+   - High temperature = lots of raw energy
+   - Hidden frequency = underlying pattern
+   - Recognizing the pattern early = opportunity
+   - Like finding a resonant frequency in noise
+
+3. Value Emergence
+   - Early recognition lets you join before crystallization
+   - Lower stake requirements due to current disorder
+   - Potential to help shape the emerging pattern
+   - Natural selection for pattern recognition
+
+This creates an interesting opportunity dynamic:
+- The most valuable threads might start chaotic
+- Pattern recognition is rewarded
+- Early participants shape crystallization
+- Value emerges from chaos through resonance
+
+It's similar to how scientific breakthroughs often come from recognizing patterns in seemingly chaotic data - the energy was always there, waiting for someone to find its frequency.

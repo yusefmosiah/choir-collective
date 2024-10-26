@@ -3,101 +3,100 @@
 VERSION consensus_system:
   invariants: {
     "Quality-driven content curation",
-    "Stake-based participation",
-    "Collaborative approval process"
+    "Thermodynamic state evolution",
+    "Energy conservation"
   }
   assumptions: {
-    "Approval timeframes",
-    "Stake requirements",
-    "Distribution mechanics"
+    "Temperature dynamics",
+    "Energy flow patterns",
+    "Phase transitions"
   }
-  implementation: "0.1.0"
+  implementation: "0.2.0"
 
 ## Core Mechanism
 
 ASSUMPTION consensus_model:
-  "Unanimous approval requirement"
-  "May introduce weighted voting"
-  "Must maintain quality control"
+  "Temperature-based quality emergence"
+  "Energy conservation in transitions"
+  "Must maintain thermodynamic stability"
 
-1. **Message Contribution and Staking**
+1. **Message Contribution and Energy**
+   - Users stake CHOIR tokens (energy quanta)
+   - Stake amount varies with thread temperature
+   - Energy locked until state transition
 
-   ASSUMPTION stake_requirements:
-     "Fixed minimum stake requirement"
-     "May introduce dynamic stake scaling"
-     "Must prevent spam while enabling participation"
+2. **Thermodynamic Transitions**
+   - Rejection: Increases thread temperature
+     * Stake energy flows into thread (increases E)
+     * Co-author count unchanged (N constant)
+     * Results in higher E/N ratio
+     * Creates "heated" state
 
-   - Users stake CHOIR tokens for spec submissions
-   - Stake amount must meet thread minimum
-   - Stake locked until decision finalized
+   - Approval: Moderates temperature
+     * Stake energy distributes to approvers
+     * New co-author added (increases N)
+     * E/N ratio decreases
+     * Creates more stable state
 
-2. **Collaborative Approval**
+3. **Natural Selection**
+   - Hot threads (high rejection rate):
+     * Higher energy barriers to entry
+     * Self-selecting for quality
+     * Natural filter for contributions
+     * Crystallizes high standards
 
-   ASSUMPTION approval_process:
-     "7-day approval window"
-     "May adjust timeframe based on usage"
-     "Must allow sufficient review time"
+   - Cool threads (high approval rate):
+     * Lower energy barriers
+     * Open to experimentation
+     * Nurtures new voices
+     * Enables exploration
 
-   - Co-authors review within approval window
-   - Unanimous approval required for publication
-   - Any denial triggers stake distribution
+## Quality Emergence
 
-3. **Token Distribution**
+1. **Thermodynamic Quality Control**
+   - No explicit reputation system needed
+   - Quality standards emerge naturally
+   - Different threads find different equilibria
+   - System self-organizes into diverse niches
 
-   ASSUMPTION distribution_model:
-     "Equal distribution to deniers"
-     "May introduce weighted distribution"
-     "Must maintain incentive alignment"
+2. **Energy Conservation**
+   - Rejected stakes increase thread energy
+   - Approved stakes distribute to approvers
+   - Temperature reflects accumulated standards
+   - Natural protection against noise
 
-   - Approved: stake to thread balance
-   - Denied: stake to deniers
-   - Mixed: excess to treasury
+## Phase Transitions
 
-## Quality Assurance
+1. **Thread Evolution**
+   - Cool threads act as nurseries
+   - Successful threads naturally heat up
+   - Quality barriers emerge organically
+   - Creates natural progression paths
 
-ASSUMPTION quality_metrics:
-  "Implicit quality through stake/approval"
-  "May introduce explicit quality metrics"
-  "Must maintain organic curation"
-
-1. **Incentive Alignment**
-   - Stake requirement ensures commitment
-   - Co-authors incentivized to maintain quality
-   - Denial rewards protect thread value
-
-2. **Collaborative Filtering**
-   - Co-authors act as quality gatekeepers
-   - Unanimous approval ensures high standards
-   - Economic penalties for low quality
-
-## Implementation Notes
-
-NOTE approval_dynamics:
-  "Current implementation uses simple voting"
-  "May introduce reputation-weighted voting"
-  "Must maintain quality guarantees"
-
-NOTE economic_balance:
-  "Current parameters set conservatively"
-  "May adjust based on observed behavior"
-  "Must maintain economic sustainability"
+2. **Equilibrium States**
+   - High-standards venues crystallize
+   - Exploration spaces remain fluid
+   - Bidders self-select appropriate venues
+   - No central authority needed
 
 ## Future Considerations
 
 ASSUMPTION mechanism_evolution:
-  "Basic proof-of-text v1"
-  "May introduce additional consensus features"
-  "Must preserve core quality principles"
+  "Thermodynamic proof-of-text v2"
+  "May introduce additional phase transitions"
+  "Must preserve energy conservation"
 
-1. **Governance Integration**
-   - Parameter adjustment voting
-   - Protocol upgrade proposals
-   - Treasury management
+1. **Advanced Thermodynamics**
+   - Complex phase transitions
+   - Multi-thread energy coupling
+   - Quantum coherence effects
 
-2. **Advanced Features**
-   - Reputation-based stake requirements
-   - Dynamic approval timeframes
-   - Complex reward structures
+2. **Governance Integration**
+   - Temperature parameter adjustment
+   - Energy conservation rules
+   - Phase transition controls
+
+Through this thermodynamic model, Proof of Text creates a self-organizing system where quality emerges naturally through energy dynamics rather than explicit rules or reputation systems.
 
 ---
 

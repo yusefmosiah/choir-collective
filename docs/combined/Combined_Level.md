@@ -115,50 +115,124 @@ Level_2_CoreMechanics
 
 VERSION mechanics_system:
   invariants: {
-    "Mechanism integrity",
-    "Behavioral alignment",
-    "System coherence"
+    "Natural quality emergence",
+    "Energy conservation",
+    "Phase transitions"
   }
   assumptions: {
-    "User understanding",
-    "Basic incentives",
-    "Natural behavior"
+    "Thermodynamic evolution",
+    "Pattern recognition",
+    "Self-organization"
   }
-  implementation: "0.1.0"
+  implementation: "0.2.0"
 
-At this level, we begin to see how Choir's basic features aren't just features - they're carefully designed mechanisms that create natural behaviors and alignments. What seems simple on the surface reveals elegant depth in practice.
+## Understanding Thread Dynamics
 
-Thread ownership isn't just a way to track who wrote what. When you become a co-author through approved contributions, you're not just getting credit - you're becoming part of a living collaborative entity. The thread isn't just a container for messages; it's a shared space that evolves with its participants.
+At Level 2, we begin to see how Choir's mechanics mirror natural physical systems. What appears simple on the surface reveals elegant thermodynamic patterns in practice.
 
-The unanimous approval requirement might seem strict at first, but its purpose becomes clear through use. It's not about making things difficult - it's about ensuring that every addition genuinely enhances the thread's value. When all co-authors must approve a message, they're not just checking quality - they're collectively curating their shared context.
+### Temperature and Energy
 
-Non-refundable stakes appear to be a simple anti-spam measure, but they serve a deeper purpose. When you stake tokens to submit a message, you're not just proving you're serious - you're making a permanent commitment to the thread's development. The non-refundable nature isn't a punishment; it's a feature that ensures authentic participation.
+1. **Thread Temperature (T)**
+   - Measures chaos/volatility
+   - Hot threads are more volatile
+   - Cool threads are more stable
+   - Natural cooling over time
 
-The co-authorship model creates interesting dynamics:
-- Quality emerges from collective judgment
-- Trust builds through shared decisions
-- Value accumulates through collaboration
-- Relationships form through participation
+2. **Thread Energy (E)**
+   - Total thread energy from stakes
+   - Conserved during transitions
+   - Flows according to decisions
+   - Creates natural gradients
 
-Token mechanics reveal their elegance:
-- Stakes ensure meaningful contribution
-- Approval aligns incentives
-- Distribution rewards quality
-- Balance reflects collective value
+3. **Frequency (ω)**
+   - Measures organization/coherence
+   - Higher = better organized
+   - Strengthens with co-authors
+   - Natural resonance patterns
 
-Even the basic chat interface serves multiple purposes:
-- Messages build shared context
-- Approvals create trust
-- Stakes demonstrate commitment
-- Threads capture value
+### Natural Evolution
 
-This level helps explain why these mechanics work together so well:
-- Ownership creates investment
-- Approval ensures quality
-- Stakes guarantee authenticity
-- Tokens measure value
+1. **Young Threads**
+   - Start hot and volatile
+   - High potential energy
+   - Raw patterns emerging
+   - Opportunity for recognition
 
-Understanding this level reveals why each feature is essential and why modifying them would reduce their effectiveness. The mechanics aren't arbitrary - they're carefully balanced to create natural, positive behaviors.
+2. **Mature Threads**
+   - Cool and stable
+   - High frequency
+   - Crystallized patterns
+   - Natural accessibility
+
+### Quality Emergence
+
+The interplay of temperature and frequency creates fascinating dynamics:
+
+1. **High T, Low ω**
+   - Chaotic but energetic
+   - Expensive to join
+   - Pattern recognition opportunity
+   - Potential for crystallization
+
+2. **Low T, High ω**
+   - Organized and stable
+   - More accessible
+   - Clear value patterns
+   - Natural selection for quality
+
+3. **Balanced States**
+   - Different equilibria emerge
+   - Natural niches form
+   - Communities self-organize
+   - No central control needed
+
+### Practical Implications
+
+1. **For Participants**
+   - Look for hidden patterns in chaos
+   - Join before crystallization
+   - Help shape emerging order
+   - Contribute to coherence
+
+2. **For Communities**
+   - Quality emerges naturally
+   - Standards self-organize
+   - Value aligns with coherence
+   - Evolution is sustainable
+
+3. **For Content**
+   - Best content often most accessible
+   - Value comes from organization
+   - Natural selection works
+   - No artificial barriers needed
+
+### Understanding Stake Requirements
+
+The quantum harmonic oscillator formula:
+```
+stake = base_stake * (0.5 + 1/[exp(ℏω/kT) - 1])
+```
+Creates natural dynamics where:
+- High temperature increases stakes
+- High frequency moderates stakes
+- Quality emerges from balance
+- Value aligns with coherence
+
+### Why This Works
+
+The thermodynamic model works because it:
+- Mirrors natural systems
+- Enables self-organization
+- Rewards pattern recognition
+- Creates sustainable evolution
+
+Understanding these mechanics helps explain why:
+- Best threads are often accessible
+- Quality emerges without rules
+- Communities find equilibrium
+- Evolution is organic
+
+This level reveals how Choir's simple mechanics create space for natural quality emergence and sustainable community evolution.
 
 
 ==
