@@ -274,6 +274,26 @@ This creates:
    // Results in higher stake (~300 CHOIR)
    ```
 
+## Treasury and Citation Rewards
+
+1. **Treasury as Energy Reservoir**
+   - Accumulates tokens from split decisions
+   - Funds perpetual citation rewards
+   - Enables circular token flow
+   - Maintains system sustainability
+
+2. **New Message Rewards**
+   - High initial distribution
+   - Logarithmic decay over time
+   - 50% distributed in first year
+   - 99% distributed by year 4
+
+3. **Citation Rewards**
+   - Funded by Treasury
+   - Perpetual availability
+   - Encourages content linking
+   - Promotes knowledge network growth
+
 Through this harmonic economic model, we see how:
 - Value flows follow wave mechanics
 - Prices emerge from resonant patterns
@@ -2293,6 +2313,26 @@ This creates:
    }
    // Results in higher stake (~300 CHOIR)
    ```
+
+## Treasury and Citation Rewards
+
+1. **Treasury as Energy Reservoir**
+   - Accumulates tokens from split decisions
+   - Funds perpetual citation rewards
+   - Enables circular token flow
+   - Maintains system sustainability
+
+2. **New Message Rewards**
+   - High initial distribution
+   - Logarithmic decay over time
+   - 50% distributed in first year
+   - 99% distributed by year 4
+
+3. **Citation Rewards**
+   - Funded by Treasury
+   - Perpetual availability
+   - Encourages content linking
+   - Promotes knowledge network growth
 
 Through this harmonic economic model, we see how:
 - Value flows follow wave mechanics

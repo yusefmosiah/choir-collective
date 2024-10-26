@@ -119,7 +119,6 @@ tree.md
 │   ├── Solana_thread_test.md
 │   ├── Solana_validation.md
 │   ├── State_Boundaries.md
-│   ├── State_Transitions.md
 │   ├── Tech_Arts_Intersection.md
 │   ├── Theory_Algebra.md
 │   ├── Theory_ApprovalMeasurement.md
@@ -227,7 +226,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 187 files
+28 directories, 186 files
 
 
 ==

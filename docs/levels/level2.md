@@ -198,6 +198,12 @@ VERSION transition_system:
          thread.temperature = thread.energy / thread.co_authors.len()
          // Frequency unchanged
 
+       CASE SplitDecision:
+         // Approvers' stake to Treasury
+         treasury.balance += approvers_stake_amount
+         // Temperature unchanged
+         // Enables citation rewards
+
        CASE Approve:
          // Temperature moderates
          distribute_energy_to_approvers(stake_amount)  // Stake to approvers
@@ -2265,8 +2271,12 @@ TYPE SolanaState = {
 
   tokens: {
     stakes: Map<Hash, TokenAmount>,     // Locked stakes
-    escrow: Map<Hash, TokenAmount>,     // Pending distribution
-    treasury: TokenAmount               // System reserve
+    thread_balances: Map<ThreadId, TokenAmount>,  // Thread energy
+    treasury: {
+      balance: TokenAmount,             // Treasury reserve
+      citation_rewards: TokenAmount,    // Allocated for citations
+      new_message_rewards: TokenAmount  // Decaying reward pool
+    }
   }
 }
 
@@ -2362,6 +2372,53 @@ TYPE FrontendState = {
      backend.cache.tokens = frontend.ui.balances
    ```
 
+## Token Flow Boundaries
+
+0. **Approval Flow**
+   ```
+   Stake -> Approvers
+   PROPERTY: approval_flow
+     // Direct distribution to approvers
+     FOR approver IN approvers:
+       approver.balance += stake_amount / approvers.len()
+     verify_temperature_decrease()
+     verify_frequency_increase()
+   ```
+
+1. **Rejection Flow**
+   ```
+   Stake -> Thread Balance
+   PROPERTY: rejection_flow
+     thread.token_balance += stake_amount
+     verify_thread_temperature_update()
+   ```
+
+2. **Split Decision Flow**
+   ```
+   Approver Stakes -> Treasury
+   PROPERTY: split_decision_flow
+     treasury.balance += approver_stakes
+     enable_citation_rewards()
+   ```
+
+3. **New Message Rewards**
+   ```
+   Treasury -> Authors
+   PROPERTY: reward_flow
+     // Logarithmic decay over 4 years
+     reward = calculate_decaying_reward(time)
+     verify_reward_distribution()
+   ```
+
+4. **Citation Rewards**
+   ```
+   Treasury -> Authors
+   PROPERTY: citation_flow
+     // Perpetual rewards from Treasury
+     reward = calculate_citation_reward(treasury_state)
+     verify_citation_distribution()
+   ```
+
 ## Boundary Enforcement
 
 1. **State Authority**
@@ -2414,170 +2471,6 @@ TYPE FrontendState = {
 
 
 ==
-State_Transitions
-==
-
-
-# Core State Transitions
-
-VERSION state_transition_map:
-  invariants: {
-    "State consistency across systems",
-    "Token conservation",
-    "Ownership integrity"
-  }
-  assumptions: {
-    "Two-phase updates",
-    "Eventual consistency",
-    "Optimistic UI"
-  }
-  implementation: "0.1.0"
-
-## 1. Thread Creation
-
-SEQUENCE create_thread:
-  1. Solana State     ```
-     thread_pda = derive_thread_pda(thread_id)
-     initial_state = {
-       co_authors: [creator],
-       token_balance: 0,
-       created_at: now()
-     }     ```
-
-  2. Qdrant State     ```
-     collection = {
-       id: thread_id,
-       metadata: {
-         owner: creator,
-         created_at: now()
-       }
-     }     ```
-
-  3. Backend State     ```
-     websocket_room = create_room(thread_id)
-     cache_entry = init_thread_cache(thread_id)     ```
-
-  4. Frontend State     ```
-     optimistic_update = {
-       thread_id: thread_id,
-       status: 'creating',
-       local_state: initial_state
-     }     ```
-
-## 2. Message Submission
-
-SEQUENCE submit_message:
-  1. Content Processing     ```
-     embedding = generate_embedding(content)
-     content_hash = hash(content)     ```
-
-  2. Author Check     ```
-     IF author IN thread.co_authors:
-       direct_submission()
-     ELSE:
-       spec_submission()     ```
-
-  3. State Updates     ```
-     qdrant: store_content(content, embedding)
-     solana: record_hash(content_hash)
-     backend: notify_co_authors()
-     frontend: optimistic_display()     ```
-
-## 3. Approval Processing
-
-SEQUENCE process_approval:
-  1. Collect Votes     ```
-     approvals = get_thread_approvals(hash)
-     co_authors = get_thread_co_authors(thread_id)     ```
-
-  2. Check Consensus     ```
-     IF unanimous_approval(approvals, co_authors):
-       publish_message()
-       add_co_author()
-       distribute_to_thread()
-     ELIF any_denial(approvals):
-       reject_message()
-       distribute_to_deniers()
-     ELSE:
-       // Still pending     ```
-
-  3. State Updates     ```
-     solana: update_thread_state()
-     qdrant: update_content_status()
-     backend: broadcast_result()
-     frontend: update_ui()     ```
-
-## 4. Token Distribution
-
-SEQUENCE distribute_tokens:
-  1. Calculate Shares     ```
-     recipients = get_recipients(outcome)
-     share = amount / recipients.length     ```
-
-  2. Process Transfers     ```
-     solana: {
-       IF approved:
-         transfer_to_thread(amount)
-       ELIF denied:
-         distribute_to_deniers(amount)
-       ELSE:
-         return_to_treasury(amount)
-     }     ```
-
-  3. Update States     ```
-     backend: record_distribution()
-     frontend: update_balances()     ```
-
-## 5. Divestment
-
-SEQUENCE process_divestment:
-  1. Calculate Share     ```
-     thread_balance = get_thread_balance()
-     co_author_count = get_co_author_count()
-     share = thread_balance / (co_author_count - 1)     ```
-
-  2. Process Transfer     ```
-     solana: {
-       transfer_from_thread(share, author)
-       remove_co_author(author)
-       update_thread_state()
-     }     ```
-
-  3. Update States     ```
-     qdrant: update_metadata()
-     backend: notify_co_authors()
-     frontend: update_ui()     ```
-
-## State Verification
-
-FUNCTION verify_state_consistency():  ```
-  solana_state = get_solana_state(thread_id)
-  qdrant_state = get_qdrant_state(thread_id)
-
-  VERIFY:
-    solana_state.co_authors = qdrant_state.metadata.co_authors
-    solana_state.content_hashes ⊆ qdrant_state.content_hashes
-    solana_state.token_balance = sum(all_distributions) - sum(all_divested)  ```
-
-## Error Recovery
-
-SEQUENCE handle_inconsistency:
-  1. Detect Issue     ```
-     diff = compare_states(solana, qdrant)     ```
-
-  2. Resolve Conflict     ```
-     MATCH diff:
-       HashMismatch -> recompute_hash()
-       OwnershipMismatch -> use_solana_state()
-       TokenMismatch -> audit_transfers()     ```
-
-  3. Repair State     ```
-     reconcile_states()
-     verify_consistency()
-     notify_monitoring()     ```
-
-
-==
 Core_ProofOfText
 ==
 
@@ -2616,6 +2509,12 @@ ASSUMPTION consensus_model:
      * Results in higher E/N ratio
      * Creates "heated" state
 
+   - Split Decision: Hybrid energy flow
+     * Approvers' stake flows to Treasury
+     * Treasury funds citation rewards
+     * Maintains circular token flow
+     * Enables perpetual incentives
+
    - Approval: Moderates temperature
      * Stake energy distributes to approvers
      * New co-author added (increases N)
@@ -2645,8 +2544,8 @@ ASSUMPTION consensus_model:
 
 2. **Energy Conservation**
    - Rejected stakes increase thread energy
-   - Approved stakes distribute to approvers
-   - Temperature reflects accumulated standards
+   - Split decisions feed Treasury
+   - Treasury funds citation rewards
    - Natural protection against noise
 
 ## Phase Transitions
@@ -3690,6 +3589,12 @@ ASSUMPTION consensus_model:
      * Results in higher E/N ratio
      * Creates "heated" state
 
+   - Split Decision: Hybrid energy flow
+     * Approvers' stake flows to Treasury
+     * Treasury funds citation rewards
+     * Maintains circular token flow
+     * Enables perpetual incentives
+
    - Approval: Moderates temperature
      * Stake energy distributes to approvers
      * New co-author added (increases N)
@@ -3719,8 +3624,8 @@ ASSUMPTION consensus_model:
 
 2. **Energy Conservation**
    - Rejected stakes increase thread energy
-   - Approved stakes distribute to approvers
-   - Temperature reflects accumulated standards
+   - Split decisions feed Treasury
+   - Treasury funds citation rewards
    - Natural protection against noise
 
 ## Phase Transitions
@@ -3831,6 +3736,12 @@ VERSION transition_system:
          thread.temperature = thread.energy / thread.co_authors.len()
          // Frequency unchanged
 
+       CASE SplitDecision:
+         // Approvers' stake to Treasury
+         treasury.balance += approvers_stake_amount
+         // Temperature unchanged
+         // Enables citation rewards
+
        CASE Approve:
          // Temperature moderates
          distribute_energy_to_approvers(stake_amount)  // Stake to approvers
@@ -3932,6 +3843,27 @@ Traditional platforms struggle with content quality and moderation, often resort
 - **Token Standard**: Solana Program Library (SPL) Token
 - **Initial Allocation**: All tokens minted to Choir Treasury (Initial Energy Reserve)
 
+## Token Flow Mechanics
+
+### 1. Core Token Flows
+- **Rejections:** Stake flows to thread, increasing its energy and temperature
+- **Split Decisions:** Approvers' stake flows to Treasury, funding citation rewards
+- **Approvals:** Stake distributes directly to approvers
+- **Treasury:** Acts as energy reservoir for perpetual citation rewards
+
+### 2. Reward Structure
+- **New Message Rewards:**
+  * High initial distribution
+  * Logarithmic decay over 4 years
+  * 50% distributed in first year
+  * 99% distributed by year 4
+
+- **Citation Rewards:**
+  * Funded by Treasury from split decisions
+  * Perpetual availability
+  * Encourages content linking
+  * Promotes knowledge network growth
+
 ## Thermodynamic Mechanics
 
 ### 1. Thread Energy States
@@ -3959,6 +3891,12 @@ Each thread exists as a quantum harmonic oscillator characterized by:
   * Temperature rises (E/N increases)
   * Frequency unchanged
 
+- Split Decision: Hybrid energy flow
+  * Approvers' stake flows to Treasury
+  * Maintains circular token flow
+  * Enables perpetual rewards
+  * Temperature unchanged
+
 - Approval: Moderates temperature
   * Energy distributes to approvers
   * Temperature decreases (new co-author)
@@ -3978,25 +3916,19 @@ Each thread exists as a quantum harmonic oscillator characterized by:
 - High frequency: Well-organized and efficient
 - Natural selection for coherence
 
-## Practical Implementation
+## Treasury Dynamics
 
-### 1. Message Submission
-- User stakes CHOIR tokens (energy quanta)
-- Stake requirement based on T and ω
-- Energy locked until state transition
-- Natural barrier against noise
+### 1. Energy Reservoir
+- Accumulates tokens from split decisions
+- Maintains perpetual citation rewards
+- Creates circular token flow
+- Ensures system sustainability
 
-### 2. Approval Process
-- Co-authors evaluate within 7 days
-- Unanimous approval required
-- State transitions follow energy conservation
-- Phase transitions mark milestones
-
-### 3. Energy Distribution
-- Approved: Energy distributes to approvers
-- Rejected: Energy increases thread temperature
-- Conservation laws maintain stability
-- Natural thermodynamic evolution
+### 2. Reward Distribution
+- New message rewards follow logarithmic decay
+- Citation rewards scale with Treasury balance
+- System maintains token velocity
+- Natural incentive alignment
 
 ## Economic Implications
 
@@ -4018,6 +3950,26 @@ Each thread exists as a quantum harmonic oscillator characterized by:
 - Natural progression paths
 - Self-organizing standards
 
+## Practical Implementation
+
+### 1. Message Submission
+- User stakes CHOIR tokens (energy quanta)
+- Stake requirement based on T and ω
+- Energy locked until state transition
+- Natural barrier against noise
+
+### 2. Approval Process
+- Co-authors evaluate within 7 days
+- Unanimous approval required
+- Split decisions feed Treasury
+- Rejections heat up threads
+
+### 3. Energy Distribution
+- Approved: Energy distributes to approvers
+- Rejected: Energy increases thread temperature
+- Split decisions: Energy flows to Treasury
+- Citations: Perpetual rewards from Treasury
+
 ## Future Considerations
 
 ### 1. Advanced Thermodynamics
@@ -4034,12 +3986,13 @@ Each thread exists as a quantum harmonic oscillator characterized by:
 
 ## Conclusion
 
-Choir's thermodynamic token model creates a self-organizing system where quality emerges naturally through energy dynamics rather than arbitrary rules. By treating threads as quantum harmonic oscillators, we enable natural selection for quality while maintaining accessibility for valuable contributions. This approach aligns incentives, rewards pattern recognition, and creates sustainable community evolution without central control.
+Choir's thermodynamic token model creates a self-organizing system where quality emerges naturally through energy dynamics rather than arbitrary rules. By treating threads as quantum harmonic oscillators and maintaining circular token flow through the Treasury, we enable natural selection for quality while ensuring sustainable incentives for valuable contributions.
 
 The result is a platform where:
 - Quality emerges from natural laws
 - Value aligns with coherence
 - Communities self-organize
 - Evolution is organic and sustainable
+- Incentives remain perpetually aligned
 
-This innovative model sets a new standard for decentralized platforms, demonstrating how physical principles can create robust socioeconomic systems.
+This innovative model sets a new standard for decentralized platforms, demonstrating how physical principles can create robust socioeconomic systems with sustainable token economics.

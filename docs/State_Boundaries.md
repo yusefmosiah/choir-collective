@@ -31,8 +31,12 @@ TYPE SolanaState = {
 
   tokens: {
     stakes: Map<Hash, TokenAmount>,     // Locked stakes
-    escrow: Map<Hash, TokenAmount>,     // Pending distribution
-    treasury: TokenAmount               // System reserve
+    thread_balances: Map<ThreadId, TokenAmount>,  // Thread energy
+    treasury: {
+      balance: TokenAmount,             // Treasury reserve
+      citation_rewards: TokenAmount,    // Allocated for citations
+      new_message_rewards: TokenAmount  // Decaying reward pool
+    }
   }
 }
 
@@ -126,6 +130,53 @@ TYPE FrontendState = {
    PROPERTY: token_flow
      solana.tokens.balances = backend.cache.tokens
      backend.cache.tokens = frontend.ui.balances
+   ```
+
+## Token Flow Boundaries
+
+0. **Approval Flow**
+   ```
+   Stake -> Approvers
+   PROPERTY: approval_flow
+     // Direct distribution to approvers
+     FOR approver IN approvers:
+       approver.balance += stake_amount / approvers.len()
+     verify_temperature_decrease()
+     verify_frequency_increase()
+   ```
+
+1. **Rejection Flow**
+   ```
+   Stake -> Thread Balance
+   PROPERTY: rejection_flow
+     thread.token_balance += stake_amount
+     verify_thread_temperature_update()
+   ```
+
+2. **Split Decision Flow**
+   ```
+   Approver Stakes -> Treasury
+   PROPERTY: split_decision_flow
+     treasury.balance += approver_stakes
+     enable_citation_rewards()
+   ```
+
+3. **New Message Rewards**
+   ```
+   Treasury -> Authors
+   PROPERTY: reward_flow
+     // Logarithmic decay over 4 years
+     reward = calculate_decaying_reward(time)
+     verify_reward_distribution()
+   ```
+
+4. **Citation Rewards**
+   ```
+   Treasury -> Authors
+   PROPERTY: citation_flow
+     // Perpetual rewards from Treasury
+     reward = calculate_citation_reward(treasury_state)
+     verify_citation_distribution()
    ```
 
 ## Boundary Enforcement

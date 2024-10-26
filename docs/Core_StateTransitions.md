@@ -59,6 +59,12 @@ VERSION transition_system:
          thread.temperature = thread.energy / thread.co_authors.len()
          // Frequency unchanged
 
+       CASE SplitDecision:
+         // Approvers' stake to Treasury
+         treasury.balance += approvers_stake_amount
+         // Temperature unchanged
+         // Enables citation rewards
+
        CASE Approve:
          // Temperature moderates
          distribute_energy_to_approvers(stake_amount)  // Stake to approvers

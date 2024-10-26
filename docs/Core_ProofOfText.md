@@ -32,6 +32,12 @@ ASSUMPTION consensus_model:
      * Results in higher E/N ratio
      * Creates "heated" state
 
+   - Split Decision: Hybrid energy flow
+     * Approvers' stake flows to Treasury
+     * Treasury funds citation rewards
+     * Maintains circular token flow
+     * Enables perpetual incentives
+
    - Approval: Moderates temperature
      * Stake energy distributes to approvers
      * New co-author added (increases N)
@@ -61,8 +67,8 @@ ASSUMPTION consensus_model:
 
 2. **Energy Conservation**
    - Rejected stakes increase thread energy
-   - Approved stakes distribute to approvers
-   - Temperature reflects accumulated standards
+   - Split decisions feed Treasury
+   - Treasury funds citation rewards
    - Natural protection against noise
 
 ## Phase Transitions

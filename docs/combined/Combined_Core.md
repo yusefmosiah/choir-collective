@@ -983,6 +983,26 @@ This creates:
    // Results in higher stake (~300 CHOIR)
    ```
 
+## Treasury and Citation Rewards
+
+1. **Treasury as Energy Reservoir**
+   - Accumulates tokens from split decisions
+   - Funds perpetual citation rewards
+   - Enables circular token flow
+   - Maintains system sustainability
+
+2. **New Message Rewards**
+   - High initial distribution
+   - Logarithmic decay over time
+   - 50% distributed in first year
+   - 99% distributed by year 4
+
+3. **Citation Rewards**
+   - Funded by Treasury
+   - Perpetual availability
+   - Encourages content linking
+   - Promotes knowledge network growth
+
 Through this harmonic economic model, we see how:
 - Value flows follow wave mechanics
 - Prices emerge from resonant patterns
@@ -1500,6 +1520,12 @@ ASSUMPTION consensus_model:
      * Results in higher E/N ratio
      * Creates "heated" state
 
+   - Split Decision: Hybrid energy flow
+     * Approvers' stake flows to Treasury
+     * Treasury funds citation rewards
+     * Maintains circular token flow
+     * Enables perpetual incentives
+
    - Approval: Moderates temperature
      * Stake energy distributes to approvers
      * New co-author added (increases N)
@@ -1529,8 +1555,8 @@ ASSUMPTION consensus_model:
 
 2. **Energy Conservation**
    - Rejected stakes increase thread energy
-   - Approved stakes distribute to approvers
-   - Temperature reflects accumulated standards
+   - Split decisions feed Treasury
+   - Treasury funds citation rewards
    - Natural protection against noise
 
 ## Phase Transitions
@@ -1640,6 +1666,12 @@ VERSION transition_system:
          thread.energy += stake_amount  // Stake flows to thread
          thread.temperature = thread.energy / thread.co_authors.len()
          // Frequency unchanged
+
+       CASE SplitDecision:
+         // Approvers' stake to Treasury
+         treasury.balance += approvers_stake_amount
+         // Temperature unchanged
+         // Enables citation rewards
 
        CASE Approve:
          // Temperature moderates
@@ -1841,6 +1873,27 @@ Traditional platforms struggle with content quality and moderation, often resort
 - **Token Standard**: Solana Program Library (SPL) Token
 - **Initial Allocation**: All tokens minted to Choir Treasury (Initial Energy Reserve)
 
+## Token Flow Mechanics
+
+### 1. Core Token Flows
+- **Rejections:** Stake flows to thread, increasing its energy and temperature
+- **Split Decisions:** Approvers' stake flows to Treasury, funding citation rewards
+- **Approvals:** Stake distributes directly to approvers
+- **Treasury:** Acts as energy reservoir for perpetual citation rewards
+
+### 2. Reward Structure
+- **New Message Rewards:**
+  * High initial distribution
+  * Logarithmic decay over 4 years
+  * 50% distributed in first year
+  * 99% distributed by year 4
+
+- **Citation Rewards:**
+  * Funded by Treasury from split decisions
+  * Perpetual availability
+  * Encourages content linking
+  * Promotes knowledge network growth
+
 ## Thermodynamic Mechanics
 
 ### 1. Thread Energy States
@@ -1868,6 +1921,12 @@ Each thread exists as a quantum harmonic oscillator characterized by:
   * Temperature rises (E/N increases)
   * Frequency unchanged
 
+- Split Decision: Hybrid energy flow
+  * Approvers' stake flows to Treasury
+  * Maintains circular token flow
+  * Enables perpetual rewards
+  * Temperature unchanged
+
 - Approval: Moderates temperature
   * Energy distributes to approvers
   * Temperature decreases (new co-author)
@@ -1887,25 +1946,19 @@ Each thread exists as a quantum harmonic oscillator characterized by:
 - High frequency: Well-organized and efficient
 - Natural selection for coherence
 
-## Practical Implementation
+## Treasury Dynamics
 
-### 1. Message Submission
-- User stakes CHOIR tokens (energy quanta)
-- Stake requirement based on T and ω
-- Energy locked until state transition
-- Natural barrier against noise
+### 1. Energy Reservoir
+- Accumulates tokens from split decisions
+- Maintains perpetual citation rewards
+- Creates circular token flow
+- Ensures system sustainability
 
-### 2. Approval Process
-- Co-authors evaluate within 7 days
-- Unanimous approval required
-- State transitions follow energy conservation
-- Phase transitions mark milestones
-
-### 3. Energy Distribution
-- Approved: Energy distributes to approvers
-- Rejected: Energy increases thread temperature
-- Conservation laws maintain stability
-- Natural thermodynamic evolution
+### 2. Reward Distribution
+- New message rewards follow logarithmic decay
+- Citation rewards scale with Treasury balance
+- System maintains token velocity
+- Natural incentive alignment
 
 ## Economic Implications
 
@@ -1927,6 +1980,26 @@ Each thread exists as a quantum harmonic oscillator characterized by:
 - Natural progression paths
 - Self-organizing standards
 
+## Practical Implementation
+
+### 1. Message Submission
+- User stakes CHOIR tokens (energy quanta)
+- Stake requirement based on T and ω
+- Energy locked until state transition
+- Natural barrier against noise
+
+### 2. Approval Process
+- Co-authors evaluate within 7 days
+- Unanimous approval required
+- Split decisions feed Treasury
+- Rejections heat up threads
+
+### 3. Energy Distribution
+- Approved: Energy distributes to approvers
+- Rejected: Energy increases thread temperature
+- Split decisions: Energy flows to Treasury
+- Citations: Perpetual rewards from Treasury
+
 ## Future Considerations
 
 ### 1. Advanced Thermodynamics
@@ -1943,12 +2016,13 @@ Each thread exists as a quantum harmonic oscillator characterized by:
 
 ## Conclusion
 
-Choir's thermodynamic token model creates a self-organizing system where quality emerges naturally through energy dynamics rather than arbitrary rules. By treating threads as quantum harmonic oscillators, we enable natural selection for quality while maintaining accessibility for valuable contributions. This approach aligns incentives, rewards pattern recognition, and creates sustainable community evolution without central control.
+Choir's thermodynamic token model creates a self-organizing system where quality emerges naturally through energy dynamics rather than arbitrary rules. By treating threads as quantum harmonic oscillators and maintaining circular token flow through the Treasury, we enable natural selection for quality while ensuring sustainable incentives for valuable contributions.
 
 The result is a platform where:
 - Quality emerges from natural laws
 - Value aligns with coherence
 - Communities self-organize
 - Evolution is organic and sustainable
+- Incentives remain perpetually aligned
 
-This innovative model sets a new standard for decentralized platforms, demonstrating how physical principles can create robust socioeconomic systems.
+This innovative model sets a new standard for decentralized platforms, demonstrating how physical principles can create robust socioeconomic systems with sustainable token economics.

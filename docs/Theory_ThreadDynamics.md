@@ -218,3 +218,23 @@ This creates a beautiful ecosystem where:
 - Quality standards emerge from energy dynamics
 - Different equilibrium states serve different purposes
 - System self-organizes into diverse niches
+
+## Token Flow Dynamics
+
+1. **Rejection Flow**
+   - Stake flows to thread
+   - Increases thread energy
+   - Raises temperature
+   - Creates quality filter
+
+2. **Split Decision Flow**
+   - Approvers' stake to Treasury
+   - Treasury funds citations
+   - Maintains circulation
+   - Enables perpetual rewards
+
+3. **Treasury Mechanics**
+   - Accumulates from split decisions
+   - Funds citation rewards
+   - Creates sustainable flow
+   - Supports network growth
