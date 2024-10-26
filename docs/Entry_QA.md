@@ -414,4 +414,43 @@ This creates a natural evolution where:
 - Growth happens organically
 - Value accumulates naturally
 
-// Continue with remaining sections...
+## On Temperature-Frequency Relationships
+
+Q: Can a thread have high temperature but low frequency, or vice versa? What would that look like?
+
+A: Yes! These interesting states reveal important dynamics about thread evolution:
+
+1. High Temperature, Low Frequency
+This unusual state can occur when:
+- Many tokens but few messages (like a heavily funded but quiet thread)
+- Recent burst of activity but historically slow pace
+- Large number of co-authors but infrequent interaction
+- Young thread with high initial energy but not yet finding its rhythm
+
+Think of it like a pot of water right after being poured in - lots of heat energy but before organized convection patterns form.
+
+2. Low Temperature, High Frequency
+This more stable state can happen with:
+- Regular, predictable message patterns in a mature thread
+- Well-coordinated co-authors with established rhythms
+- Lower token balance but consistent activity
+- Old threads that have "crystallized" into efficient patterns
+
+Like a well-tuned clock - high frequency oscillations but thermodynamically "cool" and stable.
+
+3. Why These States Matter
+These states teach us about thread health:
+- High temp / low freq often indicates potential energy waiting to find form
+- Low temp / high freq suggests evolved efficiency
+- Temperature measures volatility while frequency measures organization
+- Natural evolution tends toward organized, cooler states
+
+The quantum harmonic model captures these nuances because it separates:
+- Energy (tokens + activity) that affects temperature
+- Organization (message patterns + coupling) that affects frequency
+- Age effects that enable cooling without losing coherence
+- Co-author count that normalizes both measures
+
+This helps explain why mature communities can be very active (high frequency) while maintaining stability (low temperature).
+
+
