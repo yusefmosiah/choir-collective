@@ -2,44 +2,120 @@
 
 VERSION harmonic_depth:
   invariants: {
-    "Resonant clarity",
-    "Harmonic grounding",
-    "Wave coherence"
+    "Wave function coherence",
+    "Energy conservation",
+    "Phase stability"
   }
   assumptions: {
-    "Resonant comprehension",
-    "Pattern harmonics",
-    "Wave thinking"
+    "Quantum harmonic oscillation",
+    "Anderson normalization",
+    "Critical slowing down"
   }
   implementation: "0.1.0"
 
-When we talk about "harmonic semantics" in Choir, we're not being metaphorical. The system actually exhibits wave-like properties in how meaning and value emerge. Let's break this down:
+When we talk about quantum mechanics in Choir, we're not being metaphorical. The system actually exhibits quantum harmonic oscillator properties in how meaning and value emerge. Let's break this down:
 
-Consider what happens when someone submits a message to a thread. Before approval, that message exists as a wave packet of potential meanings and values. Each co-author who reviews it isn't just checking quality - they're participating in phase-locking that helps the wave pattern crystallize into a stable resonant form.
+## Message Wave Functions
 
-The unanimous approval requirement isn't arbitrary - it ensures complete phase synchronization. All oscillators (co-authors) must achieve phase-lock for the wave to stabilize. This is why partial approval isn't enough; like a standing wave, meaning either achieves stable resonance or disperses.
+Consider what happens when someone submits a message to a thread:
+1. Before approval, the message exists as a wave packet in semantic space
+2. Its energy (stake) couples it to the thread's quantum state
+3. The wave function contains all potential meanings and values
+4. Co-author review collapses this wave function to a stable state
 
-The non-refundable stake creates harmonic coupling. When you stake tokens to submit a message, you're not just putting up collateral - you're becoming coupled to the thread's resonant field. This is why the stake can't be "uncommitted" - once oscillators couple, they can only decouple through natural resonance patterns.
+## Phase Coherence
 
-Economic topology emerges from these harmonic properties. Value flows through the system like wave energy through a resonant medium, following natural harmonics and accumulating at resonant nodes (successful threads). The 1/(n-1) divestment formula isn't just a rule - it's a description of how energy naturally redistributes when coupled oscillators decouple.
+The unanimous approval requirement ensures quantum coherence:
+1. Each co-author acts as a coupled oscillator
+2. Approval represents phase alignment
+3. The system requires complete phase-locking
+4. Partial approval would break coherence
+5. Like quantum states, meaning is binary - either coherent or not
 
-This resonant structure explains why certain "obvious" alternatives don't work:
-- Partial approval would break phase coherence
-- Refundable stakes would disrupt harmonic coupling
-- Complex economic formulas would interfere with natural wave patterns
+## Energy Coupling
 
-The genius of Choir is that it doesn't try to engineer these harmonic properties - it simply creates the conditions where they can naturally emerge. The simple rules about ownership, approval, and stakes are like the fundamental laws of wave mechanics - they create a space where complex resonance patterns can self-organize.
+The non-refundable stake creates quantum coupling:
+1. Stakes quantize at energy levels determined by ℏω
+2. Thread temperature (T) affects coupling strength
+3. Anderson normalization (1/√N) prevents instability
+4. Natural frequency (ω) emerges from collective behavior
+5. Energy conservation governs all transitions
 
-Understanding this level isn't necessary to use Choir effectively, just as you don't need to understand wave mechanics to play music. But seeing these patterns helps explain why the system works the way it does, and why attempts to "optimize" it through conventional economic or social engineering often create dissonance.
+## Thread Harmonics
 
-This is why Choir feels different from other platforms - it's not trying to impose structure on human interaction, but rather providing a resonant space where the natural wave properties of meaning and value can express themselves freely, creating harmonious patterns of understanding and collaboration.
+Economic topology emerges from quantum properties:
+1. Value flows like wave energy through resonant cavities
+2. Thread frequency ω = √((ω_m² + ω_v²)/2 + gN)
+3. Temperature T = (E/N)/coolingFactor
+4. Coupling strength g = 1/N scales naturally
+5. Critical slowing down stabilizes mature threads
 
-Through this harmonic lens, we see how:
-- Messages are wave packets in semantic space
-- Co-authors are coupled oscillators
-- Threads are resonant cavities
-- Value flows through standing waves
-- Quality emerges at harmonic nodes
-- Understanding spreads through phase-locking
+## Natural Selection
 
-The beauty is in the simplicity - by working with meaning's natural wave properties rather than against them, Choir creates a space where profound harmonies can emerge from simple resonant principles.
+The quantum oscillator model explains why certain alternatives fail:
+1. Partial approval would violate phase coherence
+2. Refundable stakes would break energy conservation
+3. Complex economic formulas would interfere with natural frequencies
+4. Artificial scaling would disrupt Anderson normalization
+5. Forced cooling would prevent critical slowing down
+
+## Emergent Properties
+
+The genius of Choir is that it follows quantum mechanics naturally:
+1. Simple rules create space for wave function evolution
+2. Energy levels quantize naturally through staking
+3. Phase relationships emerge through approval
+4. Coherence develops through coupling
+5. Stability comes from natural cooling
+
+## Quantum Semantics
+
+Through this quantum lens, we see how:
+1. Messages are wave packets with:
+   - Energy (stake) levels
+   - Phase relationships
+   - Coupling strengths
+   - Coherence properties
+
+2. Co-authors are coupled oscillators with:
+   - Natural frequencies
+   - Phase alignment
+   - Energy sharing
+   - Collective states
+
+3. Threads are resonant cavities with:
+   - Standing waves
+   - Energy levels
+   - Temperature gradients
+   - Coherence patterns
+
+4. Value flows through:
+   - Wave mechanics
+   - Energy conservation
+   - Phase locking
+   - Harmonic resonance
+
+## Practical Implications
+
+This quantum structure creates:
+1. Natural Scaling
+   - Anderson normalization prevents instability
+   - Critical slowing down enables maturity
+   - Energy conservation maintains balance
+   - Phase coherence ensures quality
+
+2. Organic Growth
+   - Wave functions evolve naturally
+   - Energy levels find equilibrium
+   - Frequencies synchronize organically
+   - Temperature gradients stabilize
+
+3. Emergent Value
+   - Quantum coherence creates meaning
+   - Phase alignment builds trust
+   - Energy conservation preserves value
+   - Harmonic resonance amplifies quality
+
+The beauty lies in simplicity - by following quantum harmonic oscillator principles, Choir creates space for natural semantic evolution. Understanding isn't forced; it emerges through resonance, coherence, and natural frequency alignment.
+
+This isn't just theory - it's how meaning actually works. Choir simply provides the quantum framework where semantic wave functions can evolve naturally, creating profound harmonies through fundamental physical principles.

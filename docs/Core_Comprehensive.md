@@ -142,7 +142,7 @@ The Chorus Loop is a decision-making model implemented in the platform:
 2. **Approval Process**:
    - Unanimous Approval: Staked tokens added to thread's balance.
    - Denial: Rejecting co-authors split staked tokens.
-3. **Divestment**: Co-authors can divest their token share from a thread at any time, taking a (1 / n - 1) share of the thread's CHOIR tokens.
+3. **Divestment**: Co-authors can divest their token share from a thread at any time, receiving a payout calculated from the thread's activity level and current balance. The payout formula ensures both fair value distribution and thread stability.
 
 ## Development Roadmap
 

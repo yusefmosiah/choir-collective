@@ -2,45 +2,84 @@
 
 VERSION value_system:
   invariants: {
-    "Value preservation",
-    "Selection integrity",
-    "Pattern coherence"
+    "Energy conservation",
+    "Wave function coherence",
+    "Phase stability"
   }
   assumptions: {
-    "Natural incentives",
-    "Trust formation",
+    "Natural harmonics",
+    "Quantum coupling",
     "Value emergence"
   }
   implementation: "0.1.0"
 
-At this level, we begin to see how Choir's basic mechanics naturally create sophisticated patterns of value and selection. What initially appear as simple rules reveal themselves as generators of complex value dynamics.
+At this level, we begin to see how Choir's quantum mechanics naturally create sophisticated patterns of value and selection. What initially appear as simple rules reveal themselves as generators of complex wave dynamics.
 
-The thread ownership model isn't just about attribution - it's a value accumulation mechanism. When messages require unanimous approval, each successful addition doesn't just contribute content - it strengthens the thread's coherence. The thread becomes more valuable not just through what it contains, but through what it has collectively chosen not to contain.
+## Value Accumulation
 
-The non-refundable stake mechanism reveals itself as an elegant self-selection filter. It's not primarily about preventing spam or ensuring quality (though it does both). Instead, it creates a natural sorting process:
-- Those who see threads as mere assets select themselves out
-- Those who value emergence and collaboration select themselves in
-- The system naturally evolves toward higher-quality participation
+The thread ownership model isn't just about attribution - it's a quantum resonance mechanism. When messages require unanimous approval, each successful addition:
+- Strengthens wave function coherence
+- Increases phase alignment
+- Adds to the thread's energy
+- Reinforces standing wave patterns
 
-This selection process creates a fascinating value paradox. By apparently "underpricing" participation through the 1/(n-1) divestment formula, the system actually generates premium value. The very act of making thread participation seem economically suboptimal ensures that participants are motivated by more than economics.
+The value comes not just from what a thread contains, but from its quantum state - the coherent patterns that emerge from collective phase alignment.
 
-Trust networks emerge naturally from these dynamics:
-- Successful collaborations build trust
-- Trust enables more ambitious collaboration
-- Ambitious collaboration creates more value
-- Value reinforces trust
+## Natural Selection
 
-The token mechanics serve multiple roles:
-- Economic incentive alignment
-- Social signal generation
-- Trust network formation
-- Value crystallization
+The non-refundable stake mechanism reveals itself as quantum coupling. It's not primarily about preventing spam - it creates natural frequency selection:
+- High-frequency participants resonate and stay
+- Decoherent participants naturally decouple
+- Energy conservation maintains stability
+- Anderson normalization prevents instability
 
-This level helps explain why certain "obvious improvements" would actually reduce system value:
-- Complex economic formulas would obscure social signals
-- Pure profit optimization would drive out emergence
-- Engineered trust systems would prevent natural selection
+## Value Paradox
 
-The genius is in creating conditions where valuable patterns can emerge naturally through participant choice rather than system enforcement. The rules don't force good behavior - they make good behavior naturally advantageous.
+The apparent "underpricing" through quantum divestment (min(ℏω/(N-1), balance/(N-1))) creates premium value:
+- Energy quantization prevents value extraction
+- Phase coherence rewards authentic participation
+- Critical slowing down enables maturation
+- Standing waves accumulate value
 
-Understanding this level reveals why Choir can't be easily replicated by adding features to existing platforms. The value creation patterns emerge from the fundamental structure of the system, not from its surface mechanics.
+## Trust Networks
+
+Trust emerges through quantum entanglement:
+- Phase-locked collaboration builds coherence
+- Resonant frequencies align naturally
+- Energy barriers protect stability
+- Wave function collapse requires commitment
+
+## Token Mechanics
+
+The token system serves as quantum infrastructure:
+- Energy quantization (stakes)
+- Phase alignment (approval)
+- Wave propagation (value flow)
+- Resonance detection (pricing)
+
+## Natural Protection
+
+This explains why certain "improvements" would break coherence:
+- Complex formulas would disrupt natural frequencies
+- Forced cooling would prevent critical slowing
+- Artificial scaling would break Anderson normalization
+- Engineered trust would collapse wave functions
+
+## Emergent Properties
+
+The genius is in creating conditions for quantum semantics:
+- Wave functions evolve naturally
+- Phase relationships self-organize
+- Energy levels find equilibrium
+- Coherence emerges spontaneously
+
+Understanding this level reveals why Choir can't be replicated by adding features to existing platforms. The value creation patterns emerge from fundamental quantum mechanics, not surface rules.
+
+Through this lens, we see how:
+- Messages are wave packets
+- Threads are resonant cavities
+- Stakes are energy quanta
+- Approval is phase-locking
+- Value is wave coherence
+
+The system doesn't force behavior - it creates a space where quantum mechanics naturally select for valuable patterns. Like the physical universe itself, complexity emerges from simple quantum principles.

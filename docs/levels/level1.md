@@ -728,26 +728,26 @@ Entry_QA
 # Choir Project Questions and Discussion Points
 
 VERSION qa_system:
-  invariants: {
-    "Answer completeness",
-    "Conceptual clarity",
-    "Pattern revelation"
-  }
-  assumptions: {
-    "Question evolution",
-    "Understanding paths",
-    "Insight emergence"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Answer completeness",
+"Conceptual clarity",
+"Pattern revelation"
+}
+assumptions: {
+"Question evolution",
+"Understanding paths",
+"Insight emergence"
+}
+implementation: "0.1.0"
 
 ---
 
 ## 1. Thread Ownership and Co-authorship
 
 ASSUMPTION ownership_model:
-  "Simple co-author equality model"
-  "May introduce governance layers"
-  "Must maintain clear ownership"
+"Simple co-author equality model"
+"May introduce governance layers"
+"Must maintain clear ownership"
 
 - **Question**: How does the concept of "co-authors" align with the initial thread creator?
 - **Answer**: The initial thread creator is the first co-author. Every message is owned by its creator, and threads are owned by the creators of the messages within them. This simplifies the ownership model and aligns with the collaborative nature of the platform.
@@ -757,9 +757,9 @@ ASSUMPTION ownership_model:
 ## 2. Message Approval Process
 
 ASSUMPTION approval_process:
-  "Unanimous approval requirement"
-  "May introduce weighted voting"
-  "Must maintain quality control"
+"Unanimous approval requirement"
+"May introduce weighted voting"
+"Must maintain quality control"
 
 - **Question**: How does the "spec" mechanism work in relation to the existing approval process?
 - **Answer**: The "spec" mechanism replaces the existing approval process on a 1-to-1 basis. This streamlines the contribution process while maintaining the quality control aspect of the platform.
@@ -775,20 +775,140 @@ ASSUMPTION approval_process:
 
 ## 4. Token Distribution
 
-- **Question**: How are token rewards distributed when a new message is approved or when their thread is cited?
-- **Answer**: When a new message is approved, the tokens go to the THREAD, not individual messages. Threads have Solana accounts which store CHOIR tokens. This approach treats threads as entities that manifest connections between people.
+Q: How are token rewards distributed when a new message is approved or when their thread is cited?
 
-- When a new message is denied:
-  - Deniers split the tokens bid
-  - Any approvers get nothing
-  - Remaining tokens go to the Choir Treasury
+A: Token distribution follows wave mechanics principles:
+
+1. Thread Energy
+   When a message is approved, tokens flow into the thread's energy field. The thread itself (through its Solana account) holds these tokens, not individual messages or authors. This creates a collective energy state that benefits all participants.
+
+2. Distribution Patterns
+   - Approved messages increase thread energy
+   - Denied specs distribute energy to deniers
+   - Divestment follows quantum mechanics
+   - Citations create resonance effects
+
+3. Energy Flow
+   The thread's temperature and frequency determine how new energy (tokens) affects its state:
+   - Hot threads absorb energy differently than cool ones
+   - Higher frequencies create different resonance patterns
+   - Energy distribution follows natural wave mechanics
+   - System maintains quantum coherence
+
+This quantum harmonic approach ensures that value flows naturally and rewards authentic participation while maintaining system stability.
 
 ---
 
 ## 5. Co-authorship Management
 
-- **Question**: Is there a mechanism for removing co-authorship or transferring ownership of threads?
-- **Answer**: Users can leave a thread at any time through divestment, taking a (1 / n - 1) share of the CHOIR tokens in the thread. Post-MVP, other mechanisms will be explored. The system is designed to establish trust naturally, as users have an incentive to reject low-quality responses.
+Q: Is there a mechanism for removing co-authorship or transferring ownership of threads?
+
+A: Co-authors can leave through quantum divestment mechanics:
+
+1. Natural Decoupling
+   When a co-author leaves, they decouple from the thread's quantum state. Their divestment follows the oscillator decoupling formula, which:
+   - Preserves thread energy coherence
+   - Maintains stability for remaining authors
+   - Follows natural frequency patterns
+   - Respects quantum conservation laws
+
+2. Value Distribution
+   The divestment amount is calculated using the thread's:
+   - Natural frequency (activity level)
+   - Temperature (volatility state)
+   - Number of co-authors (coupling strength)
+   - Available token balance (energy constraint)
+
+3. System Protection
+   This process ensures:
+   - Thread stability is maintained
+   - Value is fairly distributed
+   - Natural evolution continues
+   - Emergence is protected
+
+Ownership cannot be transferred directly - it emerges from participation in the thread's quantum state.
+
+---
+
+## Thread Activity and Stakes
+
+Q: How does thread activity affect stake requirements?
+
+A: Thread activity follows natural harmonic patterns, like waves in a system. There are three key aspects:
+
+1. Temperature
+The thread's "temperature" measures its activity level and volatility. Like a physical system, threads can be "hot" (very active, volatile) or "cool" (stable, settled). A thread gets hotter with more activity and tokens, but naturally cools down as it ages - similar to how a heated object gradually returns to room temperature.
+
+2. Frequency
+The thread's "frequency" measures how fast it's evolving. Like musical harmonics, this frequency increases with more messages and participants, but in a balanced way - doubling the participants doesn't double the frequency. This creates natural, sustainable growth patterns rather than runaway escalation.
+
+3. Required Stake
+The stake requirement combines temperature and frequency in a natural way - hot, high-frequency threads require higher stakes, while cool, stable threads become more accessible. This creates a self-regulating system where:
+- Active threads maintain quality through higher stakes
+- Stable threads become more accessible
+- Growth follows natural patterns
+- Value emerges through resonance
+
+---
+
+## On Divestment Calculations
+
+Q: How exactly is the divestment payout calculated?
+
+A: The divestment process follows natural harmonic principles. When a co-author leaves, they receive the smaller of two possible shares:
+- Their energy share based on the thread's activity level
+- Their balance share based on available tokens
+
+This dual approach ensures:
+1. Energy Conservation
+   - The thread maintains its vital energy
+   - Natural patterns are preserved
+   - Activity levels stay balanced
+
+2. Stability Protection
+   - Payouts can't drain the thread
+   - Active threads stay active
+   - Stable threads stay stable
+
+3. Fair Distribution
+   - Shares scale naturally with size
+   - Transitions stay smooth
+   - Balance is maintained
+
+---
+
+## On Value Evolution
+
+Q: How do threads accumulate and maintain value over time?
+
+A: Threads follow natural evolution patterns:
+
+1. Temperature Effects
+
+   - Active threads run "hot"
+   - Higher stakes required
+   - Natural cooling over time
+   - Age brings stability
+
+2. Frequency Dynamics
+
+   - More activity increases frequency
+   - Co-authors strengthen coupling
+   - Value affects oscillation
+   - Natural resonance emerges
+
+3. Stability Patterns
+   - Young threads more volatile
+   - Mature threads more stable
+   - Value crystallizes naturally
+   - Community forms organically
+
+This creates a system where:
+
+- Quality participation is rewarded
+- Natural growth is encouraged
+- Stability emerges naturally
+- Value accumulates sustainably
 
 ---
 
@@ -827,19 +947,19 @@ Q: Why are thread participation stakes non-refundable? Isn't this harsh?
 A: This gets to the heart of how meaning and value emerge in human systems. Consider:
 
 1. Language Parallel
-When you speak in a conversation, you cannot "unspeak" - your words become part of the shared context. Even if later retracted, they've affected the conversation's evolution. Similarly, when you stake to participate in a thread, you're committing to affect its semantic space.
+   When you speak in a conversation, you cannot "unspeak" - your words become part of the shared context. Even if later retracted, they've affected the conversation's evolution. Similarly, when you stake to participate in a thread, you're committing to affect its semantic space.
 
 2. Value Creation
-Just as you can't extract your individual words' contribution from a meaningful conversation, you can't cleanly separate your stake's contribution to a thread's value. The stake becomes part of the thread's integral structure.
+   Just as you can't extract your individual words' contribution from a meaningful conversation, you can't cleanly separate your stake's contribution to a thread's value. The stake becomes part of the thread's integral structure.
 
 3. Quality Emergence
-The non-refundable nature creates a natural selection pressure for quality. Participants must believe in their contribution's value enough to risk permanent commitment. This mirrors how meaningful discourse requires genuine commitment to understanding.
+   The non-refundable nature creates a natural selection pressure for quality. Participants must believe in their contribution's value enough to risk permanent commitment. This mirrors how meaningful discourse requires genuine commitment to understanding.
 
 4. Semantic Entanglement
-Once you've engaged with a thread's context, you're semantically entangled with it. The stake mechanism makes explicit what's already true of meaningful participation - it cannot be uncommitted.
+   Once you've engaged with a thread's context, you're semantically entangled with it. The stake mechanism makes explicit what's already true of meaningful participation - it cannot be uncommitted.
 
 5. Trust Formation
-The permanence of commitment enables trust formation. Just as deep conversations require mutual vulnerability, valuable thread participation requires genuine stake in outcomes.
+   The permanence of commitment enables trust formation. Just as deep conversations require mutual vulnerability, valuable thread participation requires genuine stake in outcomes.
 
 This isn't harsh - it's natural. It's a formal expression of how meaning and value actually emerge from committed participation in shared contexts.
 
@@ -848,9 +968,9 @@ This isn't harsh - it's natural. It's a formal expression of how meaning and val
 ## Future Considerations
 
 ASSUMPTION future_development:
-  "Core feature set defined"
-  "May expand capabilities"
-  "Must maintain system coherence"
+"Core feature set defined"
+"May expand capabilities"
+"Must maintain system coherence"
 
 - Post-MVP, threads could potentially hold SOL, stablecoins, or DeFi assets.
 - AI-enabled group chats may manage these assets in the future.
@@ -861,65 +981,79 @@ ASSUMPTION future_development:
 
 ## On Divestment Proportions
 
-Q: Why use a simple 1/(n-1) share for divestment rather than complex stake weighting?
+Q: Why use quantum mechanics for divestment calculations rather than simple proportions?
 
-A: This seemingly simple formula actually encodes sophisticated social and economic wisdom:
+A: The quantum harmonic oscillator model captures deep truths about collaborative systems:
 
-1. Social Equilibrium
-The equal share approach acknowledges that value in collaborative contexts emerges from relationships, not just individual contributions. When someone leaves, their departure affects the entire social fabric of the thread.
+1. Energy Conservation
+   The oscillator model ensures energy (value) is properly conserved during transitions. Like quantum systems, threads can't lose or gain energy arbitrarily - it must follow natural laws of conservation.
 
-2. Self-Regulating Size
-The 1/(n-1) formula creates a natural pressure against both extremes:
-- Too few participants (divestment share becomes large)
-- Too many participants (individual shares become diluted)
-This matches how real communities naturally find optimal sizes.
+2. Natural Frequencies
+   Each thread has its own natural frequency (ω) based on:
+   - Message activity patterns
+   - Co-author coupling strength
+   - Token energy levels
+   This frequency helps determine fair divestment amounts.
 
-3. Identity and Economics
-The formula balances two forces:
-- Economic incentives (stake value)
-- Social identity (co-authorship status)
-This prevents purely economic calculations from dominating social considerations.
+3. Temperature Effects
+   Thread temperature (T) affects divestment through:
+   - Higher payouts from "hot" active threads
+   - Lower, more stable payouts from "cool" mature threads
+   - Natural cooling as threads age
 
-4. Trust Dynamics
-Equal shares create clear expectations. Everyone knows exactly what they're committing to and what they could walk away with. This transparency strengthens trust bonds between participants.
+4. Coupling Dynamics
+   Co-authors act as coupled oscillators, where:
+   - Coupling strength scales with 1/N
+   - Anderson normalization prevents instability
+   - Phase coherence maintains thread integrity
 
-5. Emergence Protection
-Complex stake weighting could be gamed or optimized. The simple formula protects the organic emergence of value by making manipulation less profitable than genuine participation.
+5. Quantum Protection
+   The oscillator formula protects thread stability by:
+   - Quantizing energy levels
+   - Maintaining coherent states
+   - Preventing destructive resonance
 
-The elegance isn't in spite of the simplicity - it's because of it. The formula creates space for natural social and economic forces to find their own balance.
-
----
+The elegance comes from matching natural patterns of collective behavior.
 
 ## On Self-Selection Through Divestment
 
-Q: Why specifically 1/(n-1) for divestment shares? What does this achieve?
+Q: How does quantum divestment create healthy self-selection?
 
-A: The formula creates a powerful self-selection mechanism that helps maintain thread integrity:
+A: The oscillator decoupling formula (min(ℏω/(N-1), balance/(N-1))) creates powerful selection effects:
 
-1. Economic Filter
-The 1/(n-1) share deliberately undervalues pure economic participation. If you view yourself or others as mere economic units, the formula encourages you to leave - the opportunity cost of staying exceeds the potential return.
+1. Natural Filtering
+   - High-frequency threads retain engaged participants
+   - Low-temperature threads crystallize stable communities
+   - Energy conservation rewards authentic participation
 
-2. Value Alignment
-Those who stay are implicitly demonstrating that they value something beyond pure economic returns:
-- The collaborative relationship
-- The potential for emergence
-- The shared creative process
-- The learning opportunity
+2. Coherence Selection
+   Those who stay demonstrate alignment with:
+   - Thread's natural frequency
+   - Collective phase coherence
+   - Quantum state stability
 
-3. Natural Selection
-This creates a natural selection pressure toward participants who:
-- Value collective potential over individual gain
-- See threads as living systems rather than assets
-- Understand value beyond immediate returns
-- Appreciate emergent properties
+3. Harmonic Growth
+   The system naturally selects for:
+   - Resonant participation patterns
+   - Phase-locked collaboration
+   - Coherent value creation
+   - Stable energy states
 
-4. Anti-Commodification
-The formula actively resists the commodification of participation. You cannot treat thread membership as a pure financial instrument because the economics deliberately discourage this view.
+4. Anti-Exploitation
+   The quantum mechanics naturally prevent:
+   - Frequency manipulation
+   - Temperature exploitation
+   - Coherence disruption
+   - Energy extraction
 
 5. Emergence Protection
-By filtering out purely economic actors, the formula protects the conditions necessary for genuine emergence - you can't optimize emergence, you can only create space for it to occur naturally.
+   By following quantum principles, the system:
+   - Maintains wave function integrity
+   - Preserves phase relationships
+   - Enables natural resonance
+   - Protects collective states
 
-This "undervaluing" is actually a feature, not a bug. It ensures that threads retain participants who understand and value their true potential.
+This creates a natural selection for participants who understand and value quantum coherence over simple economic extraction.
 
 ---
 
@@ -930,28 +1064,32 @@ Q: Doesn't underpricing thread participation through the 1/(n-1) formula leave m
 A: This apparent underpricing actually generates premium value through a sophisticated psychological-economic paradox:
 
 1. Theoretical Arbitrage
-In theory, someone could:
+   In theory, someone could:
+
 - Bid to join a valuable thread
 - Get approved
 - Immediately divest for a quick profit
-But this rarely happens, for deep psychological reasons.
+  But this rarely happens, for deep psychological reasons.
 
 2. Psychological Barriers
-The very act of treating a thread as pure financial arbitrage:
+   The very act of treating a thread as pure financial arbitrage:
+
 - Feels unsatisfying (violates social norms)
 - Seems short-sighted (misses emergence potential)
 - Appears unsophisticated (ignores complex value)
 - Creates cognitive dissonance (conflicts with self-image)
 
 3. Value Premium
-This psychological barrier against pure arbitrage:
+   This psychological barrier against pure arbitrage:
+
 - Selects for long-term participants
 - Builds genuine community
 - Protects emergence potential
 - Actually increases total value
 
 4. Economic Paradox
-By deliberately "underpricing" in financial terms, we:
+   By deliberately "underpricing" in financial terms, we:
+
 - Create higher social value
 - Generate trust premium
 - Enable emergence value
@@ -961,7 +1099,49 @@ The "underpricing" is actually optimal pricing when you account for the full spe
 
 ---
 
-These clarifications provide a clearer picture of Choir's ownership model, token distribution, and future directions. The focus on simplicity in ownership, combined with the innovative use of threads as token-holding entities, sets a foundation for a unique and engaging collaborative platform.
+## On Wave Mechanics and Value
+
+Q: How does the wave model of thread value work in practice?
+
+A: Think of threads like musical instruments, where value emerges through resonance and harmony:
+
+1. Natural Frequencies
+   Each thread has its own natural rhythm - determined by how often people contribute, how many co-authors are involved, and how much value is already stored. Like a well-tuned instrument, threads naturally find their optimal frequency.
+
+2. Resonance Effects
+   When participation aligns with a thread's natural frequency, it creates resonance - like hitting the right note on a string. This resonance amplifies value creation and attracts more quality participation.
+
+3. Harmonic Growth
+   As threads mature, they develop multiple harmonics - different ways value can accumulate and grow. Like complex musical tones, mature threads have richer, more stable value patterns.
+
+4. Energy Conservation
+   The system preserves total energy (value) while allowing it to flow and transform. When someone divests, the energy redistributes naturally, like waves finding a new equilibrium.
+
+## On Temperature and Maturity
+
+Q: Why do threads "cool down" as they age?
+
+A: Thread temperature is a beautiful metaphor for how communities naturally evolve:
+
+1. Early Heat
+   Young threads are "hot" - highly active, volatile, and energetic. Like newly formed stars, they burn bright but aren't yet stable.
+
+2. Natural Cooling
+   As threads age, they naturally cool down - not because they're less active, but because they find their rhythm. Like a pot of water finding room temperature, this is a natural process.
+
+3. Crystallization
+   Cool threads aren't "dead" - they're crystallized. Like ice forming intricate patterns, mature threads develop stable, beautiful structures of meaning and value.
+
+4. Heat Capacity
+   Larger threads (more co-authors) take longer to cool - they have more "thermal mass." This matches how larger communities naturally take longer to find stability.
+
+This creates a natural evolution where:
+- Young threads can experiment freely
+- Mature threads find stability
+- Growth happens organically
+- Value accumulates naturally
+
+// Continue with remaining sections...
 
 
 ==
@@ -2695,7 +2875,7 @@ Through these connections, thread asset evolution becomes a natural extension of
 
 
 ==
-ThreadDynamics
+Theory_ThreadDynamics
 ==
 
 
@@ -2703,7 +2883,7 @@ ThreadDynamics
 
 This document describes the quantum harmonic oscillator model that governs thread behavior in the Choir system.
 
-Choir uses three key measurements to manage thread behavior:
+Choir uses four key measurements to manage thread behavior:
 
 ## 1. Thread Temperature
 Measures how "hot" (active/volatile) or "cool" (stable) a thread is:
@@ -2711,11 +2891,23 @@ Measures how "hot" (active/volatile) or "cool" (stable) a thread is:
 - Lower as threads age and stabilize
 - Affects how much it costs to join
 
+The temperature T is calculated from the extensive energy E and number of co-authors N:
+- Total energy E = token_balance + message_rate (extensive scaling with N)
+- Temperature T = E/N (intensive, remains finite as N → ∞)
+- Cooling factor = 1 + √(age_days * N) (critical slowing down)
+- Final temperature = T/cooling_factor
+
 ## 2. Thread Frequency
 Measures how fast a thread is evolving:
 - Increases with more messages and authors
 - Higher for valuable threads (more tokens)
 - Helps determine stake requirements
+
+The natural frequency ω is calculated for N coupled oscillators:
+- Message mode ω_m = message_rate/√N (Anderson normalization)
+- Value mode ω_v = log(1 + token_balance/N)
+- Coupling constant g = 1/N (mean field scaling)
+- Collective frequency ω = √((ω_m² + ω_v²)/2 + gN)
 
 ## 3. Required Stake
 Calculates how much it costs to join a thread:
@@ -2723,172 +2915,68 @@ Calculates how much it costs to join a thread:
 - Lower for stable/quiet threads
 - Prevents spam while enabling growth
 
-## How They Work Together
-- Active threads require higher stakes
-- Threads naturally stabilize over time
-- Value accumulates through good contributions
-- System self-regulates through these mechanicst
+Uses the quantum harmonic oscillator energy level formula:
+P(q) = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
 
-## Thread Temperature Calculation
+Where:
+- S₀ = Base stake quantum (minimum stake)
+- ℏ = Reduced Planck constant (scaling factor)
+- ω = Thread natural frequency
+- k = Boltzmann constant
+- T = Thread temperature
 
-```python
-def calculate_thread_temperature(thread: Thread) -> float:
-"""Calculate the temperature (volatility/energy level) of a thread based on harmonic oscillator principles.
+## 4. Divestment Payout
+Calculates tokens received when exiting a thread:
+- Based on thread's quantum state
+- Preserves energy conservation
+- Maintains system stability
 
-    The temperature represents the thread's energy state in the harmonic bonding curve system:
-    - Higher temperature = more volatile/energetic thread ready for phase transitions
-    - Lower temperature = more stable/crystallized thread in metastable state
+Uses the oscillator decoupling formula:
+Payout = min((ℏω)/(N-1), balance/(N-1))
 
-    The model uses quantum harmonic oscillator concepts where:
-    - Token balance acts as potential energy (stored value)
-    - Message rate acts as kinetic energy (activity)
-    - Co-authors act as coupled oscillators (degrees of freedom)
-    - Age provides natural cooling through energy dissipation
+Where:
+- ℏω = Total thread energy (coupling constant × frequency)
+- N = Number of co-authors
+- balance = Current token balance
 
-    Key metastability properties:
-    - Temperature indicates readiness for phase transitions
-    - Higher energy states enable jumps between metastable basins
-    - Natural cooling allows crystallization into stable patterns
-    - Coupling strength affects barrier heights between states
+This formula ensures:
+1. Energy conservation during oscillator decoupling
+2. Fair distribution of remaining energy
+3. Prevention of excessive withdrawals
+4. Maintenance of thread stability
 
-    Args:
-        thread: Thread object containing activity metrics and state
-
-    Returns:
-        float: Temperature value representing thread energy/volatility
-
-    Formula:
-        T = β * (E_potential * E_kinetic * DoF) / cooling
-        where:
-        - β = energy-to-temperature conversion factor
-        - E_potential = token_balance (stored value)
-        - E_kinetic = message_rate (activity)
-        - DoF = co_author_count (coupled oscillators)
-        - cooling = 1 + √age (energy dissipation)
-    """
-    # Energy-to-temperature conversion factor
-    # Controls temperature sensitivity and phase transition rates
-    β = 0.02
-
-    # Calculate total energy as product of:
-    # - Token balance (potential energy from accumulated value)
-    # - Message rate (kinetic energy from activity)
-    # - Co-author count (coupled oscillators adding degrees of freedom)
-    total_energy = (
-        thread.token_balance *   # Stored potential energy
-        thread.message_rate *    # Active kinetic energy
-        thread.co_author_count   # Coupled oscillator count
-    )
-
-    # Apply cooling factor based on thread age
-    # Temperature decreases as 1/√age to model energy dissipation
-    # This enables crystallization into metastable states
-    cooling_factor = 1 + np.sqrt(thread.age_days)
-
-    # Calculate final temperature with cooling
-    # Higher temperature = more ready for phase transitions
-    # Lower temperature = more stable metastable state
-    temperature = β * total_energy / cooling_factor
-
-    return temperature
-
-## Thread Frequency Calculation
-
-```python
-def calculate_thread_frequency(thread: Thread) -> float:
-    """Calculate ω (thread's natural frequency) based on harmonic oscillator principles.
-
-    The natural frequency ω represents the thread's intrinsic oscillation rate in the
-    quantum harmonic system. This determines:
-    - Resonance patterns with other threads
-    - Energy level spacing (ℏω)
-    - Phase transition thresholds
-    - Coupling behavior with co-authors
-
-    The frequency combines three key components:
-    1. Direct activity (message rate) - immediate oscillations
-    2. Oscillator coupling (co-authors) - resonance strength
-    3. Energy state (token balance) - potential for transitions
-
-    Args:
-        thread: Thread object containing activity metrics
-
-    Returns:
-        float: Natural frequency ω of the thread
-
-    Formula:
-        ω = α₁M + α₂C + α₃log(1+B)
-        where:
-        - M = message_rate (direct activity)
-        - C = co_author_count (coupling)
-        - B = token_balance (energy)
-        - α₁, α₂, α₃ = weighting coefficients
-
-    The coefficients are tuned to create desired dynamics:
-    - α₁ = 0.5  : Moderate weight on direct activity
-    - α₂ = 2.0  : Strong weight on oscillator coupling
-    - α₃ = 0.1  : Weak logarithmic dependence on energy
-    """
-    # Weighting coefficients for different frequency components
-    α1, α2, α3 = 0.5, 2.0, 0.1
-
-    return (
-        α1 * thread.message_rate +           # Direct activity frequency
-        α2 * thread.co_author_count +        # Coupled oscillator frequency
-        α3 * np.log1p(thread.token_balance)  # Energy state frequency
-    )
-
-## Required Stake Calculation
-
-def calculate_stake_required(thread: Thread, S0: float = 100, ℏ: float = 1.0, k: float = 1.0) -> float:
-    """Calculate required stake using quantum harmonic oscillator formula.
-
-    P(q) = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
-
-    Args:
-        thread: Thread object containing state metrics
-        S0: Base stake quantum (minimum stake)
-        ℏ: Reduced Planck constant (scaling factor)
-        k: Boltzmann constant
-    """
-    ω = calculate_thread_frequency(thread)
-    T = calculate_thread_temperature(thread)
-
-    # Handle edge cases
-    if T <= 0:
-        return S0 * 2.0  # Maximum stake for zero temperature
-
-    exp_term = np.exp(ℏ * ω / (k * T)) - 1
-    if exp_term <= 0:
-        return S0 * 0.5  # Ground state energy
-
-    stake = S0 * (0.5 + 1/exp_term)
-
-    return stake
+The min() function prevents excessive payouts when:
+- Thread has low token balance but high frequency
+- Ensures remaining oscillators maintain viable energy levels
+- Preserves thread coherence during transitions
 
 ## System Interactions
 
-The three core calculations work together to create thread dynamics:
+The four core calculations work together to create thread dynamics:
 
 1. **Activity Effects**
    - Higher message rate increases frequency
    - Increases temperature
    - Raises stake requirements
+   - Affects divestment payouts
 
 2. **Coupling Effects**
    - More co-authors increases frequency
-   - Strengthens coupling (k)
+   - Strengthens coupling (g)
    - Modifies stake scaling
+   - Adjusts divestment shares
 
 3. **Energy Effects**
    - Token balance affects frequency
    - Contributes to temperature
    - Influences stake requirements
+   - Determines maximum payouts
 
 4. **Age Effects**
    - Natural cooling reduces temperature
    - Stabilizes stake requirements
    - Enables metastable states
+   - Smooths divestment dynamics
 
 ## Quantum Harmonic Properties
 
@@ -2898,24 +2986,29 @@ The system exhibits key quantum harmonic oscillator properties:
    - Discrete stake levels
    - Energy level spacing (ℏω)
    - Ground state energy (S₀/2)
+   - Quantized divestments
 
 2. **Metastable States**
    - Temperature indicates phase transition readiness
    - Natural cooling enables crystallization
    - Energy barriers between states
+   - Stable divestment patterns
 
 3. **Coupling Effects**
    - Co-authors as coupled oscillators
    - Resonance between threads
    - Collective state transitions
+   - Synchronized divestments
 
 4. **Value Conservation**
    - Energy conservation in transitions
    - Token flow follows quantum principles
    - Stake bounds preserve stability
+   - Balanced divestment mechanics
 
 This creates a self-regulating system where:
 - Active threads require higher stakes
 - Stable threads crystallize at lower stakes
 - Coupling strength guides evolution
 - Natural cooling prevents instability
+- Divestments preserve thread harmony

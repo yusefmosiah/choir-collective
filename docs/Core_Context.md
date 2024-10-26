@@ -4,7 +4,7 @@ VERSION context_system:
   invariants: {
     "Collaborative ownership model",
     "Token-driven quality control",
-    "Dual-state architecture"
+    "Natural value dynamics"
   }
   assumptions: {
     "Chat-based interaction model",
@@ -37,11 +37,11 @@ ASSUMPTION component_architecture:
    - Backend: WebSocket state, session management
    - Frontend: UI state, optimistic updates
 
-2. **Chat-Based Interface**
-   - Users write chat messages/responses within threads
-   - Co-authors collectively decide to approve or deny messages
-   - Non-co-authors can submit speculative responses ("specs")
-   - Approved specs result in co-authorship
+2. **Thread Dynamics**
+   - Activity level affects stake requirements
+   - More co-authors strengthen thread stability
+   - Thread value grows through quality content
+   - Natural cooling as threads mature
 
 3. **Thread Accessibility**
    - All threads accessible at `choir.chat/<thread_id>`
@@ -54,6 +54,7 @@ ASSUMPTION component_architecture:
    - Thread PDAs store token balances
    - Approved messages: tokens to thread
    - Denied messages: tokens to deniers
+   - Divestment: proportional share based on thread state
 
 5. **AI-Generated Summaries**
    - Designed to create interest and stimulate engagement
@@ -72,9 +73,9 @@ ASSUMPTION component_architecture:
 - CHOIR token defined with a total supply of 10 billion
 - Token mechanics integrated into message approval and thread economics
 - Co-authorship dynamics:
-  - Authors of approved messages become co-authors of the thread.
-  - Co-authors share in the thread's token balance and have approval rights.
-  - Co-authors can divest their token share at any time, taking a (1 / n - 1) share of the thread's tokens.
+  - Authors of approved messages become co-authors of the thread
+  - Co-authors share in the thread's token balance and have approval rights
+  - Co-authors can divest their token share at any time, receiving a calculated share based on thread activity and value
 
 ### AI Model Development
 - Target date for the first AI model release: April 2025
@@ -89,10 +90,10 @@ ASSUMPTION development_priorities:
   "Must maintain system stability"
 
 1. **Core Infrastructure**
-   - **Solana Integration**: Basic wallet connectivity functional
-   - **Qdrant Integration**: Message storage and retrieval implemented
-   - **WebSocket Layer**: Real-time updates operational
-   - **State Management**: Dual-state architecture established
+   - **Solana Integration**: Quantum state storage
+   - **Qdrant Integration**: Classical state storage
+   - **WebSocket Layer**: State transition propagation
+   - **State Management**: Wave function evolution
 
 2. **User Interface**
    - **Chat Interface**: Thread-based messaging implemented
@@ -107,10 +108,10 @@ ASSUMPTION development_priorities:
    - **Privacy Controls**: Content visibility rules implemented
 
 4. **Token Mechanics**
-   - **Staking**: Spec submission staking implemented
-   - **Distribution**: Approval-based token flow working
-   - **Thread Balances**: PDA-based token storage setup
-   - **Treasury**: Basic treasury operations functional
+   - **Staking**: Energy quantization
+   - **Distribution**: Phase transition rules
+   - **Thread Balances**: Collective state tracking
+   - **Treasury**: Energy conservation pool
 
 ## Next Steps
 

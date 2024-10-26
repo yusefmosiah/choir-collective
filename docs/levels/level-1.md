@@ -129,6 +129,7 @@ tree.md
 │   ├── Theory_GameMechanicsSparsity.md
 │   ├── Theory_HarmonicBondingCurve.md
 │   ├── Theory_HarmonicMetastability.md
+│   ├── Theory_HarmonicOscillator.md
 │   ├── Theory_Implementation_Bridge.md
 │   ├── Theory_QuantumProtocol.md
 │   ├── Theory_SemanticGameTopology.md
@@ -137,36 +138,13 @@ tree.md
 │   ├── Theory_StakeEntanglement.md
 │   ├── Theory_StateAlgebra.md
 │   ├── Theory_StateAlgebraExplained.md
+│   ├── Theory_ThreadDynamics.md
 │   ├── Theory_Topology.md
 │   ├── Theory_TopologyExplained.md
-│   ├── ThreadDynamics.md
 │   ├── V10_Loop_Theory.md
 │   ├── V10_Prompt_Engineering.md
 │   ├── V12_Data_Engines.md
 │   ├── combined
-│   │   ├── Combined_Backend.md
-│   │   ├── Combined_Core.md
-│   │   ├── Combined_Crystallization.md
-│   │   ├── Combined_Data.md
-│   │   ├── Combined_Deploy.md
-│   │   ├── Combined_Dev.md
-│   │   ├── Combined_Entry.md
-│   │   ├── Combined_Error.md
-│   │   ├── Combined_Frontend.md
-│   │   ├── Combined_Harmonic.md
-│   │   ├── Combined_Impl.md
-│   │   ├── Combined_Implementation.md
-│   │   ├── Combined_Level.md
-│   │   ├── Combined_Meta.md
-│   │   ├── Combined_Model.md
-│   │   ├── Combined_Plan.md
-│   │   ├── Combined_Reward.md
-│   │   ├── Combined_Solana.md
-│   │   ├── Combined_State.md
-│   │   ├── Combined_Tech.md
-│   │   ├── Combined_Theory.md
-│   │   ├── Combined_V10.md
-│   │   └── Combined_V12.md
 │   ├── levels
 │   │   ├── level-1.md
 │   │   ├── level0.md
@@ -227,7 +205,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 187 files
+28 directories, 165 files
 
 
 ==

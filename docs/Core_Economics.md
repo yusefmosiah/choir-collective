@@ -48,9 +48,13 @@ This creates:
 2. **Exit Amount (Divestment)**
    ```typescript
    function calculateDivestmentAmount(thread: Thread): number {
-     const E = thread.tokenBalance    // Total energy
-     const n = thread.coAuthors.length // Oscillator count
-     return E * (1/(n-1))            // Energy redistribution
+     const ℏ = PLATFORM_COUPLING_CONSTANT
+     const ω = measureThreadFrequency(thread)
+     const N = thread.coAuthors.length
+     const balance = thread.tokenBalance
+
+     // Use quantum oscillator decoupling formula
+     return Math.min((ℏ * ω)/(N-1), balance/(N-1))
    }
    ```
 
@@ -114,20 +118,32 @@ This creates:
 ## Market Dynamics
 
 1. **Thread Resonance**
-   ```
-   FUNCTION calculate_thread_resonance(thread: Thread) -> Amplitude:
-     FACTORS:
-       oscillator_count    // Co-author coupling
-       message_frequency   // Activity resonance
-       token_amplitude     // Energy level
-       phase_coherence     // Quality metric
+   ```typescript
+   function calculateThreadFrequency(thread: Thread): number {
+     // Message mode frequency
+     const ω_m = thread.messageRate / Math.sqrt(thread.coAuthors.length)
+
+     // Value mode frequency
+     const ω_v = Math.log(1 + thread.tokenBalance/thread.coAuthors.length)
+
+     // Coupling constant
+     const g = 1/thread.coAuthors.length
+
+     // Collective frequency using Anderson normalization
+     return Math.sqrt((ω_m**2 + ω_v**2)/2 + g * thread.coAuthors.length)
+   }
    ```
 
 2. **Dynamic Tuning**
-   ```
-   FUNCTION tune_resonance(thread: Thread) -> StakeAmount:
-     resonance = calculate_thread_resonance(thread)
-     RETURN base_quantum * resonance_factor(resonance)
+   ```typescript
+   function calculateThreadTemperature(thread: Thread): number {
+     const E = thread.tokenBalance + thread.messageRate
+     const N = thread.coAuthors.length
+     const coolingFactor = 1 + Math.sqrt(thread.ageInDays * N)
+
+     // Temperature with critical slowing down
+     return (E/N)/coolingFactor
+   }
    ```
 
 ## Example Scenarios

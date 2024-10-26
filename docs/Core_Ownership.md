@@ -4,98 +4,122 @@ VERSION ownership_system:
   invariants: {
     "Thread must have at least one co-author",
     "Co-author rights are non-transferable",
-    "Thread token balance integrity"
+    "Thread energy conservation",
+    "Quantum state coherence"
   }
   assumptions: {
-    "Co-authorship approval model",
-    "Divestment mechanics",
-    "Thread token distribution"
+    "Harmonic co-authorship model",
+    "Quantum divestment mechanics",
+    "Thread energy distribution"
   }
   implementation: "0.1.0"
 
 ## Core Ownership Concepts
 
 ASSUMPTION co_authorship:
-  "Unanimous approval for new co-authors"
-  "May introduce weighted voting in future"
-  "Must maintain quality control"
+  "Unanimous approval for new oscillators (co-authors)"
+  "Coupling strength scales with 1/N"
+  "Must maintain phase coherence"
 
 ASSUMPTION divestment:
-  "Equal share distribution on divestment"
-  "May introduce vesting periods"
-  "Must preserve token conservation"
+  "Quantum oscillator decoupling model"
+  "Energy conservation during transitions"
+  "Anderson-normalized distributions"
 
 ## Thread Ownership
 
 1. **Ownership Properties**
-   - Messages owned by creators
-   - Threads owned by co-authors collectively
-   - Token balances owned by thread PDA
+   - Messages as wave packets
+   - Threads as coupled oscillator systems
+   - Token balances as system energy
 
 2. **Co-authorship Rules**
-   - Initial thread creator is first co-author
-   - New co-authors added through spec approval
-   - Co-authors can divest their share
+   ```typescript
+   type ThreadOscillator = {
+     author: PublicKey
+     couplingStrength: number  // g = 1/N
+     phaseAlignment: number    // coherence metric
+     energyLevel: number       // quantized stakes
+   }
+   ```
 
 ## Token Integration
 
 ASSUMPTION token_mechanics:
-  "Simple token distribution model"
-  "May introduce complex reward structures"
-  "Must maintain economic incentives"
+  "Quantum harmonic distribution model"
+  "Energy level quantization"
+  "Must maintain wave function coherence"
 
 1. **Token Flow**
-   - Approved messages add to thread balance
-   - Denied specs distribute to deniers
-   - Mixed decisions return to treasury
+   ```typescript
+   type TokenDistribution = {
+     threadEnergy: number        // ℏω total energy
+     oscillatorCount: number     // N co-authors
+     temperature: number         // T thread temperature
+     couplingConstant: number   // g coupling strength
+   }
+   ```
 
 2. **Divestment Process**
-   - Co-authors can divest at any time
-   - Receive (1 / n-1) share of balance
-   - Remaining co-authors maintain thread
+   ```typescript
+   function calculateDivestment(thread: Thread): number {
+     const ℏ = PLATFORM_COUPLING_CONSTANT
+     const ω = calculateThreadFrequency(thread)
+     const N = thread.coAuthors.length
+     const balance = thread.tokenBalance
+
+     // Quantum oscillator decoupling formula
+     return Math.min((ℏ * ω)/(N-1), balance/(N-1))
+   }
+   ```
 
 ## Access Control
 
 ASSUMPTION access_model:
-  "Binary co-author/non-co-author distinction"
-  "May introduce graduated access levels"
-  "Must maintain clear ownership boundaries"
+  "Quantum state-based access levels"
+  "Energy barrier thresholds"
+  "Must maintain eigenstate integrity"
 
 1. **Co-author Rights**
-   - Full read-write access
-   - Approval/denial rights
-   - Divestment rights
+   - Full wavefunction access
+   - Phase alignment rights
+   - Decoupling (divestment) rights
 
 2. **Non-co-author Access**
-   - Read public content
-   - Submit specs with stake
-   - View AI summaries
+   - Observable state access
+   - Stake-based coupling requests
+   - Measurement-based views
 
 ## State Management
 
 ASSUMPTION state_handling:
-  "Solana as ownership source of truth"
-  "May introduce caching layers"
-  "Must maintain state consistency"
+  "Solana as quantum state oracle"
+  "Coherent state transitions"
+  "Must maintain wave equation solutions"
 
 1. **Ownership State**
-   - Stored on Solana
-   - Thread PDA contains co-authors
-   - Token balances in PDAs
+   ```typescript
+   type ThreadState = {
+     oscillators: ThreadOscillator[]
+     frequency: number          // ω thread frequency
+     temperature: number        // T thread temperature
+     energyLevels: number[]    // Quantized energy states
+   }
+   ```
 
 2. **Content State**
-   - Content in Qdrant
-   - Hashes on Solana
-   - Metadata distributed
+   - Content as wave packets
+   - Hashes as quantum numbers
+   - Metadata as observables
 
 ## Implementation Notes
 
 NOTE future_extensions:
-  "Current model focuses on basic ownership"
-  "May add governance features"
-  "Must maintain ownership clarity"
+  "Current model uses basic quantum mechanics"
+  "May add advanced wave dynamics"
+  "Must maintain quantum consistency"
 
 NOTE scalability:
-  "Current design optimized for clarity"
-  "May optimize for high transaction volume"
-  "Must preserve ownership guarantees"
+  "Anderson normalization for large N"
+  "Critical slowing down handling"
+  "Must preserve coherent scaling"
