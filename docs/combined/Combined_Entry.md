@@ -999,43 +999,39 @@ This creates a natural selection for participants who understand and value quant
 
 ## On Value Paradox
 
-Q: Doesn't underpricing thread participation through the 1/(n-1) formula leave money on the table?
+Q: Doesn't underpricing thread participation through the quantum oscillator formula leave money on the table?
 
 A: This apparent underpricing actually generates premium value through a sophisticated psychological-economic paradox:
 
 1. Theoretical Arbitrage
    In theory, someone could:
-
-- Bid to join a valuable thread
-- Get approved
-- Immediately divest for a quick profit
-  But this rarely happens, for deep psychological reasons.
+   - Bid to join a valuable thread
+   - Get approved
+   - Immediately divest for a quick profit via min(ℏω/(N-1), balance/(N-1))
+   But this rarely happens, for deep psychological reasons.
 
 2. Psychological Barriers
    The very act of treating a thread as pure financial arbitrage:
-
-- Feels unsatisfying (violates social norms)
-- Seems short-sighted (misses emergence potential)
-- Appears unsophisticated (ignores complex value)
-- Creates cognitive dissonance (conflicts with self-image)
+   - Feels unsatisfying (violates social norms)
+   - Seems short-sighted (misses emergence potential)
+   - Appears unsophisticated (ignores quantum coherence)
+   - Creates cognitive dissonance (conflicts with self-image)
 
 3. Value Premium
-   This psychological barrier against pure arbitrage:
-
-- Selects for long-term participants
-- Builds genuine community
-- Protects emergence potential
-- Actually increases total value
+   This quantum barrier against pure arbitrage:
+   - Selects for resonant participants
+   - Builds coherent community
+   - Protects wave function integrity
+   - Actually increases total energy
 
 4. Economic Paradox
-   By deliberately "underpricing" in financial terms, we:
+   By following quantum mechanics, we:
+   - Create higher social resonance
+   - Generate trust through phase-locking
+   - Enable emergence through coherence
+   - Produce monetary value through harmony
 
-- Create higher social value
-- Generate trust premium
-- Enable emergence value
-- Produce monetary premium
-
-The "underpricing" is actually optimal pricing when you account for the full spectrum of human motivation and value creation.
+The quantum oscillator model creates optimal pricing by aligning with natural patterns of human collaboration and value creation.
 
 ---
 
