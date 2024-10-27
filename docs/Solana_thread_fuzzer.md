@@ -11,7 +11,7 @@ assumptions: {
 "Random generation",
 "State reachability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Fuzzing Types
 
@@ -92,6 +92,30 @@ PROPERTY thread_invariants:
            no_token_creation(ops)
      }
      ```
+
+  4. Distribution Properties
+     ```rust
+     #[test_case]
+     fn verify_distribution_properties(ops: Vec<Operation>) {
+         VERIFY:
+           valid_approval_distribution(ops) AND
+           valid_denial_flow(ops) AND
+           valid_split_decision(ops) AND
+           conserved_total_value(ops)
+     }
+     ```
+
+  5. Token Flow Properties
+     ```rust
+     #[test_case]
+     fn verify_token_flows(flows: Vec<TokenFlow>) {
+         VERIFY:
+           approval_to_approvers(flows) AND
+           denial_to_thread(flows) AND
+           split_correctly_divided(flows) AND
+           treasury_receives_correct_share(flows)
+     }
+     ```
 ````
 
 ## State Space Exploration
@@ -113,10 +137,17 @@ SEQUENCE explore_state_space:
    - Interleaved sequences
 
 3. Coverage Tracking
+
    - State coverage maps
    - Transition coverage
    - Property verification
    - Error discovery
+
+4. Distribution States
+   - Unanimous approval states
+   - Denial flow states
+   - Split decision combinations
+   - Treasury accumulation patterns
 
 ## Mutation Strategies
 
@@ -126,6 +157,11 @@ TYPE MutationStrategy =
   | CrossAccount   // Mix account data
   | StateJump      // Jump to distant state
   | ChainEffect    // Cascade changes
+  | DistributionMutation {
+      approval_patterns: Vec<ApprovalSet>,
+      denial_patterns: Vec<DenialSet>,
+      split_patterns: Vec<SplitDecision>
+    }
 
 SEQUENCE apply_mutations:
   1. Select Strategy
@@ -139,6 +175,12 @@ SEQUENCE apply_mutations:
      - Verify consistency
      - Record results
      - Handle errors
+
+  4. Distribution Mutations
+     - Modify approval patterns
+     - Vary denial flows
+     - Test split ratios
+     - Combine distribution types
 ```
 
 ## Error Detection
@@ -178,11 +220,29 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
    ```
 
 3. **Property Coverage**
+
    ```rust
    PROPERTY property_coverage:
      FORALL p IN properties:
        EXISTS test_case IN test_suite:
          verifies_property(test_case, p)
+   ```
+
+4. **Distribution Coverage**
+
+   ```rust
+   PROPERTY distribution_coverage:
+     FORALL outcome IN possible_outcomes:
+       EXISTS test_case IN test_suite:
+         tests_distribution(test_case, outcome)
+   ```
+
+5. **Flow Coverage**
+   ```rust
+   PROPERTY flow_coverage:
+     FORALL flow IN token_flows:
+       EXISTS test_case IN test_suite:
+         verifies_flow(test_case, flow)
    ```
 
 ## Implementation Notes

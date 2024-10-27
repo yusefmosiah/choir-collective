@@ -3,15 +3,15 @@
 VERSION reward_system:
 invariants: {
 "Semantic value calculation",
-"Token distribution fairness",
-"Citation tracking integrity"
+"Thread reward distribution",
+"Treasury sustainability"
 }
 assumptions: {
 "Hot wallet security",
 "Semantic embedding stability",
 "Batch processing efficiency"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Service Types
 
@@ -25,7 +25,7 @@ distribution_log: Log<Distribution>
 
 TYPE RewardEvent =
 | NewMessage(message_id: str, content: str)
-| Citation(source_id: str, target_id: str)
+| Prior(source_thread: str, target_thread: str, prior_hash: str)
 | ThreadValue(thread_id: str, value_delta: f64)
 
 ## Semantic Value Calculation
@@ -39,12 +39,12 @@ SEQUENCE calculate_semantic_value:
    - Measure uniqueness
    - Factor thread context
 
-2. Value Computation
+2. Thread Value Computation
 
    - Base reward = f(semantic_distance)
-   - Quality multiplier = f(thread_value)
-   - Citation bonus = f(source_value)
-   - Final reward = base \* multiplier + bonus
+   - Thread quality multiplier = f(thread_value)
+   - Prior impact = f(source_thread_value)
+   - Final reward = base \* multiplier + impact
 
 3. Verification
    - Validate calculations
@@ -53,9 +53,9 @@ SEQUENCE calculate_semantic_value:
    - Log decision
 
 PROPERTY value_fairness:
-FORALL m1 m2 IN messages:
-semantic_distance(m1, m2) > threshold IMPLIES
-abs(reward(m1) - reward(m2)) < epsilon
+FORALL t1 t2 IN threads:
+semantic_distance(t1, t2) > threshold IMPLIES
+abs(reward(t1) - reward(t2)) < epsilon
 
 ## Batch Processing
 
@@ -63,7 +63,7 @@ SEQUENCE process_reward_batch:
 
 1. Batch Collection
 
-   - Aggregate events
+   - Aggregate thread events
    - Group by type
    - Sort by priority
    - Validate batch
@@ -71,12 +71,12 @@ SEQUENCE process_reward_batch:
 2. Value Calculation
 
    - Process semantic values
-   - Calculate rewards
+   - Calculate thread rewards
    - Apply modifiers
    - Verify totals
 
 3. Distribution
-   - Prepare transactions
+   - Prepare thread transactions
    - Execute batch
    - Verify success
    - Update state
@@ -106,9 +106,9 @@ SEQUENCE secure_distribution:
 
 2. Transaction Preparation
 
-   - Build instruction set
+   - Build thread instruction set
    - Calculate fees
-   - Verify balance
+   - Verify treasury balance
    - Sign transaction
 
 3. Execution
@@ -136,13 +136,18 @@ SEQUENCE reward_integration:
      await queue_distribution(message.author, reward)
    ```
 
-2. Citation Processing
+2. Prior Processing
 
    ```python
-   async def process_citation_reward(citation: Citation):
-     source_value = get_thread_value(citation.source_id)
-     citation_reward = compute_citation_reward(source_value)
-     await queue_distribution(citation.source_thread, citation_reward)
+   async def process_prior_reward(prior: Prior):
+     source_thread = get_thread_value(prior.source_thread)
+     quality_score = await calculate_prior_quality(
+       prior_hash=prior.hash,
+       source_thread=source_thread,
+       usage_context=prior.context
+     )
+     reward = compute_thread_reward(quality_score)
+     await queue_distribution(prior.target_thread, reward)
    ```
 
 3. Thread Value Update
@@ -150,15 +155,17 @@ SEQUENCE reward_integration:
    async def update_thread_value(thread_id: str):
      messages = await get_thread_messages(thread_id)
      semantic_value = calculate_thread_semantic_value(messages)
-     await update_thread_metrics(thread_id, semantic_value)
+     prior_value = calculate_thread_prior_value(thread_id)
+     total_value = semantic_value + prior_value
+     await update_thread_metrics(thread_id, total_value)
    ```
 
 ## Error Handling
 
 TYPE RewardError =
 | SemanticCalculationError
-| InsufficientBalance
-| DistributionFailure
+| InsufficientTreasuryBalance
+| ThreadDistributionFailure
 | BatchProcessingError
 | WalletSecurityError
 
@@ -173,7 +180,7 @@ RETURN Err(error)
 
 TYPE RewardMetrics = {
 semantic_distances: Distribution,
-reward_amounts: Distribution,
+thread_rewards: Distribution,
 batch_sizes: Distribution,
 processing_times: Distribution
 }
@@ -182,7 +189,7 @@ SEQUENCE monitor_rewards:
 
 1. Track Distributions
 
-   - Record amounts
+   - Record thread amounts
    - Monitor patterns
    - Detect anomalies
    - Generate reports
@@ -195,7 +202,7 @@ SEQUENCE monitor_rewards:
    - Analyze trends
 
 3. Security Monitoring
-   - Watch transactions
+   - Watch treasury
    - Verify signatures
    - Check balances
    - Alert on issues
@@ -207,14 +214,14 @@ The reward service maintains several critical properties:
 1. Value Calculation
 
    - Semantic distance is primary factor
-   - Quality multipliers are bounded
-   - Citations increase value
+   - Thread quality affects rewards
+   - Priors strengthen threads
    - Rewards are fair and predictable
 
 2. Distribution Safety
 
-   - Hot wallet is secured
-   - Batches are atomic
+   - Treasury is secured
+   - Thread batches are atomic
    - Failures are handled
    - Everything is logged
 
@@ -224,4 +231,4 @@ The reward service maintains several critical properties:
    - Processing is parallel
    - Resources are managed
 
-Through these mechanisms, the reward service provides fair and efficient token distribution while maintaining security and scalability.
+Through these mechanisms, the reward service provides fair and efficient token distribution to threads while maintaining security and scalability.

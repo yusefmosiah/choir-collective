@@ -21,7 +21,7 @@ assumptions: {
 "Phase synchronization",
 "Quantum resonance"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Fundamental Harmonics
 

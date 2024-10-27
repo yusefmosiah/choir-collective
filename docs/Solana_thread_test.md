@@ -11,7 +11,7 @@ assumptions: {
 "Deterministic execution",
 "State isolation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Test Structure
 
@@ -136,6 +136,14 @@ PROPERTY thread_properties:
             - Track transitions
             - Verify invariants
             - Check consistency
+
+         4. Token Distribution Tests
+            - Test unanimous approval distribution to approvers
+            - Verify denial flow to thread balance
+            - Check split decision distribution:
+              * Approver share to Treasury
+              * Denier share to thread
+            - Validate divestment calculations
    }
    ```
 
@@ -159,6 +167,12 @@ PROPERTY thread_properties:
             - Failed transactions
             - Partial updates
             - State recovery
+
+         4. Distribution Edge Cases
+            - Single approver/denier scenarios
+            - Zero balance distributions
+            - Maximum token transfers
+            - Rounding edge cases in split decisions
    }
    ```
 

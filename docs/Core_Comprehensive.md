@@ -11,7 +11,7 @@ assumptions: {
 "AI-assisted evolution",
 "Test-first implementation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Concept
 
@@ -47,9 +47,11 @@ At its simplest, Choir is a chat platform where:
 
 ### 4. Value Distribution
 
-- Rejected specs: tokens to thread
-- Split decisions: approver stakes to Treasury
-- Approved specs: stake to thread balance
+- Unanimous approval: stake distributes equally to approvers (like dividends)
+- Rejected specs: stake flows to thread balance
+- Split decisions:
+  - Approvers' share goes to Treasury
+  - Deniers' share goes to thread balance
 - Citations: ongoing rewards from Treasury
 
 ## Technical Implementation

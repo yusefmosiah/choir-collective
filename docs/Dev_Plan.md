@@ -11,7 +11,7 @@ assumptions: {
 "Testing framework maturity",
 "Documentation completeness"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Current Status (Oct 26)
 

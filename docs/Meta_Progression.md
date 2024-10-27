@@ -11,7 +11,7 @@ assumptions: {
 "Pattern recognition",
 "Conceptual bridges"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Initial Understanding
 

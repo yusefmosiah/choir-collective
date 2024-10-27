@@ -11,7 +11,7 @@ assumptions: {
 "Context coherence",
 "Value emergence"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## The Prompt Engineering Paradox
 

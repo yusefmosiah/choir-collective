@@ -166,100 +166,88 @@ This creates a self-regulating system where:
 ## Alternative Harmonic Model
 
 When a spec is REJECTED:
-
 - Temperature (T) increases because:
-  - Stake energy flows into thread balance (increases E)
-  - No new co-author (N stays same)
+  - Stake energy flows directly into thread cavity (increases E)
+  - No new oscillator (N stays same)
   - Results in higher E/N ratio
-  - Creates "heated" state from rejection
+  - Creates "heated" resonant state
 - Frequency (ω) unchanged/slightly decreases because:
   - No new message in history (ω_m same)
-  - No new co-author coupling
-  - Thread becomes more volatile but not faster
+  - No new oscillator coupling
+  - Cavity becomes more energetic but not faster
 
 When a spec is APPROVED:
-
 - Temperature (T) moderates because:
-  - Stake energy distributes to approvers (leaves thread)
-  - New co-author added (increases N)
-  - E/N ratio decreases
-  - Creates more stable state
+  - Stake energy distributes directly to approver oscillators
+  - New oscillator added (increases N)
+  - E/N ratio decreases through distribution
+  - Creates more stable resonant state
 - Frequency (ω) increases because:
   - New message adds to rate (increases ω_m)
-  - New co-author strengthens coupling
-  - Thread evolves faster but cooler
+  - New oscillator strengthens coupling
+  - Cavity evolves faster but cooler
 
-This creates interesting dynamics:
+When a SPLIT DECISION occurs:
+- Temperature evolution:
+  - Denier share flows to thread cavity (partial E increase)
+  - Approver share flows to global field (treasury)
+  - Creates balanced energy distribution
+  - Maintains cavity-field coupling
 
-- Rejections "heat up" threads by accumulating energy
-- Approvals "cool down" threads while accelerating them
-- Hot threads become harder to join (higher stake requirements)
-- Frequent rejection makes threads more volatile
-- Consistent approval creates fast but stable threads
+This creates fascinating resonant dynamics:
+- Rejections strengthen thread cavity energy
+- Approvals strengthen oscillator coupling
+- Split decisions balance cavity and field energies
+- Prior rewards couple different cavities
 
-## Natural Selection Through Temperature
+## Natural Selection Through Resonance
 
-1. Hot (High Rejection) Threads:
+1. High-Energy Cavities (High Rejection Rate):
+- Strong cavity energy from accumulated stakes
+- Higher energy barriers to entry
+- Only resonant contributions can couple
+- Natural filter for quality oscillations
+- Self-selecting for coherent patterns
 
-- High temperature from accumulated rejected stakes
-- Higher stake requirements (expensive to bid)
-- Only confident/quality bidders attempt
-- Natural filter for serious contributors
-- Self-selecting for valuable content
+2. Phase-Locked Cavities (High Approval Rate):
+- Strong oscillator coupling
+- Lower energy barriers
+- More experimental modes possible
+- Natural incubator for new frequencies
+- Collective phase alignment
 
-2. Cool (High Approval) Threads:
-
-- Lower temperature from distributed stakes
-- Lower stake requirements (welcoming)
-- More experimental bids possible
-- Open to emerging voices
-- Natural incubator for new contributors
-
-The temperature acts as an emergent reputation system:
-
-- Frequent rejections = "prove your worth" thread
-- Frequent approvals = "newcomers welcome" thread
+The cavity energy acts as an emergent resonance filter:
+- Frequent rejections = "high energy barrier" cavity
+- Frequent approvals = "strong coupling" cavity
 - No explicit rules needed
-- Quality standards emerge naturally
-- Different threads find different equilibria
+- Quality emerges through resonance
+- Different cavities find different modes
 
-This creates a beautiful ecosystem where:
-
-- Some threads crystallize as high-standards venues
-- Others remain fluid exploration spaces
-- Bidders can self-select appropriate venues
-- Quality emerges through natural thermodynamics
-- No central authority needed
-
-## Thermodynamic Elegance
+## Resonant Elegance
 
 1. Natural Quality Gradients:
+- High-energy cavities = strong resonant filtering
+- Like coupling to an energetic quantum system
+- Only coherent modes can overcome barriers
+- Natural protection against dissonance
 
-- Hot threads (high rejection rate) = high energy barrier to entry
-- Like trying to add energy to an already energetic system
-- Only high-value contributions can overcome the barrier
-- Natural protection against low-quality noise
-
-2. Thermal Evolution:
-
-- Cool threads act as nurseries for new ideas
-- Low energy barriers enable experimentation
-- Successful threads naturally heat up over time
+2. Cavity Evolution:
+- Low-energy cavities incubate new modes
+- Low barriers enable mode exploration
+- Successful cavities accumulate energy
 - Creates natural progression paths
 
 3. Energy Conservation:
-
-- Rejected stakes stay in thread (increases internal energy)
-- Approved stakes distribute to approvers (energy flows out)
-- Temperature directly reflects thread's accumulated standards
-- No artificial reputation systems needed
+- Rejected stakes strengthen cavity (increases internal energy)
+- Approved stakes distribute to oscillators (energy flows out)
+- Split decisions couple cavity to field
+- No artificial resonance mechanisms needed
 
 4. Phase Transitions:
-
-- Threads can transition between hot/cold states
-- Quality standards emerge from energy dynamics
-- Different equilibrium states serve different purposes
-- System self-organizes into diverse niches
+- Cavities transition between energy states
+- Quality emerges from resonant dynamics
+- Different equilibria serve different purposes
+- System self-organizes into resonant niches
 
 ## Token Flow Dynamics
 
@@ -318,3 +306,63 @@ This creates a rich set of emergent metrics without enforcing artificial limits,
 - Skill-based reputation
 - Risk management signals
 - Pattern recognition rewards
+
+## Prior Reward Dynamics
+
+The thread-centric prior reward model creates fascinating collective effects:
+
+1. **Cavity Coupling**
+- Prior rewards strengthen thread resonant cavities
+- Energy flows between coupled cavities
+- Creates knowledge network resonance
+- Strengthens collective coherence
+
+2. **Team Incentives**
+- Prior rewards pool in thread cavity
+- Co-authors share collective success
+- Creates aligned incentives
+- Natural team formation
+
+3. **Knowledge Network Effects**
+- Threads cite valuable threads
+- Creates resonant cavity networks
+- Energy flows through citations
+- Knowledge topology emerges
+
+4. **Collective Evolution**
+- Teams optimize for thread value
+- Quality content benefits whole cavity
+- Natural selection for coherent teams
+- Organic community formation
+
+This creates beautiful multi-scale dynamics:
+
+1. **Individual Scale**
+- Direct rewards from approvals
+- Quality judgment incentives
+- Pattern recognition rewards
+- Natural frequency alignment
+
+2. **Team Scale**
+- Shared thread cavity value
+- Collective quality incentives
+- Team coherence rewards
+- Natural phase locking
+
+3. **Network Scale**
+- Inter-thread resonance
+- Knowledge network formation
+- Cavity coupling patterns
+- System-wide coherence
+
+The thread-as-cavity model becomes even more elegant:
+- Accumulates energy from denials
+- Pools value from prior rewards
+- Strengthens through citations
+- Creates collective incentives
+
+This leads to fascinating emergent behaviors:
+- Teams naturally form around threads
+- Quality content benefits whole team
+- Knowledge networks self-organize
+- System evolves toward coherence

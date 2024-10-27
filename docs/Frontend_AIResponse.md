@@ -11,7 +11,7 @@ assumptions: {
 "Source availability",
 "Markdown safety"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core State Model
 

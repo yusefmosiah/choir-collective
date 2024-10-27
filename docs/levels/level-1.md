@@ -42,12 +42,9 @@ tree.md
 │   ├── Core_Comprehensive.md
 │   ├── Core_Consistency.md
 │   ├── Core_Context.md
-│   ├── Core_Convergence.md
 │   ├── Core_Economics.md
 │   ├── Core_Invariants.md
-│   ├── Core_Moat.md
 │   ├── Core_Ownership.md
-│   ├── Core_Persuasion.md
 │   ├── Core_ProofOfText.md
 │   ├── Core_StateTransitions.md
 │   ├── Core_Types.md
@@ -55,21 +52,14 @@ tree.md
 │   ├── Data_Engine_Vision.md
 │   ├── Deploy_Render_Checklist.md
 │   ├── Deploy_Report.md
-│   ├── Dev_Crystallization.md
-│   ├── Dev_FormalMethods.md
 │   ├── Dev_Plan.md
 │   ├── Dev_Pseudocode.md
-│   ├── Dev_Strategy.md
-│   ├── Dev_Versioning.md
 │   ├── Emergence_AIDocumentation.md
-│   ├── Entry_Accessibility.md
 │   ├── Entry_Business.md
 │   ├── Entry_Glossary.md
-│   ├── Entry_Guide.md
 │   ├── Entry_InverseEquity.md
 │   ├── Entry_Overview.md
 │   ├── Entry_Q&A.md
-│   ├── Entry_Vision.md
 │   ├── Error_Correction_Layers.md
 │   ├── Frontend_AIResponse.md
 │   ├── Frontend_ChoirChat.md
@@ -79,12 +69,9 @@ tree.md
 │   ├── Harmonic_Theory.md
 │   ├── Impl_API.md
 │   ├── Impl_ChorusLoop.md
-│   ├── Impl_Integration.md
 │   ├── Impl_Messages.md
 │   ├── Impl_Privacy.md
 │   ├── Impl_Security.md
-│   ├── Impl_StateMachine.md
-│   ├── Impl_StateManagement.md
 │   ├── Impl_WebSocket.md
 │   ├── Implementation_Dependencies.md
 │   ├── Level_0_SystemOverview.md
@@ -93,23 +80,16 @@ tree.md
 │   ├── Level_3_ValueCreation.md
 │   ├── Level_4_MetastableEmergence.md
 │   ├── Level_5_QuantumSemantics.md
-│   ├── Meta_Bridges.md
-│   ├── Meta_Density.md
 │   ├── Meta_Diagrams.md
 │   ├── Meta_Emergence.md
 │   ├── Meta_Evolution.md
 │   ├── Meta_Experience.md
 │   ├── Meta_Index.md
-│   ├── Meta_Layers.md
-│   ├── Meta_Navigation.md
-│   ├── Meta_Network.md
 │   ├── Meta_Overview.md
 │   ├── Meta_Progression.md
 │   ├── Model_Emergency.md
 │   ├── Model_Metastability.md
 │   ├── Model_Recursion.md
-│   ├── Model_Ring.md
-│   ├── Model_ThreadEvolution.md
 │   ├── Plan_Checklist.md
 │   ├── Plan_Hyperconverge.md
 │   ├── Porting_Checklist.md
@@ -118,6 +98,12 @@ tree.md
 │   ├── Reward_Summary.md
 │   ├── Solana_lib.md
 │   ├── Solana_message.md
+│   ├── Solana_new_message_reward.md
+│   ├── Solana_new_message_reward_fuzzer.md
+│   ├── Solana_new_message_reward_test.md
+│   ├── Solana_prior_reward.md
+│   ├── Solana_prior_reward_fuzzer.md
+│   ├── Solana_prior_reward_test.md
 │   ├── Solana_settlement.md
 │   ├── Solana_thread.md
 │   ├── Solana_thread_fuzzer.md
@@ -125,26 +111,12 @@ tree.md
 │   ├── Solana_validation.md
 │   ├── State_Boundaries.md
 │   ├── Tech_Arts_Intersection.md
-│   ├── Theory_Algebra.md
-│   ├── Theory_ApprovalMeasurement.md
 │   ├── Theory_ChorusQuantum.md
-│   ├── Theory_GameMechanics.md
-│   ├── Theory_GameMechanicsAdversarial.md
-│   ├── Theory_GameMechanicsSparsity.md
 │   ├── Theory_HarmonicBondingCurve.md
 │   ├── Theory_HarmonicMetastability.md
 │   ├── Theory_HarmonicOscillator.md
-│   ├── Theory_Implementation_Bridge.md
-│   ├── Theory_QuantumProtocol.md
-│   ├── Theory_SemanticGameTopology.md
-│   ├── Theory_Semantics.md
 │   ├── Theory_SemanticsExplained.md
-│   ├── Theory_StakeEntanglement.md
-│   ├── Theory_StateAlgebra.md
-│   ├── Theory_StateAlgebraExplained.md
 │   ├── Theory_ThreadDynamics.md
-│   ├── Theory_Topology.md
-│   ├── Theory_TopologyExplained.md
 │   ├── V10_Loop_Theory.md
 │   ├── V10_Prompt_Engineering.md
 │   ├── V12_Data_Engines.md
@@ -233,7 +205,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 193 files
+28 directories, 165 files
 
 
 ==

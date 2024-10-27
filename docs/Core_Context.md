@@ -11,7 +11,7 @@ assumptions: {
 "AI-assisted evolution",
 "Test-first implementation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Overview
 

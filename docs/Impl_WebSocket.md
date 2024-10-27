@@ -11,7 +11,7 @@ assumptions: {
 "30-second heartbeat interval",
 "Reconnection backoff strategy"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Protocol Overview
 

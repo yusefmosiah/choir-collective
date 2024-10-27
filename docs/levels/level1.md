@@ -21,7 +21,7 @@ assumptions: {
 "Basic functionality",
 "Initial engagement"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 Choir is a chat platform where you actually own your messages and can earn tokens for quality contributions. Let's break down how it works in simple terms:
 
@@ -33,9 +33,29 @@ Think of a thread like a shared document where everyone who's contributed good c
 
 ## Token System
 
-Choir uses tokens in a straightforward way. When you want to contribute to a thread where you're not yet a co-author, you'll need to stake some tokens. Think of this like putting down a deposit that shows you're serious about making a valuable contribution.
+Choir uses tokens in a straightforward way:
 
-If your message gets approved by all co-authors, you become a co-author yourself. If it's not approved, the tokens go to those who decided against including your message. This helps ensure people think carefully about what they contribute.
+1. **Making Contributions**
+
+   - When you want to contribute to a thread where you're not yet a co-author, you'll need to stake some tokens
+   - Think of this like putting down a deposit that shows you're serious about making a valuable contribution
+
+2. **Approval Outcomes**
+
+   - If all co-authors approve your message:
+     - You become a co-author
+     - The stake is distributed equally among the approvers as a reward
+   - If any co-author denies your message:
+     - The stake goes to strengthen the thread
+   - If there's a mix of approvals and denials:
+     - Approvers' share goes to the treasury
+     - Deniers' share goes to the thread
+
+3. **Thread Value**
+   - Threads accumulate tokens over time
+   - When threads are referenced in other threads, they earn rewards
+   - This creates natural incentives for quality content
+   - Teams naturally form around valuable threads
 
 ## Getting Started
 
@@ -52,6 +72,7 @@ If your message gets approved by all co-authors, you become a co-author yourself
 - Spam and noise are minimized
 - Collaborative discussions evolve naturally
 - Value accumulates in successful threads
+- Teams form around shared success
 
 ## Simple Guidelines
 
@@ -62,78 +83,6 @@ If your message gets approved by all co-authors, you become a co-author yourself
 - Build relationships through collaboration
 
 The beauty of Choir is that while these mechanics are simple to understand, they create space for sophisticated collaboration and value creation. You don't need to understand all the deeper implications to start participating and benefiting from the platform.
-
-
-==
-Entry_Accessibility
-==
-
-
-# Documentation Accessibility Principles
-
-VERSION accessibility_system:
-invariants: {
-"Universal comprehension",
-"Practical utility",
-"Gradual revelation"
-}
-assumptions: {
-"Diverse viewpoints",
-"Multiple entry points",
-"Comfort zones"
-}
-docs_version: "0.2.0"
-
-## Core Approach
-
-The documentation prioritizes practical utility and clear benefits. Each concept is introduced through familiar patterns and immediate usefulness before revealing deeper implications.
-
-## Entry Points
-
-Different readers can enter through comfortable, familiar concepts:
-
-- Developers through technical specifications
-- Product people through user benefits
-- Business minds through efficiency gains
-- Community builders through collaboration tools
-
-## Language Choices
-
-Documentation uses:
-
-- Practical rather than ideological terms
-- Concrete examples before abstract principles
-- Familiar metaphors from everyday experience
-- Technical precision without jargon
-
-## Value Presentation
-
-Benefits are described in terms of:
-
-- Individual utility
-- Group efficiency
-- Resource optimization
-- Natural evolution
-
-## Progressive Understanding
-
-Knowledge builds naturally through:
-
-- Immediate practical application
-- Observable system behavior
-- Natural pattern recognition
-- Organic insight development
-
-## Safety Mechanisms
-
-The documentation creates safety through:
-
-- Multiple valid interpretations
-- Gradual depth revelation
-- Practical grounding
-- Familiar patterns
-
-Through these principles, readers can engage with the system at their comfort level while maintaining access to its full potential.
 
 
 ==
@@ -154,11 +103,11 @@ assumptions: {
 "Resource costs",
 "Usage patterns"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Revenue Model
 
-Choir operates on a freemium subscription model that aligns user value with platform sustainability. The base platform provides essential functionality while premium subscriptions unlock enhanced capabilities and privacy controls.
+Choir operates on a freemium subscription model that aligns individual, team, and platform value creation. The base platform provides essential functionality while premium subscriptions unlock enhanced capabilities and privacy controls.
 
 ## Free Tier
 
@@ -182,6 +131,13 @@ Privacy Features:
 - Granular co-author permissions
 - Private thread analytics
 
+Team Features:
+
+- Advanced thread metrics
+- Team collaboration tools
+- Knowledge network analytics
+- Collective value tracking
+
 Resource Allocations:
 
 - Increased AI model calls (grows yearly)
@@ -189,7 +145,7 @@ Resource Allocations:
 - Priority message processing
 - Extended thread storage
 
-The yearly growth in resource allocations rewards long-term members while maintaining platform sustainability.
+The yearly growth in resource allocations rewards long-term teams while maintaining platform sustainability.
 
 ## Resource Economics
 
@@ -208,16 +164,16 @@ Privacy implementation follows clear principles:
 - Base privacy: Threads visible only to co-authors
 - Public search: Opt-in for thread discovery
 - Premium control: Granular privacy settings
-- Data sovereignty: User ownership of content
+- Data sovereignty: Team ownership of content
 
 ## Growth Mechanics
 
-The model encourages platform growth through:
+The model encourages sustainable growth through:
 
-- Sustainable resource allocation
-- Privacy-respecting content discovery
-- Long-term member benefits
-- Community value alignment
+- Natural team formation
+- Knowledge network effects
+- Long-term value accumulation
+- Community resonance
 
 ## Business Sustainability
 
@@ -233,20 +189,22 @@ Revenue streams support:
 
 The model can evolve to include:
 
-- Enterprise subscriptions
+- Team subscriptions
 - Custom AI model training
 - Advanced analytics tools
 - Enhanced privacy features
 - Specialized thread types
+- Collective governance tools
 
 ## Value Proposition
 
-For Users:
+For Teams:
 
 - Growing resource allocations
 - Enhanced privacy controls
 - Priority features
-- Community support
+- Collective value accumulation
+- Knowledge network formation
 
 For Platform:
 
@@ -254,6 +212,7 @@ For Platform:
 - Aligned incentives
 - Resource predictability
 - Growth capacity
+- Network effects
 
 ## Implementation Strategy
 
@@ -263,6 +222,7 @@ Technical Requirements:
 - Resource tracking systems
 - Subscription management
 - Usage analytics
+- Team metrics
 
 Operational Needs:
 
@@ -270,18 +230,20 @@ Operational Needs:
 - Resource monitoring
 - Cost optimization
 - Growth planning
+- Team success tracking
 
 ## Success Metrics
 
 Key Indicators:
 
-- Subscription retention
-- Resource utilization
-- User satisfaction
+- Team formation rate
+- Knowledge network growth
+- Value accumulation
 - Platform stability
-- Community growth
+- Community coherence
+- Subscription retention
 
-Through this model, Choir maintains a sustainable business while providing increasing value to members and preserving the core principles of quality content and collaborative ownership.
+Through this model, Choir maintains a sustainable business while providing increasing value to teams and preserving the core principles of quality content and collaborative ownership.
 
 
 ==
@@ -294,194 +256,77 @@ Entry_Glossary
 ## Core Concepts
 
 ### Thread
-A collaborative chat context owned by its co-authors, with associated token balance and message history.
+A shared chat space where people work together. Like a group chat that builds value over time through good conversations. Technically: A collaborative context with its own token balance and message history.
 
 ### Co-author
-A participant with ownership rights in a thread, gained through message approval or thread creation.
+Someone who helps guide a thread's growth by voting on new messages. Like a curator or editor. You become one when your message gets approved. Technically: A participant with approval rights in a thread.
 
 ### Spec (Speculative Response)
-A message submission from a non-co-author, requiring stake and approval.
+A message you submit to join a thread's co-authors. Like applying to join a team with a work sample. Requires staking tokens to show you're serious. Technically: A message submission requiring stake and approval.
 
-## Technical Terms
-
-### PDA (Program Derived Address)
-Deterministic Solana account address derived from program and thread data.
-
-### State Transition
-A validated change in system state, such as message approval or co-author addition.
-
-### Content Hash
-Cryptographic hash of message content, stored on Solana for verification.
-
-## Economic Terms
+## Token System
 
 ### CHOIR Token
-Platform token used for staking, rewards, and governance.
+The platform's native token used for staking and rewards. Like energy that flows through the system, rewarding quality and enabling participation.
 
 ### Stake
-Tokens locked when submitting a spec message.
+Tokens you commit when submitting a spec. Like putting down a deposit to show you're serious about contributing quality content.
 
 ### Thread Balance
-Accumulated tokens from approved messages and specs.
+Tokens a thread has accumulated over time. Like a team's shared resources that grow through good decisions.
 
-## Protocol Terms
+### Treasury
+The system's reserve that funds ongoing rewards. Like a community pool that enables sustainable growth.
+
+## Message Flow
+
+### Approval
+When all co-authors agree a message should be public. The stake gets distributed to approvers as a reward for good judgment.
+
+### Denial
+When any co-author decides a message isn't right for the thread. The stake strengthens the thread itself.
+
+### Split Decision
+When some approve and others deny. Approvers' share goes to Treasury, deniers' share to thread.
+
+### Prior Reference
+When one thread cites another, creating knowledge connections. The referenced thread earns rewards.
+
+## Team Dynamics
+
+### Team Formation
+How people naturally gather around valuable threads, sharing in their success.
+
+### Knowledge Network
+How threads connect to each other through references, building a web of knowledge.
+
+### Collective Value
+How threads accumulate value that benefits all co-authors, encouraging collaboration.
+
+### Quality Emergence
+How good content and practices naturally arise without heavy-handed rules.
+
+## Technical Terms (For Developers)
+
+### PDA (Program Derived Address)
+A special Solana account that holds a thread's tokens.
+
+### State Transition
+Any change in the system, like approving a message or adding a co-author.
+
+### Content Hash
+A unique fingerprint that verifies message content hasn't changed.
 
 ### WebSocket Event
-Real-time message for state updates and notifications.
+Real-time updates that keep everyone's view in sync.
 
 ### State Sync
-Process of ensuring consistency between Solana and Qdrant states.
+Process of keeping all parts of the system consistent.
 
 ### Optimistic Update
-UI update before blockchain confirmation.
+Showing changes in the UI before blockchain confirmation.
 
-## Security Terms
-
-### Thread PDA
-Program-derived address that owns thread tokens.
-
-### Privacy Level
-Content visibility classification (Public, ThreadOnly, Premium).
-
-### Front-running Protection
-Mechanisms to prevent transaction ordering exploitation.
-
-## System Components
-
-### Solana Program
-On-chain code managing thread ownership and tokens.
-
-### Qdrant
-Vector database storing message content and embeddings.
-
-### Chorus Loop
-AI decision-making model for message processing.
-
-## State Management
-
-### State Location
-Where different types of state are stored (Solana, Qdrant, Backend, Frontend).
-
-### State Consistency
-Property of all systems having aligned state representations.
-
-### Recovery Procedure
-Process for handling state inconsistencies or errors.
-
-
-==
-Entry_Guide
-==
-
-
-# How to Read Choir Documentation
-
-VERSION guide_system:
-invariants: {
-"Navigation clarity",
-"Learning progression",
-"Access patterns"
-}
-assumptions: {
-"Reader backgrounds",
-"Documentation stability",
-"Learning goals"
-}
-docs_version: "0.2.0"
-
-## Understanding the Documentation Space
-
-Choir's documentation forms a rich knowledge space with varying density and multiple valid paths through it. Rather than prescribing a single reading order, this guide helps you navigate based on your needs and background.
-
-## Core Knowledge Areas
-
-The documentation covers several interconnected knowledge areas:
-
-State and Ownership - The mathematical and practical foundations of how Choir manages thread ownership, message approval, and state transitions. This area is necessarily dense, forming the theoretical core of the system.
-
-Economics and Security - The token mechanics, incentive structures, and security guarantees that make Choir resistant to abuse while encouraging quality contributions. These concepts are deeply intertwined.
-
-Implementation and Practice - The concrete patterns, APIs, and development approaches that turn theory into working code. This area intentionally maintains some sparsity to allow for context-specific adaptation.
-
-Visual Understanding - Diagrams and visualizations that bridge formal models with intuitive understanding. These are deliberately sparse, focusing on one clear concept at a time.
-
-## Navigation Approaches
-
-### For System Architects
-
-Begin with ConceptualBridges.md to understand how different aspects of the system support each other. Then explore StateAlgebra.md and SecurityModel.md to grasp the formal foundations. Use DensityAnalysis.md to understand where to find detailed specifications versus high-level guidance.
-
-### For Developers
-
-Start with ImplementationStrategy.md for practical patterns, referring to APIPatterns.md for specific interfaces. Use Diagrams.md to visualize flows and relationships. The MessageLifecycle.md document connects theory to practice.
-
-### For Security Auditors
-
-Begin with SecurityModel.md and CoreInvariants.md to understand security properties. Use StateAlgebra.md to verify formal guarantees. Reference EconomicModel.md to understand incentive structures.
-
-### For Product Managers
-
-Start with the 1-pager.md for mission and vision, then explore ChoirComprehensive.md for system overview. Use Q&A.md to understand common concerns and their resolutions.
-
-## Working with Documentation Density
-
-Some areas of documentation are intentionally dense, particularly around core system properties and formal models. Other areas maintain deliberate sparsity to allow for adaptation and growth. Use DensityAnalysis.md to understand these patterns and navigate them effectively.
-
-## Documentation Evolution
-
-The documentation grows and evolves in several ways:
-
-- Formal models become more precise
-- Implementation guides incorporate new patterns
-- Visual documentation expands to new areas
-- Conceptual bridges strengthen connections
-
-Understanding this evolution helps you anticipate where to find new information and how it relates to existing knowledge.
-
-## Best Practices
-
-### Reading Strategy
-
-- Start with relevant high-level documents
-- Follow conceptual bridges to related areas
-- Use diagrams to verify understanding
-- Refer to formal models when precision is needed
-
-### Contributing
-
-- Maintain consistent versioning
-- Respect existing density patterns
-- Strengthen conceptual bridges
-- Preserve formal properties
-
-### Asking Questions
-
-- Reference specific documents
-- Identify density mismatches
-- Suggest missing bridges
-- Propose clarity improvements
-
-## Meta-Documentation
-
-Several documents help navigate the documentation itself:
-
-- DocumentNetwork.md maps relationships
-- DensityAnalysis.md reveals information structure
-- ConceptualBridges.md connects ideas
-- MetaDocumentation.md provides organization
-
-Use these meta-documents to find the most effective path through the documentation for your needs.
-
-## Future Directions
-
-The documentation will continue to evolve with:
-
-- Stronger conceptual bridges
-- Clearer density gradients
-- More visual aids
-- Enhanced navigation tools
-
-Your feedback helps shape this evolution - share your experiences and suggestions for improvement.
+Through these mechanics, Choir creates a space where quality content, valuable interactions, and natural communities can emerge.
 
 
 ==
@@ -493,121 +338,144 @@ Entry_InverseEquity
 
 VERSION equity_system:
 invariants: {
-"Value distribution",
-"Innovation capture",
-"Stakeholder alignment"
+"Collective value creation",
+"Team incentive alignment",
+"Knowledge network growth"
 }
 assumptions: {
 "AI-native entrepreneurship",
 "Thread evolution",
 "Asset diversification"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Concept
 
-Choir inverts traditional private equity by enabling bottom-up value creation through AI-enhanced collaboration. Rather than concentrating ownership and decision-making, Choir's thread model distributes both across active participants. Each thread is effectively a micro-DAO, with the potential to evolve into product teams, service providers, or innovation hubs.
+Choir inverts traditional private equity by enabling bottom-up value creation through AI-enhanced collective intelligence. Rather than concentrating ownership and decision-making, Choir's thread model distributes both across active teams. Each thread acts as a resonant cavity for value accumulation, with the potential to evolve into product teams, service providers, or innovation hubs.
 
 ## Thread Evolution Path
 
-Simple Threads → Collaborative Projects → Product Development → Asset-Holding DAOs
+Simple Discussions → Team Formation → Product Development → Asset-Holding DAOs
 
-As threads mature, they can:
+As threads mature, they:
 
-- Develop intellectual property
-- Launch products or services
-- Provide consulting expertise
-- Manage digital and physical assets
-- Generate recurring revenue
+- Accumulate collective value
+- Strengthen team coherence
+- Develop shared assets
+- Enable group innovation
 
-## AI-Native Innovation
+## Value Accumulation Mechanics
 
-Threads leverage AI to:
+1. **Direct Value Recognition**
 
-- Identify market opportunities
-- Synthesize diverse perspectives
-- Accelerate development cycles
-- Optimize resource allocation
-- Scale solutions efficiently
+   - Approvers receive immediate rewards
+   - Quality judgment incentivized
+   - Pattern recognition rewarded
+   - Individual skill growth
 
-The combination of AI capabilities with human creativity and judgment creates a new model for entrepreneurship.
+2. **Collective Value Building**
+
+   - Denials strengthen thread cavity
+   - Prior rewards couple threads
+   - Team incentives align naturally
+   - Shared success model
+
+3. **Network Value Creation**
+   - Knowledge networks emerge
+   - Thread citations create value
+   - Teams naturally collaborate
+   - System-wide coherence grows
 
 ## Asset Accumulation
 
-Threads can accumulate various assets:
+Threads accumulate various forms of value:
 
-- CHOIR tokens (base layer)
-- Other crypto tokens
+- CHOIR tokens (base energy)
+- Other crypto assets
 - Revenue streams
 - Intellectual property
 - Service contracts
 - Physical assets
 - Investment portfolios
 
+## Team Formation
+
+Natural team crystallization through:
+
+- Shared thread success
+- Collective incentives
+- Quality emergence
+- Prior reward coupling
+
 ## Value Distribution
 
-The CHOIR token serves as the equity layer across all thread-generated value:
+The CHOIR token enables multi-scale value flow:
 
-- Thread participants earn tokens through contribution
-- Token holdings represent participation across multiple threads
-- Token value reflects the aggregate success of all threads
-- Asset management fees flow to token holders
+- Individual rewards through approvals
+- Team value through thread accumulation
+- Network value through prior rewards
+- System value through treasury
 
 ## Stakeholder Alignment
 
 The model aligns incentives across:
 
-- Content creators
-- Product developers
+- Individual contributors
+- Thread teams
 - Service providers
 - Asset managers
 - Platform maintainers
-- Token holders
+- Knowledge networks
 
 ## Growth Mechanics
 
 Value accumulates through:
 
-- Successful thread ventures
-- Asset management fees
-- Platform service fees
+- Quality content creation
+- Team collaboration
+- Thread coupling
+- Asset acquisition
 - Network effects
-- Innovation capture
+- Knowledge topology
 
 ## Economic Flywheel
 
-1. Quality content creation
-2. Thread-based innovation
-3. Asset acquisition
-4. Value distribution
+1. Individual quality recognition
+2. Team value accumulation
+3. Knowledge network formation
+4. Asset acquisition
 5. Increased participation
 6. Enhanced capabilities
 
 ## Implementation Phases
 
-Phase 1: Content and Collaboration
+Phase 1: Content and Teams
 
 - Basic thread functionality
 - Token distribution mechanics
-- Quality control systems
+- Team formation dynamics
+- Quality emergence
 
 Phase 2: Asset Integration
 
 - Multi-token support
 - Asset management tools
 - Revenue distribution
+- Team coordination
 
-Phase 3: Innovation Scaling
+Phase 3: Network Growth
 
 - AI-enhanced development
 - Cross-thread collaboration
+- Knowledge coupling
 - Market integration
 
 Phase 4: Full Economic Model
 
 - Complex asset management
 - Investment strategies
-- Global value distribution
+- Network value distribution
+- System-wide coherence
 
 ## Risk Management
 
@@ -616,20 +484,22 @@ Key considerations:
 - Asset custody security
 - Regulatory compliance
 - Value attribution
-- Governance scaling
+- Team governance
 - Market dynamics
+- Network stability
 
 ## Success Metrics
 
 Long-term indicators:
 
-- Thread venture success rate
-- Asset portfolio growth
+- Team formation rate
+- Thread value growth
+- Knowledge network density
 - Innovation output
 - Value distribution equity
-- Network participation
+- System coherence
 
-Through this model, Choir becomes not just a platform but an economic engine for distributed, AI-enhanced value creation and equitable distribution.
+Through this model, Choir becomes not just a platform but an economic engine for collective value creation, team formation, and sustainable knowledge network growth.
 
 
 ==
@@ -650,7 +520,7 @@ assumptions: {
 "Thermodynamic principles",
 "Self-organization"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Mission
 
@@ -661,44 +531,45 @@ To create a communication platform where quality emerges naturally through physi
 ### 1. Thread Dynamics
 
 - Messages require unanimous approval from co-authors
-- Thread temperature (T) measures volatility/activity
-- Thread frequency (ω) measures organization/coherence
+- Threads act as resonant cavities for value
+- Teams naturally form around valuable threads
 - Natural cooling over time creates stability
 
 ### 2. Token Flow
 
-- **Rejections:** Stake flows to thread, increasing temperature
-- **Split Decisions:** Approvers' stake flows to Treasury
-- **Approvals:** Stake distributes to approvers
-- **Treasury:** Funds perpetual citation rewards
+- **Unanimous Approval**: Stake distributes equally to approvers as direct reward
+- **Denials**: Stake flows to thread, strengthening the collective
+- **Split Decisions**:
+  - Approvers' share flows to Treasury
+  - Deniers' share strengthens thread
+- **Prior Rewards**: Treasury funds thread citations, coupling knowledge networks
 
-### 3. Reward Structure
+### 3. Team Formation
 
-- **New Message Rewards:**
+- Threads accumulate collective value
+- Co-authors share thread success
+- Quality benefits whole team
+- Natural incentive alignment
 
-  - High initial distribution
-  - Logarithmic decay over 4 years
-  - 50% distributed in year 1
-  - 99% distributed by year 4
+### 4. Knowledge Networks
 
-- **Citation Rewards:**
-  - Funded by Treasury
-  - Perpetual availability
-  - Encourages content linking
-  - Promotes knowledge network growth
+- Threads cite valuable threads
+- Prior rewards strengthen thread coupling
+- Knowledge topology emerges
+- System-wide coherence develops
 
 ## Natural Evolution
 
 ### 1. Temperature Dynamics
 
-- Hot threads (high T):
+- Hot threads (high activity):
 
   - Higher stake requirements
   - More volatile state
   - Quality filter through cost
   - Natural selection pressure
 
-- Cool threads (low T):
+- Cool threads (stable):
   - Lower barriers to entry
   - More stable state
   - Experimental space
@@ -706,7 +577,7 @@ To create a communication platform where quality emerges naturally through physi
 
 ### 2. Frequency Effects
 
-- Higher frequency (ω) = better organization
+- Higher frequency = better organization
 - Co-authors strengthen coherence
 - Natural resonance emerges
 - Communities crystallize naturally
@@ -715,7 +586,7 @@ To create a communication platform where quality emerges naturally through physi
 
 - Total token supply fixed at 10 billion
 - Circular flow through Treasury
-- Split decisions feed citation rewards
+- Split decisions feed prior rewards
 - System maintains equilibrium
 
 ## Practical Implementation
@@ -723,29 +594,29 @@ To create a communication platform where quality emerges naturally through physi
 ### 1. Message Submission
 
 - Users stake CHOIR tokens
-- Stake requirement based on T and ω
-- Energy locked until state transition
+- Stake requirement based on thread state
+- Energy locked until decision
 - Natural barrier against noise
 
 ### 2. Approval Process
 
 - Co-authors evaluate within 7 days
 - Unanimous approval required
-- Split decisions feed Treasury
-- Rejections heat up threads
+- Split decisions balance incentives
+- Denials strengthen threads
 
 ### 3. Value Distribution
 
-- Approved messages: tokens to approvers
-- Rejected messages: tokens to thread
-- Split decisions: approvers' tokens to Treasury
-- Citations: perpetual rewards from Treasury
+- Approvers receive direct rewards
+- Threads accumulate collective value
+- Treasury enables knowledge coupling
+- Teams share success
 
 ## Technical Foundation
 
 ### 1. Quantum Harmonic Model
 
-- Threads as oscillator systems
+- Threads as resonant cavities
 - Energy conservation principles
 - Phase transition dynamics
 - Natural frequency evolution
@@ -761,14 +632,14 @@ To create a communication platform where quality emerges naturally through physi
 
 The platform will evolve like a natural system:
 
-- Communities will find their frequencies
+- Teams will form around resonant threads
 - Quality standards will emerge organically
-- Value will flow to coherent patterns
+- Knowledge networks will self-organize
 - Evolution will be sustainable
 
 ## Join Us
 
-Experience a platform where quality emerges naturally, communities evolve organically, and value aligns with coherence. Be part of a system that works with nature rather than against it.
+Experience a platform where quality emerges naturally, teams form organically, and value aligns with coherence. Be part of a system that works with nature rather than against it.
 
 ---
 
@@ -796,7 +667,7 @@ assumptions: {
 "Understanding paths",
 "Insight emergence"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ---
 
@@ -1414,354 +1285,54 @@ This creates an interesting opportunity dynamic:
 
 It's similar to how scientific breakthroughs often come from recognizing patterns in seemingly chaotic data - the energy was always there, waiting for someone to find its frequency.
 
+## On Collective Intelligence vs Internet Division
 
-==
-Entry_Vision
-==
+Q: How does Choir's design promote collaboration rather than division?
 
+A: This gets to the heart of Choir's design philosophy. While much of the internet optimizes for engagement through conflict and division, Choir creates natural incentives for collective intelligence:
 
-# Choir Vision
+1. **Team-Centric Value**
 
-VERSION vision_system:
-invariants: {
-"Natural quality emergence",
-"Thermodynamic evolution",
-"Self-organizing communities"
-}
-assumptions: {
-"Temperature-based dynamics",
-"Energy conservation",
-"Phase transitions"
-}
-docs_version: "0.2.0"
+   - Threads accumulate collective value
+   - Teams share in thread success
+   - Prior rewards strengthen whole threads
+   - Value comes from collaboration, not conflict
 
-## Core Vision
+2. **Natural Team Formation**
 
-Choir envisions a world where quality communication emerges naturally through thermodynamic principles. Like physical systems finding their optimal states, we enable collaborative spaces where quality standards arise from energy dynamics rather than arbitrary rules.
+   - People naturally gather around resonant threads
+   - Quality contributions benefit whole team
+   - Shared success creates stable teams
+   - Organic community crystallization
 
-## Natural Evolution
+3. **Knowledge Network Effects**
 
-At its heart, Choir is a thermodynamic communication platform where threads evolve like physical systems:
+   - Threads cite valuable threads
+   - Prior rewards couple knowledge networks
+   - Teams build on each others' work
+   - System rewards connection over division
 
-- Young threads start hot and volatile
-- Mature threads cool and stabilize
-- Quality barriers emerge naturally
-- Communities crystallize organically
+4. **Aligned Incentives**
 
-## Growth Patterns
+   - Direct rewards for quality recognition
+   - Collective rewards for thread success
+   - Network rewards for knowledge sharing
+   - Multi-scale cooperation emerges
 
-Threads in Choir follow natural physical laws:
+5. **Sustainable Communities**
+   - Teams form around shared interests
+   - Value accumulates in stable threads
+   - Knowledge networks self-organize
+   - Long-term collaboration wins
 
-- Temperature guides participation costs
-- Energy flows create quality gradients
-- Frequency determines evolution rate
-- Phase transitions mark community milestones
+Unlike platforms that profit from conflict, Choir creates space for:
 
-## Self-Organizing Quality
+- Natural team formation
+- Collective value creation
+- Knowledge network growth
+- Sustainable collaboration
 
-The thermodynamic model creates natural selection:
-
-- Hot threads demand higher stakes
-- Cool threads welcome exploration
-- Quality emerges from energy dynamics
-- No central authority needed
-
-## AI Integration
-
-AI serves as a measurement apparatus for the quantum state of communication:
-
-- Observes thread temperature and frequency
-- Tracks energy flows and phase transitions
-- Helps visualize community evolution
-- Maintains system coherence
-
-## Token Mechanics
-
-The CHOIR token represents energy quanta in the system:
-
-- Stakes affect thread temperature
-- Approvals moderate energy distribution
-- Rejections increase local energy
-- Conservation laws maintain stability
-
-## Network Effects
-
-Each thread contributes to the system's thermodynamic landscape:
-
-- Temperature gradients guide participation
-- Energy flows optimize resource allocation
-- Frequency patterns enable resonance
-- Phase transitions create diversity
-
-## Future Horizons
-
-We don't prescribe where threads might evolve - we provide the physical laws that enable natural organization:
-
-- Some threads will crystallize as high-standards venues
-- Others will remain fluid exploration spaces
-- Natural niches will form through energy dynamics
-- Quality will emerge from thermodynamic principles
-
-The beauty is in the emergence - in letting natural physical laws, augmented by AI and quantized through tokens, create new possibilities for human collaboration and value creation.
-
-
-==
-Dev_Crystallization
-==
-
-
-# Code Crystallization Plan
-
-VERSION crystallization_system:
-invariants: {
-"Implementation essence preservation",
-"Mathematical structure extraction",
-"Cross-language coherence"
-}
-assumptions: {
-"Functional purity possible",
-"Core patterns identifiable",
-"Mathematical equivalence"
-}
-docs_version: "0.2.0"
-
-## Python Backend Core
-
-1. **Chorus Loop (chorus.py)**
-
-   - Core decision-making model
-   - State management
-   - AI interaction patterns
-   - WebSocket event handling
-
-2. **API Layer (main.py)**
-
-   - WebSocket protocol
-   - Connection management
-   - Message routing
-   - State synchronization
-
-3. **Vector Database (database.py)**
-
-   - Qdrant integration
-   - Search and retrieval
-   - State persistence
-   - Collection management
-
-4. **Data Models (models.py)**
-   - Core type definitions
-   - State transitions
-   - Validation rules
-   - Event structures
-
-## Solana Program Core
-
-1. **Program Entry (program/lib.rs)**
-
-   - Instruction processing
-   - Account validation
-   - State transitions
-   - Error handling
-
-2. **Thread Management (program/thread.rs)**
-
-   - Thread state
-   - Message handling
-   - Approval mechanics
-   - Token integration
-
-3. **Validation Logic (program/validation.rs)**
-   - Security checks
-   - State validation
-   - Permission verification
-   - Invariant maintenance
-
-## Testing Framework
-
-1. **Bankrun Tests (tests/bankrun/)**
-
-   - Thread lifecycle
-   - Token operations
-   - State transitions
-   - Security boundaries
-
-2. **Fuzzing Framework (trident-tests/)**
-   - State exploration
-   - Attack vectors
-   - Invariant verification
-   - Edge case generation
-
-## Frontend Core
-
-1. **Stream Chat (StreamChat.tsx)**
-
-   - Real-time messaging
-   - State management
-   - UI/UX flow
-   - WebSocket integration
-
-2. **Supporting Components**
-   - ChorusPanel.tsx (AI interaction display)
-   - AIResponse.tsx (Response rendering)
-   - ChatThreadList.tsx (Thread management)
-
-## Crystallization Priority
-
-1. Core State Algebra
-
-   - Thread state transitions
-   - Message lifecycle
-   - Approval mechanics
-   - Token flows
-
-2. Protocol Definitions
-
-   - WebSocket protocol
-   - Instruction format
-   - Event structures
-   - State synchronization
-
-3. Security Model
-
-   - Permission system
-   - Validation rules
-   - Attack resistance
-   - Invariant preservation
-
-4. UI State Machine
-   - Component states
-   - Event handling
-   - Data flow
-   - User interactions
-
-The goal is to crystallize each component into pure functional pseudocode that:
-
-- Captures mathematical essence
-- Preserves security properties
-- Enables formal verification
-- Supports generative reproduction
-
-This crystallization process will reveal the deep mathematical structure underlying Choir's implementation, making it reproducible across any technology stack while maintaining its essential properties.
-
-
-==
-Dev_FormalMethods
-==
-
-
-# AI-Assisted Formal Methods Evolution
-
-VERSION ai_formal_system:
-invariants: {
-"Proof correctness",
-"Model consistency",
-"Human verifiability"
-}
-assumptions: {
-"AI capability growth",
-"Formal methods tooling",
-"Hybrid verification approaches"
-}
-docs_version: "0.2.0"
-
-## Current State to Future Vision
-
-Our current pseudocode conventions and formal methods approach deliberately bridges human understanding with machine verification. As AI capabilities evolve, we anticipate a gradual transformation where AI assists in both directions: helping humans write more precise specifications and helping machines understand informal requirements.
-
-## Emerging Capabilities
-
-We expect AI to increasingly help with:
-
-State Space Exploration - AI could identify edge cases and invariant violations by exploring possible state transitions more thoroughly than manual analysis.
-
-Property Inference - Rather than just verifying stated properties, AI could suggest additional properties it observes in the system specification.
-
-Proof Generation - AI could propose formal proofs of system properties, while maintaining human verifiability of the proof steps.
-
-Implementation Verification - AI could verify that implementations match their formal specifications, identifying subtle discrepancies.
-
-## Hybrid Verification Approach
-
-The future isn't pure AI verification, but rather a hybrid approach where:
-
-Human Intent remains the source of truth for what the system should do.
-AI assists in formalizing these intentions into precise specifications.
-Automated tools verify the specifications against implementations.
-Human review validates that the verified system matches original intent.
-
-## Evolution of Documentation
-
-Our documentation should evolve to support this transition:
-
-Formal Specifications will become more complete as AI helps identify gaps.
-Proof Obligations will be automatically generated and verified.
-Implementation Guidance will include AI-verified correctness criteria.
-Testing Strategies will incorporate AI-generated test cases from formal specs.
-
-## Maintaining Human Understanding
-
-As verification becomes more automated, we must maintain:
-
-Clarity of Intent - Specifications must still clearly communicate human goals.
-Verifiable Reasoning - AI-generated proofs must be human-checkable.
-Traceable Properties - System properties must link to business requirements.
-Comprehensible Models - State machines and transitions must remain intuitive.
-
-## Practical Steps
-
-To prepare for this evolution:
-
-Keep formal specifications machine-readable but human-understandable.
-Maintain clear separation between specification and implementation.
-Document assumptions about AI capabilities explicitly.
-Build verification tooling that can incorporate AI assistance.
-
-## Research Directions
-
-Key areas to watch and experiment with:
-
-Natural Language to Formal Specs - AI translation of requirements.
-Automated Property Discovery - AI inference of system invariants.
-Proof Assistant Integration - AI-powered formal verification tools.
-Implementation Synthesis - AI generation of verified implementations.
-
-## Risks and Mitigations
-
-We must carefully manage:
-
-Specification Drift - Ensure AI-enhanced specs match human intent.
-Proof Complexity - Keep verification steps humanly verifiable.
-Tool Dependencies - Maintain ability to verify without AI when needed.
-Knowledge Transfer - Document AI-assisted verification decisions.
-
-## Future Documentation Structure
-
-Our documentation should evolve to include:
-
-AI-Assisted Sections - Clearly marked AI-generated content.
-Verification Reports - AI-generated proof summaries.
-Property Catalogs - Both human-specified and AI-discovered properties.
-Implementation Mappings - AI-verified spec-to-code correspondence.
-
-## Integration Timeline
-
-We envision a gradual integration:
-
-Phase 1 (Current) - Human-written specs with traditional verification
-Phase 2 (Near) - AI-assisted specification writing and property discovery
-Phase 3 (Medium) - AI-generated proofs with human verification
-Phase 4 (Future) - Hybrid human-AI formal methods ecosystem
-
-## Success Criteria
-
-The success of AI integration into formal methods will be measured by:
-
-Specification Completeness - More comprehensive formal models
-Verification Speed - Faster property checking and proof generation
-Error Detection - Earlier discovery of specification issues
-Human Understanding - Maintained or improved specification clarity
-
-Through careful evolution of our formal methods approach, we can leverage emerging AI capabilities while maintaining the rigor and understanding that formal methods provide.
+The genius is in aligning individual, team, and system incentives toward cooperation rather than division.
 
 
 ==
@@ -1782,7 +1353,7 @@ assumptions: {
 "Testing framework maturity",
 "Documentation completeness"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Current Status (Oct 26)
 
@@ -1948,7 +1519,7 @@ assumptions: {
 "Implementation language agnostic",
 "Documentation-first development"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Philosophy
 
@@ -2016,692 +1587,6 @@ Through these conventions, we create documentation that serves as both specifica
 
 
 ==
-Dev_Strategy
-==
-
-
-# Choir Implementation Strategy
-
-## Core Architecture Principles
-
-1. **State Management**
-   - Solana: Thread ownership, approvals, token balances
-   - Qdrant: Message content, embeddings, search
-   - Backend: WebSocket state, session management
-   - Frontend: UI state, optimistic updates
-
-2. **Implementation Phases**
-
-   SEQUENCE implementation:
-     1. Solana Program Foundation
-        - Thread PDAs and ownership
-        - Token mechanics
-        - Approval system
-
-     2. Content Management
-        - Qdrant integration
-        - Content storage
-        - Search functionality
-
-     3. Real-time Communication
-        - WebSocket protocol
-        - State synchronization
-        - Event propagation
-
-     4. Frontend Integration
-        - Wallet connection
-        - Thread management
-        - Message submission
-
-## Development Flow
-
-1. **Solana Program First**
-
-   SEQUENCE solana_development:
-     1. Define account structures
-     2. Implement instructions
-     3. Add validation logic
-     4. Test with Bankrun
-     5. Fuzz with Trident
-
-2. **Backend Services**
-
-   SEQUENCE backend_development:
-     1. Setup FastAPI structure
-     2. Integrate Qdrant
-     3. Implement WebSocket protocol
-     4. Add state management
-     5. Setup monitoring
-
-3. **Frontend Components**
-
-   SEQUENCE frontend_development:
-     1. Setup Next.js with create-solana-dapp
-     2. Implement wallet integration
-     3. Add real-time updates
-     4. Create thread management UI
-     5. Add message composition
-
-## Migration Strategy
-
-1. **Feature Parity**
-   - Map current features to new architecture
-   - Identify core functionality
-   - Plan incremental deployment
-
-2. **Data Migration**
-   - Design data transformation
-   - Plan state transition
-   - Ensure backward compatibility
-
-## Testing Strategy
-
-1. **Program Testing**
-   - Unit tests with Bankrun
-   - Fuzzing with Trident
-   - Integration tests
-
-2. **Backend Testing**
-   - API tests
-   - WebSocket tests
-   - State sync tests
-
-3. **Frontend Testing**
-   - Component tests
-   - Integration tests
-   - E2E tests
-
-## Deployment Strategy
-
-1. **Infrastructure**
-   - Solana program deployment
-   - Backend services setup
-   - Frontend deployment
-   - Monitoring setup
-
-2. **Rollout Plan**
-   - Testnet deployment
-   - Beta testing
-   - Mainnet migration
-
-
-==
-Dev_Versioning
-==
-
-
-# Choir: Versioning and Best Practices Guide
-
-## Core Dependencies and Versions
-
-[dependencies]
-anchor-lang = "0.29.0"
-anchor-spl = "0.29.0"
-solana-program = "1.17"
-spl-token = "4.0"
-spl-associated-token-account = "2.2"
-
-## Guiding Principles
-
-1. **Correctness First**
-
-   - All state transitions must be valid and verified
-   - Full account validation using Anchor constraints
-   - Comprehensive error handling
-   - Explicit security checks
-
-2. **Code Clarity**
-
-   - Self-documenting code structure
-   - Clear naming conventions
-   - Explicit rather than implicit behavior
-   - Comprehensive documentation
-
-3. **Maintainability**
-
-   - Modular design
-   - Single responsibility principle
-   - Clear upgrade paths
-   - Thorough testing
-
-4. **Performance** (only after above are satisfied)
-   - Space-efficient account structures
-   - Optimized transaction flow
-   - Batched operations where sensible
-
-## Security Requirements
-
-1. Account Validation
-
-   - Owner checks on all accounts
-   - Signer verification for all state changes
-   - PDA seed validation
-   - Rent/balance verification
-
-2. Access Control
-
-   - Thread ownership verification
-   - Co-author status validation
-   - Operation-specific authorization
-   - Explicit permission checks
-
-3. State Management
-   - Atomic operations
-   - No partial state updates
-   - Validated state transitions
-   - Protected critical operations
-
-## Development Standards
-
-1. Code Organization
-
-   - Modular file structure
-   - Clear separation of concerns
-   - Consistent naming conventions
-   - Comprehensive documentation
-
-2. Testing Requirements
-
-   - Unit tests for all functions
-   - Integration tests for workflows
-   - Security-focused test cases
-   - Local validator testing
-
-3. Error Handling
-   - Custom error enum
-   - Descriptive error messages
-   - Proper error propagation
-   - Recovery procedures
-
-## Account Structure Guidelines
-
-1. Space Management
-
-   - Fixed account sizes
-   - Explicit space calculations
-   - Buffer for future expansion
-   - Documentation of space usage
-
-2. PDA Design
-   - Meaningful seed structure
-   - Documented seed patterns
-   - Collision prevention
-   - Clear derivation logic
-
-## Transaction Flow
-
-1. Instruction Design
-
-   - Atomic operations
-   - Clear preconditions
-   - Explicit validation
-   - Documented side effects
-
-2. State Transitions
-   - Single responsibility
-   - Atomic updates
-   - Validated inputs
-   - Clear success criteria
-
-## Deployment and Upgrades
-
-1. Deployment Process
-
-   - Security review
-   - Test environment validation
-   - Staged rollout
-   - Monitoring plan
-
-2. Upgrade Strategy
-   - State migration plan
-   - Backward compatibility
-   - Rollback procedures
-   - Communication plan
-
-## Version Control
-
-1. Branch Strategy
-
-   - main: production code
-   - develop: integration branch
-   - feature/\*: feature development
-   - release/\*: release preparation
-
-2. Release Process
-   - Version tagging
-   - Changelog maintenance
-   - Security review
-   - Deployment validation
-
-## Monitoring and Maintenance
-
-1. Runtime Monitoring
-
-   - Transaction success rate
-   - Error frequency
-   - Performance metrics
-   - Resource utilization
-
-2. Security Monitoring
-   - Dependency audits
-   - Vulnerability scanning
-   - Access pattern analysis
-   - Incident response
-
-## Documentation Requirements
-
-1. Code Documentation
-
-   - Function documentation
-   - State transitions
-   - Security considerations
-   - Error conditions
-
-2. Operational Documentation
-   - Deployment procedures
-   - Monitoring guidelines
-   - Incident response
-   - Upgrade procedures
-
-## Version History
-
-Version 0.1.0 (October 31st, 2023)
-- Initial implementation
-- Core thread functionality
-- Basic message handling
-- Token integration
-
-## Future Considerations
-
-1. Scaling
-
-   - Message compression
-   - Transaction optimization
-   - State management improvements
-
-2. Features
-
-   - Advanced token mechanics
-   - Enhanced privacy features
-   - Cross-program integration
-
-3. Security
-   - Regular audits
-   - Penetration testing
-   - Bug bounty program
-
-## Testing Framework and Practices
-
-### Test Environment Setup
-
-1. **Local Testing Stack**
-
-   - Bankrun for fast, lightweight tests
-   - Anchor testing framework for integration tests
-   - Jest for test orchestration `toml
-[dev-dependencies]
-anchor-bankrun = "0.5.0"
-solana-program-test = "1.17"   `
-
-2. **Test Organization** `tests/
-├── bankrun/           # Fast unit tests using Bankrun
-│   ├── thread.rs      # Thread operations
-│   ├── message.rs     # Message handling
-│   └── token.rs       # Token operations
-├── integration/       # Full program integration tests
-│   ├── workflow.rs    # End-to-end workflows
-│   └── security.rs    # Security scenarios
-└── common/           # Shared test utilities
-    ├── mod.rs        # Common setup and helpers
-    └── fixtures.rs   # Test data and states  `
-
-3. **Test Configuration**
-   - Disable parallel tests with `--runInBand`
-   - Control logging with `RUST_LOG` environment variable
-   - Use consistent test data across suites
-
-### Testing Patterns
-
-1. **Unit Testing with Bankrun**
-
-   - Fast, lightweight tests for individual instructions
-   - Direct state manipulation for edge cases
-   - Time travel for temporal logic testing `rust
-#[tokio::test]
-async fn test_thread_operations() {
-    let context = await start_anchor(".", [], []);
-    let provider = new BankrunProvider(context);
-    // Test logic...
-}   `
-
-2. **State Management Tests**
-
-   - Account creation and initialization
-   - State transitions and validation
-   - Error conditions and recovery
-   - Edge cases and boundaries
-
-3. **Security Testing**
-
-   - Permission checks
-   - Invalid signatures
-   - Account validation
-   - State manipulation attempts
-   - Reentrancy protection
-
-4. **Integration Testing**
-   - End-to-end workflows
-   - Cross-instruction interactions
-   - Token operations
-   - Error propagation
-
-### Test Data Management
-
-1. **Fixture Generation**
-
-   - Deterministic test accounts
-   - Reproducible states
-   - Clear test scenarios `rust
-pub async fn create_test_thread(
-    context: &mut ProgramTestContext,
-    author: &Keypair,
-) -> Thread {
-    // Create consistent test state
-}   `
-
-2. **State Verification**
-   - Account state validation
-   - Token balance checks
-   - Event verification
-   - Error condition validation
-
-### Performance Testing
-
-1. **Transaction Cost Analysis**
-
-   - Compute unit consumption
-   - Account space utilization
-   - Transaction size optimization `rust
-#[test]
-fn analyze_compute_units() {
-    // Measure compute units used
-}   `
-
-2. **Scalability Testing**
-   - Maximum message capacity
-   - Co-author limits
-   - Approval processing efficiency
-
-### Test Documentation
-
-1. **Test Case Documentation** `rust
-/// Test thread initialization
-///
-/// # Setup
-/// - Create new keypair for thread owner
-/// - Initialize thread with test parameters
-///
-/// # Verification
-/// - Check thread state
-/// - Verify owner permissions
-/// - Validate account data
-#[tokio::test]
-async fn test_initialize_thread() {
-    // Test implementation
-}   `
-
-2. **Test Coverage Requirements**
-   - 100% instruction coverage
-   - Error path testing
-   - Edge case documentation
-   - Security scenario coverage
-
-### Continuous Integration
-
-1. **CI Pipeline** `yaml
-test:
-  steps:
-    - cargo test-bpf
-    - RUST_LOG= jest --runInBand
-    - cargo clippy
-    - cargo fmt --check   `
-
-2. **Test Environment Management**
-   - Clean state between tests
-   - Consistent program deployment
-   - Reproducible test conditions
-
-### Testing Tools
-
-1. **Bankrun Features**
-
-   - Time manipulation
-   - State inspection
-   - Transaction simulation
-   - Error injection
-
-2. **Anchor Testing Utilities**
-   - Program deployment
-   - Account initialization
-   - Transaction building
-   - Error handling
-
-### Test Maintenance
-
-1. **Test Hygiene**
-
-   - Regular test cleanup
-   - Deprecated test removal
-   - Test documentation updates
-   - Coverage monitoring
-
-2. **Test Evolution**
-   - New feature coverage
-   - Regression test additions
-   - Performance benchmark updates
-   - Security test expansion
-
-## Fuzzing Framework and Practices
-
-### Trident Integration
-
-1. **Setup and Configuration** ```toml
-   [dependencies]
-   trident-fuzz = "0.8.0"
-
-   [fuzz]
-   fuzzing_with_stats = true
-   allow_duplicate_txs = false ```
-
-2. **Directory Structure** `trident-tests/
-├── fuzz_tests/           # Fuzz test implementations
-│   ├── fuzz_0/          # Thread operations fuzzing
-│   ├── fuzz_1/          # Message approval fuzzing
-│   └── fuzz_2/          # Token operations fuzzing
-└── Cargo.toml           # Fuzzing dependencies  `
-
-### Fuzz Test Implementation
-
-1.  **Account Snapshots** `rust
-#[derive(Accounts, AccountsSnapshots)]
-pub struct ThreadContext<'info> {
-    #[account(mut)]
-    pub thread: Account<'info, Thread>,
-    #[account(mut)]
-    pub author: Signer<'info>,
-    pub system_program: Program<'info, System>,
-}   `
-
-2.  **Account Storage Configuration** `rust
-#[derive(Default)]
-pub struct FuzzAccounts {
-    author: AccountsStorage<Keypair>,
-    thread: AccountsStorage<PdaStore>,
-    token_account: AccountsStorage<TokenStore>,
-}   `
-
-3.  **Instruction Fuzzing** ```rust
-    impl FuzzInstruction {
-    fn get_accounts(&self) -> Result<Vec<AccountMeta>> {
-    // Account validation and meta generation
-    }
-
-        fn get_data(&self) -> Result<Vec<u8>> {
-            // Instruction data generation
-        }
-
-        fn check(&self, pre_state: &ThreadState, post_state: &ThreadState) -> Result<()> {
-            // State transition validation
-        }
-
-    } ```
-
-### Fuzzing Strategies
-
-1. **State Coverage**
-
-   - Thread initialization variations
-   - Message submission sequences
-   - Approval combinations
-   - Token operation permutations
-
-2. **Security Scenarios**
-
-   - Authority validation
-   - Account ownership checks
-   - PDA derivation
-   - Token account validation
-
-3. **Edge Cases**
-   - Maximum capacity scenarios
-   - Concurrent operations
-   - Expired messages
-   - Invalid state transitions
-
-### Invariant Checks
-
-1. **Thread Invariants** `rust
-fn check_thread_invariants(
-    pre_ix: &ThreadSnapshot,
-    post_ix: &ThreadSnapshot
-) -> Result<()> {
-    // Verify co-author list integrity
-    // Check message count consistency
-    // Validate token balances
-}   `
-
-2. **Message Invariants**
-
-   - Content hash uniqueness
-   - Approval state consistency
-   - Publication status validity
-   - Timestamp ordering
-
-3. **Token Invariants**
-   - Balance conservation
-   - Stake amount validation
-   - Distribution accuracy
-   - Account ownership
-
-### Fuzzing Configuration
-
-1. **Runtime Parameters** `toml
-[honggfuzz]
-timeout = 10
-iterations = 1000000
-threads = 16
-exit_upon_crash = true
-mutations_per_run = 6   `
-
-2. **Coverage Goals**
-   - Instruction permutations
-   - State transition paths
-   - Error conditions
-   - Edge case scenarios
-
-### Error Handling
-
-1. **Custom Error Handlers** `rust
-fn tx_error_handler(
-    &self,
-    error: FuzzClientError,
-    ix_data: &InstructionData,
-) -> Result<()> {
-    match error {
-        // Handle expected errors
-        // Log unexpected conditions
-        // Continue or abort based on severity
-    }
-}   `
-
-2. **Error Analysis**
-   - Pattern recognition
-   - Root cause identification
-   - Regression prevention
-   - Security implications
-
-### Monitoring and Analysis
-
-1. **Fuzzing Statistics**
-
-   - Instruction coverage
-   - Error frequency
-   - State transition paths
-   - Performance metrics
-
-2. **Crash Analysis**
-   - Reproducible test cases
-   - State reconstruction
-   - Root cause analysis
-   - Fix verification
-
-### Continuous Fuzzing
-
-1. **CI Integration** `yaml
-fuzz:
-  steps:
-    - trident fuzz run-hfuzz fuzz_0
-    - trident fuzz run-hfuzz fuzz_1
-    - trident fuzz analyze-coverage   `
-
-2. **Maintenance**
-   - Regular seed updates
-   - Coverage monitoring
-   - Performance tuning
-   - Test evolution
-
-### Security Considerations
-
-1. **Attack Surface**
-
-   - Authority bypass attempts
-   - State manipulation
-   - Token security
-   - PDA collision
-
-2. **Mitigation Strategies**
-   - Comprehensive validation
-   - State integrity checks
-   - Secure token handling
-   - Error containment
-
-### Best Practices
-
-1. **Test Design**
-
-   - Focus on critical paths
-   - Isolate components
-   - Clear documentation
-   - Reproducible results
-
-2. **Maintenance**
-   - Regular updates
-   - Coverage monitoring
-   - Performance optimization
-   - Security review
-
-
-==
 Plan_Checklist
 ==
 
@@ -2719,7 +1604,7 @@ assumptions: {
 "Testing framework stability",
 "Documentation completeness"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Schedule
 
@@ -2822,7 +1707,7 @@ assumptions: {
 "Documentation completeness",
 "Test framework stability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Development Patterns
 
@@ -2882,7 +1767,7 @@ docs_version: "0.2.0"
    ```typescript
    src/
    ├── components/
-   │   ├── StreamChat.tsx     // Chat container
+   │   ├── ChoirChat.tsx     // Chat container
    │   ├── MessageFlow.tsx    // Message display
    │   └── ApprovalPane.tsx   // Approval interface
    ```
@@ -3110,86 +1995,6 @@ Great documentation, like great art, doesn't just transfer information—it tran
 
 
 ==
-Model_ThreadEvolution
-==
-
-
-# Thread Asset Evolution Model
-
-VERSION asset_system:
-invariants: {
-"Asset custody integrity",
-"Value flow conservation",
-"Ownership composition"
-}
-assumptions: {
-"Multi-asset capability",
-"Thread maturation patterns",
-"Economic scaling"
-}
-docs_version: "0.2.0"
-
-## State Evolution
-
-The thread state algebra naturally extends to asset holding. A thread's state evolves from pure message coordination to asset custody through well-defined transitions. Each stage maintains the core properties of co-authorship while adding new capabilities.
-
-## Asset Custody Properties
-
-Thread PDAs serve multiple roles:
-
-- Message coordination (base layer)
-- Token custody (CHOIR and others)
-- Revenue collection
-- Asset registration
-- Value distribution
-
-These roles compose algebraically, preserving ownership and access control invariants.
-
-## Economic Bridges
-
-The token mechanics bridge multiple value domains:
-
-- Content quality staking
-- Asset custody rights
-- Revenue distribution
-- Innovation capture
-- Network effects
-
-Each domain adds new state transitions while preserving existing guarantees.
-
-## Security Composition
-
-Asset custody builds on thread security:
-
-- Co-author unanimous approval
-- Stake-based participation
-- Timeout mechanisms
-- Recovery procedures
-
-The security model composes vertically across asset types.
-
-## Implementation Patterns
-
-Asset integration follows core patterns:
-
-- State transitions remain atomic
-- Ownership rules compose
-- Privacy guarantees extend
-- Value flows preserve conservation
-
-## Documentation Integration
-
-This model connects to:
-
-- StateAlgebra.md: Extended state types
-- SecurityModel.md: Asset custody rules
-- EconomicModel.md: Value flow patterns
-- CoreInvariants.md: Asset properties
-
-Through these connections, thread asset evolution becomes a natural extension of the core system rather than a separate concern.
-
-
-==
 Theory_ThreadDynamics
 ==
 
@@ -3362,100 +2167,88 @@ This creates a self-regulating system where:
 ## Alternative Harmonic Model
 
 When a spec is REJECTED:
-
 - Temperature (T) increases because:
-  - Stake energy flows into thread balance (increases E)
-  - No new co-author (N stays same)
+  - Stake energy flows directly into thread cavity (increases E)
+  - No new oscillator (N stays same)
   - Results in higher E/N ratio
-  - Creates "heated" state from rejection
+  - Creates "heated" resonant state
 - Frequency (ω) unchanged/slightly decreases because:
   - No new message in history (ω_m same)
-  - No new co-author coupling
-  - Thread becomes more volatile but not faster
+  - No new oscillator coupling
+  - Cavity becomes more energetic but not faster
 
 When a spec is APPROVED:
-
 - Temperature (T) moderates because:
-  - Stake energy distributes to approvers (leaves thread)
-  - New co-author added (increases N)
-  - E/N ratio decreases
-  - Creates more stable state
+  - Stake energy distributes directly to approver oscillators
+  - New oscillator added (increases N)
+  - E/N ratio decreases through distribution
+  - Creates more stable resonant state
 - Frequency (ω) increases because:
   - New message adds to rate (increases ω_m)
-  - New co-author strengthens coupling
-  - Thread evolves faster but cooler
+  - New oscillator strengthens coupling
+  - Cavity evolves faster but cooler
 
-This creates interesting dynamics:
+When a SPLIT DECISION occurs:
+- Temperature evolution:
+  - Denier share flows to thread cavity (partial E increase)
+  - Approver share flows to global field (treasury)
+  - Creates balanced energy distribution
+  - Maintains cavity-field coupling
 
-- Rejections "heat up" threads by accumulating energy
-- Approvals "cool down" threads while accelerating them
-- Hot threads become harder to join (higher stake requirements)
-- Frequent rejection makes threads more volatile
-- Consistent approval creates fast but stable threads
+This creates fascinating resonant dynamics:
+- Rejections strengthen thread cavity energy
+- Approvals strengthen oscillator coupling
+- Split decisions balance cavity and field energies
+- Prior rewards couple different cavities
 
-## Natural Selection Through Temperature
+## Natural Selection Through Resonance
 
-1. Hot (High Rejection) Threads:
+1. High-Energy Cavities (High Rejection Rate):
+- Strong cavity energy from accumulated stakes
+- Higher energy barriers to entry
+- Only resonant contributions can couple
+- Natural filter for quality oscillations
+- Self-selecting for coherent patterns
 
-- High temperature from accumulated rejected stakes
-- Higher stake requirements (expensive to bid)
-- Only confident/quality bidders attempt
-- Natural filter for serious contributors
-- Self-selecting for valuable content
+2. Phase-Locked Cavities (High Approval Rate):
+- Strong oscillator coupling
+- Lower energy barriers
+- More experimental modes possible
+- Natural incubator for new frequencies
+- Collective phase alignment
 
-2. Cool (High Approval) Threads:
-
-- Lower temperature from distributed stakes
-- Lower stake requirements (welcoming)
-- More experimental bids possible
-- Open to emerging voices
-- Natural incubator for new contributors
-
-The temperature acts as an emergent reputation system:
-
-- Frequent rejections = "prove your worth" thread
-- Frequent approvals = "newcomers welcome" thread
+The cavity energy acts as an emergent resonance filter:
+- Frequent rejections = "high energy barrier" cavity
+- Frequent approvals = "strong coupling" cavity
 - No explicit rules needed
-- Quality standards emerge naturally
-- Different threads find different equilibria
+- Quality emerges through resonance
+- Different cavities find different modes
 
-This creates a beautiful ecosystem where:
-
-- Some threads crystallize as high-standards venues
-- Others remain fluid exploration spaces
-- Bidders can self-select appropriate venues
-- Quality emerges through natural thermodynamics
-- No central authority needed
-
-## Thermodynamic Elegance
+## Resonant Elegance
 
 1. Natural Quality Gradients:
+- High-energy cavities = strong resonant filtering
+- Like coupling to an energetic quantum system
+- Only coherent modes can overcome barriers
+- Natural protection against dissonance
 
-- Hot threads (high rejection rate) = high energy barrier to entry
-- Like trying to add energy to an already energetic system
-- Only high-value contributions can overcome the barrier
-- Natural protection against low-quality noise
-
-2. Thermal Evolution:
-
-- Cool threads act as nurseries for new ideas
-- Low energy barriers enable experimentation
-- Successful threads naturally heat up over time
+2. Cavity Evolution:
+- Low-energy cavities incubate new modes
+- Low barriers enable mode exploration
+- Successful cavities accumulate energy
 - Creates natural progression paths
 
 3. Energy Conservation:
-
-- Rejected stakes stay in thread (increases internal energy)
-- Approved stakes distribute to approvers (energy flows out)
-- Temperature directly reflects thread's accumulated standards
-- No artificial reputation systems needed
+- Rejected stakes strengthen cavity (increases internal energy)
+- Approved stakes distribute to oscillators (energy flows out)
+- Split decisions couple cavity to field
+- No artificial resonance mechanisms needed
 
 4. Phase Transitions:
-
-- Threads can transition between hot/cold states
-- Quality standards emerge from energy dynamics
-- Different equilibrium states serve different purposes
-- System self-organizes into diverse niches
+- Cavities transition between energy states
+- Quality emerges from resonant dynamics
+- Different equilibria serve different purposes
+- System self-organizes into resonant niches
 
 ## Token Flow Dynamics
 
@@ -3514,6 +2307,66 @@ This creates a rich set of emergent metrics without enforcing artificial limits,
 - Skill-based reputation
 - Risk management signals
 - Pattern recognition rewards
+
+## Prior Reward Dynamics
+
+The thread-centric prior reward model creates fascinating collective effects:
+
+1. **Cavity Coupling**
+- Prior rewards strengthen thread resonant cavities
+- Energy flows between coupled cavities
+- Creates knowledge network resonance
+- Strengthens collective coherence
+
+2. **Team Incentives**
+- Prior rewards pool in thread cavity
+- Co-authors share collective success
+- Creates aligned incentives
+- Natural team formation
+
+3. **Knowledge Network Effects**
+- Threads cite valuable threads
+- Creates resonant cavity networks
+- Energy flows through citations
+- Knowledge topology emerges
+
+4. **Collective Evolution**
+- Teams optimize for thread value
+- Quality content benefits whole cavity
+- Natural selection for coherent teams
+- Organic community formation
+
+This creates beautiful multi-scale dynamics:
+
+1. **Individual Scale**
+- Direct rewards from approvals
+- Quality judgment incentives
+- Pattern recognition rewards
+- Natural frequency alignment
+
+2. **Team Scale**
+- Shared thread cavity value
+- Collective quality incentives
+- Team coherence rewards
+- Natural phase locking
+
+3. **Network Scale**
+- Inter-thread resonance
+- Knowledge network formation
+- Cavity coupling patterns
+- System-wide coherence
+
+The thread-as-cavity model becomes even more elegant:
+- Accumulates energy from denials
+- Pools value from prior rewards
+- Strengthens through citations
+- Creates collective incentives
+
+This leads to fascinating emergent behaviors:
+- Teams naturally form around threads
+- Quality content benefits whole team
+- Knowledge networks self-organize
+- System evolves toward coherence
 
 
 ==

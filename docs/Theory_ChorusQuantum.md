@@ -11,7 +11,7 @@ assumptions: {
 "Continuous resonance",
 "Reversible oscillation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Harmonic State Model
 

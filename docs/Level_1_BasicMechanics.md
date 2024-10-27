@@ -11,7 +11,7 @@ assumptions: {
 "Basic functionality",
 "Initial engagement"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 Choir is a chat platform where you actually own your messages and can earn tokens for quality contributions. Let's break down how it works in simple terms:
 
@@ -23,9 +23,29 @@ Think of a thread like a shared document where everyone who's contributed good c
 
 ## Token System
 
-Choir uses tokens in a straightforward way. When you want to contribute to a thread where you're not yet a co-author, you'll need to stake some tokens. Think of this like putting down a deposit that shows you're serious about making a valuable contribution.
+Choir uses tokens in a straightforward way:
 
-If your message gets approved by all co-authors, you become a co-author yourself. If it's not approved, the tokens go to those who decided against including your message. This helps ensure people think carefully about what they contribute.
+1. **Making Contributions**
+
+   - When you want to contribute to a thread where you're not yet a co-author, you'll need to stake some tokens
+   - Think of this like putting down a deposit that shows you're serious about making a valuable contribution
+
+2. **Approval Outcomes**
+
+   - If all co-authors approve your message:
+     - You become a co-author
+     - The stake is distributed equally among the approvers as a reward
+   - If any co-author denies your message:
+     - The stake goes to strengthen the thread
+   - If there's a mix of approvals and denials:
+     - Approvers' share goes to the treasury
+     - Deniers' share goes to the thread
+
+3. **Thread Value**
+   - Threads accumulate tokens over time
+   - When threads are referenced in other threads, they earn rewards
+   - This creates natural incentives for quality content
+   - Teams naturally form around valuable threads
 
 ## Getting Started
 
@@ -42,6 +62,7 @@ If your message gets approved by all co-authors, you become a co-author yourself
 - Spam and noise are minimized
 - Collaborative discussions evolve naturally
 - Value accumulates in successful threads
+- Teams form around shared success
 
 ## Simple Guidelines
 

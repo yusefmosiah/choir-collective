@@ -11,7 +11,7 @@ assumptions: {
 "Resonant transitions",
 "Harmonic stability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Metastable Resonance States
 

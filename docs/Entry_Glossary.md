@@ -3,76 +3,74 @@
 ## Core Concepts
 
 ### Thread
-A collaborative chat context owned by its co-authors, with associated token balance and message history.
+A shared chat space where people work together. Like a group chat that builds value over time through good conversations. Technically: A collaborative context with its own token balance and message history.
 
 ### Co-author
-A participant with ownership rights in a thread, gained through message approval or thread creation.
+Someone who helps guide a thread's growth by voting on new messages. Like a curator or editor. You become one when your message gets approved. Technically: A participant with approval rights in a thread.
 
 ### Spec (Speculative Response)
-A message submission from a non-co-author, requiring stake and approval.
+A message you submit to join a thread's co-authors. Like applying to join a team with a work sample. Requires staking tokens to show you're serious. Technically: A message submission requiring stake and approval.
 
-## Technical Terms
-
-### PDA (Program Derived Address)
-Deterministic Solana account address derived from program and thread data.
-
-### State Transition
-A validated change in system state, such as message approval or co-author addition.
-
-### Content Hash
-Cryptographic hash of message content, stored on Solana for verification.
-
-## Economic Terms
+## Token System
 
 ### CHOIR Token
-Platform token used for staking, rewards, and governance.
+The platform's native token used for staking and rewards. Like energy that flows through the system, rewarding quality and enabling participation.
 
 ### Stake
-Tokens locked when submitting a spec message.
+Tokens you commit when submitting a spec. Like putting down a deposit to show you're serious about contributing quality content.
 
 ### Thread Balance
-Accumulated tokens from approved messages and specs.
+Tokens a thread has accumulated over time. Like a team's shared resources that grow through good decisions.
 
-## Protocol Terms
+### Treasury
+The system's reserve that funds ongoing rewards. Like a community pool that enables sustainable growth.
+
+## Message Flow
+
+### Approval
+When all co-authors agree a message should be public. The stake gets distributed to approvers as a reward for good judgment.
+
+### Denial
+When any co-author decides a message isn't right for the thread. The stake strengthens the thread itself.
+
+### Split Decision
+When some approve and others deny. Approvers' share goes to Treasury, deniers' share to thread.
+
+### Prior Reference
+When one thread cites another, creating knowledge connections. The referenced thread earns rewards.
+
+## Team Dynamics
+
+### Team Formation
+How people naturally gather around valuable threads, sharing in their success.
+
+### Knowledge Network
+How threads connect to each other through references, building a web of knowledge.
+
+### Collective Value
+How threads accumulate value that benefits all co-authors, encouraging collaboration.
+
+### Quality Emergence
+How good content and practices naturally arise without heavy-handed rules.
+
+## Technical Terms (For Developers)
+
+### PDA (Program Derived Address)
+A special Solana account that holds a thread's tokens.
+
+### State Transition
+Any change in the system, like approving a message or adding a co-author.
+
+### Content Hash
+A unique fingerprint that verifies message content hasn't changed.
 
 ### WebSocket Event
-Real-time message for state updates and notifications.
+Real-time updates that keep everyone's view in sync.
 
 ### State Sync
-Process of ensuring consistency between Solana and Qdrant states.
+Process of keeping all parts of the system consistent.
 
 ### Optimistic Update
-UI update before blockchain confirmation.
+Showing changes in the UI before blockchain confirmation.
 
-## Security Terms
-
-### Thread PDA
-Program-derived address that owns thread tokens.
-
-### Privacy Level
-Content visibility classification (Public, ThreadOnly, Premium).
-
-### Front-running Protection
-Mechanisms to prevent transaction ordering exploitation.
-
-## System Components
-
-### Solana Program
-On-chain code managing thread ownership and tokens.
-
-### Qdrant
-Vector database storing message content and embeddings.
-
-### Chorus Loop
-AI decision-making model for message processing.
-
-## State Management
-
-### State Location
-Where different types of state are stored (Solana, Qdrant, Backend, Frontend).
-
-### State Consistency
-Property of all systems having aligned state representations.
-
-### Recovery Procedure
-Process for handling state inconsistencies or errors.
+Through these mechanics, Choir creates a space where quality content, valuable interactions, and natural communities can emerge.

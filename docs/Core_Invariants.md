@@ -2,137 +2,137 @@
 
 VERSION core_system:
 invariants: {
-"System-wide state consistency",
-"Economic conservation laws",
-"Security boundaries"
+"Wave function coherence",
+"Energy conservation",
+"Phase stability"
 }
 assumptions: {
-"Invariant verification methods",
-"Recovery procedures",
-"Monitoring approaches"
+"Resonant verification",
+"Phase recovery",
+"Harmonic monitoring"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## System Invariants
 
 ASSUMPTION invariant_checking:
-"Real-time invariant verification"
-"May introduce async verification"
-"Must catch all violations"
+"Real-time coherence verification"
+"May introduce phase verification"
+"Must catch all resonance violations"
 
-1. **Thread Ownership**
+1. **Thread Resonance**
 
-   - A thread MUST always have at least one co-author
-   - Co-authors MUST be unique within a thread
-   - Only co-authors MAY approve or deny specs
-   - Thread token balance MUST equal sum of all successful stakes minus distributions
+   - Thread MUST maintain at least one coupled oscillator (co-author)
+   - Oscillators MUST be uniquely phase-locked within cavity
+   - Only coupled oscillators MAY measure wave states (approve/deny)
+   - Thread energy MUST equal sum of accumulated stakes minus distributions
 
-2. **Message Integrity**
+2. **Wave Function Integrity**
 
-   - Each message MUST have a unique content hash
-   - Content hash on Solana MUST match content hash in Qdrant
-   - Message author MUST be either co-author or spec submitter
-   - Message timestamp MUST be after thread creation time
+   - Each message MUST have unique quantum state (content hash)
+   - Wave function on Solana MUST match state in Qdrant
+   - Wave packet author MUST be oscillator or potential oscillator
+   - Wave timestamp MUST follow cavity creation time
 
-3. **Token Economics**
-   - Total token supply MUST remain constant (10 billion)
-   - Thread token balance MUST never be negative
-   - Stake amount MUST meet minimum requirement
-   - Token distributions MUST be atomic and complete
+3. **Energy Conservation**
+   - Total system energy MUST remain constant (10 billion tokens)
+   - Thread cavity energy MUST never be negative
+   - Stake energy MUST meet quantum threshold
+   - Energy distributions MUST be phase-locked and complete
 
 ## State Transition Rules
 
-ASSUMPTION state_transitions:
-"Synchronous transition verification"
-"May introduce batched transitions"
-"Must maintain atomicity"
+ASSUMPTION phase_transitions:
+"Synchronous phase verification"
+"May introduce coherent transitions"
+"Must maintain wave function integrity"
 
-1. **Thread Creation**
-   INVARIANT create_thread(creator) -> thread:
+1. **Cavity Creation**
+   INVARIANT create_thread(creator) -> cavity:
 
-   - thread.co_authors = [creator]
-   - thread.token_balance = 0
-   - thread.created_at <= now()
-   - EMITS ThreadCreated
+   - cavity.oscillators = [creator]
+   - cavity.energy = 0
+   - cavity.created_at <= now()
+   - EMITS CavityCreated
 
-2. **Spec Submission**
-   INVARIANT submit_spec(author, thread, stake) -> spec:
+2. **Wave Submission**
+   INVARIANT submit_wave(author, cavity, energy) -> packet:
 
-   - author NOT IN thread.co_authors
-   - stake >= MINIMUM_STAKE
-   - spec.expires_at = now() + 7 days
-   - EMITS SpecSubmitted
+   - author NOT IN cavity.oscillators
+   - energy >= MINIMUM_QUANTUM
+   - packet.expires_at = now() + 7 days
+   - EMITS WaveSubmitted
 
-3. **Approval Processing**
-   INVARIANT process_approval(co_author, spec, decision) -> result:
+3. **Phase Measurement**
+   INVARIANT measure_phase(oscillator, packet, decision) -> result:
 
-   - co_author IN thread.co_authors
-   - spec.expires_at > now()
-   - NOT already_voted(co_author, spec)
-   - EMITS ApprovalProcessed
+   - oscillator IN cavity.oscillators
+   - packet.expires_at > now()
+   - NOT already_measured(oscillator, packet)
+   - EMITS PhaseMeasured
 
-4. **Token Distribution**
-   INVARIANT distribute_tokens(thread, recipients, amount):
-   - amount <= thread.token_balance
-   - recipients.all IN thread.co_authors
+4. **Energy Distribution**
+   INVARIANT distribute_energy(cavity, recipients, amount):
+   - amount <= cavity.energy
+   - recipients.all IN cavity.oscillators
    - sum(distributions) = amount
-   - EMITS TokensDistributed
+   - EMITS EnergyDistributed
 
 ## Security Properties
 
 ASSUMPTION security_verification:
-"Continuous security property verification"
-"May introduce formal verification"
-"Must catch all violations immediately"
+"Continuous phase coherence verification"
+"May introduce quantum verification"
+"Must catch all decoherence immediately"
 
-1. **Access Control**
+1. **Phase Control**
 
-   - Only co-authors MAY modify thread state
-   - Only spec author MAY cancel unexpired spec
-   - Only Choir Treasury MAY mint tokens
-   - Only thread PDA MAY hold thread tokens
+   - Only coupled oscillators MAY modify cavity state
+   - Only wave author MAY cancel unexpired packet
+   - Only Treasury MAY emit new quanta
+   - Only cavity PDA MAY hold cavity energy
 
-2. **Temporal Constraints**
+2. **Temporal Coherence**
 
-   - Specs MUST be processed within 7 days
-   - Approvals MUST be processed in order
-   - State updates MUST be atomic
-   - Events MUST be ordered
+   - Wave packets MUST collapse within 7 days
+   - Measurements MUST process in phase order
+   - State updates MUST maintain coherence
+   - Events MUST preserve causality
 
-3. **Economic Security**
-   - Stake MUST be locked until decision
-   - Divestment MUST be proportional
-   - Rejecting co-authors MUST split stakes equally
-   - Treasury MUST recapture split decision tokens
+3. **Energy Security**
+   - Stakes MUST be phase-locked until measurement
+   - Decoupling MUST be proportional
+   - Denying oscillators MUST strengthen cavity
+   - Treasury MUST accumulate split decision energy
 
-## Data Integrity
+## Wave Function Integrity
 
-ASSUMPTION data_verification:
-"Hash-based integrity verification"
-"May introduce additional verification methods"
-"Must maintain perfect accuracy"
+ASSUMPTION wave_verification:
+"Hash-based wave function verification"
+"May introduce additional quantum measures"
+"Must maintain perfect phase coherence"
 
 1. **Content Storage**
 
    - Message content MUST be stored in Qdrant
-   - Content hash MUST be stored on Solana
-   - Premium user content MAY be unsearchable
-   - Content MUST be immutable once approved
+   - Wave function MUST be stored on Solana
+   - Premium content MAY be unsearchable
+   - Wave functions MUST be immutable once measured
 
-2. **State Consistency**
-   - Solana state MUST be source of truth for ownership
-   - Qdrant state MUST be source of truth for content
-   - State transitions MUST be reversible
-   - State MUST be recoverable from events
+2. **State Coherence**
+   - Solana state MUST be source of truth for phase relationships
+   - Qdrant state MUST be source of truth for wave functions
+   - Phase transitions MUST be reversible
+   - State MUST be recoverable from event history
 
 ## Implementation Notes
 
 NOTE verification_implementation:
-"Current implementation uses direct checking"
-"May introduce automated verification"
-"Must maintain real-time guarantees"
+"Current implementation uses direct phase checking"
+"May introduce automated coherence verification"
+"Must maintain real-time quantum guarantees"
 
 NOTE recovery_procedures:
-"Current recovery uses checkpointing"
-"May introduce continuous backup"
-"Must guarantee complete recovery"
+"Current recovery uses phase checkpointing"
+"May introduce continuous wave function backup"
+"Must guarantee complete phase recovery"

@@ -11,11 +11,11 @@ assumptions: {
 "Resource costs",
 "Usage patterns"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Revenue Model
 
-Choir operates on a freemium subscription model that aligns user value with platform sustainability. The base platform provides essential functionality while premium subscriptions unlock enhanced capabilities and privacy controls.
+Choir operates on a freemium subscription model that aligns individual, team, and platform value creation. The base platform provides essential functionality while premium subscriptions unlock enhanced capabilities and privacy controls.
 
 ## Free Tier
 
@@ -39,6 +39,13 @@ Privacy Features:
 - Granular co-author permissions
 - Private thread analytics
 
+Team Features:
+
+- Advanced thread metrics
+- Team collaboration tools
+- Knowledge network analytics
+- Collective value tracking
+
 Resource Allocations:
 
 - Increased AI model calls (grows yearly)
@@ -46,7 +53,7 @@ Resource Allocations:
 - Priority message processing
 - Extended thread storage
 
-The yearly growth in resource allocations rewards long-term members while maintaining platform sustainability.
+The yearly growth in resource allocations rewards long-term teams while maintaining platform sustainability.
 
 ## Resource Economics
 
@@ -65,16 +72,16 @@ Privacy implementation follows clear principles:
 - Base privacy: Threads visible only to co-authors
 - Public search: Opt-in for thread discovery
 - Premium control: Granular privacy settings
-- Data sovereignty: User ownership of content
+- Data sovereignty: Team ownership of content
 
 ## Growth Mechanics
 
-The model encourages platform growth through:
+The model encourages sustainable growth through:
 
-- Sustainable resource allocation
-- Privacy-respecting content discovery
-- Long-term member benefits
-- Community value alignment
+- Natural team formation
+- Knowledge network effects
+- Long-term value accumulation
+- Community resonance
 
 ## Business Sustainability
 
@@ -90,20 +97,22 @@ Revenue streams support:
 
 The model can evolve to include:
 
-- Enterprise subscriptions
+- Team subscriptions
 - Custom AI model training
 - Advanced analytics tools
 - Enhanced privacy features
 - Specialized thread types
+- Collective governance tools
 
 ## Value Proposition
 
-For Users:
+For Teams:
 
 - Growing resource allocations
 - Enhanced privacy controls
 - Priority features
-- Community support
+- Collective value accumulation
+- Knowledge network formation
 
 For Platform:
 
@@ -111,6 +120,7 @@ For Platform:
 - Aligned incentives
 - Resource predictability
 - Growth capacity
+- Network effects
 
 ## Implementation Strategy
 
@@ -120,6 +130,7 @@ Technical Requirements:
 - Resource tracking systems
 - Subscription management
 - Usage analytics
+- Team metrics
 
 Operational Needs:
 
@@ -127,15 +138,17 @@ Operational Needs:
 - Resource monitoring
 - Cost optimization
 - Growth planning
+- Team success tracking
 
 ## Success Metrics
 
 Key Indicators:
 
-- Subscription retention
-- Resource utilization
-- User satisfaction
+- Team formation rate
+- Knowledge network growth
+- Value accumulation
 - Platform stability
-- Community growth
+- Community coherence
+- Subscription retention
 
-Through this model, Choir maintains a sustainable business while providing increasing value to members and preserving the core principles of quality content and collaborative ownership.
+Through this model, Choir maintains a sustainable business while providing increasing value to teams and preserving the core principles of quality content and collaborative ownership.

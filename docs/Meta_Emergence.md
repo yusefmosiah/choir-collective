@@ -11,7 +11,7 @@ assumptions: {
 "Pattern manifestation",
 "Understanding evolution"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Documentation as Seed Crystal
 

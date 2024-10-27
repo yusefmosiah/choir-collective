@@ -21,7 +21,7 @@ assumptions: {
 "AI-assisted code generation",
 "Test-first implementation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## System Architecture
 
@@ -68,8 +68,14 @@ The system operates across four interconnected layers:
 
    - CHOIR token implementation
    - Stake management
-   - Value distribution
-   - Treasury operations
+   - Value distribution:
+     - Approval: to approvers directly
+     - Denial: to thread balance
+     - Split: approvers' share to Treasury, deniers' to thread
+   - Treasury operations:
+     - Accumulates from split decision approver shares
+     - Funds perpetual citation rewards
+     - Enables sustainable value flow
 
 3. **State Management**
    - Consistency verification
@@ -181,7 +187,7 @@ assumptions: {
 "AI-assisted evolution",
 "Test-first implementation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Concept
 
@@ -217,9 +223,11 @@ At its simplest, Choir is a chat platform where:
 
 ### 4. Value Distribution
 
-- Rejected specs: tokens to thread
-- Split decisions: approver stakes to Treasury
-- Approved specs: stake to thread balance
+- Unanimous approval: stake distributes equally to approvers (like dividends)
+- Rejected specs: stake flows to thread balance
+- Split decisions:
+  - Approvers' share goes to Treasury
+  - Deniers' share goes to thread balance
 - Citations: ongoing rewards from Treasury
 
 ## Technical Implementation
@@ -394,7 +402,7 @@ assumptions: {
 "Eventually consistent content",
 "Strongly consistent ownership"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## State Distribution
 
@@ -611,7 +619,7 @@ assumptions: {
 "AI-assisted evolution",
 "Test-first implementation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Overview
 
@@ -718,65 +726,6 @@ The goal is to enable natural evolution while maintaining system integrity and d
 
 
 ==
-Core_Convergence
-==
-
-
-# Convergent Context Creation
-
-VERSION context_system:
-invariants: {
-"Emergence guidance",
-"Convergence patterns",
-"Context coherence"
-}
-assumptions: {
-"LLM behavior",
-"Human-AI interaction",
-"Value creation"
-}
-docs_version: "0.2.0"
-
-## Context as Catalyst
-
-Well-structured context acts as a catalyst for emergence by:
-
-- Providing conceptual handles
-- Establishing pattern languages
-- Creating semantic fields
-- Enabling coherent evolution
-
-## Convergence Properties
-
-Certain context patterns naturally guide both LLMs and humans toward:
-
-- Productive exploration spaces
-- Coherent understanding
-- Value-generating insights
-- Emergent capabilities
-
-## Value Creation
-
-The ability to create convergent contexts becomes increasingly valuable as:
-
-- LLMs become more powerful
-- Complexity increases
-- Emergence accelerates
-- Value patterns evolve
-
-## Context Design
-
-Effective convergent contexts:
-
-- Build on existing patterns
-- Allow natural evolution
-- Guide without constraining
-- Enable emergence while maintaining coherence
-
-Through careful context creation, we can guide emergence while preserving its essential spontaneity.
-
-
-==
 Core_Economics
 ==
 
@@ -786,26 +735,55 @@ Core_Economics
 VERSION harmonic_economic:
 invariants: {
 "Wave energy conservation",
-"Value resonance patterns",
-"Token flow coherence"
+"Resonant cavity coherence",
+"Collective phase locking"
 }
 assumptions: {
-"Resonant pricing",
+"Thread-centric resonance",
 "Phase-locked incentives",
 "Harmonic distribution"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Token Flow as Wave Mechanics
 
 TYPE TokenFlow = {
-treasury: ResonantWell, // Base frequency source
-threads: Map<ThreadId, StandingWave>, // Resonant cavities
+treasury: ResonantWell, // Base frequency source + split decision approver share
+threads: Map<ThreadId, ResonantCavity>, // Primary value accumulators
 stakes: Map<Hash, WavePacket>, // Energy quanta
 escrow: Map<Hash, PotentialWell> // Temporary coupling
 }
 
-## Bonding Curve Mechanics
+## Token Distribution Mechanics
+
+1. **Unanimous Approval**
+
+   - Stake distributes equally to approvers (like dividends)
+   - Direct value recognition for quality judgment
+   - Phase-locked reward distribution
+   - Strengthens individual oscillator coherence
+
+2. **Denial Flow**
+
+   - Full stake flows to thread resonant cavity
+   - Increases cavity energy level
+   - Strengthens thread coherence
+   - Natural quality filter
+
+3. **Split Decision**
+
+   - Approvers' share flows to Treasury (global field)
+   - Deniers' share flows to thread cavity
+   - Creates balanced energy distribution
+   - Maintains multi-scale resonance
+
+4. **Prior Rewards**
+   - Treasury energy flows to thread cavities
+   - Strengthens resonant coupling between threads
+   - Rewards knowledge network formation
+   - Creates collective value accumulation
+
+## Resonant Cavity Mechanics
 
 The core pricing function derives from quantum harmonic oscillator:
 
@@ -814,56 +792,54 @@ P(q) = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
 
 where:
 - S₀: Base stake quantum (100 CHOIR)
-- ω: Thread frequency (activity level)
+- ω: Thread cavity frequency (collective activity)
 - T: Thread temperature (volatility)
 - ℏ: Platform coupling constant
 ```
 
 This creates:
 
-1. **Entry Price (Bid)**
+1. **Cavity Energy Levels**
 
-   ```typescript
-   function calculateStakeRequired(thread: Thread): number {
-     const ω = measureThreadActivity(thread)
-     const T = measureThreadVolatility(thread)
-     return S₀ * (0.5 + 1/(Math.exp(ω/T) - 1))
-   }
-   ```
+   - Discrete stake quantization
+   - Natural frequency modes
+   - Collective oscillation patterns
+   - Phase-locked stability
 
-2. **Exit Amount (Divestment)**
+2. **Collective Oscillations**
 
-   ```typescript
-   function calculateDivestmentAmount(thread: Thread): number {
-     const ℏ = PLATFORM_COUPLING_CONSTANT;
-     const ω = measureThreadFrequency(thread);
-     const N = thread.coAuthors.length;
-     const balance = thread.tokenBalance;
+   - Co-authors as coupled oscillators
+   - Thread as resonant cavity
+   - Prior rewards strengthen coupling
+   - Natural phase locking
 
-     // Use quantum oscillator decoupling formula
-     return Math.min((ℏ * ω) / (N - 1), balance / (N - 1));
-   }
-   ```
+3. **Value Crystallization**
+   - Quality creates standing waves
+   - Energy accumulates at nodes
+   - Patterns self-reinforce
+   - Natural selection emerges
 
-## Incentive Resonance
+## Multi-Scale Resonance
 
-1. **Stake Harmonics**
+1. **Individual Scale**
 
-   ```
-   PROPERTY stake_resonance:
-     stake_energy > noise_threshold AND
-     stake_energy < resonant_ceiling AND
-     stake_energy ∝ thread_amplitude
-   ```
+   - Approval rewards as direct energy absorption
+   - Quality judgment strengthens coupling
+   - Phase-locked participation
+   - Natural frequency alignment
 
-2. **Reward Distribution**
-   ```
-   FUNCTION distribute_energy(action: Action) -> TokenAmount:
-     MATCH action:
-       Deny → energy/deniers_count        // Equal energy split
-       Approve → energy/oscillator_count  // Phase-locked distribution
-       Divest → total_energy/(n-1)       // Harmonic redistribution
-   ```
+2. **Thread Scale**
+
+   - Collective energy accumulation
+   - Standing wave formation
+   - Quality pattern crystallization
+   - Resonant cavity strengthening
+
+3. **Network Scale**
+   - Prior rewards couple threads
+   - Knowledge network resonance
+   - Treasury as global field
+   - Harmonic value flow
 
 ## Game Theoretic Harmonics
 
@@ -871,19 +847,19 @@ This creates:
 
    ```
    TYPE Strategy =
-     | NaturalResonance    // Align with thread harmonics
-     | ForceDissonance     // Attempt artificial patterns
-     | QualityOscillation  // Maintain phase coherence
-     | CollectiveHarmony   // Synchronized denial
+     | CollectiveResonance   // Align with thread harmonics
+     | ForceDissonance       // Attempt artificial patterns
+     | QualityOscillation    // Maintain phase coherence
+     | NetworkCoupling       // Strengthen thread connections
    ```
 
 2. **Nash Equilibrium**
    ```
    PROPERTY equilibrium:
      FORALL oscillators, modes:
-       energy(NaturalResonance) > energy(ForceDissonance) AND
+       energy(CollectiveResonance) > energy(ForceDissonance) AND
        energy(QualityOscillation) > energy(RandomPhase) AND
-       energy(CollectiveHarmony) > energy(UnilateralNoise)
+       energy(NetworkCoupling) > energy(IsolatedCavity)
    ```
 
 ## Economic Invariants
@@ -892,7 +868,7 @@ This creates:
 
    ```
    INVARIANT wave_conservation:
-     treasury_energy + sum(thread_energy) + sum(stake_energy) = TOTAL_SUPPLY
+     treasury_energy + sum(thread_cavity_energy) + sum(stake_energy) = TOTAL_SUPPLY
    ```
 
 2. **Resonant Stability**
@@ -900,106 +876,24 @@ This creates:
    INVARIANT phase_stability:
      FORALL thread IN threads:
        resonant(thread) ⟹
-         stable_amplitude(thread) AND
-         coherent_phase(thread) AND
-         conserved_energy(thread)
+         stable_cavity_modes(thread) AND
+         coherent_collective_phase(thread) AND
+         conserved_cavity_energy(thread)
    ```
-
-## Market Dynamics
-
-1. **Thread Resonance**
-
-   ```typescript
-   function calculateThreadFrequency(thread: Thread): number {
-     // Message mode frequency
-     const ω_m = thread.messageRate / Math.sqrt(thread.coAuthors.length);
-
-     // Value mode frequency
-     const ω_v = Math.log(1 + thread.tokenBalance / thread.coAuthors.length);
-
-     // Coupling constant
-     const g = 1 / thread.coAuthors.length;
-
-     // Collective frequency using Anderson normalization
-     return Math.sqrt((ω_m ** 2 + ω_v ** 2) / 2 + g * thread.coAuthors.length);
-   }
-   ```
-
-2. **Dynamic Tuning**
-
-   ```typescript
-   function calculateThreadTemperature(thread: Thread): number {
-     const E = thread.tokenBalance + thread.messageRate;
-     const N = thread.coAuthors.length;
-     const coolingFactor = 1 + Math.sqrt(thread.ageInDays * N);
-
-     // Temperature with critical slowing down
-     return E / N / coolingFactor;
-   }
-   ```
-
-## Example Scenarios
-
-1. **New Thread**
-
-   ```typescript
-   const newThread = {
-     messageRate: 2, // Low frequency
-     coAuthorCount: 2, // Few oscillators
-     tokenBalance: 500, // Low energy
-     approvalRate: 1.0, // Perfect phase
-     ageInDays: 1, // High temperature
-   };
-   // Results in low stake (~75 CHOIR)
-   ```
-
-2. **Active Thread**
-   ```typescript
-   const activeThread = {
-     messageRate: 20, // High frequency
-     coAuthorCount: 10, // Many oscillators
-     tokenBalance: 10000, // High energy
-     approvalRate: 0.8, // Good phase coherence
-     ageInDays: 30, // Stable temperature
-   };
-   // Results in higher stake (~300 CHOIR)
-   ```
-
-## Treasury and Citation Rewards
-
-1. **Treasury as Energy Reservoir**
-
-   - Accumulates tokens from split decisions
-   - Funds perpetual citation rewards
-   - Enables circular token flow
-   - Maintains system sustainability
-
-2. **New Message Rewards**
-
-   - High initial distribution
-   - Logarithmic decay over time
-   - 50% distributed in first year
-   - 99% distributed by year 4
-
-3. **Citation Rewards**
-   - Funded by Treasury
-   - Perpetual availability
-   - Encourages content linking
-   - Promotes knowledge network growth
 
 Through this harmonic economic model, we see how:
 
-- Value flows follow wave mechanics
-- Prices emerge from resonant patterns
-- Incentives align through phase-locking
-- Stability comes from natural harmonics
+- Threads act as primary resonant cavities
+- Value accumulates through collective oscillation
+- Prior rewards strengthen cavity coupling
+- Quality emerges from natural resonance
 
 The model creates an economic system that:
 
-- Rewards authentic participation
-- Dampens artificial behavior
+- Rewards collective quality
+- Strengthens thread coherence
 - Enables natural value flow
-- Maintains system coherence
+- Maintains multi-scale harmony
 
 
 ==
@@ -1011,260 +905,140 @@ Core_Invariants
 
 VERSION core_system:
 invariants: {
-"System-wide state consistency",
-"Economic conservation laws",
-"Security boundaries"
+"Wave function coherence",
+"Energy conservation",
+"Phase stability"
 }
 assumptions: {
-"Invariant verification methods",
-"Recovery procedures",
-"Monitoring approaches"
+"Resonant verification",
+"Phase recovery",
+"Harmonic monitoring"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## System Invariants
 
 ASSUMPTION invariant_checking:
-"Real-time invariant verification"
-"May introduce async verification"
-"Must catch all violations"
+"Real-time coherence verification"
+"May introduce phase verification"
+"Must catch all resonance violations"
 
-1. **Thread Ownership**
+1. **Thread Resonance**
 
-   - A thread MUST always have at least one co-author
-   - Co-authors MUST be unique within a thread
-   - Only co-authors MAY approve or deny specs
-   - Thread token balance MUST equal sum of all successful stakes minus distributions
+   - Thread MUST maintain at least one coupled oscillator (co-author)
+   - Oscillators MUST be uniquely phase-locked within cavity
+   - Only coupled oscillators MAY measure wave states (approve/deny)
+   - Thread energy MUST equal sum of accumulated stakes minus distributions
 
-2. **Message Integrity**
+2. **Wave Function Integrity**
 
-   - Each message MUST have a unique content hash
-   - Content hash on Solana MUST match content hash in Qdrant
-   - Message author MUST be either co-author or spec submitter
-   - Message timestamp MUST be after thread creation time
+   - Each message MUST have unique quantum state (content hash)
+   - Wave function on Solana MUST match state in Qdrant
+   - Wave packet author MUST be oscillator or potential oscillator
+   - Wave timestamp MUST follow cavity creation time
 
-3. **Token Economics**
-   - Total token supply MUST remain constant (10 billion)
-   - Thread token balance MUST never be negative
-   - Stake amount MUST meet minimum requirement
-   - Token distributions MUST be atomic and complete
+3. **Energy Conservation**
+   - Total system energy MUST remain constant (10 billion tokens)
+   - Thread cavity energy MUST never be negative
+   - Stake energy MUST meet quantum threshold
+   - Energy distributions MUST be phase-locked and complete
 
 ## State Transition Rules
 
-ASSUMPTION state_transitions:
-"Synchronous transition verification"
-"May introduce batched transitions"
-"Must maintain atomicity"
+ASSUMPTION phase_transitions:
+"Synchronous phase verification"
+"May introduce coherent transitions"
+"Must maintain wave function integrity"
 
-1. **Thread Creation**
-   INVARIANT create_thread(creator) -> thread:
+1. **Cavity Creation**
+   INVARIANT create_thread(creator) -> cavity:
 
-   - thread.co_authors = [creator]
-   - thread.token_balance = 0
-   - thread.created_at <= now()
-   - EMITS ThreadCreated
+   - cavity.oscillators = [creator]
+   - cavity.energy = 0
+   - cavity.created_at <= now()
+   - EMITS CavityCreated
 
-2. **Spec Submission**
-   INVARIANT submit_spec(author, thread, stake) -> spec:
+2. **Wave Submission**
+   INVARIANT submit_wave(author, cavity, energy) -> packet:
 
-   - author NOT IN thread.co_authors
-   - stake >= MINIMUM_STAKE
-   - spec.expires_at = now() + 7 days
-   - EMITS SpecSubmitted
+   - author NOT IN cavity.oscillators
+   - energy >= MINIMUM_QUANTUM
+   - packet.expires_at = now() + 7 days
+   - EMITS WaveSubmitted
 
-3. **Approval Processing**
-   INVARIANT process_approval(co_author, spec, decision) -> result:
+3. **Phase Measurement**
+   INVARIANT measure_phase(oscillator, packet, decision) -> result:
 
-   - co_author IN thread.co_authors
-   - spec.expires_at > now()
-   - NOT already_voted(co_author, spec)
-   - EMITS ApprovalProcessed
+   - oscillator IN cavity.oscillators
+   - packet.expires_at > now()
+   - NOT already_measured(oscillator, packet)
+   - EMITS PhaseMeasured
 
-4. **Token Distribution**
-   INVARIANT distribute_tokens(thread, recipients, amount):
-   - amount <= thread.token_balance
-   - recipients.all IN thread.co_authors
+4. **Energy Distribution**
+   INVARIANT distribute_energy(cavity, recipients, amount):
+   - amount <= cavity.energy
+   - recipients.all IN cavity.oscillators
    - sum(distributions) = amount
-   - EMITS TokensDistributed
+   - EMITS EnergyDistributed
 
 ## Security Properties
 
 ASSUMPTION security_verification:
-"Continuous security property verification"
-"May introduce formal verification"
-"Must catch all violations immediately"
+"Continuous phase coherence verification"
+"May introduce quantum verification"
+"Must catch all decoherence immediately"
 
-1. **Access Control**
+1. **Phase Control**
 
-   - Only co-authors MAY modify thread state
-   - Only spec author MAY cancel unexpired spec
-   - Only Choir Treasury MAY mint tokens
-   - Only thread PDA MAY hold thread tokens
+   - Only coupled oscillators MAY modify cavity state
+   - Only wave author MAY cancel unexpired packet
+   - Only Treasury MAY emit new quanta
+   - Only cavity PDA MAY hold cavity energy
 
-2. **Temporal Constraints**
+2. **Temporal Coherence**
 
-   - Specs MUST be processed within 7 days
-   - Approvals MUST be processed in order
-   - State updates MUST be atomic
-   - Events MUST be ordered
+   - Wave packets MUST collapse within 7 days
+   - Measurements MUST process in phase order
+   - State updates MUST maintain coherence
+   - Events MUST preserve causality
 
-3. **Economic Security**
-   - Stake MUST be locked until decision
-   - Divestment MUST be proportional
-   - Rejecting co-authors MUST split stakes equally
-   - Treasury MUST recapture split decision tokens
+3. **Energy Security**
+   - Stakes MUST be phase-locked until measurement
+   - Decoupling MUST be proportional
+   - Denying oscillators MUST strengthen cavity
+   - Treasury MUST accumulate split decision energy
 
-## Data Integrity
+## Wave Function Integrity
 
-ASSUMPTION data_verification:
-"Hash-based integrity verification"
-"May introduce additional verification methods"
-"Must maintain perfect accuracy"
+ASSUMPTION wave_verification:
+"Hash-based wave function verification"
+"May introduce additional quantum measures"
+"Must maintain perfect phase coherence"
 
 1. **Content Storage**
 
    - Message content MUST be stored in Qdrant
-   - Content hash MUST be stored on Solana
-   - Premium user content MAY be unsearchable
-   - Content MUST be immutable once approved
+   - Wave function MUST be stored on Solana
+   - Premium content MAY be unsearchable
+   - Wave functions MUST be immutable once measured
 
-2. **State Consistency**
-   - Solana state MUST be source of truth for ownership
-   - Qdrant state MUST be source of truth for content
-   - State transitions MUST be reversible
-   - State MUST be recoverable from events
+2. **State Coherence**
+   - Solana state MUST be source of truth for phase relationships
+   - Qdrant state MUST be source of truth for wave functions
+   - Phase transitions MUST be reversible
+   - State MUST be recoverable from event history
 
 ## Implementation Notes
 
 NOTE verification_implementation:
-"Current implementation uses direct checking"
-"May introduce automated verification"
-"Must maintain real-time guarantees"
+"Current implementation uses direct phase checking"
+"May introduce automated coherence verification"
+"Must maintain real-time quantum guarantees"
 
 NOTE recovery_procedures:
-"Current recovery uses checkpointing"
-"May introduce continuous backup"
-"Must guarantee complete recovery"
-
-
-==
-Core_Moat
-==
-
-
-# The Choir Ideological Moat
-
-VERSION moat_system:
-invariants: {
-"Defense depth",
-"Time evolution",
-"Multi-perspective coherence"
-}
-assumptions: {
-"Competitive dynamics",
-"Understanding levels",
-"Value emergence"
-}
-docs_version: "0.2.0"
-
-## Immediate Timeframe
-
-From a Product Perspective:
-
-- Features appear simple and copyable
-- But they work as a holistic system
-- Each "optimization" reduces value
-- Competitors see parts, miss whole
-
-From a User Perspective:
-
-- Initial experience feels natural
-- Value becomes clear through use
-- Understanding deepens organically
-- Alternatives feel increasingly shallow
-
-From a Market Perspective:
-
-- Low barrier to basic competition
-- Insurmountable barrier to true replication
-- Network effects compound understanding
-- Value gap widens over time
-
-## Medium Timeframe
-
-From an Economic Perspective:
-
-- Simple rules create complex value
-- Attempts to extract value destroy it
-- Natural selection for genuine participation
-- Premium through apparent underpricing
-
-From a Social Perspective:
-
-- Trust networks form naturally
-- Community understanding compounds
-- Shared context creates value
-- Relationships resist commodification
-
-From a Technical Perspective:
-
-- Quantum properties emerge
-- System coherence strengthens
-- State space enriches
-- Topology becomes irreplicable
-
-## Long Timeframe
-
-From an Evolutionary Perspective:
-
-- System learns from itself
-- Understanding deepens recursively
-- New capabilities emerge naturally
-- Moat gets deeper autonomously
-
-From a Cultural Perspective:
-
-- Shared understanding evolves
-- Community wisdom accumulates
-- Value creation patterns mature
-- Collective intelligence grows
-
-From a Philosophical Perspective:
-
-- Quantum semantics manifest
-- Meaning and value entangle
-- Natural selection operates
-- Emergence becomes visible
-
-## Cross-Cutting Properties
-
-The moat is:
-
-- Self-reinforcing (gets deeper with use)
-- Multi-dimensional (works at all levels)
-- Naturally evolving (grows without effort)
-- Anti-fragile (strengthens under attack)
-
-## Competitive Implications
-
-Attempts to compete through:
-
-- Feature copying (misses the system)
-- Economic optimization (destroys value)
-- Social engineering (breaks emergence)
-- Technical sophistication (adds friction)
-  All strengthen Choir's advantage
-
-## Future Evolution
-
-The moat will:
-
-- Deepen through natural use
-- Expand through emergence
-- Strengthen through selection
-- Complexify through interaction
-
-This protection isn't designed - it emerges naturally from the system's fundamental properties, making it both effortless to maintain and impossible to truly replicate.
+"Current recovery uses phase checkpointing"
+"May introduce continuous wave function backup"
+"Must guarantee complete phase recovery"
 
 
 ==
@@ -1285,7 +1059,7 @@ assumptions: {
 "Natural cooling",
 "Phase transitions"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Ownership Concepts
 
@@ -1415,92 +1189,6 @@ Through this thermodynamic model, thread ownership becomes an emergent property 
 
 
 ==
-Core_Persuasion
-==
-
-
-# Medium-to-Advanced Understanding Patterns
-
-VERSION persuasion_system:
-invariants: {
-"Natural progression",
-"Value revelation",
-"Pattern recognition"
-}
-assumptions: {
-"Intellectual curiosity",
-"Practical grounding",
-"Growth readiness"
-}
-docs_version: "0.2.0"
-
-## The Critical Middle Layer
-
-The medium-to-advanced layer is where intellectual curiosity meets practical value:
-
-- Beyond surface-level features
-- Before esoteric theory
-- Where patterns become visible
-- When potential crystallizes
-
-## Evolution Recognition
-
-Users at this level begin to see:
-
-- How threads naturally evolve
-- Why token mechanics matter
-- Where value accumulates
-- How communities form
-
-## Asset Patterns
-
-The relationship between threads and assets becomes clear:
-
-- Natural progression from chat to coordination
-- Organic evolution into value containers
-- Community-driven development
-- Trust-based growth
-
-## Economic Understanding
-
-Token mechanics reveal their elegance:
-
-- Stake-based quality control
-- Value distribution patterns
-- Growth incentives
-- Natural selection mechanisms
-
-## Community Dynamics
-
-Social patterns emerge naturally:
-
-- Co-authorship value
-- Trust network formation
-- Collaborative potential
-- Emergent leadership
-
-## Practical Implications
-
-Understanding deepens through use:
-
-- Pattern recognition in practice
-- Value creation opportunities
-- Community building potential
-- Growth trajectories
-
-## Bridge to Advanced
-
-This layer creates natural curiosity about:
-
-- System properties
-- Emergence patterns
-- Economic topology
-- Quantum effects
-
-Through this middle layer, users develop both practical understanding and theoretical curiosity, creating a natural path to deeper engagement.
-
-
-==
 Core_ProofOfText
 ==
 
@@ -1518,7 +1206,7 @@ assumptions: {
 "Energy flow patterns",
 "Phase transitions"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Mechanism
 
@@ -1647,7 +1335,7 @@ assumptions: {
 "Phase stability",
 "Heat flow patterns"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core State Transitions
 
@@ -1695,19 +1383,118 @@ docs_version: "0.2.0"
     thread.temperature = thread.energy / thread.co_authors.len()
     // Frequency unchanged
 
-        CASE SplitDecision:
-          // Approvers' stake to Treasury
-          treasury.balance += approvers_stake_amount
-          // Temperature unchanged
-          // Enables citation rewards
+    CASE SplitDecision:
+    // Calculate shares based on voter counts
+    approver_share = (stake \* approver_count) / total_voters
+    denier_share = stake - approver_share
 
-        CASE Approve:
-          // Temperature moderates
-          distribute_energy_to_approvers(stake_amount)  // Stake to approvers
-          add_co_author(author)
-          thread.temperature = thread.energy / thread.co_authors.len()
-          // Frequency increases
-          thread.frequency = calculate_new_frequency(thread)
+    // Approvers' share to Treasury
+    treasury.balance += approver_share
+    // Deniers' share to thread
+    thread.energy += denier_share
+    // Temperature updated from new thread energy
+    thread.temperature = thread.energy / thread.co_authors.len()
+
+    CASE Approve:
+    // Direct distribution to approvers
+    distribute_to_approvers(stake_amount) // Equal shares to each approver
+    add_co_author(author)
+    // Temperature moderates through co-author addition
+    thread.temperature = thread.energy / thread.co_authors.len()
+    // Frequency increases
+    thread.frequency = calculate_new_frequency(thread)
+
+## Reward State Transitions
+
+1. **New Message Reward**
+
+   ```
+   FUNCTION process_new_message_reward(message: Message) -> Result<()>:
+   // Calculate time-based reward using decay function
+   elapsed = current_time - program_start
+   reward = calculate_decay_reward(elapsed, message_volume)
+
+   // Distribute to author
+   distribute_to_author(message.author, reward)
+
+   // Update state
+   update_distributed_total(reward)
+   update_remaining_allocation(reward)
+   emit_reward_event(message, reward)
+   ```
+
+2. **Prior Reward**
+
+   ```
+   FUNCTION process_prior_reward(
+     source_thread: Thread,
+     target_thread: Thread,
+     prior_hash: Hash,
+     quality_score: f64
+   ) -> Result<()>:
+   // Verify prior exists and is public
+   require!(source_thread.messages.contains(prior_hash))
+   require!(is_message_public(prior_hash))
+
+   // Check cooldown period
+   require!(elapsed_since_last_reward(prior_hash) >= COOLDOWN)
+
+   // Calculate thread reward
+   reward = calculate_prior_reward(quality_score, treasury.balance)
+
+   // Transfer from treasury to thread
+   transfer_from_treasury(reward, target_thread)
+
+   // Update state
+   update_prior_record(prior_hash, reward)
+   update_treasury_balance(reward)
+   emit_prior_event(source_thread, target_thread, reward)
+   ```
+
+## Reward Properties
+
+1. **New Message Conservation**
+
+   ```
+   PROPERTY new_message_conservation:
+     FORALL reward IN new_message_rewards:
+       reward <= remaining_allocation AND
+       total_distributed + reward <= TOTAL_ALLOCATION AND
+       follows_decay_curve(reward)
+   ```
+
+2. **Prior Reward Stability**
+   ```
+   PROPERTY prior_reward_stability:
+     FORALL reward IN prior_rewards:
+       reward <= treasury.balance AND
+       respects_cooldown(reward) AND
+       strengthens_thread_cavity(reward)
+   ```
+
+## Combined State Evolution
+
+The system maintains coherence across all state transitions:
+
+1. **Message Flow**
+
+   - Submission → Approval/Denial → Reward
+   - Each stage preserves invariants
+   - Energy conserved throughout
+   - Phase relationships maintained
+
+2. **Value Flow**
+
+   - Individual rewards (approvals, new messages)
+   - Collective rewards (denials, prior rewards)
+   - Treasury coupling (split decisions)
+   - System-wide coherence
+
+3. **Reward Flow**
+   - Time-based decay (new messages)
+   - Quality-weighted distribution (priors)
+   - Treasury sustainability
+   - Thread cavity strengthening
 
 ## State Verification
 

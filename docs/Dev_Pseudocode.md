@@ -11,7 +11,7 @@ assumptions: {
 "Implementation language agnostic",
 "Documentation-first development"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Philosophy
 

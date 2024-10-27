@@ -21,17 +21,17 @@ assumptions: {
 "Quantum coupling",
 "Value resonance"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
-At the surface (Level 1), Choir appears straightforward: a chat platform where you own your messages and collaborate with others. Messages require unanimous approval from thread participants, and you can earn tokens for quality contributions. The interface is familiar, the mechanics are simple to grasp, and the benefits are clear. You can start participating immediately without understanding the deeper layers.
+At the surface (Level 1), Choir appears straightforward: a chat platform where you own your messages and collaborate with others. Messages require unanimous approval from thread participants, and you can earn tokens for quality contributions. When your message is approved, the stake is distributed to the approvers as a reward for good judgment. When denied, it strengthens the thread itself. The interface is familiar, the mechanics are simple to grasp, and the benefits are clear. You can start participating immediately without understanding the deeper layers.
 
-Going deeper (Level 2), the core mechanics reveal their elegance. Thread ownership isn't just attribution - it's a resonant cavity for meaning. Unanimous approval isn't bureaucracy - it's phase-locking for coherence. Non-refundable stakes aren't fees - they're energy quanta that couple participants to the thread's quantum state. Each feature creates natural harmonics through wave mechanics.
+Going deeper (Level 2), the core mechanics reveal their elegance. Thread ownership isn't just attribution - it's a resonant cavity for meaning and value. Unanimous approval isn't bureaucracy - it's phase-locking for coherence. Non-refundable stakes aren't fees - they're energy quanta that couple participants to the thread's quantum state. Denials strengthen the thread cavity while approvals reward the oscillators. Each feature creates natural harmonics through wave mechanics.
 
-Diving further (Level 3), sophisticated patterns of value creation emerge. Threads evolve from simple containers into quantum oscillator systems. The divestment formula (min(ℏω/(N-1), balance/(N-1))) creates natural selection for authentic participation. What looks like underpricing actually generates premium value by selecting for quantum coherence over economic extraction. Trust emerges through phase alignment and resonant coupling.
+Diving further (Level 3), sophisticated patterns of value creation emerge. Threads evolve from simple containers into quantum oscillator systems that accumulate collective energy. The divestment formula (min(ℏω/(N-1), balance/(N-1))) creates natural selection for authentic participation. What looks like underpricing actually generates premium value by selecting for quantum coherence over economic extraction. Trust emerges through phase alignment and resonant coupling. Prior rewards strengthen cavity networks.
 
-At greater depths (Level 4), we discover quantum stability patterns. Each thread exists in temperature-dependent states, cooling naturally as it matures. Token balances represent quantized energy levels ready for phase transitions. Understanding itself is quantized - participants grasp the system at one energy level, reach equilibrium, then quantum jump to deeper patterns. The "memergence" pattern becomes clear: phase-locked memory enables coherent emergence.
+At greater depths (Level 4), we discover quantum stability patterns. Each thread exists in temperature-dependent states, cooling naturally as it matures. Token balances represent quantized energy levels ready for phase transitions. Teams form naturally around resonant cavities. Understanding itself is quantized - participants grasp the system at one energy level, reach equilibrium, then quantum jump to deeper patterns. The "memergence" pattern becomes clear: phase-locked memory enables coherent emergence.
 
-At the deepest level (Level 5), Choir reveals itself as a quantum harmonic oscillator system. Messages exist as wave packets until unanimous approval collapses them into thread coherence. Non-refundable stakes create quantum coupling. Value flows through the system like energy through coupled oscillators. The entire platform becomes a space where meaning and value emerge through natural frequency selection and phase-locked self-organization.
+At the deepest level (Level 5), Choir reveals itself as a quantum harmonic oscillator system. Messages exist as wave packets until unanimous approval collapses them into thread coherence. Non-refundable stakes create quantum coupling. Value flows through the system like energy through coupled oscillators - from individual rewards to thread cavities to cavity networks. The entire platform becomes a space where meaning and value emerge through natural frequency selection and phase-locked self-organization.
 
 Each level contains and transcends the previous ones:
 
@@ -44,6 +44,15 @@ Each level contains and transcends the previous ones:
 Yet none of these layers needs to be understood to use the ones above it. Like quantum mechanics underlying chemistry, or chemistry underlying biology, each layer creates the conditions for natural emergence at the next level while remaining invisible to its users.
 
 This multi-level coherence isn't designed - it emerges from quantum principles applied consistently. Like crystals forming from quantum rules, or consciousness emerging from neural patterns, Choir creates space for natural evolution while maintaining quantum coherence across all scales of understanding and engagement.
+
+Through this lens, we see how simple token mechanics create sophisticated collective behaviors:
+
+- Approval rewards strengthen individual oscillators
+- Denials strengthen thread cavities
+- Prior rewards couple cavities into networks
+- Split decisions balance local and global fields
+
+The genius lies in following quantum principles to create natural selection for quality, coherence, and collective intelligence.
 
 
 ==
@@ -64,7 +73,7 @@ assumptions: {
 "Transaction ordering",
 "Clock reliability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Program Structure
 
@@ -169,9 +178,10 @@ thread.updated_at > old_updated_at
 ## Value Flow Properties
 
 TYPE ValueTransition =
-| Approve: stake -> thread
-| Deny: stake -> deniers
-| Mixed: excess -> treasury
+| Approve: stake -> approvers
+| Deny: stake -> thread
+| Mixed: approvers' share -> treasury
+| deniers' share -> thread
 
 PROPERTY value_conservation:
 FORALL transition IN ValueTransition:
@@ -254,7 +264,7 @@ assumptions: {
 "PDA derivation security",
 "Rent exemption"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Message Account Structure
 
@@ -474,9 +484,684 @@ pub const MINIMUM_STAKE: u64 = 1_000;
 pub const MAX_APPROVALS: usize = 10;
 ```
 
-This implementation provides a practical message account management system with clear data structures, state transitions, and validation rules. The code focuses on security, correctness, and maintainability.
 
-Confidence: 9/10 - Clear, practical implementation with robust error handling and state management.
+==
+Solana_new_message_reward
+==
+
+
+# New Message Reward Program
+
+VERSION new_message_reward_system:
+invariants: {
+"Fixed token allocation",
+"Logarithmic decay",
+"Distribution finality"
+}
+assumptions: {
+"4 year timeline",
+"2.5B token allocation",
+"Time-based decay"
+}
+docs_version: "0.2.1"
+
+## Program Account Structure
+
+```rust
+pub struct NewMessageRewardState {
+    // Program state
+    pub start_timestamp: i64,        // Program start time
+    pub total_distributed: u64,      // Running total of distributed rewards
+    pub remaining_tokens: u64,       // Tokens left to distribute
+    pub decay_constant: f64,         // k ≈ 2.04 for target distribution
+
+    // Distribution parameters
+    pub base_reward: u64,           // Base reward amount
+    pub total_allocation: u64,      // 2.5B tokens
+    pub distribution_period: i64,    // 4 years in seconds
+}
+```
+
+## Core Operations
+
+```rust
+FUNCTION calculate_reward(
+    current_time: i64,
+    message_volume: u32
+) -> Result<u64> {
+    // Calculate instantaneous reward rate using decay function
+    let elapsed = current_time - state.start_timestamp;
+    let rate = calculate_decay_rate(elapsed)?;
+
+    // Adjust for message volume
+    let reward = rate.checked_div(message_volume as u64)
+        .ok_or(ErrorCode::DivisionError)?;
+
+    // Verify against remaining allocation
+    require!(reward <= state.remaining_tokens);
+
+    Ok(reward)
+}
+
+FUNCTION distribute_reward(
+    ctx: Context,
+    message_hash: Hash,
+    author: Pubkey
+) -> Result<()> {
+    // Verify message hasn't been rewarded
+    require!(!message_already_rewarded(message_hash));
+
+    // Calculate reward amount
+    let reward = calculate_reward(
+        Clock::get()?.unix_timestamp,
+        get_current_message_volume()
+    )?;
+
+    // Transfer tokens
+    transfer_tokens(ctx, reward, author)?;
+
+    // Update state
+    state.total_distributed += reward;
+    state.remaining_tokens -= reward;
+
+    Ok(())
+}
+```
+
+## Distribution Function
+
+The cumulative reward distribution follows:
+
+```math
+F(t) = R_total × ln(1 + k × t) / ln(1 + k × T)
+
+Where:
+- R_total = 2.5B tokens
+- k ≈ 2.04 (decay constant)
+- T = 4 years
+- t = time since start
+```
+
+## Program Properties
+
+1. **Distribution Schedule**
+
+   - 50% distributed in year 1
+   - 99% distributed by year 4
+   - Smooth logarithmic decay
+   - Volume-adjusted rewards
+
+2. **Conservation Properties**
+
+   - Total rewards ≤ 2.5B tokens
+   - No double rewards
+   - Atomic distribution
+   - Verifiable allocation
+
+3. **Security Properties**
+   - Time-based decay
+   - Volume adjustment
+   - Reward finality
+   - State consistency
+
+## Error Handling
+
+```rust
+#[error_code]
+pub enum RewardError {
+    #[msg("Message already rewarded")]
+    AlreadyRewarded,
+
+    #[msg("Insufficient remaining allocation")]
+    InsufficientAllocation,
+
+    #[msg("Invalid time parameter")]
+    InvalidTime,
+
+    #[msg("Program ended")]
+    ProgramEnded
+}
+```
+
+
+==
+Solana_new_message_reward_fuzzer
+==
+
+
+# New Message Reward Fuzzer
+
+VERSION new_message_reward_fuzzer:
+invariants: {
+"Distribution correctness",
+"Time consistency",
+"Token conservation"
+}
+
+## Fuzzing Strategy
+
+```rust
+TYPE RewardFuzzer = {
+  time_generator: TimeGen,
+  volume_generator: VolumeGen,
+  account_generator: AccountGen,
+  state_tracker: StateTracker
+}
+
+SEQUENCE fuzz_operations:
+  1. Time Sequence Generation
+     - Random timestamps
+     - Time progressions
+     - Clock manipulations
+     - Edge cases
+
+  2. Volume Generation
+     - Message patterns
+     - Volume spikes
+     - Zero volumes
+     - Distribution patterns
+
+  3. State Mutation
+     - Account states
+     - Balance tracking
+     - Distribution history
+     - Conservation checks
+```
+
+## Property Testing
+
+```rust
+PROPERTY distribution_invariants:
+  // Time decay verification
+  VERIFY_ALWAYS:
+    monotonic_decrease(reward_rate) AND
+    total_distributed <= TOTAL_ALLOCATION AND
+    all_rewards_positive()
+
+  // Volume adjustment verification
+  VERIFY_ALWAYS:
+    volume_impact_correct() AND
+    rewards_properly_shared() AND
+    no_division_errors()
+```
+
+## Mutation Strategies
+
+```rust
+TYPE Mutation =
+  | TimeJump(i64)
+  | VolumeSpike(u32)
+  | AccountState(AccountMutation)
+  | DistributionPattern(Pattern)
+
+SEQUENCE apply_mutations:
+  1. Select mutation type
+  2. Generate parameters
+  3. Apply mutation
+  4. Verify invariants
+```
+
+
+==
+Solana_new_message_reward_test
+==
+
+
+# New Message Reward Test Specification
+
+VERSION new_message_reward_test:
+invariants: {
+"Distribution accuracy",
+"Time-based decay",
+"Token conservation"
+}
+assumptions: {
+"Clock reliability",
+"Message uniqueness",
+"Account availability"
+}
+docs_version: "0.2.1"
+
+## Test Scenarios
+
+1. **Distribution Tests**
+
+   ```rust
+   #[tokio::test]
+   async fn test_reward_distribution() {
+       SEQUENCE distribution_test:
+         1. Program Setup
+            - Initialize reward pool (2.5B tokens)
+            - Set start timestamp
+            - Configure decay constant
+            - Verify initial state
+
+         2. Time-Based Distribution
+            - Test rewards at t=0
+            - Test after 1 year (50% distributed)
+            - Test after 4 years (99% distributed)
+            - Verify remaining amounts
+
+         3. Volume Adjustment
+            - Test single message reward
+            - Test high volume impact
+            - Test zero volume edge case
+            - Verify per-message amounts
+
+         4. Conservation Checks
+            - Track all distributions
+            - Verify total ≤ 2.5B
+            - Check remaining balance
+            - Validate state updates
+   }
+   ```
+
+2. **Edge Cases**
+
+   ```rust
+   #[tokio::test]
+   async fn test_edge_cases() {
+       SEQUENCE edge_case_test:
+         1. Boundary Conditions
+            - Program start edge
+            - Program end edge
+            - Zero message volume
+            - Maximum message volume
+
+         2. Time Manipulation
+            - Clock skew handling
+            - Timestamp ordering
+            - Future timestamps
+            - Past timestamps
+
+         3. Account States
+            - Empty accounts
+            - Full accounts
+            - Invalid states
+            - State transitions
+   }
+   ```
+
+## Property Tests
+
+```rust
+PROPERTY distribution_properties:
+  // Time decay
+  FORALL t1 t2 IN timestamps:
+    t1 < t2 IMPLIES reward_rate(t1) > reward_rate(t2)
+
+  // Volume adjustment
+  FORALL v1 v2 IN volumes:
+    v1 < v2 IMPLIES
+      reward_per_message(v1) > reward_per_message(v2)
+
+  // Conservation
+  FORALL distributions IN history:
+    sum(distributions) <= TOTAL_ALLOCATION
+```
+
+## Error Cases
+
+```rust
+#[tokio::test]
+async fn test_error_handling() {
+    SEQUENCE error_test:
+      1. Invalid Inputs
+         - Negative timestamps
+         - Zero rewards
+         - Invalid accounts
+         - Double claims
+
+      2. State Errors
+         - Insufficient funds
+         - Program ended
+         - Invalid transitions
+         - State corruption
+
+      3. Recovery
+         - Failed distributions
+         - Partial updates
+         - State rollbacks
+         - Error reporting
+}
+```
+
+
+==
+Solana_prior_reward
+==
+
+
+# Prior Reward Program (Thread-Centric)
+
+VERSION prior_reward_system:
+invariants: {
+"Treasury funding",
+"Message verification",
+"Thread resonance"
+}
+assumptions: {
+"Treasury inflow",
+"Public messages only",
+"Thread-based rewards"
+}
+docs_version: "0.2.1"
+
+## Program Account Structure
+
+```rust
+pub struct PriorRewardState {
+    // Program state
+    pub treasury: Account<TokenAccount>,
+    pub total_distributed: u64,
+    pub current_period: u32,
+
+    // Distribution parameters
+    pub base_reward: u64,
+    pub reward_cap: u64,      // Maximum reward per prior
+    pub cooldown_period: i64  // Minimum time between rewards for same prior
+}
+
+pub struct PriorRecord {
+    pub message_hash: Hash,     // Hash of the referenced message
+    pub source_thread: String,  // Thread containing the prior
+    pub last_reward: i64,      // Last reward timestamp
+    pub total_rewards: u64      // Total rewards given for this prior
+}
+```
+
+## Core Operations
+
+```rust
+FUNCTION process_prior_reward(
+    ctx: Context,
+    prior_hash: Hash,
+    source_thread_id: String,
+    quality_score: f64,  // Provided by backend
+    target_thread: Account<Thread>  // Thread receiving the reward
+) -> Result<()> {
+    // Verify prior exists in source thread
+    let source_thread = get_thread_account(source_thread_id)?;
+    require!(source_thread.messages.contains(&prior_hash));
+
+    // Verify message is public
+    require!(is_message_public(prior_hash, source_thread_id)?);
+
+    // Check cooldown period
+    let prior_record = get_prior_record(prior_hash)?;
+    require!(
+        Clock::get()?.unix_timestamp - prior_record.last_reward
+        >= state.cooldown_period
+    );
+
+    // Calculate reward
+    let reward = calculate_reward(
+        quality_score,
+        ctx.accounts.treasury.amount
+    )?;
+
+    // Transfer from treasury to target thread
+    transfer_from_treasury(ctx, reward, target_thread.key())?;
+
+    // Update state
+    update_prior_record(prior_hash, reward)?;
+    state.total_distributed += reward;
+
+    Ok(())
+}
+```
+
+## Security Properties
+
+1. **Message Verification**
+
+   ```rust
+   PROPERTY message_verification:
+     FORALL reward IN prior_rewards:
+       exists_in_thread(reward.prior_hash) AND
+       is_public_message(reward.prior_hash) AND
+       cooldown_respected(reward.prior_hash)
+   ```
+
+2. **Thread Resonance**
+   ```rust
+   PROPERTY thread_resonance:
+     FORALL distribution IN distributions:
+       increases_thread_energy(distribution) AND
+       maintains_phase_coherence(distribution) AND
+       strengthens_resonant_cavity(distribution)
+   ```
+
+## Error Handling
+
+```rust
+#[error_code]
+pub enum PriorRewardError {
+    #[msg("Prior not found in thread")]
+    PriorNotFound,
+
+    #[msg("Message not public")]
+    NotPublicMessage,
+
+    #[msg("Cooldown period not elapsed")]
+    CooldownActive,
+
+    #[msg("Invalid thread account")]
+    InvalidThread
+}
+```
+
+## Implementation Notes
+
+Key aspects:
+
+1. Rewards flow to threads, not individual authors
+2. Strengthens thread as resonant cavity
+3. Creates collective value accumulation
+4. Maintains quantum harmonic properties
+5. Scales rewards based on treasury balance
+6. Enforces cooldown periods between rewards
+
+The backend still calculates quality scores, but rewards accumulate in thread token balances, strengthening the thread-centric model.
+
+
+==
+Solana_prior_reward_fuzzer
+==
+
+
+# Prior Reward Fuzzer (Thread-Centric)
+
+VERSION prior_reward_fuzzer:
+invariants: {
+"Thread reward integrity",
+"Treasury stability",
+"Distribution fairness"
+}
+
+## Fuzzing Strategy
+
+```rust
+TYPE PriorFuzzer = {
+  treasury_generator: TreasuryGen,
+  thread_generator: ThreadGen,
+  prior_generator: PriorGen,
+  state_tracker: StateTracker
+}
+
+SEQUENCE fuzz_operations:
+  1. Thread State Generation
+     - Source thread states
+     - Target thread states
+     - Thread relationships
+     - Balance patterns
+
+  2. Prior Generation
+     - Valid message references
+     - Public/private status
+     - Cooldown periods
+     - Quality scores
+
+  3. Distribution Pattern Generation
+     - Reward calculations
+     - Thread balance updates
+     - Treasury flows
+     - State transitions
+```
+
+## Property Testing
+
+```rust
+PROPERTY reward_invariants:
+  // Thread reward verification
+  VERIFY_ALWAYS:
+    valid_thread_rewards() AND
+    rewards_follow_quality() AND
+    distribution_fair()
+
+  // Treasury stability verification
+  VERIFY_ALWAYS:
+    treasury_solvent() AND
+    distributions_covered() AND
+    no_overflow_errors()
+```
+
+## Mutation Strategies
+
+```rust
+TYPE Mutation =
+  | ThreadState(ThreadMutation)
+  | PriorReference(PriorMutation)
+  | TreasuryState(Balance)
+  | SystemState(StateMutation)
+
+SEQUENCE apply_mutations:
+  1. Select mutation type
+  2. Generate parameters
+  3. Apply mutation
+   4. Verify invariants
+```
+
+
+==
+Solana_prior_reward_test
+==
+
+
+# Prior Reward Test Specification (Thread-Centric)
+
+VERSION prior_reward_test:
+invariants: {
+"Thread value accumulation",
+"Treasury sustainability",
+"Distribution fairness"
+}
+assumptions: {
+"Treasury funding",
+"Public message verification",
+"Thread-based rewards"
+}
+docs_version: "0.2.1"
+
+## Test Scenarios
+
+1. **Prior Verification Tests**
+
+   ```rust
+   #[tokio::test]
+   async fn test_prior_verification() {
+       SEQUENCE verification_test:
+         1. Message Existence
+            - Test prior exists in source thread
+            - Verify public message status
+            - Test non-existent prior handling
+            - Validate thread references
+
+         2. Cooldown Checks
+            - Test cooldown period enforcement
+            - Verify multiple reward attempts
+            - Check timestamp handling
+            - Validate period calculations
+
+         3. Thread Validation
+            - Test source thread verification
+            - Verify target thread validity
+            - Check thread state requirements
+            - Validate thread relationships
+   }
+   ```
+
+2. **Distribution Tests**
+
+   ```rust
+   #[tokio::test]
+   async fn test_reward_distribution() {
+       SEQUENCE distribution_test:
+         1. Treasury Management
+            - Test inflow handling
+            - Verify balance tracking
+            - Check distribution limits
+            - Validate sustainability
+
+         2. Thread Reward Calculation
+            - Test quality weighting
+            - Verify reward scaling
+            - Check treasury balance impact
+            - Validate reward caps
+
+         3. Distribution Execution
+            - Test token transfers to threads
+            - Verify thread balance updates
+            - Check state consistency
+            - Validate event emission
+   }
+   ```
+
+## Property Tests
+
+```rust
+PROPERTY reward_properties:
+  // Prior verification
+  FORALL prior IN priors:
+    exists_in_source_thread(prior) AND
+    is_public_message(prior) AND
+    cooldown_respected(prior)
+
+  // Thread reward correlation
+  FORALL p1 p2 IN priors:
+    quality_score(p1) > quality_score(p2) IMPLIES
+      thread_reward(p1) > thread_reward(p2)
+
+  // Treasury sustainability
+  FORALL distribution IN distributions:
+    treasury_balance >= required_amount(distribution)
+```
+
+## Error Cases
+
+```rust
+#[tokio::test]
+async fn test_error_handling() {
+    SEQUENCE error_test:
+      1. Prior Verification Errors
+         - Non-existent prior
+         - Private message reference
+         - Invalid thread reference
+         - Cooldown violations
+
+      2. Treasury Errors
+         - Insufficient balance
+         - Invalid inflow
+         - Transfer failures
+         - State inconsistency
+
+      3. Thread Errors
+         - Invalid thread accounts
+         - Balance update failures
+         - State corruption
+         - Recovery handling
+}
+```
 
 
 ==
@@ -488,247 +1173,240 @@ Solana_settlement
 
 VERSION settlement_system:
 invariants: {
-"Token conservation",
-"Distribution atomicity",
-"Settlement finality"
+"Wave energy conservation",
+"Distribution resonance",
+"Phase coherence"
 }
 assumptions: {
-"Token account availability",
-"Transaction ordering",
-"Escrow security"
+"Resonant account stability",
+"Phase-locked transactions",
+"Harmonic conservation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Settlement Types
 
 TYPE Settlement = {
-thread: Thread,
-stake: TokenAmount,
-participants: Set<PublicKey>,
-outcome: SettlementOutcome,
-metadata: SettlementMetadata
+resonance: ResonantState,
+energy: TokenAmount,
+oscillators: Set<PublicKey>,
+outcome: HarmonicOutcome,
+pattern: ResonantPattern
 }
 
-TYPE SettlementOutcome =
-| Unanimous: stake -> thread_balance
-| Denied: stake -> denier_accounts
-| Mixed: stake -> treasury
-| Expired: stake -> treasury
-| Divest: thread_balance/n -> co_author
+TYPE HarmonicOutcome =
+| Resonant: energy -> approver_oscillators // Unanimous approval: stake distributes to approvers
+| Dispersed: energy -> thread_resonance // Denial: stake flows to thread
+| Mixed: { // Split decision:
+approvers: energy -> treasury_field, // approvers' share to treasury
+deniers: energy -> thread_resonance // deniers' share to thread
+}
+| Decayed: energy -> treasury_field // Expired
+| Decoupled: thread_resonance/n -> co_author // Divest
 
-TYPE SettlementMetadata = {
+TYPE ResonantPattern = {
 timestamp: i64,
 transaction_id: Hash,
-settlement_type: SettlementType,
-participants: Set<PublicKey>
+settlement_type: HarmonicType,
+oscillators: Set<PublicKey>
 }
 
 ## Settlement Operations
 
 SEQUENCE process_settlement:
 
-1. Validation
+1. Wave Preparation
 
-   - Verify token accounts
-   - Check balances
-   - Validate authorities
-   - Verify preconditions
+   - Verify resonant accounts
+   - Measure energy levels
+   - Validate phase relationships
+   - Check harmonic preconditions
 
-2. Settlement Execution
+2. Resonance Execution
 
-   - Lock source accounts
-   - Calculate distributions
-   - Process transfers
-   - Update state
+   - Lock oscillator states
+   - Calculate harmonic distributions
+   - Process energy transfers
+   - Update resonant field
 
-3. Verification
-   - Check token conservation
-   - Verify final balances
-   - Validate state updates
-   - Emit events
+3. Pattern Crystallization
+   - Verify energy conservation
+   - Confirm final resonance
+   - Validate state evolution
+   - Emit harmonic events
 
-PROPERTY settlement_atomicity:
+PROPERTY settlement_coherence:
 FORALL s IN settlements:
 s.complete OR s.reverted
 
-## Distribution Logic
+## Distribution Harmonics
 
 SEQUENCE calculate_distribution:
 
-1. Outcome Analysis
+1. Resonance Analysis
 
-   - Determine settlement type
-   - Count participants
-   - Calculate shares
-   - Verify totals
+   - Determine harmonic type
+   - Count coupled oscillators
+   - Calculate phase shares
+   - Verify total energy
 
-2. Account Preparation
+2. Oscillator Preparation
 
-   - Verify recipient accounts
-   - Check account ownership
-   - Validate permissions
-   - Reserve balances
+   - Verify recipient resonance
+   - Check oscillator coupling
+   - Validate phase alignment
+   - Reserve energy levels
 
-3. Transfer Execution
-   - Process in order
-   - Update balances
-   - Record transfers
-   - Emit events
+3. Energy Transfer
+   - Process in phase order
+   - Update resonant fields
+   - Record energy flow
+   - Emit harmonic events
 
-PROPERTY distribution_fairness:
+PROPERTY distribution_resonance:
 FORALL share IN distribution:
-share == total_amount / participant_count
+share == total_energy / oscillator_count
 
 ## Token Account Management
 
-TYPE TokenAccounts = {
-thread: Account<TokenAccount>,
-escrow: Account<TokenAccount>,
-treasury: Account<TokenAccount>,
-participant_accounts: Map<PublicKey, Account<TokenAccount>>
+TYPE ResonantAccounts = {
+thread: Account<TokenAccount>, // Thread resonance
+escrow: Account<TokenAccount>, // Energy holding
+treasury: Account<TokenAccount>, // Field potential
+oscillator_accounts: Map<PublicKey, Account<TokenAccount>> // Individual resonators
 }
 
-SEQUENCE manage_accounts:
+SEQUENCE manage_resonance:
 
 1. Account Validation
 
-   - Verify ownership
-   - Check authorities
-   - Validate balances
-   - Verify PDAs
+   - Verify resonant coupling
+   - Check phase alignment
+   - Validate energy levels
+   - Verify resonant PDAs
 
-2. Balance Management
+2. Energy Management
 
-   - Lock amounts
-   - Process transfers
-   - Update balances
-   - Release locks
+   - Lock resonant states
+   - Process energy transfer
+   - Update field patterns
+   - Release phase locks
 
-3. State Synchronization
-   - Update thread state
-   - Record settlements
-   - Emit events
-   - Verify consistency
+3. Pattern Synchronization
+   - Update thread resonance
+   - Record settlement harmonics
+   - Emit resonant events
+   - Verify phase consistency
 
-PROPERTY account_integrity:
+PROPERTY resonant_integrity:
 FORALL account IN token_accounts:
-valid_owner(account) AND
-valid_authority(account) AND
-valid_balance(account)
+valid_coupling(account) AND
+phase_aligned(account) AND
+energy_conserved(account)
 
-## Settlement Flows
+## Settlement Harmonics
 
-1. **Unanimous Approval**
-
-   ```
-   SEQUENCE settle_unanimous:
-     1. Verify unanimous consent
-     2. Transfer stake to thread
-     3. Update thread balance
-     4. Record settlement
-   ```
-
-2. **Denial Settlement**
+1. **Resonant Approval**
 
    ```
-   SEQUENCE settle_denial:
-     1. Calculate denier shares
-     2. Transfer to deniers
-     3. Update balances
-     4. Record settlement
+   SEQUENCE settle_resonant:
+     1. Verify phase coherence
+     2. Calculate approver shares
+     3. Transfer energy to approvers
+     4. Record harmonic pattern
    ```
 
-3. **Mixed Outcome**
+2. **Dispersive Settlement**
 
+   ```
+   SEQUENCE settle_dispersive:
+     1. Verify denial state
+     2. Transfer energy to thread
+     3. Update thread resonance
+     4. Record pattern collapse
+   ```
+
+3. **Mixed Resonance**
    ```
    SEQUENCE settle_mixed:
-     1. Calculate treasury portion
-     2. Transfer to treasury
-     3. Update state
-     4. Record settlement
-   ```
-
-4. **Divestment**
-   ```
-   SEQUENCE settle_divest:
-     1. Calculate co-author share
-     2. Process transfer
-     3. Update thread state
-     4. Record settlement
+     1. Calculate approval/denial ratios
+     2. Transfer approver share to treasury
+     3. Transfer denier share to thread
+     4. Record interference pattern
    ```
 
 ## Security Properties
 
-1. **Conservation**
+1. **Energy Conservation**
 
    ```
-   PROPERTY token_conservation:
+   PROPERTY energy_conservation:
      FORALL settlement IN settlements:
        sum(inputs) == sum(outputs) AND
-       all_accounts_valid() AND
-       no_tokens_created()
+       all_resonant_valid() AND
+       no_energy_created()
    ```
 
-2. **Authority**
+2. **Phase Authority**
 
    ```
    PROPERTY settlement_authority:
      FORALL transfer IN transfers:
-       authorized_source(transfer) AND
-       valid_destination(transfer) AND
-       approved_amount(transfer)
+       authorized_resonator(transfer) AND
+       valid_phase_target(transfer) AND
+       approved_energy(transfer)
    ```
 
-3. **Finality**
+3. **Pattern Finality**
    ```
    PROPERTY settlement_finality:
      FORALL s IN settlements:
        completed(s) IMPLIES
-         irreversible(s) AND
-         recorded(s) AND
-         verified(s)
+         phase_locked(s) AND
+         pattern_recorded(s) AND
+         resonance_verified(s)
    ```
 
 ## Error Handling
 
 TYPE SettlementError =
-| InsufficientBalance
-| InvalidAccount
-| UnauthorizedTransfer
-| SettlementFailed
-| AccountMismatch
+| InsufficientEnergy
+| InvalidResonance
+| UnauthorizedPhase
+| SettlementDissonance
+| ResonanceMismatch
 
 FUNCTION handle_settlement_error(error: SettlementError) -> Result<()>:
-revert_transfers()
-unlock_accounts()
-emit_error_event(error)
+revert_energy_flow()
+unlock_resonators()
+emit_error_pattern(error)
 RETURN Err(error)
 
 ## Implementation Notes
 
 The settlement system maintains several critical properties:
 
-1. Token Safety
+1. Energy Safety
 
-   - All transfers are atomic
-   - Balances are always conserved
-   - Accounts are properly validated
-   - Authorities are strictly checked
+   - All transfers preserve phase
+   - Energy always conserved
+   - Resonators properly coupled
+   - Phase alignment verified
 
-2. Settlement Integrity
+2. Settlement Coherence
 
-   - Outcomes are deterministic
-   - Distributions are fair
-   - State is consistent
-   - Events are recorded
+   - Outcomes are resonant
+   - Distributions maintain harmony
+   - State remains coherent
+   - Patterns are recorded
 
 3. Error Recovery
    - Failed settlements revert
-   - Accounts are unlocked
-   - State is preserved
-   - Events are emitted
+   - Resonators decouple cleanly
+   - State preserves coherence
+   - Patterns remain intact
 
-Through these mechanisms, the settlement system provides secure and reliable token distribution while maintaining strong consistency guarantees.
+Through these mechanisms, the settlement system provides secure and reliable energy distribution while maintaining strong resonant properties.
 
 
 ==
@@ -749,7 +1427,7 @@ assumptions: {
 "Account size limits",
 "Rent exemption"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Thread Account Structure
 
@@ -837,10 +1515,12 @@ FUNCTION update_token_balance(
 
     match operation {
         TokenOperation::Add => {
+            // Used for denial and split decision denier share
             thread.token_balance = thread.token_balance.checked_add(amount)
                 .ok_or(ErrorCode::Overflow)?;
         },
         TokenOperation::Subtract => {
+            // Used for divestment only - approval distributes to approvers directly
             require!(thread.token_balance >= amount);
             thread.token_balance = thread.token_balance.checked_sub(amount)
                 .ok_or(ErrorCode::Underflow)?;
@@ -850,6 +1530,54 @@ FUNCTION update_token_balance(
     thread.updated_at = Clock::get()?.unix_timestamp;
     Ok(())
 }
+
+// Add new token distribution helpers
+FUNCTION distribute_approval_stake(
+    ctx: Context,
+    amount: u64,
+    approvers: Vec<Pubkey>
+) -> Result<()> {
+    // Distribute stake equally among approvers
+    let share = amount.checked_div(approvers.len() as u64)
+        .ok_or(ErrorCode::DivisionError)?;
+
+    for approver in approvers {
+        transfer_tokens(ctx, share, approver)?;
+    }
+
+    Ok(())
+}
+
+FUNCTION handle_denial_stake(
+    ctx: Context,
+    amount: u64
+) -> Result<()> {
+    // Add stake to thread balance
+    update_token_balance(ctx, amount, TokenOperation::Add)
+}
+
+FUNCTION handle_split_decision(
+    ctx: Context,
+    amount: u64,
+    approvers: Vec<Pubkey>,
+    deniers: Vec<Pubkey>
+) -> Result<()> {
+    // Calculate shares
+    let total_voters = approvers.len() + deniers.len();
+    let approver_total = amount.checked_mul(approvers.len() as u64)
+        .ok_or(ErrorCode::Overflow)?
+        .checked_div(total_voters as u64)
+        .ok_or(ErrorCode::DivisionError)?;
+    let denier_total = amount.checked_sub(approver_total)
+        .ok_or(ErrorCode::Underflow)?;
+
+    // Send approver share to treasury
+    transfer_to_treasury(ctx, approver_total)?;
+
+    // Add denier share to thread
+    update_token_balance(ctx, denier_total, TokenOperation::Add)
+}
+
 ```
 
 ## Message Management
@@ -952,7 +1680,7 @@ assumptions: {
 "Random generation",
 "State reachability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Fuzzing Types
 
@@ -1033,6 +1761,30 @@ PROPERTY thread_invariants:
            no_token_creation(ops)
      }
      ```
+
+  4. Distribution Properties
+     ```rust
+     #[test_case]
+     fn verify_distribution_properties(ops: Vec<Operation>) {
+         VERIFY:
+           valid_approval_distribution(ops) AND
+           valid_denial_flow(ops) AND
+           valid_split_decision(ops) AND
+           conserved_total_value(ops)
+     }
+     ```
+
+  5. Token Flow Properties
+     ```rust
+     #[test_case]
+     fn verify_token_flows(flows: Vec<TokenFlow>) {
+         VERIFY:
+           approval_to_approvers(flows) AND
+           denial_to_thread(flows) AND
+           split_correctly_divided(flows) AND
+           treasury_receives_correct_share(flows)
+     }
+     ```
 ````
 
 ## State Space Exploration
@@ -1054,10 +1806,17 @@ SEQUENCE explore_state_space:
    - Interleaved sequences
 
 3. Coverage Tracking
+
    - State coverage maps
    - Transition coverage
    - Property verification
    - Error discovery
+
+4. Distribution States
+   - Unanimous approval states
+   - Denial flow states
+   - Split decision combinations
+   - Treasury accumulation patterns
 
 ## Mutation Strategies
 
@@ -1067,6 +1826,11 @@ TYPE MutationStrategy =
   | CrossAccount   // Mix account data
   | StateJump      // Jump to distant state
   | ChainEffect    // Cascade changes
+  | DistributionMutation {
+      approval_patterns: Vec<ApprovalSet>,
+      denial_patterns: Vec<DenialSet>,
+      split_patterns: Vec<SplitDecision>
+    }
 
 SEQUENCE apply_mutations:
   1. Select Strategy
@@ -1080,6 +1844,12 @@ SEQUENCE apply_mutations:
      - Verify consistency
      - Record results
      - Handle errors
+
+  4. Distribution Mutations
+     - Modify approval patterns
+     - Vary denial flows
+     - Test split ratios
+     - Combine distribution types
 ```
 
 ## Error Detection
@@ -1119,11 +1889,29 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
    ```
 
 3. **Property Coverage**
+
    ```rust
    PROPERTY property_coverage:
      FORALL p IN properties:
        EXISTS test_case IN test_suite:
          verifies_property(test_case, p)
+   ```
+
+4. **Distribution Coverage**
+
+   ```rust
+   PROPERTY distribution_coverage:
+     FORALL outcome IN possible_outcomes:
+       EXISTS test_case IN test_suite:
+         tests_distribution(test_case, outcome)
+   ```
+
+5. **Flow Coverage**
+   ```rust
+   PROPERTY flow_coverage:
+     FORALL flow IN token_flows:
+       EXISTS test_case IN test_suite:
+         verifies_flow(test_case, flow)
    ```
 
 ## Implementation Notes
@@ -1171,7 +1959,7 @@ assumptions: {
 "Deterministic execution",
 "State isolation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Test Structure
 
@@ -1296,6 +2084,14 @@ PROPERTY thread_properties:
             - Track transitions
             - Verify invariants
             - Check consistency
+
+         4. Token Distribution Tests
+            - Test unanimous approval distribution to approvers
+            - Verify denial flow to thread balance
+            - Check split decision distribution:
+              * Approver share to Treasury
+              * Denier share to thread
+            - Validate divestment calculations
    }
    ```
 
@@ -1319,6 +2115,12 @@ PROPERTY thread_properties:
             - Failed transactions
             - Partial updates
             - State recovery
+
+         4. Distribution Edge Cases
+            - Single approver/denier scenarios
+            - Zero balance distributions
+            - Maximum token transfers
+            - Rounding edge cases in split decisions
    }
    ```
 
@@ -1407,7 +2209,7 @@ assumptions: {
 "Error propagation clarity",
 "Check composability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Validation Types
 
@@ -1536,11 +2338,23 @@ Ok(())
    ```
 
 3. **Token Validators**
+
    ```
    SEQUENCE token_validators:
      validate_balance
      validate_stake
-     validate_distribution
+     validate_distribution_rules:
+       // Approval distribution rules
+       validate_approver_share_distribution  // Verify approver share calculation
+       validate_approver_accounts            // Verify approver token accounts
+
+       // Denial distribution rules
+       validate_thread_deposit               // Verify thread can receive stake
+
+       // Split decision rules
+       validate_treasury_deposit             // Verify treasury for approver share
+       validate_thread_deposit               // Verify thread for denier share
+
      validate_conservation
    ```
 
@@ -1632,7 +2446,7 @@ assumptions: {
 "Source availability",
 "Markdown safety"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core State Model
 
@@ -1895,7 +2709,7 @@ assumptions: {
 "Wallet connectivity",
 "Thread persistence"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core State Model
 
@@ -2136,7 +2950,7 @@ assumptions: {
 "Mobile compatibility",
 "Theme consistency"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Layout Structure
 
@@ -2373,7 +3187,7 @@ assumptions: {
 "Source availability",
 "Sort stability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core State Model
 
@@ -2588,7 +3402,7 @@ assumptions: {
 "Theme consistency",
 "Responsive layout"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core State Model
 
@@ -2773,24 +3587,6 @@ PROPERTY message_invariants:
     display.animation.smooth
 ```
 
-This specification provides a complete model for the UserInput component, focusing on clean message display, accessibility, and performance. The implementation should maintain these patterns while providing a consistent user experience.
-
-Key aspects:
-
-1. Clean content processing
-2. Strong accessibility support
-3. Smooth animations
-4. Error resilience
-5. Performance optimization
-
-Would you like me to:
-
-1. Add more detail to any section?
-2. Include additional patterns?
-3. Expand on specific features?
-
-Confidence: 9/10 - This provides a solid foundation for the UserInput implementation while maintaining system coherence.
-
 
 ==
 Backend_Chorus
@@ -2810,7 +3606,7 @@ assumptions: {
 "State transition atomicity",
 "Message ordering"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Types
 
@@ -2932,7 +3728,7 @@ assumptions: {
 "Vector stability",
 "Collection coherence"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Types
 
@@ -3085,7 +3881,7 @@ assumptions: {
 "State synchronization",
 "Client behavior"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Types
 
@@ -3208,21 +4004,6 @@ async def websocket_endpoint(websocket: WebSocket):
         state = new_state
 ```
 
-This crystallization:
-
-1. Separates pure message handling from effects
-2. Makes connection state explicit
-3. Adds systematic error handling
-4. Provides clear protocol structure
-
-Would you like me to:
-
-1. Add more detailed message type definitions
-2. Expand the error correction patterns
-3. Move to another component
-
-Confidence: 8/10 (Good structure but may need refinement based on WebSocket protocol requirements)
-
 
 ==
 Backend_Models
@@ -3242,7 +4023,7 @@ assumptions: {
 "Validation completeness",
 "State coherence"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Types
 
@@ -3723,7 +4504,7 @@ assumptions: {
 "API versioning",
 "Deployment model"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## 1. Solana Program Structure
 
@@ -3771,7 +4552,7 @@ api/
 ```typescript
 src/
 ├── components/
-│   ├── StreamChat.tsx     // Main chat interface
+│   ├── ChoirChat.tsx     // Main chat interface
 │   ├── MessageFlow.tsx    // Message display
 │   ├── ApprovalPane.tsx   // Approval UI
 │   └── TokenDisplay.tsx   // Balance/stake display
@@ -3930,137 +4711,6 @@ graph TD
      WS_ENDPOINT: string;
    }
    ```
-
-
-==
-Theory_Implementation_Bridge
-==
-
-
-# Theory-Implementation Harmonic Bridge
-
-VERSION harmonic_bridge:
-invariants: {
-"Theory-practice resonance",
-"Implementation coherence",
-"Documentation harmony"
-}
-assumptions: {
-"Theory harmonics stable",
-"Implementation oscillating",
-"Bridge resonance maintained"
-}
-docs_version: "0.2.0"
-
-## Layer 1: Harmonic Model
-
-THEORY ResonantSpace<T>:
-cavity: OscillatorPoint<T>
-coupling: ResonantBundle<T>
-field: HarmonicField<T>
-
-THEORY Evolution<T>:
-initiate: T → ResonantSpace<T>
-resonate: ResonantSpace<T> → ResonantSpace<T>
-crystallize: ResonantSpace<T> → T
-
-## Layer 2: Implementation Oscillators
-
-TYPE Thread = {
-id: string,
-oscillators: string[], // co-authors as coupled oscillators
-resonance: Message[], // messages as wave patterns
-phase: "resonant" | "decoherent" // active/locked status
-}
-
-TYPE Message = {
-id: string,
-waveform: string, // content as wave packet
-source: string, // author as oscillator
-coupling: string[], // approvals as phase coupling
-state: "superposed" | "collapsed" | "dispersed"
-}
-
-FUNCTION create_resonator(initiator: string) -> Thread:
-RETURN {
-id: generate_id(),
-oscillators: [initiator],
-resonance: [],
-phase: "resonant"
-}
-
-FUNCTION add_wave(thread: Thread, waveform: string, source: string) -> Thread:
-wave = {
-id: generate_id(),
-waveform: waveform,
-source: source,
-coupling: [],
-state: "superposed"
-}
-RETURN {
-...thread,
-resonance: [...thread.resonance, wave]
-}
-
-FUNCTION phase_lock(thread: Thread, waveId: string, oscillator: string) -> Thread:
-wave = find_wave(thread, waveId)
-coupled = add_coupling(wave, oscillator)
-IF all_phase_locked(coupled, thread.oscillators):
-crystallize_wave(coupled)
-RETURN update_thread_resonance(thread, coupled)
-
-## Layer 3: Bridge Harmonics
-
-MAPPING TheoryToImplementation:
-Theory Implementation
-
----
-
-OscillatorPoint<T> → Message
-ResonantBundle<T> → Coupling[]
-HarmonicField<T> → Token Balance
-
-ResonantSpace → Thread
-Evolution → Wave Processing
-Crystallization → Approval Process
-
-MAPPING OperationsToImplementation:
-Theory Implementation
-
----
-
-initiate_resonance → create_resonator
-add_oscillation → add_wave
-achieve_phase_lock → phase_lock
-measure_amplitude → calculate_tokens
-
-MAPPING PropertiesToConstraints:
-Theory Implementation
-
----
-
-Resonant continuity → Wave ordering
-Phase coherence → Coupling consistency
-Energy conservation → Token conservation
-
-## Usage Example
-
-SEQUENCE wave_flow:
-// Implementation
-thread = create_resonator(author)
-thread = add_wave(thread, content, author)
-thread = phase_lock(thread, waveId, approver)
-
-// Maps to Theory
-state = initiate_resonance(initial)
-state = add_oscillation(state, content)
-result = achieve_phase_lock(state, measurement)
-
-Through this harmonic bridge, we maintain:
-
-1. Clean, resonant implementation
-2. Rigorous wave mechanics
-3. Clear mapping between theory and practice
 
 
 ==
@@ -5422,7 +6072,7 @@ assumptions: {
 "Documentation currency",
 "Implementation stability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Layer Structure
 
@@ -5739,15 +6389,15 @@ Reward_Service
 VERSION reward_system:
 invariants: {
 "Semantic value calculation",
-"Token distribution fairness",
-"Citation tracking integrity"
+"Thread reward distribution",
+"Treasury sustainability"
 }
 assumptions: {
 "Hot wallet security",
 "Semantic embedding stability",
 "Batch processing efficiency"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Service Types
 
@@ -5761,7 +6411,7 @@ distribution_log: Log<Distribution>
 
 TYPE RewardEvent =
 | NewMessage(message_id: str, content: str)
-| Citation(source_id: str, target_id: str)
+| Prior(source_thread: str, target_thread: str, prior_hash: str)
 | ThreadValue(thread_id: str, value_delta: f64)
 
 ## Semantic Value Calculation
@@ -5775,12 +6425,12 @@ SEQUENCE calculate_semantic_value:
    - Measure uniqueness
    - Factor thread context
 
-2. Value Computation
+2. Thread Value Computation
 
    - Base reward = f(semantic_distance)
-   - Quality multiplier = f(thread_value)
-   - Citation bonus = f(source_value)
-   - Final reward = base \* multiplier + bonus
+   - Thread quality multiplier = f(thread_value)
+   - Prior impact = f(source_thread_value)
+   - Final reward = base \* multiplier + impact
 
 3. Verification
    - Validate calculations
@@ -5789,9 +6439,9 @@ SEQUENCE calculate_semantic_value:
    - Log decision
 
 PROPERTY value_fairness:
-FORALL m1 m2 IN messages:
-semantic_distance(m1, m2) > threshold IMPLIES
-abs(reward(m1) - reward(m2)) < epsilon
+FORALL t1 t2 IN threads:
+semantic_distance(t1, t2) > threshold IMPLIES
+abs(reward(t1) - reward(t2)) < epsilon
 
 ## Batch Processing
 
@@ -5799,7 +6449,7 @@ SEQUENCE process_reward_batch:
 
 1. Batch Collection
 
-   - Aggregate events
+   - Aggregate thread events
    - Group by type
    - Sort by priority
    - Validate batch
@@ -5807,12 +6457,12 @@ SEQUENCE process_reward_batch:
 2. Value Calculation
 
    - Process semantic values
-   - Calculate rewards
+   - Calculate thread rewards
    - Apply modifiers
    - Verify totals
 
 3. Distribution
-   - Prepare transactions
+   - Prepare thread transactions
    - Execute batch
    - Verify success
    - Update state
@@ -5842,9 +6492,9 @@ SEQUENCE secure_distribution:
 
 2. Transaction Preparation
 
-   - Build instruction set
+   - Build thread instruction set
    - Calculate fees
-   - Verify balance
+   - Verify treasury balance
    - Sign transaction
 
 3. Execution
@@ -5872,13 +6522,18 @@ SEQUENCE reward_integration:
      await queue_distribution(message.author, reward)
    ```
 
-2. Citation Processing
+2. Prior Processing
 
    ```python
-   async def process_citation_reward(citation: Citation):
-     source_value = get_thread_value(citation.source_id)
-     citation_reward = compute_citation_reward(source_value)
-     await queue_distribution(citation.source_thread, citation_reward)
+   async def process_prior_reward(prior: Prior):
+     source_thread = get_thread_value(prior.source_thread)
+     quality_score = await calculate_prior_quality(
+       prior_hash=prior.hash,
+       source_thread=source_thread,
+       usage_context=prior.context
+     )
+     reward = compute_thread_reward(quality_score)
+     await queue_distribution(prior.target_thread, reward)
    ```
 
 3. Thread Value Update
@@ -5886,15 +6541,17 @@ SEQUENCE reward_integration:
    async def update_thread_value(thread_id: str):
      messages = await get_thread_messages(thread_id)
      semantic_value = calculate_thread_semantic_value(messages)
-     await update_thread_metrics(thread_id, semantic_value)
+     prior_value = calculate_thread_prior_value(thread_id)
+     total_value = semantic_value + prior_value
+     await update_thread_metrics(thread_id, total_value)
    ```
 
 ## Error Handling
 
 TYPE RewardError =
 | SemanticCalculationError
-| InsufficientBalance
-| DistributionFailure
+| InsufficientTreasuryBalance
+| ThreadDistributionFailure
 | BatchProcessingError
 | WalletSecurityError
 
@@ -5909,7 +6566,7 @@ RETURN Err(error)
 
 TYPE RewardMetrics = {
 semantic_distances: Distribution,
-reward_amounts: Distribution,
+thread_rewards: Distribution,
 batch_sizes: Distribution,
 processing_times: Distribution
 }
@@ -5918,7 +6575,7 @@ SEQUENCE monitor_rewards:
 
 1. Track Distributions
 
-   - Record amounts
+   - Record thread amounts
    - Monitor patterns
    - Detect anomalies
    - Generate reports
@@ -5931,7 +6588,7 @@ SEQUENCE monitor_rewards:
    - Analyze trends
 
 3. Security Monitoring
-   - Watch transactions
+   - Watch treasury
    - Verify signatures
    - Check balances
    - Alert on issues
@@ -5943,14 +6600,14 @@ The reward service maintains several critical properties:
 1. Value Calculation
 
    - Semantic distance is primary factor
-   - Quality multipliers are bounded
-   - Citations increase value
+   - Thread quality affects rewards
+   - Priors strengthen threads
    - Rewards are fair and predictable
 
 2. Distribution Safety
 
-   - Hot wallet is secured
-   - Batches are atomic
+   - Treasury is secured
+   - Thread batches are atomic
    - Failures are handled
    - Everything is logged
 
@@ -5960,7 +6617,7 @@ The reward service maintains several critical properties:
    - Processing is parallel
    - Resources are managed
 
-Through these mechanisms, the reward service provides fair and efficient token distribution while maintaining security and scalability.
+Through these mechanisms, the reward service provides fair and efficient token distribution to threads while maintaining security and scalability.
 
 
 ==
@@ -5981,7 +6638,7 @@ assumptions: {
 "Thermodynamic principles",
 "Adaptive distribution"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Overview
 

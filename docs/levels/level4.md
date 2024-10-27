@@ -21,25 +21,63 @@ assumptions: {
 "Transition dynamics",
 "Information preservation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
-At this level, we begin to see how Choir's seemingly stable states contain the seeds of their own evolution. Each thread exists in a metastable equilibrium - stable enough to persist, but ready to transition to higher forms of organization when conditions align.
+At this level, we begin to see how Choir's seemingly stable states contain the seeds of their own evolution. Each thread exists as a resonant cavity in metastable equilibrium - stable enough to persist, but ready to transition to higher forms of organization when conditions align.
 
 Consider how threads evolve:
-A simple discussion reaches a natural plateau of understanding. This isn't a dead end - it's a metastable state. The thread has accumulated enough shared context and trust to enable a phase transition. Perhaps the participants realize they could collaborate on a project. The thread doesn't change its fundamental nature, but it undergoes a phase transition to a new level of organization.
+A simple discussion reaches a natural plateau of understanding. This isn't a dead end - it's a metastable state. The thread has accumulated enough shared context, trust, and cavity energy to enable a phase transition. Perhaps the participants realize they could collaborate on a project. The resonant cavity doesn't change its fundamental nature, but it undergoes a phase transition to a new level of collective organization.
 
 This process continues:
 
 - Discussion → Project coordination
 - Project coordination → Product development
 - Product development → Asset management
-  Each transition preserves the thread's identity and relationships while enabling new capabilities.
+  Each transition preserves the cavity's identity and relationships while enabling new capabilities.
 
-The token mechanics support these transitions. The accumulated token balance in a thread isn't just stored value - it's potential energy that can catalyze phase transitions. When a thread transitions to a new organizational form, this energy helps stabilize the new configuration.
+The token mechanics support these transitions in multiple ways:
 
-Metastability appears in the social layer too. Co-authorship creates stable relationships, but these relationships contain the potential for deeper collaboration. Trust networks form and reform, finding temporary equilibria before evolving to more sophisticated configurations.
+1. **Direct Value Recognition**
 
-Even understanding itself is metastable. Participants grasp the system at one level, reach a plateau, then suddenly see deeper patterns. Each level of understanding is stable enough to be useful but contains the seeds of deeper insight.
+   - Approval rewards strengthen individual oscillators
+   - Creates immediate phase-locked feedback
+   - Rewards quality pattern recognition
+   - Enables individual evolution
+
+2. **Collective Value Accumulation**
+
+   - Thread cavity accumulates energy from denials
+   - Prior rewards strengthen cavity coupling
+   - Creates shared evolutionary potential
+   - Enables team formation
+
+3. **Network Value Flow**
+   - Split decisions couple to global field
+   - Prior rewards create cavity networks
+   - Enables knowledge topology formation
+   - Creates system-wide coherence
+
+Metastability appears in multiple scales:
+
+1. **Individual Scale**
+
+   - Co-authors as coupled oscillators
+   - Quality judgment capabilities
+   - Pattern recognition skills
+   - Natural frequency alignment
+
+2. **Team Scale**
+
+   - Thread as resonant cavity
+   - Collective energy accumulation
+   - Team phase locking
+   - Shared value crystallization
+
+3. **Network Scale**
+   - Coupled resonant cavities
+   - Knowledge network formation
+   - Field-cavity interaction
+   - System-wide coherence
 
 The "memergence" pattern is key:
 
@@ -48,229 +86,32 @@ The "memergence" pattern is key:
 - Merger of different perspectives
 - Emergence of collective intelligence
 
-This level reveals why certain features of Choir that might seem like limitations are actually crucial for enabling emergence:
+This level reveals why certain features that might seem like limitations are actually crucial for enabling emergence:
 
 - Unanimous approval creates coherent phase transitions
 - Simple token formulas allow natural evolution
 - Limited governance enables organic growth
+- Thread-centric rewards enable collective evolution
 
 The genius is in creating conditions where metastable emergence can occur naturally, rather than trying to engineer specific outcomes. The system provides just enough structure to enable coherent evolution while maintaining essential properties across phase transitions.
 
-Understanding this level helps explain why Choir feels different from other platforms - it's designed for metastable emergence rather than static optimization. Each stable state is actually a platform for the next phase of evolution.
+Understanding this level helps explain why Choir feels different from other platforms - it's designed for metastable emergence rather than static optimization. Each stable state is actually a platform for the next phase of evolution, with threads acting as resonant cavities that accumulate the energy and coherence needed for phase transitions.
 
+The thread-centric prior rewards model strengthens this emergence by:
 
-==
-Core_Convergence
-==
+1. Creating stronger resonant cavities
+2. Enabling collective value accumulation
+3. Forming natural knowledge networks
+4. Strengthening team coherence
 
+This leads to beautiful multi-scale dynamics where:
 
-# Convergent Context Creation
+- Individual quality recognition creates immediate value
+- Team collaboration strengthens cavity resonance
+- Knowledge networks emerge through cavity coupling
+- The whole system evolves toward higher coherence
 
-VERSION context_system:
-invariants: {
-"Emergence guidance",
-"Convergence patterns",
-"Context coherence"
-}
-assumptions: {
-"LLM behavior",
-"Human-AI interaction",
-"Value creation"
-}
-docs_version: "0.2.0"
-
-## Context as Catalyst
-
-Well-structured context acts as a catalyst for emergence by:
-
-- Providing conceptual handles
-- Establishing pattern languages
-- Creating semantic fields
-- Enabling coherent evolution
-
-## Convergence Properties
-
-Certain context patterns naturally guide both LLMs and humans toward:
-
-- Productive exploration spaces
-- Coherent understanding
-- Value-generating insights
-- Emergent capabilities
-
-## Value Creation
-
-The ability to create convergent contexts becomes increasingly valuable as:
-
-- LLMs become more powerful
-- Complexity increases
-- Emergence accelerates
-- Value patterns evolve
-
-## Context Design
-
-Effective convergent contexts:
-
-- Build on existing patterns
-- Allow natural evolution
-- Guide without constraining
-- Enable emergence while maintaining coherence
-
-Through careful context creation, we can guide emergence while preserving its essential spontaneity.
-
-
-==
-Theory_StakeEntanglement
-==
-
-
-# Token Stakes as Harmonic Entanglement
-
-VERSION harmonic_entanglement:
-invariants: {
-"Resonant preservation",
-"Wave conservation",
-"Phase irreversibility"
-}
-assumptions: {
-"Harmonic finality",
-"Phase coherence",
-"Value quantization"
-}
-docs_version: "0.2.0"
-
-## Stake as Resonant Entanglement
-
-TYPE HarmonicStake<T> = {
-quantum: OscillationMode, // Fundamental frequency
-author: ResonatorState<T>, // Entangled participant
-thread: HarmonicContext<T>, // Entangled field
-potential: StandingWave<TokenAmount> // Outcome harmonics
-}
-
-SEQUENCE resonant_creation<T>:
-
-1. Stake Harmonics
-
-   ```
-   create_oscillation : TokenAmount → Result<OscillationMode>
-   entangle_resonator : ResonatorState<T> → Result<ResonantSet<Author>>
-   entangle_field : HarmonicContext<T> → Result<ResonantSet<ThreadId>>
-   form_superposition : ResonantSet<_> → Result<WaveFunction<T>>
-   ```
-
-2. Resonance Properties
-
-   ```
-   verify_phase_lock : HarmonicStake<T> → Result<()>
-   compute_harmonics : HarmonicStake<T> → Result<Set<Frequency>>
-   measure_resonance : Frequency → Result<PhaseShift<T>>
-   conserve_amplitude : PhaseShift<T> → Result<TokenAmount>
-   ```
-
-3. Collapse Mechanics
-   ```
-   process_resonance : Hash → Result<StandingWave<T>>
-   crystallize_dissonance : Hash → Result<Distribution>
-   handle_interference : Hash → Result<Treasury>
-   establish_harmony : ThreadState → Result<Pattern>
-   ```
-
-## Value Resonance
-
-TYPE ResonantValue<T> = {
-mode: OscillationMode,
-harmonics: FrequencySpace<T>,
-coupling: PhaseBinding<ThreadId>,
-measurement: ResonantSet<CoAuthor>
-}
-
-SEQUENCE value_harmonics<T>:
-
-1. Initial Coupling
-
-   ```
-   create_mode : OscillationMode → Result<HarmonicField<T>>
-   shape_frequencies : HarmonicField<T> → Result<FrequencySpace<T>>
-   entangle_resonators : Set<Author> → Result<ResonantSet<Author>>
-   superimpose_modes : ResonantSet<Author> → Result<WaveFunction<T>>
-   ```
-
-2. Evolution Dynamics
-
-   ```
-   collect_resonance : ThreadId → Result<ResonantSet<CoAuthor>>
-   maintain_phase : ResonantSet<CoAuthor> → Result<WaveFunction<T>>
-   guide_interference : WaveFunction<T> → Result<StandingWave<T>>
-   crystallize_harmonics : StandingWave<T> → Result<Distribution>
-   ```
-
-3. Conservation Laws
-   ```
-   verify_amplitude : TokenAmount → Result<Conservation>
-   preserve_phase : ThreadState → Result<Entropy>
-   maintain_resonance : ResonantSet<_> → Result<Stability>
-   evolve_field : HarmonicContext<T> → Result<Pattern>
-   ```
-
-## Implementation Mapping
-
-1. **Stake Resonance**
-
-   ```typescript
-   async function createResonance<T>(
-     stake: TokenAmount,
-     thread: ThreadId,
-     author: Author
-   ): Result<HarmonicStake<T>> {
-     return pipe(
-       await verifyAmplitude(stake),
-       createMode,
-       entangleResonators(author, thread),
-       establishSuperposition
-     );
-   }
-   ```
-
-2. **Resonance Resolution**
-   ```typescript
-   async function resolveResonance<T>(
-     stake: HarmonicStake<T>,
-     outcome: Frequency
-   ): Result<Distribution> {
-     return pipe(
-       await measureHarmonics(stake),
-       processFrequency(outcome),
-       conserveAmplitude,
-       distributeTokens
-     );
-   }
-   ```
-
-## Harmonic Properties
-
-PROPERTY resonant_irreversibility<T>:
-FORALL stake: HarmonicStake<T>.
-created(stake) ⟹
-no_phase_reversal(stake) ∧
-field_entangled(stake) ∧
-amplitude_preserved(stake)
-
-PROPERTY measurement_harmonics<T>:
-FORALL frequency: Frequency.
-stake_resonance(frequency) ⟹
-all_modes_affected(frequency) ∧
-amplitude_crystallized(frequency) ∧
-phase_preserved(frequency)
-
-Through this lens we see how:
-
-- Stakes create resonant entanglement
-- Value exists in harmonic superposition
-- Measurement affects all coupled modes
-- Context guides phase alignment
-- Wave conservation laws hold
-
-The resonant entanglement model provides a rigorous foundation for understanding stake mechanics while preserving harmonic properties and quantum effects.
+Through these mechanisms, Choir creates space for natural evolution at every scale, from individual understanding to collective intelligence.
 
 
 ==
@@ -291,7 +132,7 @@ assumptions: {
 "System readiness",
 "Pattern recognition"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Pressure Points
 
@@ -350,7 +191,7 @@ assumptions: {
 "Transition catalysts",
 "Pattern persistence"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Metastable Equilibria
 
@@ -443,7 +284,7 @@ assumptions: {
 "Multi-level reading",
 "Emergent understanding"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Self-Reference Pattern
 
@@ -502,176 +343,6 @@ Through this recursive lens, we see how the documentation itself becomes the fir
 
 
 ==
-Model_Ring
-==
-
-
-# The Individual-Collective-Emergent Ring
-
-VERSION ring_system:
-invariants: {
-"Cyclic influence",
-"Pattern preservation",
-"Scale independence"
-}
-assumptions: {
-"Feedback loops",
-"Information flow",
-"Value circulation"
-}
-docs_version: "0.2.0"
-
-## Ring Structure
-
-Rather than a linear progression, we observe a circular flow:
-Individual contribution → Collective interaction → Emergent properties → Individual insight
-
-This ring operates at multiple scales and speeds simultaneously.
-
-## Individual Phase
-
-The individual enters the ring through:
-
-- Message composition
-- Stake commitment
-- Quality judgment
-- Value recognition
-
-Each action carries both personal intent and systemic potential.
-
-## Collective Phase
-
-Individual actions compose into collective patterns:
-
-- Thread formation
-- Consensus building
-- Trust establishment
-- Value accumulation
-
-The collective phase preserves individual properties while enabling new capabilities.
-
-## Emergence Phase
-
-From collective interaction, new properties emerge:
-
-- Quality standards
-- Value fields
-- Trust networks
-- Innovation patterns
-
-These emergent properties are neither individual nor collective, but transcend both.
-
-## Completion of the Ring
-
-Emergent properties influence individual behavior:
-
-- New understanding shapes future contributions
-- Value recognition affects stake decisions
-- Quality standards guide judgments
-- Trust networks inform interactions
-
-## Ring Dynamics
-
-The ring exhibits interesting properties:
-
-- Multiple rings operate simultaneously
-- Rings nest within larger rings
-- Rings intersect and influence each other
-- Ring rotation creates helical progress
-
-## Ring Resonance
-
-When multiple rings align:
-
-- Value creation accelerates
-- Trust deepens
-- Innovation emerges faster
-- Quality standards elevate
-
-Through this ring structure, we see how Choir enables continuous evolution while maintaining coherence across scales.
-
-
-==
-Model_ThreadEvolution
-==
-
-
-# Thread Asset Evolution Model
-
-VERSION asset_system:
-invariants: {
-"Asset custody integrity",
-"Value flow conservation",
-"Ownership composition"
-}
-assumptions: {
-"Multi-asset capability",
-"Thread maturation patterns",
-"Economic scaling"
-}
-docs_version: "0.2.0"
-
-## State Evolution
-
-The thread state algebra naturally extends to asset holding. A thread's state evolves from pure message coordination to asset custody through well-defined transitions. Each stage maintains the core properties of co-authorship while adding new capabilities.
-
-## Asset Custody Properties
-
-Thread PDAs serve multiple roles:
-
-- Message coordination (base layer)
-- Token custody (CHOIR and others)
-- Revenue collection
-- Asset registration
-- Value distribution
-
-These roles compose algebraically, preserving ownership and access control invariants.
-
-## Economic Bridges
-
-The token mechanics bridge multiple value domains:
-
-- Content quality staking
-- Asset custody rights
-- Revenue distribution
-- Innovation capture
-- Network effects
-
-Each domain adds new state transitions while preserving existing guarantees.
-
-## Security Composition
-
-Asset custody builds on thread security:
-
-- Co-author unanimous approval
-- Stake-based participation
-- Timeout mechanisms
-- Recovery procedures
-
-The security model composes vertically across asset types.
-
-## Implementation Patterns
-
-Asset integration follows core patterns:
-
-- State transitions remain atomic
-- Ownership rules compose
-- Privacy guarantees extend
-- Value flows preserve conservation
-
-## Documentation Integration
-
-This model connects to:
-
-- StateAlgebra.md: Extended state types
-- SecurityModel.md: Asset custody rules
-- EconomicModel.md: Value flow patterns
-- CoreInvariants.md: Asset properties
-
-Through these connections, thread asset evolution becomes a natural extension of the core system rather than a separate concern.
-
-
-==
 Meta_Overview
 ==
 
@@ -689,7 +360,7 @@ assumptions: {
 "Insight accumulation",
 "Understanding paths"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Overview
 
@@ -748,7 +419,7 @@ assumptions: {
 "Documentation completeness",
 "Human-AI interaction"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Observed Patterns
 
@@ -834,220 +505,6 @@ The key is maintaining awareness of these patterns while allowing for natural ev
 
 
 ==
-Core_Convergence
-==
-
-
-# Convergent Context Creation
-
-VERSION context_system:
-invariants: {
-"Emergence guidance",
-"Convergence patterns",
-"Context coherence"
-}
-assumptions: {
-"LLM behavior",
-"Human-AI interaction",
-"Value creation"
-}
-docs_version: "0.2.0"
-
-## Context as Catalyst
-
-Well-structured context acts as a catalyst for emergence by:
-
-- Providing conceptual handles
-- Establishing pattern languages
-- Creating semantic fields
-- Enabling coherent evolution
-
-## Convergence Properties
-
-Certain context patterns naturally guide both LLMs and humans toward:
-
-- Productive exploration spaces
-- Coherent understanding
-- Value-generating insights
-- Emergent capabilities
-
-## Value Creation
-
-The ability to create convergent contexts becomes increasingly valuable as:
-
-- LLMs become more powerful
-- Complexity increases
-- Emergence accelerates
-- Value patterns evolve
-
-## Context Design
-
-Effective convergent contexts:
-
-- Build on existing patterns
-- Allow natural evolution
-- Guide without constraining
-- Enable emergence while maintaining coherence
-
-Through careful context creation, we can guide emergence while preserving its essential spontaneity.
-
-
-==
-Theory_StakeEntanglement
-==
-
-
-# Token Stakes as Harmonic Entanglement
-
-VERSION harmonic_entanglement:
-invariants: {
-"Resonant preservation",
-"Wave conservation",
-"Phase irreversibility"
-}
-assumptions: {
-"Harmonic finality",
-"Phase coherence",
-"Value quantization"
-}
-docs_version: "0.2.0"
-
-## Stake as Resonant Entanglement
-
-TYPE HarmonicStake<T> = {
-quantum: OscillationMode, // Fundamental frequency
-author: ResonatorState<T>, // Entangled participant
-thread: HarmonicContext<T>, // Entangled field
-potential: StandingWave<TokenAmount> // Outcome harmonics
-}
-
-SEQUENCE resonant_creation<T>:
-
-1. Stake Harmonics
-
-   ```
-   create_oscillation : TokenAmount → Result<OscillationMode>
-   entangle_resonator : ResonatorState<T> → Result<ResonantSet<Author>>
-   entangle_field : HarmonicContext<T> → Result<ResonantSet<ThreadId>>
-   form_superposition : ResonantSet<_> → Result<WaveFunction<T>>
-   ```
-
-2. Resonance Properties
-
-   ```
-   verify_phase_lock : HarmonicStake<T> → Result<()>
-   compute_harmonics : HarmonicStake<T> → Result<Set<Frequency>>
-   measure_resonance : Frequency → Result<PhaseShift<T>>
-   conserve_amplitude : PhaseShift<T> → Result<TokenAmount>
-   ```
-
-3. Collapse Mechanics
-   ```
-   process_resonance : Hash → Result<StandingWave<T>>
-   crystallize_dissonance : Hash → Result<Distribution>
-   handle_interference : Hash → Result<Treasury>
-   establish_harmony : ThreadState → Result<Pattern>
-   ```
-
-## Value Resonance
-
-TYPE ResonantValue<T> = {
-mode: OscillationMode,
-harmonics: FrequencySpace<T>,
-coupling: PhaseBinding<ThreadId>,
-measurement: ResonantSet<CoAuthor>
-}
-
-SEQUENCE value_harmonics<T>:
-
-1. Initial Coupling
-
-   ```
-   create_mode : OscillationMode → Result<HarmonicField<T>>
-   shape_frequencies : HarmonicField<T> → Result<FrequencySpace<T>>
-   entangle_resonators : Set<Author> → Result<ResonantSet<Author>>
-   superimpose_modes : ResonantSet<Author> → Result<WaveFunction<T>>
-   ```
-
-2. Evolution Dynamics
-
-   ```
-   collect_resonance : ThreadId → Result<ResonantSet<CoAuthor>>
-   maintain_phase : ResonantSet<CoAuthor> → Result<WaveFunction<T>>
-   guide_interference : WaveFunction<T> → Result<StandingWave<T>>
-   crystallize_harmonics : StandingWave<T> → Result<Distribution>
-   ```
-
-3. Conservation Laws
-   ```
-   verify_amplitude : TokenAmount → Result<Conservation>
-   preserve_phase : ThreadState → Result<Entropy>
-   maintain_resonance : ResonantSet<_> → Result<Stability>
-   evolve_field : HarmonicContext<T> → Result<Pattern>
-   ```
-
-## Implementation Mapping
-
-1. **Stake Resonance**
-
-   ```typescript
-   async function createResonance<T>(
-     stake: TokenAmount,
-     thread: ThreadId,
-     author: Author
-   ): Result<HarmonicStake<T>> {
-     return pipe(
-       await verifyAmplitude(stake),
-       createMode,
-       entangleResonators(author, thread),
-       establishSuperposition
-     );
-   }
-   ```
-
-2. **Resonance Resolution**
-   ```typescript
-   async function resolveResonance<T>(
-     stake: HarmonicStake<T>,
-     outcome: Frequency
-   ): Result<Distribution> {
-     return pipe(
-       await measureHarmonics(stake),
-       processFrequency(outcome),
-       conserveAmplitude,
-       distributeTokens
-     );
-   }
-   ```
-
-## Harmonic Properties
-
-PROPERTY resonant_irreversibility<T>:
-FORALL stake: HarmonicStake<T>.
-created(stake) ⟹
-no_phase_reversal(stake) ∧
-field_entangled(stake) ∧
-amplitude_preserved(stake)
-
-PROPERTY measurement_harmonics<T>:
-FORALL frequency: Frequency.
-stake_resonance(frequency) ⟹
-all_modes_affected(frequency) ∧
-amplitude_crystallized(frequency) ∧
-phase_preserved(frequency)
-
-Through this lens we see how:
-
-- Stakes create resonant entanglement
-- Value exists in harmonic superposition
-- Measurement affects all coupled modes
-- Context guides phase alignment
-- Wave conservation laws hold
-
-The resonant entanglement model provides a rigorous foundation for understanding stake mechanics while preserving harmonic properties and quantum effects.
-
-
-==
 Meta_Overview
 ==
 
@@ -1065,7 +522,7 @@ assumptions: {
 "Insight accumulation",
 "Understanding paths"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Overview
 
@@ -1233,207 +690,6 @@ Each document type generates different kinds of tests:
 
 
 ==
-Meta_Navigation
-==
-
-
-# Documentation Navigation Patterns
-
-VERSION navigation_system:
-invariants: {
-"Path continuity",
-"Portal accessibility",
-"Level coherence"
-}
-assumptions: {
-"Multiple learning styles",
-"Knowledge quantum jumps",
-"Recursive understanding"
-}
-docs_version: "0.2.0"
-
-## Gradual Bridges (Level 2-3)
-
-The transition from basic mechanics to deeper implications:
-
-- Thread ownership → Asset potential
-- Token staking → Economic alignment
-- Quality consensus → Value emergence
-- Co-authorship → Trust networks
-
-## System Understanding (Level 3-4)
-
-From practical patterns to system properties:
-
-- Value flows → Economic topology
-- Trust formation → Metastable states
-- Pattern recognition → Emergence dynamics
-- Community evolution → System coherence
-
-## Quantum Portals
-
-Some concepts create instant understanding jumps:
-
-Upward Portals:
-
-- Token mechanics → Quantum semantics (2→5)
-- Approval process → Emergence patterns (1→4)
-- Co-authorship → System topology (2→4)
-
-Downward Portals:
-
-- Quantum semantics → Simple chat (5→1)
-- Emergence patterns → Basic features (4→1)
-- System topology → Practical use (4→2)
-
-## Bridge Types
-
-Different readers need different bridges:
-
-- Logical progression (step by step)
-- Intuitive leaps (pattern recognition)
-- Practical application (learning by doing)
-- Theoretical insight (formal understanding)
-
-## Navigation Aids
-
-Tools for finding your path:
-
-- Entry point recognition
-- Bridge identification
-- Portal discovery
-- Level orientation
-
-## Level Resonance
-
-Understanding at any level enhances others:
-
-- Deep theory illuminates simple practice
-- Basic mechanics reveal profound patterns
-- Middle layers connect extremes
-- Portals create understanding loops
-
-Through these patterns, readers can find their natural path while maintaining access to quantum jumps in understanding.
-
-
-==
-Meta_Network
-==
-
-
-# Choir Documentation Network Model
-
-VERSION doc_network:
-invariants: {
-"Cross-reference completeness",
-"Relationship accuracy",
-"Network connectivity"
-}
-assumptions: {
-"Document stability",
-"Reference validity",
-"Topic clustering"
-}
-docs_version: "0.2.0"
-
-## State Management Cluster
-
-The state management documentation forms a tightly coupled cluster centered around state transitions and consistency. StateAlgebra.md provides the formal mathematical foundation, while StateTransitions.md and StateMachine.md implement these concepts in concrete terms. StateManagement.md bridges these formal definitions with practical implementation patterns.
-
-Key relationships:
-
-- StateAlgebra.md ← StateMachine.md (implements formal algebra)
-- StateTransitions.md ← StateManagement.md (applies transitions)
-- StateMachine.md ↔ StateManagement.md (bidirectional implementation)
-
-## Development Planning Cluster
-
-The development documentation cluster shows how implementation plans evolve from context. Context.md provides the foundational understanding that informs ChorusDevPlan.md and RebasePlan.md. These documents share significant overlap in timeline and resource allocation while maintaining distinct focuses.
-
-Key relationships:
-
-- Context.md → ChorusDevPlan.md (informs development)
-- Context.md → RebasePlan.md (guides rebase strategy)
-- ChorusDevPlan.md ↔ RebasePlan.md (timeline alignment)
-
-## Visual Documentation Cluster
-
-The visual documentation cluster centers around Diagrams.md, which provides graphical representations that complement multiple other documents. graph.md offers specialized network visualizations that integrate with state and development documentation.
-
-Key relationships:
-
-- Diagrams.md → StateTransitions.md (flow visualization)
-- Diagrams.md → ChorusDevPlan.md (architecture diagrams)
-- graph.md ↔ StateManagement.md (state network visualization)
-
-## Conceptual Foundation Cluster
-
-The conceptual cluster establishes core platform understanding through Whitepaper.md and related high-level documents. These documents share fundamental concepts that flow through the entire documentation network.
-
-Key relationships:
-
-- Whitepaper.md → Context.md (establishes foundation)
-- Whitepaper.md → StateAlgebra.md (formalizes concepts)
-- Context.md ↔ MetaDocumentation.md (guides organization)
-
-## Cross-Cluster Relationships
-
-Several documents serve as bridges between clusters:
-
-1. State-Development Bridge:
-
-   - StateManagement.md → ChorusDevPlan.md (implementation guidance)
-   - RebasePlan.md → StateTransitions.md (migration patterns)
-
-2. Visual-State Bridge:
-
-   - Diagrams.md → StateMachine.md (state visualization)
-   - graph.md → StateAlgebra.md (formal graph representation)
-
-3. Conceptual-Implementation Bridge:
-   - Context.md → StateManagement.md (requirements flow)
-   - Whitepaper.md → ChorusDevPlan.md (architectural alignment)
-
-## Network Evolution
-
-The documentation network evolves through several mechanisms:
-
-1. Vertical Growth:
-
-   - Concept refinement (Whitepaper.md → StateAlgebra.md)
-   - Implementation detail (StateAlgebra.md → StateMachine.md)
-   - Practical application (StateMachine.md → StateManagement.md)
-
-2. Horizontal Growth:
-   - Cross-domain integration (StateManagement.md ↔ ChorusDevPlan.md)
-   - Visual representation (Diagrams.md ↔ multiple documents)
-   - Context sharing (Context.md ↔ multiple documents)
-
-## Network Maintenance
-
-To maintain network coherence:
-
-1. Reference Integrity:
-
-   - All cross-references must be bidirectional
-   - References must include section specificity
-   - Version compatibility must be maintained
-
-2. Cluster Cohesion:
-
-   - Documents within clusters maintain consistent terminology
-   - Shared concepts are defined in common locations
-   - Implementation details flow from formal definitions
-
-3. Bridge Stability:
-   - Cross-cluster references maintain clear scope
-   - Implementation details respect formal definitions
-   - Visual representations match textual descriptions
-
-Through this network model, we can better understand and maintain the relationships between Choir's documentation components, ensuring consistency and completeness across the system.
-
-
-==
 Meta_Progression
 ==
 
@@ -1451,7 +707,7 @@ assumptions: {
 "Pattern recognition",
 "Conceptual bridges"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Initial Understanding
 

@@ -11,7 +11,7 @@ assumptions: {
 "AI summary generation capability",
 "Content searchability control"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Privacy Levels
 

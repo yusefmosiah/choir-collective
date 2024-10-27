@@ -11,7 +11,7 @@ assumptions: {
 "Transaction ordering",
 "Clock reliability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Program Structure
 
@@ -116,9 +116,10 @@ thread.updated_at > old_updated_at
 ## Value Flow Properties
 
 TYPE ValueTransition =
-| Approve: stake -> thread
-| Deny: stake -> deniers
-| Mixed: excess -> treasury
+| Approve: stake -> approvers
+| Deny: stake -> thread
+| Mixed: approvers' share -> treasury
+| deniers' share -> thread
 
 PROPERTY value_conservation:
 FORALL transition IN ValueTransition:

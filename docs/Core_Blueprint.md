@@ -11,7 +11,7 @@ assumptions: {
 "AI-assisted code generation",
 "Test-first implementation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## System Architecture
 
@@ -58,8 +58,14 @@ The system operates across four interconnected layers:
 
    - CHOIR token implementation
    - Stake management
-   - Value distribution
-   - Treasury operations
+   - Value distribution:
+     - Approval: to approvers directly
+     - Denial: to thread balance
+     - Split: approvers' share to Treasury, deniers' to thread
+   - Treasury operations:
+     - Accumulates from split decision approver shares
+     - Funds perpetual citation rewards
+     - Enables sustainable value flow
 
 3. **State Management**
    - Consistency verification

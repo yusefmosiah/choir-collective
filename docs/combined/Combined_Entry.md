@@ -4,78 +4,6 @@
 
 
 ==
-Entry_Accessibility
-==
-
-
-# Documentation Accessibility Principles
-
-VERSION accessibility_system:
-invariants: {
-"Universal comprehension",
-"Practical utility",
-"Gradual revelation"
-}
-assumptions: {
-"Diverse viewpoints",
-"Multiple entry points",
-"Comfort zones"
-}
-docs_version: "0.2.0"
-
-## Core Approach
-
-The documentation prioritizes practical utility and clear benefits. Each concept is introduced through familiar patterns and immediate usefulness before revealing deeper implications.
-
-## Entry Points
-
-Different readers can enter through comfortable, familiar concepts:
-
-- Developers through technical specifications
-- Product people through user benefits
-- Business minds through efficiency gains
-- Community builders through collaboration tools
-
-## Language Choices
-
-Documentation uses:
-
-- Practical rather than ideological terms
-- Concrete examples before abstract principles
-- Familiar metaphors from everyday experience
-- Technical precision without jargon
-
-## Value Presentation
-
-Benefits are described in terms of:
-
-- Individual utility
-- Group efficiency
-- Resource optimization
-- Natural evolution
-
-## Progressive Understanding
-
-Knowledge builds naturally through:
-
-- Immediate practical application
-- Observable system behavior
-- Natural pattern recognition
-- Organic insight development
-
-## Safety Mechanisms
-
-The documentation creates safety through:
-
-- Multiple valid interpretations
-- Gradual depth revelation
-- Practical grounding
-- Familiar patterns
-
-Through these principles, readers can engage with the system at their comfort level while maintaining access to its full potential.
-
-
-==
 Entry_Business
 ==
 
@@ -93,11 +21,11 @@ assumptions: {
 "Resource costs",
 "Usage patterns"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Revenue Model
 
-Choir operates on a freemium subscription model that aligns user value with platform sustainability. The base platform provides essential functionality while premium subscriptions unlock enhanced capabilities and privacy controls.
+Choir operates on a freemium subscription model that aligns individual, team, and platform value creation. The base platform provides essential functionality while premium subscriptions unlock enhanced capabilities and privacy controls.
 
 ## Free Tier
 
@@ -121,6 +49,13 @@ Privacy Features:
 - Granular co-author permissions
 - Private thread analytics
 
+Team Features:
+
+- Advanced thread metrics
+- Team collaboration tools
+- Knowledge network analytics
+- Collective value tracking
+
 Resource Allocations:
 
 - Increased AI model calls (grows yearly)
@@ -128,7 +63,7 @@ Resource Allocations:
 - Priority message processing
 - Extended thread storage
 
-The yearly growth in resource allocations rewards long-term members while maintaining platform sustainability.
+The yearly growth in resource allocations rewards long-term teams while maintaining platform sustainability.
 
 ## Resource Economics
 
@@ -147,16 +82,16 @@ Privacy implementation follows clear principles:
 - Base privacy: Threads visible only to co-authors
 - Public search: Opt-in for thread discovery
 - Premium control: Granular privacy settings
-- Data sovereignty: User ownership of content
+- Data sovereignty: Team ownership of content
 
 ## Growth Mechanics
 
-The model encourages platform growth through:
+The model encourages sustainable growth through:
 
-- Sustainable resource allocation
-- Privacy-respecting content discovery
-- Long-term member benefits
-- Community value alignment
+- Natural team formation
+- Knowledge network effects
+- Long-term value accumulation
+- Community resonance
 
 ## Business Sustainability
 
@@ -172,20 +107,22 @@ Revenue streams support:
 
 The model can evolve to include:
 
-- Enterprise subscriptions
+- Team subscriptions
 - Custom AI model training
 - Advanced analytics tools
 - Enhanced privacy features
 - Specialized thread types
+- Collective governance tools
 
 ## Value Proposition
 
-For Users:
+For Teams:
 
 - Growing resource allocations
 - Enhanced privacy controls
 - Priority features
-- Community support
+- Collective value accumulation
+- Knowledge network formation
 
 For Platform:
 
@@ -193,6 +130,7 @@ For Platform:
 - Aligned incentives
 - Resource predictability
 - Growth capacity
+- Network effects
 
 ## Implementation Strategy
 
@@ -202,6 +140,7 @@ Technical Requirements:
 - Resource tracking systems
 - Subscription management
 - Usage analytics
+- Team metrics
 
 Operational Needs:
 
@@ -209,18 +148,20 @@ Operational Needs:
 - Resource monitoring
 - Cost optimization
 - Growth planning
+- Team success tracking
 
 ## Success Metrics
 
 Key Indicators:
 
-- Subscription retention
-- Resource utilization
-- User satisfaction
+- Team formation rate
+- Knowledge network growth
+- Value accumulation
 - Platform stability
-- Community growth
+- Community coherence
+- Subscription retention
 
-Through this model, Choir maintains a sustainable business while providing increasing value to members and preserving the core principles of quality content and collaborative ownership.
+Through this model, Choir maintains a sustainable business while providing increasing value to teams and preserving the core principles of quality content and collaborative ownership.
 
 
 ==
@@ -233,194 +174,77 @@ Entry_Glossary
 ## Core Concepts
 
 ### Thread
-A collaborative chat context owned by its co-authors, with associated token balance and message history.
+A shared chat space where people work together. Like a group chat that builds value over time through good conversations. Technically: A collaborative context with its own token balance and message history.
 
 ### Co-author
-A participant with ownership rights in a thread, gained through message approval or thread creation.
+Someone who helps guide a thread's growth by voting on new messages. Like a curator or editor. You become one when your message gets approved. Technically: A participant with approval rights in a thread.
 
 ### Spec (Speculative Response)
-A message submission from a non-co-author, requiring stake and approval.
+A message you submit to join a thread's co-authors. Like applying to join a team with a work sample. Requires staking tokens to show you're serious. Technically: A message submission requiring stake and approval.
 
-## Technical Terms
-
-### PDA (Program Derived Address)
-Deterministic Solana account address derived from program and thread data.
-
-### State Transition
-A validated change in system state, such as message approval or co-author addition.
-
-### Content Hash
-Cryptographic hash of message content, stored on Solana for verification.
-
-## Economic Terms
+## Token System
 
 ### CHOIR Token
-Platform token used for staking, rewards, and governance.
+The platform's native token used for staking and rewards. Like energy that flows through the system, rewarding quality and enabling participation.
 
 ### Stake
-Tokens locked when submitting a spec message.
+Tokens you commit when submitting a spec. Like putting down a deposit to show you're serious about contributing quality content.
 
 ### Thread Balance
-Accumulated tokens from approved messages and specs.
+Tokens a thread has accumulated over time. Like a team's shared resources that grow through good decisions.
 
-## Protocol Terms
+### Treasury
+The system's reserve that funds ongoing rewards. Like a community pool that enables sustainable growth.
+
+## Message Flow
+
+### Approval
+When all co-authors agree a message should be public. The stake gets distributed to approvers as a reward for good judgment.
+
+### Denial
+When any co-author decides a message isn't right for the thread. The stake strengthens the thread itself.
+
+### Split Decision
+When some approve and others deny. Approvers' share goes to Treasury, deniers' share to thread.
+
+### Prior Reference
+When one thread cites another, creating knowledge connections. The referenced thread earns rewards.
+
+## Team Dynamics
+
+### Team Formation
+How people naturally gather around valuable threads, sharing in their success.
+
+### Knowledge Network
+How threads connect to each other through references, building a web of knowledge.
+
+### Collective Value
+How threads accumulate value that benefits all co-authors, encouraging collaboration.
+
+### Quality Emergence
+How good content and practices naturally arise without heavy-handed rules.
+
+## Technical Terms (For Developers)
+
+### PDA (Program Derived Address)
+A special Solana account that holds a thread's tokens.
+
+### State Transition
+Any change in the system, like approving a message or adding a co-author.
+
+### Content Hash
+A unique fingerprint that verifies message content hasn't changed.
 
 ### WebSocket Event
-Real-time message for state updates and notifications.
+Real-time updates that keep everyone's view in sync.
 
 ### State Sync
-Process of ensuring consistency between Solana and Qdrant states.
+Process of keeping all parts of the system consistent.
 
 ### Optimistic Update
-UI update before blockchain confirmation.
+Showing changes in the UI before blockchain confirmation.
 
-## Security Terms
-
-### Thread PDA
-Program-derived address that owns thread tokens.
-
-### Privacy Level
-Content visibility classification (Public, ThreadOnly, Premium).
-
-### Front-running Protection
-Mechanisms to prevent transaction ordering exploitation.
-
-## System Components
-
-### Solana Program
-On-chain code managing thread ownership and tokens.
-
-### Qdrant
-Vector database storing message content and embeddings.
-
-### Chorus Loop
-AI decision-making model for message processing.
-
-## State Management
-
-### State Location
-Where different types of state are stored (Solana, Qdrant, Backend, Frontend).
-
-### State Consistency
-Property of all systems having aligned state representations.
-
-### Recovery Procedure
-Process for handling state inconsistencies or errors.
-
-
-==
-Entry_Guide
-==
-
-
-# How to Read Choir Documentation
-
-VERSION guide_system:
-invariants: {
-"Navigation clarity",
-"Learning progression",
-"Access patterns"
-}
-assumptions: {
-"Reader backgrounds",
-"Documentation stability",
-"Learning goals"
-}
-docs_version: "0.2.0"
-
-## Understanding the Documentation Space
-
-Choir's documentation forms a rich knowledge space with varying density and multiple valid paths through it. Rather than prescribing a single reading order, this guide helps you navigate based on your needs and background.
-
-## Core Knowledge Areas
-
-The documentation covers several interconnected knowledge areas:
-
-State and Ownership - The mathematical and practical foundations of how Choir manages thread ownership, message approval, and state transitions. This area is necessarily dense, forming the theoretical core of the system.
-
-Economics and Security - The token mechanics, incentive structures, and security guarantees that make Choir resistant to abuse while encouraging quality contributions. These concepts are deeply intertwined.
-
-Implementation and Practice - The concrete patterns, APIs, and development approaches that turn theory into working code. This area intentionally maintains some sparsity to allow for context-specific adaptation.
-
-Visual Understanding - Diagrams and visualizations that bridge formal models with intuitive understanding. These are deliberately sparse, focusing on one clear concept at a time.
-
-## Navigation Approaches
-
-### For System Architects
-
-Begin with ConceptualBridges.md to understand how different aspects of the system support each other. Then explore StateAlgebra.md and SecurityModel.md to grasp the formal foundations. Use DensityAnalysis.md to understand where to find detailed specifications versus high-level guidance.
-
-### For Developers
-
-Start with ImplementationStrategy.md for practical patterns, referring to APIPatterns.md for specific interfaces. Use Diagrams.md to visualize flows and relationships. The MessageLifecycle.md document connects theory to practice.
-
-### For Security Auditors
-
-Begin with SecurityModel.md and CoreInvariants.md to understand security properties. Use StateAlgebra.md to verify formal guarantees. Reference EconomicModel.md to understand incentive structures.
-
-### For Product Managers
-
-Start with the 1-pager.md for mission and vision, then explore ChoirComprehensive.md for system overview. Use Q&A.md to understand common concerns and their resolutions.
-
-## Working with Documentation Density
-
-Some areas of documentation are intentionally dense, particularly around core system properties and formal models. Other areas maintain deliberate sparsity to allow for adaptation and growth. Use DensityAnalysis.md to understand these patterns and navigate them effectively.
-
-## Documentation Evolution
-
-The documentation grows and evolves in several ways:
-
-- Formal models become more precise
-- Implementation guides incorporate new patterns
-- Visual documentation expands to new areas
-- Conceptual bridges strengthen connections
-
-Understanding this evolution helps you anticipate where to find new information and how it relates to existing knowledge.
-
-## Best Practices
-
-### Reading Strategy
-
-- Start with relevant high-level documents
-- Follow conceptual bridges to related areas
-- Use diagrams to verify understanding
-- Refer to formal models when precision is needed
-
-### Contributing
-
-- Maintain consistent versioning
-- Respect existing density patterns
-- Strengthen conceptual bridges
-- Preserve formal properties
-
-### Asking Questions
-
-- Reference specific documents
-- Identify density mismatches
-- Suggest missing bridges
-- Propose clarity improvements
-
-## Meta-Documentation
-
-Several documents help navigate the documentation itself:
-
-- DocumentNetwork.md maps relationships
-- DensityAnalysis.md reveals information structure
-- ConceptualBridges.md connects ideas
-- MetaDocumentation.md provides organization
-
-Use these meta-documents to find the most effective path through the documentation for your needs.
-
-## Future Directions
-
-The documentation will continue to evolve with:
-
-- Stronger conceptual bridges
-- Clearer density gradients
-- More visual aids
-- Enhanced navigation tools
-
-Your feedback helps shape this evolution - share your experiences and suggestions for improvement.
+Through these mechanics, Choir creates a space where quality content, valuable interactions, and natural communities can emerge.
 
 
 ==
@@ -432,121 +256,144 @@ Entry_InverseEquity
 
 VERSION equity_system:
 invariants: {
-"Value distribution",
-"Innovation capture",
-"Stakeholder alignment"
+"Collective value creation",
+"Team incentive alignment",
+"Knowledge network growth"
 }
 assumptions: {
 "AI-native entrepreneurship",
 "Thread evolution",
 "Asset diversification"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Concept
 
-Choir inverts traditional private equity by enabling bottom-up value creation through AI-enhanced collaboration. Rather than concentrating ownership and decision-making, Choir's thread model distributes both across active participants. Each thread is effectively a micro-DAO, with the potential to evolve into product teams, service providers, or innovation hubs.
+Choir inverts traditional private equity by enabling bottom-up value creation through AI-enhanced collective intelligence. Rather than concentrating ownership and decision-making, Choir's thread model distributes both across active teams. Each thread acts as a resonant cavity for value accumulation, with the potential to evolve into product teams, service providers, or innovation hubs.
 
 ## Thread Evolution Path
 
-Simple Threads → Collaborative Projects → Product Development → Asset-Holding DAOs
+Simple Discussions → Team Formation → Product Development → Asset-Holding DAOs
 
-As threads mature, they can:
+As threads mature, they:
 
-- Develop intellectual property
-- Launch products or services
-- Provide consulting expertise
-- Manage digital and physical assets
-- Generate recurring revenue
+- Accumulate collective value
+- Strengthen team coherence
+- Develop shared assets
+- Enable group innovation
 
-## AI-Native Innovation
+## Value Accumulation Mechanics
 
-Threads leverage AI to:
+1. **Direct Value Recognition**
 
-- Identify market opportunities
-- Synthesize diverse perspectives
-- Accelerate development cycles
-- Optimize resource allocation
-- Scale solutions efficiently
+   - Approvers receive immediate rewards
+   - Quality judgment incentivized
+   - Pattern recognition rewarded
+   - Individual skill growth
 
-The combination of AI capabilities with human creativity and judgment creates a new model for entrepreneurship.
+2. **Collective Value Building**
+
+   - Denials strengthen thread cavity
+   - Prior rewards couple threads
+   - Team incentives align naturally
+   - Shared success model
+
+3. **Network Value Creation**
+   - Knowledge networks emerge
+   - Thread citations create value
+   - Teams naturally collaborate
+   - System-wide coherence grows
 
 ## Asset Accumulation
 
-Threads can accumulate various assets:
+Threads accumulate various forms of value:
 
-- CHOIR tokens (base layer)
-- Other crypto tokens
+- CHOIR tokens (base energy)
+- Other crypto assets
 - Revenue streams
 - Intellectual property
 - Service contracts
 - Physical assets
 - Investment portfolios
 
+## Team Formation
+
+Natural team crystallization through:
+
+- Shared thread success
+- Collective incentives
+- Quality emergence
+- Prior reward coupling
+
 ## Value Distribution
 
-The CHOIR token serves as the equity layer across all thread-generated value:
+The CHOIR token enables multi-scale value flow:
 
-- Thread participants earn tokens through contribution
-- Token holdings represent participation across multiple threads
-- Token value reflects the aggregate success of all threads
-- Asset management fees flow to token holders
+- Individual rewards through approvals
+- Team value through thread accumulation
+- Network value through prior rewards
+- System value through treasury
 
 ## Stakeholder Alignment
 
 The model aligns incentives across:
 
-- Content creators
-- Product developers
+- Individual contributors
+- Thread teams
 - Service providers
 - Asset managers
 - Platform maintainers
-- Token holders
+- Knowledge networks
 
 ## Growth Mechanics
 
 Value accumulates through:
 
-- Successful thread ventures
-- Asset management fees
-- Platform service fees
+- Quality content creation
+- Team collaboration
+- Thread coupling
+- Asset acquisition
 - Network effects
-- Innovation capture
+- Knowledge topology
 
 ## Economic Flywheel
 
-1. Quality content creation
-2. Thread-based innovation
-3. Asset acquisition
-4. Value distribution
+1. Individual quality recognition
+2. Team value accumulation
+3. Knowledge network formation
+4. Asset acquisition
 5. Increased participation
 6. Enhanced capabilities
 
 ## Implementation Phases
 
-Phase 1: Content and Collaboration
+Phase 1: Content and Teams
 
 - Basic thread functionality
 - Token distribution mechanics
-- Quality control systems
+- Team formation dynamics
+- Quality emergence
 
 Phase 2: Asset Integration
 
 - Multi-token support
 - Asset management tools
 - Revenue distribution
+- Team coordination
 
-Phase 3: Innovation Scaling
+Phase 3: Network Growth
 
 - AI-enhanced development
 - Cross-thread collaboration
+- Knowledge coupling
 - Market integration
 
 Phase 4: Full Economic Model
 
 - Complex asset management
 - Investment strategies
-- Global value distribution
+- Network value distribution
+- System-wide coherence
 
 ## Risk Management
 
@@ -555,20 +402,22 @@ Key considerations:
 - Asset custody security
 - Regulatory compliance
 - Value attribution
-- Governance scaling
+- Team governance
 - Market dynamics
+- Network stability
 
 ## Success Metrics
 
 Long-term indicators:
 
-- Thread venture success rate
-- Asset portfolio growth
+- Team formation rate
+- Thread value growth
+- Knowledge network density
 - Innovation output
 - Value distribution equity
-- Network participation
+- System coherence
 
-Through this model, Choir becomes not just a platform but an economic engine for distributed, AI-enhanced value creation and equitable distribution.
+Through this model, Choir becomes not just a platform but an economic engine for collective value creation, team formation, and sustainable knowledge network growth.
 
 
 ==
@@ -589,7 +438,7 @@ assumptions: {
 "Thermodynamic principles",
 "Self-organization"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Mission
 
@@ -600,44 +449,45 @@ To create a communication platform where quality emerges naturally through physi
 ### 1. Thread Dynamics
 
 - Messages require unanimous approval from co-authors
-- Thread temperature (T) measures volatility/activity
-- Thread frequency (ω) measures organization/coherence
+- Threads act as resonant cavities for value
+- Teams naturally form around valuable threads
 - Natural cooling over time creates stability
 
 ### 2. Token Flow
 
-- **Rejections:** Stake flows to thread, increasing temperature
-- **Split Decisions:** Approvers' stake flows to Treasury
-- **Approvals:** Stake distributes to approvers
-- **Treasury:** Funds perpetual citation rewards
+- **Unanimous Approval**: Stake distributes equally to approvers as direct reward
+- **Denials**: Stake flows to thread, strengthening the collective
+- **Split Decisions**:
+  - Approvers' share flows to Treasury
+  - Deniers' share strengthens thread
+- **Prior Rewards**: Treasury funds thread citations, coupling knowledge networks
 
-### 3. Reward Structure
+### 3. Team Formation
 
-- **New Message Rewards:**
+- Threads accumulate collective value
+- Co-authors share thread success
+- Quality benefits whole team
+- Natural incentive alignment
 
-  - High initial distribution
-  - Logarithmic decay over 4 years
-  - 50% distributed in year 1
-  - 99% distributed by year 4
+### 4. Knowledge Networks
 
-- **Citation Rewards:**
-  - Funded by Treasury
-  - Perpetual availability
-  - Encourages content linking
-  - Promotes knowledge network growth
+- Threads cite valuable threads
+- Prior rewards strengthen thread coupling
+- Knowledge topology emerges
+- System-wide coherence develops
 
 ## Natural Evolution
 
 ### 1. Temperature Dynamics
 
-- Hot threads (high T):
+- Hot threads (high activity):
 
   - Higher stake requirements
   - More volatile state
   - Quality filter through cost
   - Natural selection pressure
 
-- Cool threads (low T):
+- Cool threads (stable):
   - Lower barriers to entry
   - More stable state
   - Experimental space
@@ -645,7 +495,7 @@ To create a communication platform where quality emerges naturally through physi
 
 ### 2. Frequency Effects
 
-- Higher frequency (ω) = better organization
+- Higher frequency = better organization
 - Co-authors strengthen coherence
 - Natural resonance emerges
 - Communities crystallize naturally
@@ -654,7 +504,7 @@ To create a communication platform where quality emerges naturally through physi
 
 - Total token supply fixed at 10 billion
 - Circular flow through Treasury
-- Split decisions feed citation rewards
+- Split decisions feed prior rewards
 - System maintains equilibrium
 
 ## Practical Implementation
@@ -662,29 +512,29 @@ To create a communication platform where quality emerges naturally through physi
 ### 1. Message Submission
 
 - Users stake CHOIR tokens
-- Stake requirement based on T and ω
-- Energy locked until state transition
+- Stake requirement based on thread state
+- Energy locked until decision
 - Natural barrier against noise
 
 ### 2. Approval Process
 
 - Co-authors evaluate within 7 days
 - Unanimous approval required
-- Split decisions feed Treasury
-- Rejections heat up threads
+- Split decisions balance incentives
+- Denials strengthen threads
 
 ### 3. Value Distribution
 
-- Approved messages: tokens to approvers
-- Rejected messages: tokens to thread
-- Split decisions: approvers' tokens to Treasury
-- Citations: perpetual rewards from Treasury
+- Approvers receive direct rewards
+- Threads accumulate collective value
+- Treasury enables knowledge coupling
+- Teams share success
 
 ## Technical Foundation
 
 ### 1. Quantum Harmonic Model
 
-- Threads as oscillator systems
+- Threads as resonant cavities
 - Energy conservation principles
 - Phase transition dynamics
 - Natural frequency evolution
@@ -700,14 +550,14 @@ To create a communication platform where quality emerges naturally through physi
 
 The platform will evolve like a natural system:
 
-- Communities will find their frequencies
+- Teams will form around resonant threads
 - Quality standards will emerge organically
-- Value will flow to coherent patterns
+- Knowledge networks will self-organize
 - Evolution will be sustainable
 
 ## Join Us
 
-Experience a platform where quality emerges naturally, communities evolve organically, and value aligns with coherence. Be part of a system that works with nature rather than against it.
+Experience a platform where quality emerges naturally, teams form organically, and value aligns with coherence. Be part of a system that works with nature rather than against it.
 
 ---
 
@@ -735,7 +585,7 @@ assumptions: {
 "Understanding paths",
 "Insight emergence"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ---
 
@@ -1353,92 +1203,51 @@ This creates an interesting opportunity dynamic:
 
 It's similar to how scientific breakthroughs often come from recognizing patterns in seemingly chaotic data - the energy was always there, waiting for someone to find its frequency.
 
+## On Collective Intelligence vs Internet Division
 
-==
-Entry_Vision
-==
+Q: How does Choir's design promote collaboration rather than division?
 
+A: This gets to the heart of Choir's design philosophy. While much of the internet optimizes for engagement through conflict and division, Choir creates natural incentives for collective intelligence:
 
-# Choir Vision
+1. **Team-Centric Value**
 
-VERSION vision_system:
-invariants: {
-"Natural quality emergence",
-"Thermodynamic evolution",
-"Self-organizing communities"
-}
-assumptions: {
-"Temperature-based dynamics",
-"Energy conservation",
-"Phase transitions"
-}
-docs_version: "0.2.0"
+   - Threads accumulate collective value
+   - Teams share in thread success
+   - Prior rewards strengthen whole threads
+   - Value comes from collaboration, not conflict
 
-## Core Vision
+2. **Natural Team Formation**
 
-Choir envisions a world where quality communication emerges naturally through thermodynamic principles. Like physical systems finding their optimal states, we enable collaborative spaces where quality standards arise from energy dynamics rather than arbitrary rules.
+   - People naturally gather around resonant threads
+   - Quality contributions benefit whole team
+   - Shared success creates stable teams
+   - Organic community crystallization
 
-## Natural Evolution
+3. **Knowledge Network Effects**
 
-At its heart, Choir is a thermodynamic communication platform where threads evolve like physical systems:
+   - Threads cite valuable threads
+   - Prior rewards couple knowledge networks
+   - Teams build on each others' work
+   - System rewards connection over division
 
-- Young threads start hot and volatile
-- Mature threads cool and stabilize
-- Quality barriers emerge naturally
-- Communities crystallize organically
+4. **Aligned Incentives**
 
-## Growth Patterns
+   - Direct rewards for quality recognition
+   - Collective rewards for thread success
+   - Network rewards for knowledge sharing
+   - Multi-scale cooperation emerges
 
-Threads in Choir follow natural physical laws:
+5. **Sustainable Communities**
+   - Teams form around shared interests
+   - Value accumulates in stable threads
+   - Knowledge networks self-organize
+   - Long-term collaboration wins
 
-- Temperature guides participation costs
-- Energy flows create quality gradients
-- Frequency determines evolution rate
-- Phase transitions mark community milestones
+Unlike platforms that profit from conflict, Choir creates space for:
 
-## Self-Organizing Quality
+- Natural team formation
+- Collective value creation
+- Knowledge network growth
+- Sustainable collaboration
 
-The thermodynamic model creates natural selection:
-
-- Hot threads demand higher stakes
-- Cool threads welcome exploration
-- Quality emerges from energy dynamics
-- No central authority needed
-
-## AI Integration
-
-AI serves as a measurement apparatus for the quantum state of communication:
-
-- Observes thread temperature and frequency
-- Tracks energy flows and phase transitions
-- Helps visualize community evolution
-- Maintains system coherence
-
-## Token Mechanics
-
-The CHOIR token represents energy quanta in the system:
-
-- Stakes affect thread temperature
-- Approvals moderate energy distribution
-- Rejections increase local energy
-- Conservation laws maintain stability
-
-## Network Effects
-
-Each thread contributes to the system's thermodynamic landscape:
-
-- Temperature gradients guide participation
-- Energy flows optimize resource allocation
-- Frequency patterns enable resonance
-- Phase transitions create diversity
-
-## Future Horizons
-
-We don't prescribe where threads might evolve - we provide the physical laws that enable natural organization:
-
-- Some threads will crystallize as high-standards venues
-- Others will remain fluid exploration spaces
-- Natural niches will form through energy dynamics
-- Quality will emerge from thermodynamic principles
-
-The beauty is in the emergence - in letting natural physical laws, augmented by AI and quantized through tokens, create new possibilities for human collaboration and value creation.
+The genius is in aligning individual, team, and system incentives toward cooperation rather than division.

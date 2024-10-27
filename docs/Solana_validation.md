@@ -11,7 +11,7 @@ assumptions: {
 "Error propagation clarity",
 "Check composability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Validation Types
 
@@ -140,11 +140,23 @@ Ok(())
    ```
 
 3. **Token Validators**
+
    ```
    SEQUENCE token_validators:
      validate_balance
      validate_stake
-     validate_distribution
+     validate_distribution_rules:
+       // Approval distribution rules
+       validate_approver_share_distribution  // Verify approver share calculation
+       validate_approver_accounts            // Verify approver token accounts
+
+       // Denial distribution rules
+       validate_thread_deposit               // Verify thread can receive stake
+
+       // Split decision rules
+       validate_treasury_deposit             // Verify treasury for approver share
+       validate_thread_deposit               // Verify thread for denier share
+
      validate_conservation
    ```
 

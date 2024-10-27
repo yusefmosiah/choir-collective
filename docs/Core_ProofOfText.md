@@ -11,7 +11,7 @@ assumptions: {
 "Energy flow patterns",
 "Phase transitions"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Mechanism
 

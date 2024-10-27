@@ -21,7 +21,7 @@ assumptions: {
 "Documentation completeness",
 "Human-AI interaction"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Observed Patterns
 

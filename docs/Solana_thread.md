@@ -11,7 +11,7 @@ assumptions: {
 "Account size limits",
 "Rent exemption"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Thread Account Structure
 
@@ -99,10 +99,12 @@ FUNCTION update_token_balance(
 
     match operation {
         TokenOperation::Add => {
+            // Used for denial and split decision denier share
             thread.token_balance = thread.token_balance.checked_add(amount)
                 .ok_or(ErrorCode::Overflow)?;
         },
         TokenOperation::Subtract => {
+            // Used for divestment only - approval distributes to approvers directly
             require!(thread.token_balance >= amount);
             thread.token_balance = thread.token_balance.checked_sub(amount)
                 .ok_or(ErrorCode::Underflow)?;
@@ -112,6 +114,54 @@ FUNCTION update_token_balance(
     thread.updated_at = Clock::get()?.unix_timestamp;
     Ok(())
 }
+
+// Add new token distribution helpers
+FUNCTION distribute_approval_stake(
+    ctx: Context,
+    amount: u64,
+    approvers: Vec<Pubkey>
+) -> Result<()> {
+    // Distribute stake equally among approvers
+    let share = amount.checked_div(approvers.len() as u64)
+        .ok_or(ErrorCode::DivisionError)?;
+
+    for approver in approvers {
+        transfer_tokens(ctx, share, approver)?;
+    }
+
+    Ok(())
+}
+
+FUNCTION handle_denial_stake(
+    ctx: Context,
+    amount: u64
+) -> Result<()> {
+    // Add stake to thread balance
+    update_token_balance(ctx, amount, TokenOperation::Add)
+}
+
+FUNCTION handle_split_decision(
+    ctx: Context,
+    amount: u64,
+    approvers: Vec<Pubkey>,
+    deniers: Vec<Pubkey>
+) -> Result<()> {
+    // Calculate shares
+    let total_voters = approvers.len() + deniers.len();
+    let approver_total = amount.checked_mul(approvers.len() as u64)
+        .ok_or(ErrorCode::Overflow)?
+        .checked_div(total_voters as u64)
+        .ok_or(ErrorCode::DivisionError)?;
+    let denier_total = amount.checked_sub(approver_total)
+        .ok_or(ErrorCode::Underflow)?;
+
+    // Send approver share to treasury
+    transfer_to_treasury(ctx, approver_total)?;
+
+    // Add denier share to thread
+    update_token_balance(ctx, denier_total, TokenOperation::Add)
+}
+
 ```
 
 ## Message Management

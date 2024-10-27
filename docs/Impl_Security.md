@@ -11,7 +11,7 @@ assumptions: {
 "Retry strategies",
 "Cache invalidation rules"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Thread Ownership Security
 

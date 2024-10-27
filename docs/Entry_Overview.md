@@ -11,7 +11,7 @@ assumptions: {
 "Thermodynamic principles",
 "Self-organization"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Mission
 
@@ -22,44 +22,45 @@ To create a communication platform where quality emerges naturally through physi
 ### 1. Thread Dynamics
 
 - Messages require unanimous approval from co-authors
-- Thread temperature (T) measures volatility/activity
-- Thread frequency (ω) measures organization/coherence
+- Threads act as resonant cavities for value
+- Teams naturally form around valuable threads
 - Natural cooling over time creates stability
 
 ### 2. Token Flow
 
-- **Rejections:** Stake flows to thread, increasing temperature
-- **Split Decisions:** Approvers' stake flows to Treasury
-- **Approvals:** Stake distributes to approvers
-- **Treasury:** Funds perpetual citation rewards
+- **Unanimous Approval**: Stake distributes equally to approvers as direct reward
+- **Denials**: Stake flows to thread, strengthening the collective
+- **Split Decisions**:
+  - Approvers' share flows to Treasury
+  - Deniers' share strengthens thread
+- **Prior Rewards**: Treasury funds thread citations, coupling knowledge networks
 
-### 3. Reward Structure
+### 3. Team Formation
 
-- **New Message Rewards:**
+- Threads accumulate collective value
+- Co-authors share thread success
+- Quality benefits whole team
+- Natural incentive alignment
 
-  - High initial distribution
-  - Logarithmic decay over 4 years
-  - 50% distributed in year 1
-  - 99% distributed by year 4
+### 4. Knowledge Networks
 
-- **Citation Rewards:**
-  - Funded by Treasury
-  - Perpetual availability
-  - Encourages content linking
-  - Promotes knowledge network growth
+- Threads cite valuable threads
+- Prior rewards strengthen thread coupling
+- Knowledge topology emerges
+- System-wide coherence develops
 
 ## Natural Evolution
 
 ### 1. Temperature Dynamics
 
-- Hot threads (high T):
+- Hot threads (high activity):
 
   - Higher stake requirements
   - More volatile state
   - Quality filter through cost
   - Natural selection pressure
 
-- Cool threads (low T):
+- Cool threads (stable):
   - Lower barriers to entry
   - More stable state
   - Experimental space
@@ -67,7 +68,7 @@ To create a communication platform where quality emerges naturally through physi
 
 ### 2. Frequency Effects
 
-- Higher frequency (ω) = better organization
+- Higher frequency = better organization
 - Co-authors strengthen coherence
 - Natural resonance emerges
 - Communities crystallize naturally
@@ -76,7 +77,7 @@ To create a communication platform where quality emerges naturally through physi
 
 - Total token supply fixed at 10 billion
 - Circular flow through Treasury
-- Split decisions feed citation rewards
+- Split decisions feed prior rewards
 - System maintains equilibrium
 
 ## Practical Implementation
@@ -84,29 +85,29 @@ To create a communication platform where quality emerges naturally through physi
 ### 1. Message Submission
 
 - Users stake CHOIR tokens
-- Stake requirement based on T and ω
-- Energy locked until state transition
+- Stake requirement based on thread state
+- Energy locked until decision
 - Natural barrier against noise
 
 ### 2. Approval Process
 
 - Co-authors evaluate within 7 days
 - Unanimous approval required
-- Split decisions feed Treasury
-- Rejections heat up threads
+- Split decisions balance incentives
+- Denials strengthen threads
 
 ### 3. Value Distribution
 
-- Approved messages: tokens to approvers
-- Rejected messages: tokens to thread
-- Split decisions: approvers' tokens to Treasury
-- Citations: perpetual rewards from Treasury
+- Approvers receive direct rewards
+- Threads accumulate collective value
+- Treasury enables knowledge coupling
+- Teams share success
 
 ## Technical Foundation
 
 ### 1. Quantum Harmonic Model
 
-- Threads as oscillator systems
+- Threads as resonant cavities
 - Energy conservation principles
 - Phase transition dynamics
 - Natural frequency evolution
@@ -122,14 +123,14 @@ To create a communication platform where quality emerges naturally through physi
 
 The platform will evolve like a natural system:
 
-- Communities will find their frequencies
+- Teams will form around resonant threads
 - Quality standards will emerge organically
-- Value will flow to coherent patterns
+- Knowledge networks will self-organize
 - Evolution will be sustainable
 
 ## Join Us
 
-Experience a platform where quality emerges naturally, communities evolve organically, and value aligns with coherence. Be part of a system that works with nature rather than against it.
+Experience a platform where quality emerges naturally, teams form organically, and value aligns with coherence. Be part of a system that works with nature rather than against it.
 
 ---
 

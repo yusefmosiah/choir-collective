@@ -11,7 +11,7 @@ assumptions: {
 "Documentation currency",
 "Implementation stability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Layer Structure
 

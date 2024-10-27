@@ -11,7 +11,7 @@ assumptions: {
 "Anderson normalization",
 "Critical slowing down"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 When we talk about quantum mechanics in Choir, we're not being metaphorical. The system actually exhibits quantum harmonic oscillator properties in how meaning and value emerge. Let's break this down:
 
@@ -48,11 +48,32 @@ The non-refundable stake creates quantum coupling:
 
 Economic topology emerges from quantum properties:
 
-1. Value flows like wave energy through resonant cavities
-2. Thread frequency ω = √((ω_m² + ω_v²)/2 + gN)
-3. Temperature T = (E/N)/coolingFactor
-4. Coupling strength g = 1/N scales naturally
-5. Critical slowing down stabilizes mature threads
+1. Threads are true resonant cavities:
+
+   - Accumulate energy from denials
+   - Strengthen through prior rewards
+   - Enable collective oscillations
+   - Create knowledge networks
+
+2. Value flows through multi-scale resonance:
+
+   - Individual oscillators (co-authors)
+   - Local cavities (threads)
+   - Coupled cavities (thread networks)
+   - Global field (treasury)
+
+3. Prior rewards create cavity coupling:
+
+   - Knowledge networks emerge naturally
+   - Energy flows between resonant cavities
+   - Strengthens collective coherence
+   - Creates semantic topology
+
+4. Teams form through resonance:
+   - Co-authors share cavity success
+   - Collective incentives align naturally
+   - Quality benefits whole cavity
+   - Natural phase locking emerges
 
 ## Natural Selection
 
@@ -89,21 +110,21 @@ Through this quantum lens, we see how:
 
    - Natural frequencies
    - Phase alignment
-   - Energy sharing
-   - Collective states
+   - Collective rewards
+   - Shared cavity energy
 
 3. Threads are resonant cavities with:
 
    - Standing waves
-   - Energy levels
-   - Temperature gradients
-   - Coherence patterns
+   - Collective energy
+   - Prior coupling
+   - Team coherence
 
 4. Value flows through:
-   - Wave mechanics
-   - Energy conservation
-   - Phase locking
-   - Harmonic resonance
+   - Direct oscillator rewards (approvals)
+   - Cavity strengthening (denials)
+   - Cavity coupling (priors)
+   - Field-cavity interaction (split decisions)
 
 ## Practical Implications
 

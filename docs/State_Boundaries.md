@@ -11,7 +11,7 @@ assumptions: {
 "Network reliability",
 "Cache coherence"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## 1. Solana State (Source of Truth for Ownership)
 
@@ -139,7 +139,7 @@ drafts: Map<ThreadId, Draft> // Unsent messages
 0. **Approval Flow**
 
    ```
-   Stake -> Approvers
+      Stake -> Approvers
    PROPERTY: approval_flow
      // Direct distribution to approvers
      FOR approver IN approvers:
@@ -151,7 +151,7 @@ drafts: Map<ThreadId, Draft> // Unsent messages
 1. **Rejection Flow**
 
    ```
-   Stake -> Thread Balance
+      Stake -> Thread Balance
    PROPERTY: rejection_flow
      thread.token_balance += stake_amount
      verify_thread_temperature_update()
@@ -160,10 +160,14 @@ drafts: Map<ThreadId, Draft> // Unsent messages
 2. **Split Decision Flow**
 
    ```
-   Approver Stakes -> Treasury
+      Stake -> {Treasury, Thread}
    PROPERTY: split_decision_flow
-     treasury.balance += approver_stakes
-     enable_citation_rewards()
+     approver_share = (stake * approver_count) / total_voters
+     denier_share = stake - approver_share
+
+     treasury.balance += approver_share  // Approvers' share to Treasury
+     thread.token_balance += denier_share  // Deniers' share to thread
+     verify_energy_conservation()
    ```
 
 3. **New Message Rewards**
@@ -178,11 +182,12 @@ drafts: Map<ThreadId, Draft> // Unsent messages
 
 4. **Citation Rewards**
    ```
-   Treasury -> Authors
-   PROPERTY: citation_flow
-     // Perpetual rewards from Treasury
-     reward = calculate_citation_reward(treasury_state)
-     verify_citation_distribution()
+      Treasury -> Thread
+   PROPERTY: prior_reward_flow
+     // Quality-weighted thread rewards
+     reward = calculate_prior_reward(quality_score, treasury_state)
+     thread.token_balance += reward
+     verify_thread_resonance_increase()
    ```
 
 ## Boundary Enforcement

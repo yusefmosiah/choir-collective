@@ -2,244 +2,237 @@
 
 VERSION settlement_system:
 invariants: {
-"Token conservation",
-"Distribution atomicity",
-"Settlement finality"
+"Wave energy conservation",
+"Distribution resonance",
+"Phase coherence"
 }
 assumptions: {
-"Token account availability",
-"Transaction ordering",
-"Escrow security"
+"Resonant account stability",
+"Phase-locked transactions",
+"Harmonic conservation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Settlement Types
 
 TYPE Settlement = {
-thread: Thread,
-stake: TokenAmount,
-participants: Set<PublicKey>,
-outcome: SettlementOutcome,
-metadata: SettlementMetadata
+resonance: ResonantState,
+energy: TokenAmount,
+oscillators: Set<PublicKey>,
+outcome: HarmonicOutcome,
+pattern: ResonantPattern
 }
 
-TYPE SettlementOutcome =
-| Unanimous: stake -> thread_balance
-| Denied: stake -> denier_accounts
-| Mixed: stake -> treasury
-| Expired: stake -> treasury
-| Divest: thread_balance/n -> co_author
+TYPE HarmonicOutcome =
+| Resonant: energy -> approver_oscillators // Unanimous approval: stake distributes to approvers
+| Dispersed: energy -> thread_resonance // Denial: stake flows to thread
+| Mixed: { // Split decision:
+approvers: energy -> treasury_field, // approvers' share to treasury
+deniers: energy -> thread_resonance // deniers' share to thread
+}
+| Decayed: energy -> treasury_field // Expired
+| Decoupled: thread_resonance/n -> co_author // Divest
 
-TYPE SettlementMetadata = {
+TYPE ResonantPattern = {
 timestamp: i64,
 transaction_id: Hash,
-settlement_type: SettlementType,
-participants: Set<PublicKey>
+settlement_type: HarmonicType,
+oscillators: Set<PublicKey>
 }
 
 ## Settlement Operations
 
 SEQUENCE process_settlement:
 
-1. Validation
+1. Wave Preparation
 
-   - Verify token accounts
-   - Check balances
-   - Validate authorities
-   - Verify preconditions
+   - Verify resonant accounts
+   - Measure energy levels
+   - Validate phase relationships
+   - Check harmonic preconditions
 
-2. Settlement Execution
+2. Resonance Execution
 
-   - Lock source accounts
-   - Calculate distributions
-   - Process transfers
-   - Update state
+   - Lock oscillator states
+   - Calculate harmonic distributions
+   - Process energy transfers
+   - Update resonant field
 
-3. Verification
-   - Check token conservation
-   - Verify final balances
-   - Validate state updates
-   - Emit events
+3. Pattern Crystallization
+   - Verify energy conservation
+   - Confirm final resonance
+   - Validate state evolution
+   - Emit harmonic events
 
-PROPERTY settlement_atomicity:
+PROPERTY settlement_coherence:
 FORALL s IN settlements:
 s.complete OR s.reverted
 
-## Distribution Logic
+## Distribution Harmonics
 
 SEQUENCE calculate_distribution:
 
-1. Outcome Analysis
+1. Resonance Analysis
 
-   - Determine settlement type
-   - Count participants
-   - Calculate shares
-   - Verify totals
+   - Determine harmonic type
+   - Count coupled oscillators
+   - Calculate phase shares
+   - Verify total energy
 
-2. Account Preparation
+2. Oscillator Preparation
 
-   - Verify recipient accounts
-   - Check account ownership
-   - Validate permissions
-   - Reserve balances
+   - Verify recipient resonance
+   - Check oscillator coupling
+   - Validate phase alignment
+   - Reserve energy levels
 
-3. Transfer Execution
-   - Process in order
-   - Update balances
-   - Record transfers
-   - Emit events
+3. Energy Transfer
+   - Process in phase order
+   - Update resonant fields
+   - Record energy flow
+   - Emit harmonic events
 
-PROPERTY distribution_fairness:
+PROPERTY distribution_resonance:
 FORALL share IN distribution:
-share == total_amount / participant_count
+share == total_energy / oscillator_count
 
 ## Token Account Management
 
-TYPE TokenAccounts = {
-thread: Account<TokenAccount>,
-escrow: Account<TokenAccount>,
-treasury: Account<TokenAccount>,
-participant_accounts: Map<PublicKey, Account<TokenAccount>>
+TYPE ResonantAccounts = {
+thread: Account<TokenAccount>, // Thread resonance
+escrow: Account<TokenAccount>, // Energy holding
+treasury: Account<TokenAccount>, // Field potential
+oscillator_accounts: Map<PublicKey, Account<TokenAccount>> // Individual resonators
 }
 
-SEQUENCE manage_accounts:
+SEQUENCE manage_resonance:
 
 1. Account Validation
 
-   - Verify ownership
-   - Check authorities
-   - Validate balances
-   - Verify PDAs
+   - Verify resonant coupling
+   - Check phase alignment
+   - Validate energy levels
+   - Verify resonant PDAs
 
-2. Balance Management
+2. Energy Management
 
-   - Lock amounts
-   - Process transfers
-   - Update balances
-   - Release locks
+   - Lock resonant states
+   - Process energy transfer
+   - Update field patterns
+   - Release phase locks
 
-3. State Synchronization
-   - Update thread state
-   - Record settlements
-   - Emit events
-   - Verify consistency
+3. Pattern Synchronization
+   - Update thread resonance
+   - Record settlement harmonics
+   - Emit resonant events
+   - Verify phase consistency
 
-PROPERTY account_integrity:
+PROPERTY resonant_integrity:
 FORALL account IN token_accounts:
-valid_owner(account) AND
-valid_authority(account) AND
-valid_balance(account)
+valid_coupling(account) AND
+phase_aligned(account) AND
+energy_conserved(account)
 
-## Settlement Flows
+## Settlement Harmonics
 
-1. **Unanimous Approval**
-
-   ```
-   SEQUENCE settle_unanimous:
-     1. Verify unanimous consent
-     2. Transfer stake to thread
-     3. Update thread balance
-     4. Record settlement
-   ```
-
-2. **Denial Settlement**
+1. **Resonant Approval**
 
    ```
-   SEQUENCE settle_denial:
-     1. Calculate denier shares
-     2. Transfer to deniers
-     3. Update balances
-     4. Record settlement
+   SEQUENCE settle_resonant:
+     1. Verify phase coherence
+     2. Calculate approver shares
+     3. Transfer energy to approvers
+     4. Record harmonic pattern
    ```
 
-3. **Mixed Outcome**
+2. **Dispersive Settlement**
 
+   ```
+   SEQUENCE settle_dispersive:
+     1. Verify denial state
+     2. Transfer energy to thread
+     3. Update thread resonance
+     4. Record pattern collapse
+   ```
+
+3. **Mixed Resonance**
    ```
    SEQUENCE settle_mixed:
-     1. Calculate treasury portion
-     2. Transfer to treasury
-     3. Update state
-     4. Record settlement
-   ```
-
-4. **Divestment**
-   ```
-   SEQUENCE settle_divest:
-     1. Calculate co-author share
-     2. Process transfer
-     3. Update thread state
-     4. Record settlement
+     1. Calculate approval/denial ratios
+     2. Transfer approver share to treasury
+     3. Transfer denier share to thread
+     4. Record interference pattern
    ```
 
 ## Security Properties
 
-1. **Conservation**
+1. **Energy Conservation**
 
    ```
-   PROPERTY token_conservation:
+   PROPERTY energy_conservation:
      FORALL settlement IN settlements:
        sum(inputs) == sum(outputs) AND
-       all_accounts_valid() AND
-       no_tokens_created()
+       all_resonant_valid() AND
+       no_energy_created()
    ```
 
-2. **Authority**
+2. **Phase Authority**
 
    ```
    PROPERTY settlement_authority:
      FORALL transfer IN transfers:
-       authorized_source(transfer) AND
-       valid_destination(transfer) AND
-       approved_amount(transfer)
+       authorized_resonator(transfer) AND
+       valid_phase_target(transfer) AND
+       approved_energy(transfer)
    ```
 
-3. **Finality**
+3. **Pattern Finality**
    ```
    PROPERTY settlement_finality:
      FORALL s IN settlements:
        completed(s) IMPLIES
-         irreversible(s) AND
-         recorded(s) AND
-         verified(s)
+         phase_locked(s) AND
+         pattern_recorded(s) AND
+         resonance_verified(s)
    ```
 
 ## Error Handling
 
 TYPE SettlementError =
-| InsufficientBalance
-| InvalidAccount
-| UnauthorizedTransfer
-| SettlementFailed
-| AccountMismatch
+| InsufficientEnergy
+| InvalidResonance
+| UnauthorizedPhase
+| SettlementDissonance
+| ResonanceMismatch
 
 FUNCTION handle_settlement_error(error: SettlementError) -> Result<()>:
-revert_transfers()
-unlock_accounts()
-emit_error_event(error)
+revert_energy_flow()
+unlock_resonators()
+emit_error_pattern(error)
 RETURN Err(error)
 
 ## Implementation Notes
 
 The settlement system maintains several critical properties:
 
-1. Token Safety
+1. Energy Safety
 
-   - All transfers are atomic
-   - Balances are always conserved
-   - Accounts are properly validated
-   - Authorities are strictly checked
+   - All transfers preserve phase
+   - Energy always conserved
+   - Resonators properly coupled
+   - Phase alignment verified
 
-2. Settlement Integrity
+2. Settlement Coherence
 
-   - Outcomes are deterministic
-   - Distributions are fair
-   - State is consistent
-   - Events are recorded
+   - Outcomes are resonant
+   - Distributions maintain harmony
+   - State remains coherent
+   - Patterns are recorded
 
 3. Error Recovery
    - Failed settlements revert
-   - Accounts are unlocked
-   - State is preserved
-   - Events are emitted
+   - Resonators decouple cleanly
+   - State preserves coherence
+   - Patterns remain intact
 
-Through these mechanisms, the settlement system provides secure and reliable token distribution while maintaining strong consistency guarantees.
+Through these mechanisms, the settlement system provides secure and reliable energy distribution while maintaining strong resonant properties.

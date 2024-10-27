@@ -11,7 +11,7 @@ assumptions: {
 "Documentation completeness",
 "Test framework stability"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Development Patterns
 
@@ -71,7 +71,7 @@ docs_version: "0.2.0"
    ```typescript
    src/
    ├── components/
-   │   ├── StreamChat.tsx     // Chat container
+   │   ├── ChoirChat.tsx     // Chat container
    │   ├── MessageFlow.tsx    // Message display
    │   └── ApprovalPane.tsx   // Approval interface
    ```

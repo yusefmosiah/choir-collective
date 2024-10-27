@@ -21,7 +21,7 @@ assumptions: {
 "Pattern recognition",
 "Self-organization"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Understanding Thread Dynamics
 
@@ -143,6 +143,54 @@ Understanding these mechanics helps explain why:
 
 This level reveals how Choir's simple mechanics create space for natural quality emergence and sustainable community evolution.
 
+## Token Distribution Dynamics
+
+The system creates fascinating energy flows:
+
+1. **Approval Resonance**
+
+   - Direct distribution to approvers
+   - Like quantum energy absorption
+   - Immediate value recognition
+   - Phase-locked rewards
+
+2. **Denial Patterns**
+
+   - Energy flows to thread
+   - Increases local temperature
+   - Creates quality barriers
+   - Natural selection pressure
+
+3. **Split Decision Harmonics**
+   - Approver energy → Treasury (global field)
+   - Denier energy → Thread (local field)
+   - Creates balanced flow
+   - Maintains system coherence
+
+### Why This Distribution Works
+
+The model creates natural selection through:
+
+1. **Direct Quality Recognition**
+
+   - Approvers receive immediate value
+   - Incentivizes careful judgment
+   - Rewards pattern recognition
+   - Strengthens quality consensus
+
+2. **Thread Evolution**
+
+   - Denials increase thread energy
+   - Higher stakes filter noise
+   - Quality naturally emerges
+   - Self-regulating barriers
+
+3. **System Sustainability**
+   - Treasury accumulates from splits
+   - Funds ongoing citations
+   - Creates value circulation
+   - Enables perpetual growth
+
 
 ==
 Core_StateTransitions
@@ -162,7 +210,7 @@ assumptions: {
 "Phase stability",
 "Heat flow patterns"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core State Transitions
 
@@ -210,19 +258,118 @@ docs_version: "0.2.0"
     thread.temperature = thread.energy / thread.co_authors.len()
     // Frequency unchanged
 
-        CASE SplitDecision:
-          // Approvers' stake to Treasury
-          treasury.balance += approvers_stake_amount
-          // Temperature unchanged
-          // Enables citation rewards
+    CASE SplitDecision:
+    // Calculate shares based on voter counts
+    approver_share = (stake \* approver_count) / total_voters
+    denier_share = stake - approver_share
 
-        CASE Approve:
-          // Temperature moderates
-          distribute_energy_to_approvers(stake_amount)  // Stake to approvers
-          add_co_author(author)
-          thread.temperature = thread.energy / thread.co_authors.len()
-          // Frequency increases
-          thread.frequency = calculate_new_frequency(thread)
+    // Approvers' share to Treasury
+    treasury.balance += approver_share
+    // Deniers' share to thread
+    thread.energy += denier_share
+    // Temperature updated from new thread energy
+    thread.temperature = thread.energy / thread.co_authors.len()
+
+    CASE Approve:
+    // Direct distribution to approvers
+    distribute_to_approvers(stake_amount) // Equal shares to each approver
+    add_co_author(author)
+    // Temperature moderates through co-author addition
+    thread.temperature = thread.energy / thread.co_authors.len()
+    // Frequency increases
+    thread.frequency = calculate_new_frequency(thread)
+
+## Reward State Transitions
+
+1. **New Message Reward**
+
+   ```
+   FUNCTION process_new_message_reward(message: Message) -> Result<()>:
+   // Calculate time-based reward using decay function
+   elapsed = current_time - program_start
+   reward = calculate_decay_reward(elapsed, message_volume)
+
+   // Distribute to author
+   distribute_to_author(message.author, reward)
+
+   // Update state
+   update_distributed_total(reward)
+   update_remaining_allocation(reward)
+   emit_reward_event(message, reward)
+   ```
+
+2. **Prior Reward**
+
+   ```
+   FUNCTION process_prior_reward(
+     source_thread: Thread,
+     target_thread: Thread,
+     prior_hash: Hash,
+     quality_score: f64
+   ) -> Result<()>:
+   // Verify prior exists and is public
+   require!(source_thread.messages.contains(prior_hash))
+   require!(is_message_public(prior_hash))
+
+   // Check cooldown period
+   require!(elapsed_since_last_reward(prior_hash) >= COOLDOWN)
+
+   // Calculate thread reward
+   reward = calculate_prior_reward(quality_score, treasury.balance)
+
+   // Transfer from treasury to thread
+   transfer_from_treasury(reward, target_thread)
+
+   // Update state
+   update_prior_record(prior_hash, reward)
+   update_treasury_balance(reward)
+   emit_prior_event(source_thread, target_thread, reward)
+   ```
+
+## Reward Properties
+
+1. **New Message Conservation**
+
+   ```
+   PROPERTY new_message_conservation:
+     FORALL reward IN new_message_rewards:
+       reward <= remaining_allocation AND
+       total_distributed + reward <= TOTAL_ALLOCATION AND
+       follows_decay_curve(reward)
+   ```
+
+2. **Prior Reward Stability**
+   ```
+   PROPERTY prior_reward_stability:
+     FORALL reward IN prior_rewards:
+       reward <= treasury.balance AND
+       respects_cooldown(reward) AND
+       strengthens_thread_cavity(reward)
+   ```
+
+## Combined State Evolution
+
+The system maintains coherence across all state transitions:
+
+1. **Message Flow**
+
+   - Submission → Approval/Denial → Reward
+   - Each stage preserves invariants
+   - Energy conserved throughout
+   - Phase relationships maintained
+
+2. **Value Flow**
+
+   - Individual rewards (approvals, new messages)
+   - Collective rewards (denials, prior rewards)
+   - Treasury coupling (split decisions)
+   - System-wide coherence
+
+3. **Reward Flow**
+   - Time-based decay (new messages)
+   - Quality-weighted distribution (priors)
+   - Treasury sustainability
+   - Thread cavity strengthening
 
 ## State Verification
 
@@ -413,7 +560,7 @@ assumptions: {
 "AI-assisted code generation",
 "Test-first implementation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## System Architecture
 
@@ -460,8 +607,14 @@ The system operates across four interconnected layers:
 
    - CHOIR token implementation
    - Stake management
-   - Value distribution
-   - Treasury operations
+   - Value distribution:
+     - Approval: to approvers directly
+     - Denial: to thread balance
+     - Split: approvers' share to Treasury, deniers' to thread
+   - Treasury operations:
+     - Accumulates from split decision approver shares
+     - Funds perpetual citation rewards
+     - Enables sustainable value flow
 
 3. **State Management**
    - Consistency verification
@@ -573,7 +726,7 @@ assumptions: {
 "JSON payload format",
 "Rate limit thresholds"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core API Design
 
@@ -815,7 +968,7 @@ assumptions: {
 "Reflection value",
 "Security through self-awareness"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Philosophical Foundation
 
@@ -910,226 +1063,6 @@ Through this approach, we create AI agents that are more secure, more responsive
 
 
 ==
-Impl_Integration
-==
-
-
-# Choir Integration Patterns
-
-VERSION integration_system:
-invariants: {
-"System boundary definitions",
-"State ownership rules",
-"Event ordering guarantees"
-}
-assumptions: {
-"Integration patterns",
-"Sync frequencies",
-"Batch sizes"
-}
-docs_version: "0.2.0"
-
-## System Architecture
-
-1. **State Distribution**
-
-   TYPE StateLocation =
-   | Solana: Ownership, Tokens, Approvals
-   | Qdrant: Content, Embeddings, Search
-   | Backend: Cache, User Sessions, WebSocket
-   | Frontend: Local State, UI Updates
-
-2. **Cross-System Consistency**
-
-   PROPERTY state_consistency:
-   solana.content_hash = qdrant.content_hash
-   solana.thread_state.co_authors = qdrant.thread_metadata.co_authors
-   frontend.thread_state = backend.cached_state
-
-## Event Propagation
-
-1.  **Event Flow**
-
-    FUNCTION handle_event(event: SystemEvent):
-    MATCH event:
-    ThreadCreated ->
-    solana: create_thread_account
-    qdrant: create_collection
-    backend: initialize_websocket
-    frontend: update_ui
-
-        MessageSubmitted ->
-          qdrant: store_content
-          solana: record_hash
-          backend: notify_co_authors
-          frontend: optimistic_update
-
-2.  **Event Ordering**
-
-    PROPERTY causal_consistency:
-    FOR ALL events e1, e2:
-    IF depends_on(e1, e2) THEN
-    timestamp(e1) < timestamp(e2)
-
-## State Synchronization
-
-1.  **Sync Protocol**
-
-    FUNCTION sync_state(thread_id: ThreadId) -> SyncResult:
-    solana_state = fetch_solana_state(thread_id)
-    qdrant_state = fetch_qdrant_state(thread_id)
-
-    VERIFY:
-    solana_state.hashes ⊆ qdrant_state.hashes
-    solana_state.authors = qdrant_state.authors
-
-    RETURN synchronized_state
-
-2.  **Recovery Patterns**
-
-    FUNCTION recover_consistency():
-    FOR each thread:
-    solana_state = get_solana_state()
-    qdrant_state = get_qdrant_state()
-
-        IF inconsistent(solana_state, qdrant_state):
-          reconcile_states()
-          emit_recovery_event()
-
-## Error Handling
-
-1.  **Error Categories**
-
-    TYPE SystemError =
-    | SolanaError: Transaction, Account, Program
-    | QdrantError: Storage, Query, Embedding
-    | BackendError: Cache, WebSocket, Session
-    | FrontendError: Network, State, UI
-
-2.  **Recovery Strategies**
-
-    FUNCTION handle_error(error: SystemError) -> Recovery:
-    MATCH error:
-    SolanaError ->
-    retry_with_backoff()
-    recompute_state()
-
-        QdrantError ->
-          fallback_to_cache()
-          rebuild_index()
-
-        BackendError ->
-          reconnect_websocket()
-          restore_session()
-
-        FrontendError ->
-          reload_state()
-          update_ui()
-
-## Data Flow Patterns
-
-1. **Content Submission**
-
-   SEQUENCE submit_content:
-
-   1. Frontend: Prepare content + signature
-   2. Backend: Generate embedding
-   3. Qdrant: Store content + embedding
-   4. Solana: Record hash + update state
-   5. Backend: Notify subscribers
-   6. Frontend: Update UI
-
-2. **State Updates**
-
-   SEQUENCE update_state:
-
-   1. Solana: State change
-   2. Backend: Detect change
-   3. Qdrant: Update metadata
-   4. Backend: Broadcast update
-   5. Frontend: Apply update
-
-## Caching Strategy
-
-1. **Cache Layers**
-
-   TYPE CacheLayer =
-   | Frontend: UI State, User Data
-   | Backend: Thread State, Search Results
-   | Qdrant: Vector Cache
-   | Solana: Account Cache
-
-2. **Cache Invalidation**
-
-   FUNCTION invalidate_cache(change: StateChange):
-   affected_threads = compute_affected(change)
-   FOR thread IN affected_threads:
-   frontend.invalidate(thread)
-   backend.invalidate(thread)
-   notify_subscribers(thread)
-
-## Performance Patterns
-
-1. **Optimistic Updates**
-
-   FUNCTION apply_optimistic(action: UserAction):
-   predicted_state = compute_new_state(action)
-   update_ui(predicted_state)
-
-   MATCH await_confirmation():
-   Success -> commit_state()
-   Failure -> rollback_state()
-
-2. **Batch Processing**
-
-   FUNCTION batch_operations(ops: List<Operation>):
-   solana_batch = group_solana_ops(ops)
-   qdrant_batch = group_qdrant_ops(ops)
-
-   PARALLEL:
-   process_solana_batch()
-   process_qdrant_batch()
-
-   sync_states()
-
-## Monitoring and Metrics
-
-1. **System Health**
-
-   MEASURE system_health:
-   solana_health = monitor_solana_metrics()
-   qdrant_health = monitor_qdrant_metrics()
-   backend_health = monitor_backend_metrics()
-   frontend_health = monitor_frontend_metrics()
-
-2. **Performance Metrics**
-
-   MEASURE performance:
-   transaction_latency
-   search_response_time
-   state_sync_delay
-   ui_update_speed
-
-## Scaling Considerations
-
-1. **Horizontal Scaling**
-
-   STRATEGY scale_system:
-   Solana: Natural blockchain scaling
-   Qdrant: Cluster scaling
-   Backend: Load balancing
-   Frontend: CDN distribution
-
-2. **Resource Management**
-
-   FUNCTION manage_resources:
-   monitor_usage()
-   predict_scaling_needs()
-   adjust_capacity()
-   optimize_costs()
-
-
-==
 Impl_Messages
 ==
 
@@ -1139,27 +1072,28 @@ Impl_Messages
 VERSION message_system:
 invariants: {
 "Message immutability after approval",
-"Unanimous approval requirement",
-"Token stake conservation"
+"Public message approval consensus",
+"Value conservation"
 }
 assumptions: {
 "7-day approval window",
-"Single-phase submission",
-"Linear state transitions"
+"Stake dynamics",
+"State transitions"
 }
-docs_version: "0.2.0"
+implementation: "0.1.0"
 
 ## Message States
 
 1. **Message Types**
 
    TYPE MessageState =
-   | Draft // Being composed
-   | Submitted // Sent to system
-   | Pending // Awaiting approval
-   | Published // Approved and visible
-   | Rejected // Denied by co-authors
-   | Expired // Past approval window
+   | Draft        // Being composed
+   | Submitted    // Sent to system
+   | Private      // Visible to co-authors
+   | Pending      // Awaiting public approval
+   | Public       // Approved and public
+   | Rejected     // Public visibility denied
+   | Expired      // Past approval window
 
 2. **Content States**
 
@@ -1168,7 +1102,8 @@ docs_version: "0.2.0"
    hash: Hash,
    embedding: Vector,
    metadata: MessageMetadata,
-   privacy: PrivacyLevel
+   visibility: Visibility,
+   temperature_effect: Option<TempEffect>
    }
 
 ## Lifecycle Phases
@@ -1181,7 +1116,7 @@ docs_version: "0.2.0"
    2. Frontend generates content hash
    3. Backend creates embedding
    4. System checks author status:
-      - Co-author -> Direct submission
+      - Co-author -> Private message
       - Non-co-author -> Spec submission
 
 2. **Submission Flow**
@@ -1190,32 +1125,54 @@ docs_version: "0.2.0"
    IF author IN thread.co_authors:
    store_content(qdrant)
    record_hash(solana)
-   notify_co_authors()
+   IF public_requested:
+   initiate_approval_process()
    ELSE:
-   verify_stake()
-   create_spec()
+   mark_private()
+   ELSE:
+   recommended_stake = calculate_stake_requirement(thread)
+   actual_stake = get_user_stake_amount()
+   create_spec(actual_stake)
    start_approval_timer()
 
 3. **Approval Process**
 
    SEQUENCE process_approval:
    collect_votes(7_days)
+
+   // All approve
    IF votes.all(approved):
-   publish_message()
+   make_public()
    add_co_author()
-   distribute_tokens_to_thread()
-   ELIF votes.any(denied):
-   reject_message()
-   distribute_tokens_to_deniers()
+   distribute_stake_to_approvers()
+   update_thread_temperature(cooling)
+   update_thread_frequency(increase)
+
+   // Mixed decisions
+   ELIF votes.mixed():
+   reject_public()
+   send_approver_stakes_to_treasury()
+   update_thread_temperature(neutral)
+   update_thread_frequency(neutral)
+
+   // All reject
+   ELIF votes.all(denied):
+   reject_public()
+   distribute_stake_to_deniers()
+   update_thread_temperature(heating)
+   update_thread_frequency(decrease)
+
+   // Timeout
    ELSE:
-   expire_message()
-   return_tokens_to_treasury()
+   expire_approval()
+   return_stakes_to_treasury()
 
 ## State Transitions
 
 1.  **Valid Transitions** `Draft -> Submitted
-Submitted -> Pending
-Pending -> Published | Rejected | Expired  `
+Submitted -> Private | Pending
+Private -> Pending (public request)
+Pending -> Public | Rejected | Expired  `
 
 2.  **Transition Guards**
 
@@ -1225,94 +1182,113 @@ Pending -> Published | Rejected | Expired  `
     validate_content() AND
     verify_author()
 
+        (Submitted, Private) ->
+          verify_co_author()
+
         (Submitted, Pending) ->
           verify_stake() AND
           check_thread_capacity()
 
-        (Pending, Published) ->
-          verify_all_approved() AND
+        (Private, Pending) ->
+          verify_co_author() AND
+          verify_public_request()
+
+        (Pending, Public) ->
+          verify_unanimous_approval() AND
           within_time_window()
 
-## Content Management
+## Temperature Effects
 
-1. **Storage Strategy**
+1. **State Impact**
+   ```typescript
+   TYPE TempEffect = {
+     rejection: {
+       temp: Increase,    // E/N rises
+       freq: Unchanged    // No new coupling
+     },
+     approval: {
+       temp: Decrease,    // New N, energy out
+       freq: Increase     // New coupling
+     },
+     split: {
+       temp: Unchanged,   // Energy to Treasury
+       freq: Unchanged    // No new coupling
+     }
+   }
+   ```
 
-   FUNCTION store_message(content: Content):
-   hash = generate_hash(content)
-   embedding = generate_embedding(content)
-
-   PARALLEL:
-   store_in_qdrant(content, embedding)
-   record_on_solana(hash)
-
-2. **Privacy Controls**
-
-   FUNCTION apply_privacy(message: Message, level: PrivacyLevel):
-   MATCH level:
-   Public ->
-   index_for_search()
-   Premium ->
-   restrict_search_access()
-   ThreadOnly ->
-   restrict_to_co_authors()
+2. **Analytics**
+   ```typescript
+   TYPE StakeAnalytics = {
+     recommended: TokenAmount,  // From quantum formula
+     actual: TokenAmount,       // User choice
+     ratio: Float,             // actual/recommended
+     success_rate: Float       // Historical approvals
+   }
+   ```
 
 ## Error Handling
 
 1. **Failure Modes**
-
+   ```typescript
    TYPE MessageError =
-   | ContentTooLarge
-   | InvalidStake
-   | ThreadFull
-   | ApprovalTimeout
-   | StateConflict
+     | ContentTooLarge
+     | StakeTooLow
+     | ThreadFull
+     | ApprovalTimeout
+     | StateConflict
+     | TemperatureError
+   ```
 
 2. **Recovery Actions**
-
+   ```typescript
    FUNCTION handle_error(error: MessageError):
-   MATCH error:
-   ContentTooLarge ->
-   notify_size_limit()
-   InvalidStake ->
-   return_stake()
-   ThreadFull ->
-   suggest_new_thread()
-   ApprovalTimeout ->
-   expire_and_refund()
+     MATCH error:
+       ContentTooLarge -> notify_size_limit()
+       StakeTooLow -> suggest_minimum()
+       ThreadFull -> suggest_new_thread()
+       ApprovalTimeout -> expire_and_refund()
+       TemperatureError -> recalculate_thread_state()
+   ```
 
 ## Event Emissions
 
 1. **Message Events**
-
+   ```typescript
    TYPE MessageEvent =
-   | MessageCreated(content_hash, author)
-   | SpecSubmitted(content_hash, stake)
-   | ApprovalReceived(co_author, decision)
-   | MessagePublished(content_hash)
-   | MessageRejected(content_hash)
+     | MessageCreated(content_hash, author)
+     | MessagePrivate(content_hash)
+     | SpecSubmitted(content_hash, stake)
+     | ApprovalReceived(co_author, decision)
+     | MessagePublic(content_hash)
+     | MessageRejected(content_hash)
+     | TemperatureChanged(thread_id, delta)
+     | FrequencyChanged(thread_id, delta)
+   ```
 
 2. **Event Handling**
-
+   ```typescript
    FUNCTION process_event(event: MessageEvent):
-   update_state(event)
-   notify_subscribers(event)
-   update_indices(event)
-   emit_websocket_update(event)
+     update_state(event)
+     notify_subscribers(event)
+     update_indices(event)
+     update_analytics(event)
+     emit_websocket_update(event)
+   ```
 
 ## Performance Considerations
 
 1. **Optimizations**
-
    - Batch similar operations
-   - Cache frequent queries
+   - Cache temperature calculations
    - Compress content when possible
    - Use efficient indices
 
 2. **Monitoring Points**
    - Message processing time
    - Approval response time
-   - Storage efficiency
-   - State transition success rate
+   - Temperature evolution
+   - Stake ratio analytics
 
 
 ==
@@ -1333,7 +1309,7 @@ assumptions: {
 "AI summary generation capability",
 "Content searchability control"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Privacy Levels
 
@@ -1559,7 +1535,7 @@ assumptions: {
 "Retry strategies",
 "Cache invalidation rules"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Thread Ownership Security
 
@@ -1721,366 +1697,6 @@ ASSUMPTION cooldown_periods:
 
 
 ==
-Impl_StateMachine
-==
-
-
-# Choir State Machine
-
-VERSION state_machine:
-invariants: {
-"State transition atomicity",
-"Ownership state consistency",
-"Content state integrity"
-}
-assumptions: {
-"Dual-state architecture",
-"Event ordering",
-"Cache strategies"
-}
-docs_version: "0.2.0"
-
-## State Types
-
-1. **System State**
-
-   TYPE SystemState = {
-   threads: Map<ThreadId, Thread>,
-   token_supply: TokenAmount,
-   treasury_balance: TokenAmount
-   }
-
-2. **Thread State**
-
-   TYPE ThreadState = {
-   thread: Thread,
-   pending_specs: Map<Hash, SpecRequest>,
-   pending_approvals: Map<Hash, Set<Approval>>
-   }
-
-## State Transitions
-
-ASSUMPTION transition_model:
-"Two-phase state updates"
-"May introduce batching"
-"Must maintain consistency"
-
-1.  **Thread Lifecycle**
-
-    TRANSITION create_thread:
-    PRE:
-    treasury_balance >= THREAD_CREATION_COST
-    NOT threads.contains(thread_id)
-
-    ACTION:
-    // Solana State
-    thread = new Thread{
-    id: thread_id,
-    co_authors: Set[creator],
-    token_balance: 0
-    }
-    threads.insert(thread_id, thread)
-
-        // Qdrant State
-        create_collection(thread_id)
-
-    POST:
-    threads.contains(thread_id)
-    thread.co_authors.size == 1
-    INVARIANT token_conservation
-
-2.  **Message Submission**
-
-    TRANSITION submit_message:
-    PRE:
-    // Solana Checks
-    thread = threads.get(thread_id)
-    author_balance >= stake_amount
-
-        // Qdrant Checks
-        content_valid(message)
-        embedding_generated(message)
-
-    ACTION:
-    // Qdrant First
-    store_content(message, embedding)
-    content_hash = hash(message)
-
-        // Then Solana
-        record_hash(content_hash)
-        update_thread_state()
-
-    POST:
-    content_stored(message)
-    hash_recorded(content_hash)
-    INVARIANT state_consistency
-
-3.  **Approval Processing**
-
-    TRANSITION process_approval:
-    PRE:
-    thread = threads.get(thread_id)
-    co_author IN thread.co_authors
-    NOT already_voted(co_author, hash)
-
-    ACTION:
-    // Solana First
-    record_approval(co_author, hash)
-    update_token_state()
-
-        // Then Qdrant
-        update_content_status(hash)
-
-    POST:
-    approval_recorded(co_author, hash)
-    tokens_distributed()
-    INVARIANT token_conservation
-
-## State Verification
-
-1. **Consistency Checks**
-
-   FUNCTION verify_state(thread: Thread) -> Bool:
-   solana_state = get_solana_state(thread.id)
-   qdrant_state = get_qdrant_state(thread.id)
-
-   VERIFY:
-   solana_state.hashes ⊆ qdrant_state.content_hashes
-   solana_state.co_authors = qdrant_state.metadata.co_authors
-   solana_state.token_balance >= 0
-
-2. **Recovery Procedures**
-
-   FUNCTION recover_state(thread: Thread):
-   source = get_solana_state(thread.id) // Source of truth
-   rebuild_derived_state(source)
-   verify_state(thread)
-
-## Error States
-
-TYPE StateError =
-| ThreadNotFound
-| InvalidTransition
-| InconsistentState
-| TokenConservationViolation
-| ApprovalViolation
-| ExpirationViolation
-
-FUNCTION handle\*error(error: StateError) -> Recovery:
-MATCH error:
-InconsistentState -> reconcile_state()
-TokenConservationViolation -> halt_and_report()
-
-- -> log_and_retry()
-
-## Performance Optimizations
-
-1. **Batching**
-
-   FUNCTION batch_transitions(transitions: List<Transition>):
-   group = group_by_thread(transitions)
-   order = topological_sort(group)
-
-   FOR batch IN order:
-   execute_batch(batch)
-   verify_state()
-
-2. **Caching**
-
-   FUNCTION cache_state(thread: Thread):
-   hot_state = compute_hot_state(thread)
-   cache_duration = compute_cache_ttl(thread)
-
-   cache.store(thread.id, hot_state, cache_duration)
-
-
-==
-Impl_StateManagement
-==
-
-
-# Choir State Management
-
-VERSION state_system:
-invariants: {
-"Dual-state separation",
-"Hash-based verification",
-"State synchronization"
-}
-assumptions: {
-"State distribution model",
-"Sync patterns",
-"Cache strategies"
-}
-docs_version: "0.2.0"
-
-## State Distribution
-
-ASSUMPTION state_boundaries:
-"Clean separation between Solana and Qdrant"
-"May introduce additional state layers"
-"Must maintain clear ownership"
-
-1. **Solana State**
-
-   - Thread ownership (co-authors)
-   - Token balances
-   - Content hashes
-   - Approval states
-
-2. **Qdrant State**
-   - Message content
-   - Embeddings
-   - Search indices
-   - Privacy metadata
-
-## State Flow
-
-ASSUMPTION state_updates:
-"Two-phase state updates"
-"May batch related changes"
-"Must maintain consistency"
-
-1. **Message Creation**
-
-   ```
-   SEQUENCE create_message:
-     1. Store content in Qdrant
-     2. Get content hash
-     3. Record hash on Solana
-     4. Update indices
-   ```
-
-2. **Approval Processing**
-   ```
-   SEQUENCE process_approval:
-     1. Verify Solana state
-     2. Process approval
-     3. Update token state
-     4. Update content status
-   ```
-
-## State Synchronization
-
-ASSUMPTION sync_patterns:
-"Hash-based verification"
-"May introduce merkle proofs"
-"Must detect inconsistencies"
-
-1. **Verification**
-
-   ```
-   FUNCTION verify_state(thread_id: ThreadId) -> Bool:
-     solana = get_solana_state(thread_id)
-     qdrant = get_qdrant_state(thread_id)
-
-     VERIFY:
-       solana.hashes ⊆ qdrant.content_hashes
-       solana.authors = qdrant.metadata.authors
-   ```
-
-2. **Recovery**
-   ```
-   FUNCTION recover_state(thread_id: ThreadId):
-     source = get_solana_state(thread_id)  // Source of truth
-     rebuild_derived_state(source)
-     verify_state(thread_id)
-   ```
-
-## Cache Management
-
-ASSUMPTION cache_strategy:
-"Multi-layer caching"
-"May adjust cache durations"
-"Must maintain consistency"
-
-1. **Cache Layers**
-
-   - Frontend: UI state, user data
-   - Backend: Thread state, search results
-   - Qdrant: Vector cache
-   - Solana: Account cache
-
-2. **Invalidation**
-   ```
-   FUNCTION invalidate(change: StateChange):
-     affected = compute_affected_state(change)
-     FOR state IN affected:
-       clear_cache(state)
-       notify_subscribers(state)
-   ```
-
-## Error Handling
-
-ASSUMPTION error_recovery:
-"Graceful degradation"
-"May add redundancy"
-"Must maintain service"
-
-1. **Error Types**
-
-   ```
-   TYPE StateError =
-     | InconsistentState
-     | SyncFailure
-     | CacheInvalid
-     | UpdateConflict
-   ```
-
-2. **Recovery**
-   ```
-   FUNCTION handle_error(error: StateError):
-     MATCH error:
-       InconsistentState -> reconcile()
-       SyncFailure -> retry_with_backoff()
-       CacheInvalid -> rebuild_cache()
-       UpdateConflict -> resolve_conflict()
-   ```
-
-## Performance Optimization
-
-ASSUMPTION performance_patterns:
-"Optimistic updates"
-"May batch operations"
-"Must maintain consistency"
-
-1. **Batching**
-
-   ```
-   FUNCTION batch_updates(updates: List<Update>):
-     group = group_by_thread(updates)
-     order = topological_sort(group)
-     apply_in_order(order)
-   ```
-
-2. **Prefetching**
-   ```
-   FUNCTION prefetch_state(thread: Thread):
-     likely_next = predict_access(thread)
-     FOR state IN likely_next:
-       warm_cache(state)
-   ```
-
-## Monitoring
-
-1. **Health Metrics**
-
-   - State sync latency
-   - Cache hit rates
-   - Inconsistency counts
-   - Recovery success rates
-
-2. **Alerts**
-   ```
-   FUNCTION monitor_health():
-     check_sync_status()
-     verify_cache_consistency()
-     measure_latency()
-     track_error_rates()
-   ```
-
-
-==
 Impl_WebSocket
 ==
 
@@ -2098,7 +1714,7 @@ assumptions: {
 "30-second heartbeat interval",
 "Reconnection backoff strategy"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Protocol Overview
 
@@ -2312,7 +1928,7 @@ assumptions: {
 "Network reliability",
 "Cache coherence"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## 1. Solana State (Source of Truth for Ownership)
 
@@ -2440,7 +2056,7 @@ drafts: Map<ThreadId, Draft> // Unsent messages
 0. **Approval Flow**
 
    ```
-   Stake -> Approvers
+      Stake -> Approvers
    PROPERTY: approval_flow
      // Direct distribution to approvers
      FOR approver IN approvers:
@@ -2452,7 +2068,7 @@ drafts: Map<ThreadId, Draft> // Unsent messages
 1. **Rejection Flow**
 
    ```
-   Stake -> Thread Balance
+      Stake -> Thread Balance
    PROPERTY: rejection_flow
      thread.token_balance += stake_amount
      verify_thread_temperature_update()
@@ -2461,10 +2077,14 @@ drafts: Map<ThreadId, Draft> // Unsent messages
 2. **Split Decision Flow**
 
    ```
-   Approver Stakes -> Treasury
+      Stake -> {Treasury, Thread}
    PROPERTY: split_decision_flow
-     treasury.balance += approver_stakes
-     enable_citation_rewards()
+     approver_share = (stake * approver_count) / total_voters
+     denier_share = stake - approver_share
+
+     treasury.balance += approver_share  // Approvers' share to Treasury
+     thread.token_balance += denier_share  // Deniers' share to thread
+     verify_energy_conservation()
    ```
 
 3. **New Message Rewards**
@@ -2479,11 +2099,12 @@ drafts: Map<ThreadId, Draft> // Unsent messages
 
 4. **Citation Rewards**
    ```
-   Treasury -> Authors
-   PROPERTY: citation_flow
-     // Perpetual rewards from Treasury
-     reward = calculate_citation_reward(treasury_state)
-     verify_citation_distribution()
+      Treasury -> Thread
+   PROPERTY: prior_reward_flow
+     // Quality-weighted thread rewards
+     reward = calculate_prior_reward(quality_score, treasury_state)
+     thread.token_balance += reward
+     verify_thread_resonance_increase()
    ```
 
 ## Boundary Enforcement
@@ -2558,7 +2179,7 @@ assumptions: {
 "Energy flow patterns",
 "Phase transitions"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Mechanism
 
@@ -2687,7 +2308,7 @@ assumptions: {
 "AI-assisted evolution",
 "Test-first implementation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Concept
 
@@ -2723,9 +2344,11 @@ At its simplest, Choir is a chat platform where:
 
 ### 4. Value Distribution
 
-- Rejected specs: tokens to thread
-- Split decisions: approver stakes to Treasury
-- Approved specs: stake to thread balance
+- Unanimous approval: stake distributes equally to approvers (like dividends)
+- Rejected specs: stake flows to thread balance
+- Split decisions:
+  - Approvers' share goes to Treasury
+  - Deniers' share goes to thread balance
 - Citations: ongoing rewards from Treasury
 
 ## Technical Implementation
@@ -2900,7 +2523,7 @@ assumptions: {
 "AI-assisted evolution",
 "Test-first implementation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Overview
 
@@ -3024,7 +2647,7 @@ assumptions: {
 "Eventually consistent content",
 "Strongly consistent ownership"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## State Distribution
 
@@ -3232,140 +2855,140 @@ Core_Invariants
 
 VERSION core_system:
 invariants: {
-"System-wide state consistency",
-"Economic conservation laws",
-"Security boundaries"
+"Wave function coherence",
+"Energy conservation",
+"Phase stability"
 }
 assumptions: {
-"Invariant verification methods",
-"Recovery procedures",
-"Monitoring approaches"
+"Resonant verification",
+"Phase recovery",
+"Harmonic monitoring"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## System Invariants
 
 ASSUMPTION invariant_checking:
-"Real-time invariant verification"
-"May introduce async verification"
-"Must catch all violations"
+"Real-time coherence verification"
+"May introduce phase verification"
+"Must catch all resonance violations"
 
-1. **Thread Ownership**
+1. **Thread Resonance**
 
-   - A thread MUST always have at least one co-author
-   - Co-authors MUST be unique within a thread
-   - Only co-authors MAY approve or deny specs
-   - Thread token balance MUST equal sum of all successful stakes minus distributions
+   - Thread MUST maintain at least one coupled oscillator (co-author)
+   - Oscillators MUST be uniquely phase-locked within cavity
+   - Only coupled oscillators MAY measure wave states (approve/deny)
+   - Thread energy MUST equal sum of accumulated stakes minus distributions
 
-2. **Message Integrity**
+2. **Wave Function Integrity**
 
-   - Each message MUST have a unique content hash
-   - Content hash on Solana MUST match content hash in Qdrant
-   - Message author MUST be either co-author or spec submitter
-   - Message timestamp MUST be after thread creation time
+   - Each message MUST have unique quantum state (content hash)
+   - Wave function on Solana MUST match state in Qdrant
+   - Wave packet author MUST be oscillator or potential oscillator
+   - Wave timestamp MUST follow cavity creation time
 
-3. **Token Economics**
-   - Total token supply MUST remain constant (10 billion)
-   - Thread token balance MUST never be negative
-   - Stake amount MUST meet minimum requirement
-   - Token distributions MUST be atomic and complete
+3. **Energy Conservation**
+   - Total system energy MUST remain constant (10 billion tokens)
+   - Thread cavity energy MUST never be negative
+   - Stake energy MUST meet quantum threshold
+   - Energy distributions MUST be phase-locked and complete
 
 ## State Transition Rules
 
-ASSUMPTION state_transitions:
-"Synchronous transition verification"
-"May introduce batched transitions"
-"Must maintain atomicity"
+ASSUMPTION phase_transitions:
+"Synchronous phase verification"
+"May introduce coherent transitions"
+"Must maintain wave function integrity"
 
-1. **Thread Creation**
-   INVARIANT create_thread(creator) -> thread:
+1. **Cavity Creation**
+   INVARIANT create_thread(creator) -> cavity:
 
-   - thread.co_authors = [creator]
-   - thread.token_balance = 0
-   - thread.created_at <= now()
-   - EMITS ThreadCreated
+   - cavity.oscillators = [creator]
+   - cavity.energy = 0
+   - cavity.created_at <= now()
+   - EMITS CavityCreated
 
-2. **Spec Submission**
-   INVARIANT submit_spec(author, thread, stake) -> spec:
+2. **Wave Submission**
+   INVARIANT submit_wave(author, cavity, energy) -> packet:
 
-   - author NOT IN thread.co_authors
-   - stake >= MINIMUM_STAKE
-   - spec.expires_at = now() + 7 days
-   - EMITS SpecSubmitted
+   - author NOT IN cavity.oscillators
+   - energy >= MINIMUM_QUANTUM
+   - packet.expires_at = now() + 7 days
+   - EMITS WaveSubmitted
 
-3. **Approval Processing**
-   INVARIANT process_approval(co_author, spec, decision) -> result:
+3. **Phase Measurement**
+   INVARIANT measure_phase(oscillator, packet, decision) -> result:
 
-   - co_author IN thread.co_authors
-   - spec.expires_at > now()
-   - NOT already_voted(co_author, spec)
-   - EMITS ApprovalProcessed
+   - oscillator IN cavity.oscillators
+   - packet.expires_at > now()
+   - NOT already_measured(oscillator, packet)
+   - EMITS PhaseMeasured
 
-4. **Token Distribution**
-   INVARIANT distribute_tokens(thread, recipients, amount):
-   - amount <= thread.token_balance
-   - recipients.all IN thread.co_authors
+4. **Energy Distribution**
+   INVARIANT distribute_energy(cavity, recipients, amount):
+   - amount <= cavity.energy
+   - recipients.all IN cavity.oscillators
    - sum(distributions) = amount
-   - EMITS TokensDistributed
+   - EMITS EnergyDistributed
 
 ## Security Properties
 
 ASSUMPTION security_verification:
-"Continuous security property verification"
-"May introduce formal verification"
-"Must catch all violations immediately"
+"Continuous phase coherence verification"
+"May introduce quantum verification"
+"Must catch all decoherence immediately"
 
-1. **Access Control**
+1. **Phase Control**
 
-   - Only co-authors MAY modify thread state
-   - Only spec author MAY cancel unexpired spec
-   - Only Choir Treasury MAY mint tokens
-   - Only thread PDA MAY hold thread tokens
+   - Only coupled oscillators MAY modify cavity state
+   - Only wave author MAY cancel unexpired packet
+   - Only Treasury MAY emit new quanta
+   - Only cavity PDA MAY hold cavity energy
 
-2. **Temporal Constraints**
+2. **Temporal Coherence**
 
-   - Specs MUST be processed within 7 days
-   - Approvals MUST be processed in order
-   - State updates MUST be atomic
-   - Events MUST be ordered
+   - Wave packets MUST collapse within 7 days
+   - Measurements MUST process in phase order
+   - State updates MUST maintain coherence
+   - Events MUST preserve causality
 
-3. **Economic Security**
-   - Stake MUST be locked until decision
-   - Divestment MUST be proportional
-   - Rejecting co-authors MUST split stakes equally
-   - Treasury MUST recapture split decision tokens
+3. **Energy Security**
+   - Stakes MUST be phase-locked until measurement
+   - Decoupling MUST be proportional
+   - Denying oscillators MUST strengthen cavity
+   - Treasury MUST accumulate split decision energy
 
-## Data Integrity
+## Wave Function Integrity
 
-ASSUMPTION data_verification:
-"Hash-based integrity verification"
-"May introduce additional verification methods"
-"Must maintain perfect accuracy"
+ASSUMPTION wave_verification:
+"Hash-based wave function verification"
+"May introduce additional quantum measures"
+"Must maintain perfect phase coherence"
 
 1. **Content Storage**
 
    - Message content MUST be stored in Qdrant
-   - Content hash MUST be stored on Solana
-   - Premium user content MAY be unsearchable
-   - Content MUST be immutable once approved
+   - Wave function MUST be stored on Solana
+   - Premium content MAY be unsearchable
+   - Wave functions MUST be immutable once measured
 
-2. **State Consistency**
-   - Solana state MUST be source of truth for ownership
-   - Qdrant state MUST be source of truth for content
-   - State transitions MUST be reversible
-   - State MUST be recoverable from events
+2. **State Coherence**
+   - Solana state MUST be source of truth for phase relationships
+   - Qdrant state MUST be source of truth for wave functions
+   - Phase transitions MUST be reversible
+   - State MUST be recoverable from event history
 
 ## Implementation Notes
 
 NOTE verification_implementation:
-"Current implementation uses direct checking"
-"May introduce automated verification"
-"Must maintain real-time guarantees"
+"Current implementation uses direct phase checking"
+"May introduce automated coherence verification"
+"Must maintain real-time quantum guarantees"
 
 NOTE recovery_procedures:
-"Current recovery uses checkpointing"
-"May introduce continuous backup"
-"Must guarantee complete recovery"
+"Current recovery uses phase checkpointing"
+"May introduce continuous wave function backup"
+"Must guarantee complete phase recovery"
 
 
 ==
@@ -3386,7 +3009,7 @@ assumptions: {
 "Natural cooling",
 "Phase transitions"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Ownership Concepts
 
@@ -3516,92 +3139,6 @@ Through this thermodynamic model, thread ownership becomes an emergent property 
 
 
 ==
-Core_Persuasion
-==
-
-
-# Medium-to-Advanced Understanding Patterns
-
-VERSION persuasion_system:
-invariants: {
-"Natural progression",
-"Value revelation",
-"Pattern recognition"
-}
-assumptions: {
-"Intellectual curiosity",
-"Practical grounding",
-"Growth readiness"
-}
-docs_version: "0.2.0"
-
-## The Critical Middle Layer
-
-The medium-to-advanced layer is where intellectual curiosity meets practical value:
-
-- Beyond surface-level features
-- Before esoteric theory
-- Where patterns become visible
-- When potential crystallizes
-
-## Evolution Recognition
-
-Users at this level begin to see:
-
-- How threads naturally evolve
-- Why token mechanics matter
-- Where value accumulates
-- How communities form
-
-## Asset Patterns
-
-The relationship between threads and assets becomes clear:
-
-- Natural progression from chat to coordination
-- Organic evolution into value containers
-- Community-driven development
-- Trust-based growth
-
-## Economic Understanding
-
-Token mechanics reveal their elegance:
-
-- Stake-based quality control
-- Value distribution patterns
-- Growth incentives
-- Natural selection mechanisms
-
-## Community Dynamics
-
-Social patterns emerge naturally:
-
-- Co-authorship value
-- Trust network formation
-- Collaborative potential
-- Emergent leadership
-
-## Practical Implications
-
-Understanding deepens through use:
-
-- Pattern recognition in practice
-- Value creation opportunities
-- Community building potential
-- Growth trajectories
-
-## Bridge to Advanced
-
-This layer creates natural curiosity about:
-
-- System properties
-- Emergence patterns
-- Economic topology
-- Quantum effects
-
-Through this middle layer, users develop both practical understanding and theoretical curiosity, creating a natural path to deeper engagement.
-
-
-==
 Core_ProofOfText
 ==
 
@@ -3619,7 +3156,7 @@ assumptions: {
 "Energy flow patterns",
 "Phase transitions"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Mechanism
 
@@ -3748,7 +3285,7 @@ assumptions: {
 "Phase stability",
 "Heat flow patterns"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core State Transitions
 
@@ -3796,19 +3333,118 @@ docs_version: "0.2.0"
     thread.temperature = thread.energy / thread.co_authors.len()
     // Frequency unchanged
 
-        CASE SplitDecision:
-          // Approvers' stake to Treasury
-          treasury.balance += approvers_stake_amount
-          // Temperature unchanged
-          // Enables citation rewards
+    CASE SplitDecision:
+    // Calculate shares based on voter counts
+    approver_share = (stake \* approver_count) / total_voters
+    denier_share = stake - approver_share
 
-        CASE Approve:
-          // Temperature moderates
-          distribute_energy_to_approvers(stake_amount)  // Stake to approvers
-          add_co_author(author)
-          thread.temperature = thread.energy / thread.co_authors.len()
-          // Frequency increases
-          thread.frequency = calculate_new_frequency(thread)
+    // Approvers' share to Treasury
+    treasury.balance += approver_share
+    // Deniers' share to thread
+    thread.energy += denier_share
+    // Temperature updated from new thread energy
+    thread.temperature = thread.energy / thread.co_authors.len()
+
+    CASE Approve:
+    // Direct distribution to approvers
+    distribute_to_approvers(stake_amount) // Equal shares to each approver
+    add_co_author(author)
+    // Temperature moderates through co-author addition
+    thread.temperature = thread.energy / thread.co_authors.len()
+    // Frequency increases
+    thread.frequency = calculate_new_frequency(thread)
+
+## Reward State Transitions
+
+1. **New Message Reward**
+
+   ```
+   FUNCTION process_new_message_reward(message: Message) -> Result<()>:
+   // Calculate time-based reward using decay function
+   elapsed = current_time - program_start
+   reward = calculate_decay_reward(elapsed, message_volume)
+
+   // Distribute to author
+   distribute_to_author(message.author, reward)
+
+   // Update state
+   update_distributed_total(reward)
+   update_remaining_allocation(reward)
+   emit_reward_event(message, reward)
+   ```
+
+2. **Prior Reward**
+
+   ```
+   FUNCTION process_prior_reward(
+     source_thread: Thread,
+     target_thread: Thread,
+     prior_hash: Hash,
+     quality_score: f64
+   ) -> Result<()>:
+   // Verify prior exists and is public
+   require!(source_thread.messages.contains(prior_hash))
+   require!(is_message_public(prior_hash))
+
+   // Check cooldown period
+   require!(elapsed_since_last_reward(prior_hash) >= COOLDOWN)
+
+   // Calculate thread reward
+   reward = calculate_prior_reward(quality_score, treasury.balance)
+
+   // Transfer from treasury to thread
+   transfer_from_treasury(reward, target_thread)
+
+   // Update state
+   update_prior_record(prior_hash, reward)
+   update_treasury_balance(reward)
+   emit_prior_event(source_thread, target_thread, reward)
+   ```
+
+## Reward Properties
+
+1. **New Message Conservation**
+
+   ```
+   PROPERTY new_message_conservation:
+     FORALL reward IN new_message_rewards:
+       reward <= remaining_allocation AND
+       total_distributed + reward <= TOTAL_ALLOCATION AND
+       follows_decay_curve(reward)
+   ```
+
+2. **Prior Reward Stability**
+   ```
+   PROPERTY prior_reward_stability:
+     FORALL reward IN prior_rewards:
+       reward <= treasury.balance AND
+       respects_cooldown(reward) AND
+       strengthens_thread_cavity(reward)
+   ```
+
+## Combined State Evolution
+
+The system maintains coherence across all state transitions:
+
+1. **Message Flow**
+
+   - Submission → Approval/Denial → Reward
+   - Each stage preserves invariants
+   - Energy conserved throughout
+   - Phase relationships maintained
+
+2. **Value Flow**
+
+   - Individual rewards (approvals, new messages)
+   - Collective rewards (denials, prior rewards)
+   - Treasury coupling (split decisions)
+   - System-wide coherence
+
+3. **Reward Flow**
+   - Time-based decay (new messages)
+   - Quality-weighted distribution (priors)
+   - Treasury sustainability
+   - Thread cavity strengthening
 
 ## State Verification
 

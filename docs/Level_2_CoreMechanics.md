@@ -11,7 +11,7 @@ assumptions: {
 "Pattern recognition",
 "Self-organization"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Understanding Thread Dynamics
 
@@ -132,3 +132,51 @@ Understanding these mechanics helps explain why:
 - Evolution is organic
 
 This level reveals how Choir's simple mechanics create space for natural quality emergence and sustainable community evolution.
+
+## Token Distribution Dynamics
+
+The system creates fascinating energy flows:
+
+1. **Approval Resonance**
+
+   - Direct distribution to approvers
+   - Like quantum energy absorption
+   - Immediate value recognition
+   - Phase-locked rewards
+
+2. **Denial Patterns**
+
+   - Energy flows to thread
+   - Increases local temperature
+   - Creates quality barriers
+   - Natural selection pressure
+
+3. **Split Decision Harmonics**
+   - Approver energy → Treasury (global field)
+   - Denier energy → Thread (local field)
+   - Creates balanced flow
+   - Maintains system coherence
+
+### Why This Distribution Works
+
+The model creates natural selection through:
+
+1. **Direct Quality Recognition**
+
+   - Approvers receive immediate value
+   - Incentivizes careful judgment
+   - Rewards pattern recognition
+   - Strengthens quality consensus
+
+2. **Thread Evolution**
+
+   - Denials increase thread energy
+   - Higher stakes filter noise
+   - Quality naturally emerges
+   - Self-regulating barriers
+
+3. **System Sustainability**
+   - Treasury accumulates from splits
+   - Funds ongoing citations
+   - Creates value circulation
+   - Enables perpetual growth

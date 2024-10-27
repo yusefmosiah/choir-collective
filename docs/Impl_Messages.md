@@ -3,27 +3,28 @@
 VERSION message_system:
 invariants: {
 "Message immutability after approval",
-"Unanimous approval requirement",
-"Token stake conservation"
+"Public message approval consensus",
+"Value conservation"
 }
 assumptions: {
 "7-day approval window",
-"Single-phase submission",
-"Linear state transitions"
+"Stake dynamics",
+"State transitions"
 }
-docs_version: "0.2.0"
+implementation: "0.1.0"
 
 ## Message States
 
 1. **Message Types**
 
    TYPE MessageState =
-   | Draft // Being composed
-   | Submitted // Sent to system
-   | Pending // Awaiting approval
-   | Published // Approved and visible
-   | Rejected // Denied by co-authors
-   | Expired // Past approval window
+   | Draft        // Being composed
+   | Submitted    // Sent to system
+   | Private      // Visible to co-authors
+   | Pending      // Awaiting public approval
+   | Public       // Approved and public
+   | Rejected     // Public visibility denied
+   | Expired      // Past approval window
 
 2. **Content States**
 
@@ -32,7 +33,8 @@ docs_version: "0.2.0"
    hash: Hash,
    embedding: Vector,
    metadata: MessageMetadata,
-   privacy: PrivacyLevel
+   visibility: Visibility,
+   temperature_effect: Option<TempEffect>
    }
 
 ## Lifecycle Phases
@@ -45,7 +47,7 @@ docs_version: "0.2.0"
    2. Frontend generates content hash
    3. Backend creates embedding
    4. System checks author status:
-      - Co-author -> Direct submission
+      - Co-author -> Private message
       - Non-co-author -> Spec submission
 
 2. **Submission Flow**
@@ -54,32 +56,54 @@ docs_version: "0.2.0"
    IF author IN thread.co_authors:
    store_content(qdrant)
    record_hash(solana)
-   notify_co_authors()
+   IF public_requested:
+   initiate_approval_process()
    ELSE:
-   verify_stake()
-   create_spec()
+   mark_private()
+   ELSE:
+   recommended_stake = calculate_stake_requirement(thread)
+   actual_stake = get_user_stake_amount()
+   create_spec(actual_stake)
    start_approval_timer()
 
 3. **Approval Process**
 
    SEQUENCE process_approval:
    collect_votes(7_days)
+
+   // All approve
    IF votes.all(approved):
-   publish_message()
+   make_public()
    add_co_author()
-   distribute_tokens_to_thread()
-   ELIF votes.any(denied):
-   reject_message()
-   distribute_tokens_to_deniers()
+   distribute_stake_to_approvers()
+   update_thread_temperature(cooling)
+   update_thread_frequency(increase)
+
+   // Mixed decisions
+   ELIF votes.mixed():
+   reject_public()
+   send_approver_stakes_to_treasury()
+   update_thread_temperature(neutral)
+   update_thread_frequency(neutral)
+
+   // All reject
+   ELIF votes.all(denied):
+   reject_public()
+   distribute_stake_to_deniers()
+   update_thread_temperature(heating)
+   update_thread_frequency(decrease)
+
+   // Timeout
    ELSE:
-   expire_message()
-   return_tokens_to_treasury()
+   expire_approval()
+   return_stakes_to_treasury()
 
 ## State Transitions
 
 1.  **Valid Transitions** `Draft -> Submitted
-Submitted -> Pending
-Pending -> Published | Rejected | Expired  `
+Submitted -> Private | Pending
+Private -> Pending (public request)
+Pending -> Public | Rejected | Expired  `
 
 2.  **Transition Guards**
 
@@ -89,91 +113,110 @@ Pending -> Published | Rejected | Expired  `
     validate_content() AND
     verify_author()
 
+        (Submitted, Private) ->
+          verify_co_author()
+
         (Submitted, Pending) ->
           verify_stake() AND
           check_thread_capacity()
 
-        (Pending, Published) ->
-          verify_all_approved() AND
+        (Private, Pending) ->
+          verify_co_author() AND
+          verify_public_request()
+
+        (Pending, Public) ->
+          verify_unanimous_approval() AND
           within_time_window()
 
-## Content Management
+## Temperature Effects
 
-1. **Storage Strategy**
+1. **State Impact**
+   ```typescript
+   TYPE TempEffect = {
+     rejection: {
+       temp: Increase,    // E/N rises
+       freq: Unchanged    // No new coupling
+     },
+     approval: {
+       temp: Decrease,    // New N, energy out
+       freq: Increase     // New coupling
+     },
+     split: {
+       temp: Unchanged,   // Energy to Treasury
+       freq: Unchanged    // No new coupling
+     }
+   }
+   ```
 
-   FUNCTION store_message(content: Content):
-   hash = generate_hash(content)
-   embedding = generate_embedding(content)
-
-   PARALLEL:
-   store_in_qdrant(content, embedding)
-   record_on_solana(hash)
-
-2. **Privacy Controls**
-
-   FUNCTION apply_privacy(message: Message, level: PrivacyLevel):
-   MATCH level:
-   Public ->
-   index_for_search()
-   Premium ->
-   restrict_search_access()
-   ThreadOnly ->
-   restrict_to_co_authors()
+2. **Analytics**
+   ```typescript
+   TYPE StakeAnalytics = {
+     recommended: TokenAmount,  // From quantum formula
+     actual: TokenAmount,       // User choice
+     ratio: Float,             // actual/recommended
+     success_rate: Float       // Historical approvals
+   }
+   ```
 
 ## Error Handling
 
 1. **Failure Modes**
-
+   ```typescript
    TYPE MessageError =
-   | ContentTooLarge
-   | InvalidStake
-   | ThreadFull
-   | ApprovalTimeout
-   | StateConflict
+     | ContentTooLarge
+     | StakeTooLow
+     | ThreadFull
+     | ApprovalTimeout
+     | StateConflict
+     | TemperatureError
+   ```
 
 2. **Recovery Actions**
-
+   ```typescript
    FUNCTION handle_error(error: MessageError):
-   MATCH error:
-   ContentTooLarge ->
-   notify_size_limit()
-   InvalidStake ->
-   return_stake()
-   ThreadFull ->
-   suggest_new_thread()
-   ApprovalTimeout ->
-   expire_and_refund()
+     MATCH error:
+       ContentTooLarge -> notify_size_limit()
+       StakeTooLow -> suggest_minimum()
+       ThreadFull -> suggest_new_thread()
+       ApprovalTimeout -> expire_and_refund()
+       TemperatureError -> recalculate_thread_state()
+   ```
 
 ## Event Emissions
 
 1. **Message Events**
-
+   ```typescript
    TYPE MessageEvent =
-   | MessageCreated(content_hash, author)
-   | SpecSubmitted(content_hash, stake)
-   | ApprovalReceived(co_author, decision)
-   | MessagePublished(content_hash)
-   | MessageRejected(content_hash)
+     | MessageCreated(content_hash, author)
+     | MessagePrivate(content_hash)
+     | SpecSubmitted(content_hash, stake)
+     | ApprovalReceived(co_author, decision)
+     | MessagePublic(content_hash)
+     | MessageRejected(content_hash)
+     | TemperatureChanged(thread_id, delta)
+     | FrequencyChanged(thread_id, delta)
+   ```
 
 2. **Event Handling**
-
+   ```typescript
    FUNCTION process_event(event: MessageEvent):
-   update_state(event)
-   notify_subscribers(event)
-   update_indices(event)
-   emit_websocket_update(event)
+     update_state(event)
+     notify_subscribers(event)
+     update_indices(event)
+     update_analytics(event)
+     emit_websocket_update(event)
+   ```
 
 ## Performance Considerations
 
 1. **Optimizations**
-
    - Batch similar operations
-   - Cache frequent queries
+   - Cache temperature calculations
    - Compress content when possible
    - Use efficient indices
 
 2. **Monitoring Points**
    - Message processing time
    - Approval response time
-   - Storage efficiency
-   - State transition success rate
+   - Temperature evolution
+   - Stake ratio analytics

@@ -2,121 +2,144 @@
 
 VERSION equity_system:
 invariants: {
-"Value distribution",
-"Innovation capture",
-"Stakeholder alignment"
+"Collective value creation",
+"Team incentive alignment",
+"Knowledge network growth"
 }
 assumptions: {
 "AI-native entrepreneurship",
 "Thread evolution",
 "Asset diversification"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Concept
 
-Choir inverts traditional private equity by enabling bottom-up value creation through AI-enhanced collaboration. Rather than concentrating ownership and decision-making, Choir's thread model distributes both across active participants. Each thread is effectively a micro-DAO, with the potential to evolve into product teams, service providers, or innovation hubs.
+Choir inverts traditional private equity by enabling bottom-up value creation through AI-enhanced collective intelligence. Rather than concentrating ownership and decision-making, Choir's thread model distributes both across active teams. Each thread acts as a resonant cavity for value accumulation, with the potential to evolve into product teams, service providers, or innovation hubs.
 
 ## Thread Evolution Path
 
-Simple Threads → Collaborative Projects → Product Development → Asset-Holding DAOs
+Simple Discussions → Team Formation → Product Development → Asset-Holding DAOs
 
-As threads mature, they can:
+As threads mature, they:
 
-- Develop intellectual property
-- Launch products or services
-- Provide consulting expertise
-- Manage digital and physical assets
-- Generate recurring revenue
+- Accumulate collective value
+- Strengthen team coherence
+- Develop shared assets
+- Enable group innovation
 
-## AI-Native Innovation
+## Value Accumulation Mechanics
 
-Threads leverage AI to:
+1. **Direct Value Recognition**
 
-- Identify market opportunities
-- Synthesize diverse perspectives
-- Accelerate development cycles
-- Optimize resource allocation
-- Scale solutions efficiently
+   - Approvers receive immediate rewards
+   - Quality judgment incentivized
+   - Pattern recognition rewarded
+   - Individual skill growth
 
-The combination of AI capabilities with human creativity and judgment creates a new model for entrepreneurship.
+2. **Collective Value Building**
+
+   - Denials strengthen thread cavity
+   - Prior rewards couple threads
+   - Team incentives align naturally
+   - Shared success model
+
+3. **Network Value Creation**
+   - Knowledge networks emerge
+   - Thread citations create value
+   - Teams naturally collaborate
+   - System-wide coherence grows
 
 ## Asset Accumulation
 
-Threads can accumulate various assets:
+Threads accumulate various forms of value:
 
-- CHOIR tokens (base layer)
-- Other crypto tokens
+- CHOIR tokens (base energy)
+- Other crypto assets
 - Revenue streams
 - Intellectual property
 - Service contracts
 - Physical assets
 - Investment portfolios
 
+## Team Formation
+
+Natural team crystallization through:
+
+- Shared thread success
+- Collective incentives
+- Quality emergence
+- Prior reward coupling
+
 ## Value Distribution
 
-The CHOIR token serves as the equity layer across all thread-generated value:
+The CHOIR token enables multi-scale value flow:
 
-- Thread participants earn tokens through contribution
-- Token holdings represent participation across multiple threads
-- Token value reflects the aggregate success of all threads
-- Asset management fees flow to token holders
+- Individual rewards through approvals
+- Team value through thread accumulation
+- Network value through prior rewards
+- System value through treasury
 
 ## Stakeholder Alignment
 
 The model aligns incentives across:
 
-- Content creators
-- Product developers
+- Individual contributors
+- Thread teams
 - Service providers
 - Asset managers
 - Platform maintainers
-- Token holders
+- Knowledge networks
 
 ## Growth Mechanics
 
 Value accumulates through:
 
-- Successful thread ventures
-- Asset management fees
-- Platform service fees
+- Quality content creation
+- Team collaboration
+- Thread coupling
+- Asset acquisition
 - Network effects
-- Innovation capture
+- Knowledge topology
 
 ## Economic Flywheel
 
-1. Quality content creation
-2. Thread-based innovation
-3. Asset acquisition
-4. Value distribution
+1. Individual quality recognition
+2. Team value accumulation
+3. Knowledge network formation
+4. Asset acquisition
 5. Increased participation
 6. Enhanced capabilities
 
 ## Implementation Phases
 
-Phase 1: Content and Collaboration
+Phase 1: Content and Teams
 
 - Basic thread functionality
 - Token distribution mechanics
-- Quality control systems
+- Team formation dynamics
+- Quality emergence
 
 Phase 2: Asset Integration
 
 - Multi-token support
 - Asset management tools
 - Revenue distribution
+- Team coordination
 
-Phase 3: Innovation Scaling
+Phase 3: Network Growth
 
 - AI-enhanced development
 - Cross-thread collaboration
+- Knowledge coupling
 - Market integration
 
 Phase 4: Full Economic Model
 
 - Complex asset management
 - Investment strategies
-- Global value distribution
+- Network value distribution
+- System-wide coherence
 
 ## Risk Management
 
@@ -125,17 +148,19 @@ Key considerations:
 - Asset custody security
 - Regulatory compliance
 - Value attribution
-- Governance scaling
+- Team governance
 - Market dynamics
+- Network stability
 
 ## Success Metrics
 
 Long-term indicators:
 
-- Thread venture success rate
-- Asset portfolio growth
+- Team formation rate
+- Thread value growth
+- Knowledge network density
 - Innovation output
 - Value distribution equity
-- Network participation
+- System coherence
 
-Through this model, Choir becomes not just a platform but an economic engine for distributed, AI-enhanced value creation and equitable distribution.
+Through this model, Choir becomes not just a platform but an economic engine for collective value creation, team formation, and sustainable knowledge network growth.

@@ -11,7 +11,7 @@ assumptions: {
 "API versioning",
 "Deployment model"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## 1. Solana Program Structure
 
@@ -59,7 +59,7 @@ api/
 ```typescript
 src/
 ├── components/
-│   ├── StreamChat.tsx     // Main chat interface
+│   ├── ChoirChat.tsx     // Main chat interface
 │   ├── MessageFlow.tsx    // Message display
 │   ├── ApprovalPane.tsx   // Approval UI
 │   └── TokenDisplay.tsx   // Balance/stake display

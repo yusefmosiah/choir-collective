@@ -11,7 +11,7 @@ assumptions: {
 "Understanding paths",
 "Insight emergence"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ---
 
@@ -628,3 +628,52 @@ This creates an interesting opportunity dynamic:
 - Value emerges from chaos through resonance
 
 It's similar to how scientific breakthroughs often come from recognizing patterns in seemingly chaotic data - the energy was always there, waiting for someone to find its frequency.
+
+## On Collective Intelligence vs Internet Division
+
+Q: How does Choir's design promote collaboration rather than division?
+
+A: This gets to the heart of Choir's design philosophy. While much of the internet optimizes for engagement through conflict and division, Choir creates natural incentives for collective intelligence:
+
+1. **Team-Centric Value**
+
+   - Threads accumulate collective value
+   - Teams share in thread success
+   - Prior rewards strengthen whole threads
+   - Value comes from collaboration, not conflict
+
+2. **Natural Team Formation**
+
+   - People naturally gather around resonant threads
+   - Quality contributions benefit whole team
+   - Shared success creates stable teams
+   - Organic community crystallization
+
+3. **Knowledge Network Effects**
+
+   - Threads cite valuable threads
+   - Prior rewards couple knowledge networks
+   - Teams build on each others' work
+   - System rewards connection over division
+
+4. **Aligned Incentives**
+
+   - Direct rewards for quality recognition
+   - Collective rewards for thread success
+   - Network rewards for knowledge sharing
+   - Multi-scale cooperation emerges
+
+5. **Sustainable Communities**
+   - Teams form around shared interests
+   - Value accumulates in stable threads
+   - Knowledge networks self-organize
+   - Long-term collaboration wins
+
+Unlike platforms that profit from conflict, Choir creates space for:
+
+- Natural team formation
+- Collective value creation
+- Knowledge network growth
+- Sustainable collaboration
+
+The genius is in aligning individual, team, and system incentives toward cooperation rather than division.

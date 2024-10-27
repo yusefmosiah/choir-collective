@@ -11,7 +11,7 @@ assumptions: {
 "Metastable transitions",
 "Collective oscillation"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Core Types
 

@@ -3,26 +3,55 @@
 VERSION harmonic_economic:
 invariants: {
 "Wave energy conservation",
-"Value resonance patterns",
-"Token flow coherence"
+"Resonant cavity coherence",
+"Collective phase locking"
 }
 assumptions: {
-"Resonant pricing",
+"Thread-centric resonance",
 "Phase-locked incentives",
 "Harmonic distribution"
 }
-docs_version: "0.2.0"
+docs_version: "0.2.1"
 
 ## Token Flow as Wave Mechanics
 
 TYPE TokenFlow = {
-treasury: ResonantWell, // Base frequency source
-threads: Map<ThreadId, StandingWave>, // Resonant cavities
+treasury: ResonantWell, // Base frequency source + split decision approver share
+threads: Map<ThreadId, ResonantCavity>, // Primary value accumulators
 stakes: Map<Hash, WavePacket>, // Energy quanta
 escrow: Map<Hash, PotentialWell> // Temporary coupling
 }
 
-## Bonding Curve Mechanics
+## Token Distribution Mechanics
+
+1. **Unanimous Approval**
+
+   - Stake distributes equally to approvers (like dividends)
+   - Direct value recognition for quality judgment
+   - Phase-locked reward distribution
+   - Strengthens individual oscillator coherence
+
+2. **Denial Flow**
+
+   - Full stake flows to thread resonant cavity
+   - Increases cavity energy level
+   - Strengthens thread coherence
+   - Natural quality filter
+
+3. **Split Decision**
+
+   - Approvers' share flows to Treasury (global field)
+   - Deniers' share flows to thread cavity
+   - Creates balanced energy distribution
+   - Maintains multi-scale resonance
+
+4. **Prior Rewards**
+   - Treasury energy flows to thread cavities
+   - Strengthens resonant coupling between threads
+   - Rewards knowledge network formation
+   - Creates collective value accumulation
+
+## Resonant Cavity Mechanics
 
 The core pricing function derives from quantum harmonic oscillator:
 
@@ -31,56 +60,54 @@ P(q) = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
 
 where:
 - S₀: Base stake quantum (100 CHOIR)
-- ω: Thread frequency (activity level)
+- ω: Thread cavity frequency (collective activity)
 - T: Thread temperature (volatility)
 - ℏ: Platform coupling constant
 ```
 
 This creates:
 
-1. **Entry Price (Bid)**
+1. **Cavity Energy Levels**
 
-   ```typescript
-   function calculateStakeRequired(thread: Thread): number {
-     const ω = measureThreadActivity(thread)
-     const T = measureThreadVolatility(thread)
-     return S₀ * (0.5 + 1/(Math.exp(ω/T) - 1))
-   }
-   ```
+   - Discrete stake quantization
+   - Natural frequency modes
+   - Collective oscillation patterns
+   - Phase-locked stability
 
-2. **Exit Amount (Divestment)**
+2. **Collective Oscillations**
 
-   ```typescript
-   function calculateDivestmentAmount(thread: Thread): number {
-     const ℏ = PLATFORM_COUPLING_CONSTANT;
-     const ω = measureThreadFrequency(thread);
-     const N = thread.coAuthors.length;
-     const balance = thread.tokenBalance;
+   - Co-authors as coupled oscillators
+   - Thread as resonant cavity
+   - Prior rewards strengthen coupling
+   - Natural phase locking
 
-     // Use quantum oscillator decoupling formula
-     return Math.min((ℏ * ω) / (N - 1), balance / (N - 1));
-   }
-   ```
+3. **Value Crystallization**
+   - Quality creates standing waves
+   - Energy accumulates at nodes
+   - Patterns self-reinforce
+   - Natural selection emerges
 
-## Incentive Resonance
+## Multi-Scale Resonance
 
-1. **Stake Harmonics**
+1. **Individual Scale**
 
-   ```
-   PROPERTY stake_resonance:
-     stake_energy > noise_threshold AND
-     stake_energy < resonant_ceiling AND
-     stake_energy ∝ thread_amplitude
-   ```
+   - Approval rewards as direct energy absorption
+   - Quality judgment strengthens coupling
+   - Phase-locked participation
+   - Natural frequency alignment
 
-2. **Reward Distribution**
-   ```
-   FUNCTION distribute_energy(action: Action) -> TokenAmount:
-     MATCH action:
-       Deny → energy/deniers_count        // Equal energy split
-       Approve → energy/oscillator_count  // Phase-locked distribution
-       Divest → total_energy/(n-1)       // Harmonic redistribution
-   ```
+2. **Thread Scale**
+
+   - Collective energy accumulation
+   - Standing wave formation
+   - Quality pattern crystallization
+   - Resonant cavity strengthening
+
+3. **Network Scale**
+   - Prior rewards couple threads
+   - Knowledge network resonance
+   - Treasury as global field
+   - Harmonic value flow
 
 ## Game Theoretic Harmonics
 
@@ -88,19 +115,19 @@ This creates:
 
    ```
    TYPE Strategy =
-     | NaturalResonance    // Align with thread harmonics
-     | ForceDissonance     // Attempt artificial patterns
-     | QualityOscillation  // Maintain phase coherence
-     | CollectiveHarmony   // Synchronized denial
+     | CollectiveResonance   // Align with thread harmonics
+     | ForceDissonance       // Attempt artificial patterns
+     | QualityOscillation    // Maintain phase coherence
+     | NetworkCoupling       // Strengthen thread connections
    ```
 
 2. **Nash Equilibrium**
    ```
    PROPERTY equilibrium:
      FORALL oscillators, modes:
-       energy(NaturalResonance) > energy(ForceDissonance) AND
+       energy(CollectiveResonance) > energy(ForceDissonance) AND
        energy(QualityOscillation) > energy(RandomPhase) AND
-       energy(CollectiveHarmony) > energy(UnilateralNoise)
+       energy(NetworkCoupling) > energy(IsolatedCavity)
    ```
 
 ## Economic Invariants
@@ -109,7 +136,7 @@ This creates:
 
    ```
    INVARIANT wave_conservation:
-     treasury_energy + sum(thread_energy) + sum(stake_energy) = TOTAL_SUPPLY
+     treasury_energy + sum(thread_cavity_energy) + sum(stake_energy) = TOTAL_SUPPLY
    ```
 
 2. **Resonant Stability**
@@ -117,103 +144,21 @@ This creates:
    INVARIANT phase_stability:
      FORALL thread IN threads:
        resonant(thread) ⟹
-         stable_amplitude(thread) AND
-         coherent_phase(thread) AND
-         conserved_energy(thread)
+         stable_cavity_modes(thread) AND
+         coherent_collective_phase(thread) AND
+         conserved_cavity_energy(thread)
    ```
-
-## Market Dynamics
-
-1. **Thread Resonance**
-
-   ```typescript
-   function calculateThreadFrequency(thread: Thread): number {
-     // Message mode frequency
-     const ω_m = thread.messageRate / Math.sqrt(thread.coAuthors.length);
-
-     // Value mode frequency
-     const ω_v = Math.log(1 + thread.tokenBalance / thread.coAuthors.length);
-
-     // Coupling constant
-     const g = 1 / thread.coAuthors.length;
-
-     // Collective frequency using Anderson normalization
-     return Math.sqrt((ω_m ** 2 + ω_v ** 2) / 2 + g * thread.coAuthors.length);
-   }
-   ```
-
-2. **Dynamic Tuning**
-
-   ```typescript
-   function calculateThreadTemperature(thread: Thread): number {
-     const E = thread.tokenBalance + thread.messageRate;
-     const N = thread.coAuthors.length;
-     const coolingFactor = 1 + Math.sqrt(thread.ageInDays * N);
-
-     // Temperature with critical slowing down
-     return E / N / coolingFactor;
-   }
-   ```
-
-## Example Scenarios
-
-1. **New Thread**
-
-   ```typescript
-   const newThread = {
-     messageRate: 2, // Low frequency
-     coAuthorCount: 2, // Few oscillators
-     tokenBalance: 500, // Low energy
-     approvalRate: 1.0, // Perfect phase
-     ageInDays: 1, // High temperature
-   };
-   // Results in low stake (~75 CHOIR)
-   ```
-
-2. **Active Thread**
-   ```typescript
-   const activeThread = {
-     messageRate: 20, // High frequency
-     coAuthorCount: 10, // Many oscillators
-     tokenBalance: 10000, // High energy
-     approvalRate: 0.8, // Good phase coherence
-     ageInDays: 30, // Stable temperature
-   };
-   // Results in higher stake (~300 CHOIR)
-   ```
-
-## Treasury and Citation Rewards
-
-1. **Treasury as Energy Reservoir**
-
-   - Accumulates tokens from split decisions
-   - Funds perpetual citation rewards
-   - Enables circular token flow
-   - Maintains system sustainability
-
-2. **New Message Rewards**
-
-   - High initial distribution
-   - Logarithmic decay over time
-   - 50% distributed in first year
-   - 99% distributed by year 4
-
-3. **Citation Rewards**
-   - Funded by Treasury
-   - Perpetual availability
-   - Encourages content linking
-   - Promotes knowledge network growth
 
 Through this harmonic economic model, we see how:
 
-- Value flows follow wave mechanics
-- Prices emerge from resonant patterns
-- Incentives align through phase-locking
-- Stability comes from natural harmonics
+- Threads act as primary resonant cavities
+- Value accumulates through collective oscillation
+- Prior rewards strengthen cavity coupling
+- Quality emerges from natural resonance
 
 The model creates an economic system that:
 
-- Rewards authentic participation
-- Dampens artificial behavior
+- Rewards collective quality
+- Strengthens thread coherence
 - Enables natural value flow
-- Maintains system coherence
+- Maintains multi-scale harmony
