@@ -1,17 +1,17 @@
 # Documentation Accessibility Principles
 
 VERSION accessibility_system:
-  invariants: {
-    "Universal comprehension",
-    "Practical utility",
-    "Gradual revelation"
-  }
-  assumptions: {
-    "Diverse viewpoints",
-    "Multiple entry points",
-    "Comfort zones"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Universal comprehension",
+"Practical utility",
+"Gradual revelation"
+}
+assumptions: {
+"Diverse viewpoints",
+"Multiple entry points",
+"Comfort zones"
+}
+docs_version: "0.2.0"
 
 ## Core Approach
 
@@ -20,6 +20,7 @@ The documentation prioritizes practical utility and clear benefits. Each concept
 ## Entry Points
 
 Different readers can enter through comfortable, familiar concepts:
+
 - Developers through technical specifications
 - Product people through user benefits
 - Business minds through efficiency gains
@@ -28,6 +29,7 @@ Different readers can enter through comfortable, familiar concepts:
 ## Language Choices
 
 Documentation uses:
+
 - Practical rather than ideological terms
 - Concrete examples before abstract principles
 - Familiar metaphors from everyday experience
@@ -36,6 +38,7 @@ Documentation uses:
 ## Value Presentation
 
 Benefits are described in terms of:
+
 - Individual utility
 - Group efficiency
 - Resource optimization
@@ -44,6 +47,7 @@ Benefits are described in terms of:
 ## Progressive Understanding
 
 Knowledge builds naturally through:
+
 - Immediate practical application
 - Observable system behavior
 - Natural pattern recognition
@@ -52,6 +56,7 @@ Knowledge builds naturally through:
 ## Safety Mechanisms
 
 The documentation creates safety through:
+
 - Multiple valid interpretations
 - Gradual depth revelation
 - Practical grounding

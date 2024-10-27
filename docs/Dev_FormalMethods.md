@@ -1,17 +1,17 @@
 # AI-Assisted Formal Methods Evolution
 
 VERSION ai_formal_system:
-  invariants: {
-    "Proof correctness",
-    "Model consistency",
-    "Human verifiability"
-  }
-  assumptions: {
-    "AI capability growth",
-    "Formal methods tooling",
-    "Hybrid verification approaches"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Proof correctness",
+"Model consistency",
+"Human verifiability"
+}
+assumptions: {
+"AI capability growth",
+"Formal methods tooling",
+"Hybrid verification approaches"
+}
+docs_version: "0.2.0"
 
 ## Current State to Future Vision
 

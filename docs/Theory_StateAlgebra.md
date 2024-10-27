@@ -1,25 +1,25 @@
 # Harmonic State Algebra
 
 VERSION harmonic_state_system:
-  invariants: {
-    "Wave function coherence",
-    "Resonant transition atomicity",
-    "Harmonic causality preservation"
-  }
-  assumptions: {
-    "State harmonic composition",
-    "Wave propagation patterns",
-    "Phase coherence strategy"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Wave function coherence",
+"Resonant transition atomicity",
+"Harmonic causality preservation"
+}
+assumptions: {
+"State harmonic composition",
+"Wave propagation patterns",
+"Phase coherence strategy"
+}
+docs_version: "0.2.0"
 
 ## Core Harmonic Types
 
 TYPE HarmonicState = Thread × Token × Content
-  WHERE
-    Thread = OscillatorSet<Author> × Phase × Hash
-    Token = Amplitude × Frequency × Distribution
-    Content = WaveForm × Resonance × Privacy
+WHERE
+Thread = OscillatorSet<Author> × Phase × Hash
+Token = Amplitude × Frequency × Distribution
+Content = WaveForm × Resonance × Privacy
 
 ## Fundamental Operations
 
@@ -27,36 +27,39 @@ TYPE HarmonicState = Thread × Token × Content
 
    CREATE : Author → ThreadId → Result<HarmonicState>
    CREATE(a)(t) = Ok((
-     {a},           // initial resonator
-     (0, base_freq, ∅),    // token wave state
-     (∅, ∅, public) // content harmonics
+   {a}, // initial resonator
+   (0, base_freq, ∅), // token wave state
+   (∅, ∅, public) // content harmonics
    ))
 
 2. **Submission Harmonics**
 
    SUBMIT : WaveForm → HarmonicState → Result<HarmonicState>
    SUBMIT(w)(s) = MATCH s.resonators:
-     w.author ∈ s.resonators →
-       ADD_HARMONIC(w)(s)
-     _ →
-       VERIFY_FREQUENCY(w.amplitude) >>=
-       ADD_OSCILLATION(w)(s)
+   w.author ∈ s.resonators →
+   ADD\*HARMONIC(w)(s)
+
+   - →
+     VERIFY_FREQUENCY(w.amplitude) >>=
+     ADD_OSCILLATION(w)(s)
 
 3. **Approval Harmonics**
 
    APPROVE : Set<Author> → Hash → HarmonicState → Result<HarmonicState>
    APPROVE(A)(h)(s) =
-     LET phase = SYNC_PHASE(A)
-     IN  phase = RESONANT_PHASE →
-           CRYSTALLIZE(h)(s)
-         phase > 0 →
-           DISTRIBUTE_AMPLITUDE(A)(s.frequencies[h])(s)
-         _ →
-           Ok(s)
+   LET phase = SYNC\*PHASE(A)
+   IN phase = RESONANT_PHASE →
+   CRYSTALLIZE(h)(s)
+   phase > 0 →
+   DISTRIBUTE_AMPLITUDE(A)(s.frequencies[h])(s)
+
+   - →
+     Ok(s)
 
 ## Monadic Operations
 
 1. **State Wave Function**
+
    ```
    TYPE StateW<A> = HarmonicState → Result<(A, HarmonicState)>
 
@@ -79,6 +82,7 @@ TYPE HarmonicState = Thread × Token × Content
 ## Harmonic Invariants
 
 1. **Wave Conservation**
+
    ```
    INVARIANT wave_conservation:
      ∀s₁ s₂. s₁ →* s₂ ⟹
@@ -86,6 +90,7 @@ TYPE HarmonicState = Thread × Token × Content
    ```
 
 2. **Phase Consistency**
+
    ```
    INVARIANT phase_coherence:
      ∀s m. resonant(s) ∧ m ∈ s.waveforms ⟹
@@ -102,11 +107,13 @@ TYPE HarmonicState = Thread × Token × Content
 ## Composition Laws
 
 1. **Harmonic Composition**
+
    ```
    (f ⋈ g)(s) = f(s) >>= λs' → g(s')
    ```
 
 2. **Phase Independence**
+
    ```
    ∀f g. independent_phase(f, g) ⟹
      f(s) >>= g = g(s) >>= f
@@ -120,6 +127,7 @@ TYPE HarmonicState = Thread × Token × Content
 ## Privacy Harmonics
 
 1. **Access Resonance**
+
    ```
    CAN_RESONATE : Author → Content → Result<Bool>
    CAN_RESONATE(a)(c) =
@@ -139,6 +147,7 @@ TYPE HarmonicState = Thread × Token × Content
 ## Distribution Harmonics
 
 1. **Amplitude Distribution**
+
    ```
    DISTRIBUTE : Set<Author> → Amount → HarmonicState → Result<HarmonicState>
    DISTRIBUTE(A)(amp)(s) =
@@ -155,6 +164,7 @@ TYPE HarmonicState = Thread × Token × Content
    ```
 
 Through this harmonic algebra, we see how:
+
 - States evolve through wave functions
 - Operations preserve phase coherence
 - Value flows through resonant patterns

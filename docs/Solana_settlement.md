@@ -1,129 +1,139 @@
 # Token Settlement and Distribution
 
 VERSION settlement_system:
-  invariants: {
-    "Token conservation",
-    "Distribution atomicity",
-    "Settlement finality"
-  }
-  assumptions: {
-    "Token account availability",
-    "Transaction ordering",
-    "Escrow security"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Token conservation",
+"Distribution atomicity",
+"Settlement finality"
+}
+assumptions: {
+"Token account availability",
+"Transaction ordering",
+"Escrow security"
+}
+docs_version: "0.2.0"
 
 ## Core Settlement Types
 
 TYPE Settlement = {
-  thread: Thread,
-  stake: TokenAmount,
-  participants: Set<PublicKey>,
-  outcome: SettlementOutcome,
-  metadata: SettlementMetadata
+thread: Thread,
+stake: TokenAmount,
+participants: Set<PublicKey>,
+outcome: SettlementOutcome,
+metadata: SettlementMetadata
 }
 
 TYPE SettlementOutcome =
-  | Unanimous: stake -> thread_balance
-  | Denied: stake -> denier_accounts
-  | Mixed: stake -> treasury
-  | Expired: stake -> treasury
-  | Divest: thread_balance/n -> co_author
+| Unanimous: stake -> thread_balance
+| Denied: stake -> denier_accounts
+| Mixed: stake -> treasury
+| Expired: stake -> treasury
+| Divest: thread_balance/n -> co_author
 
 TYPE SettlementMetadata = {
-  timestamp: i64,
-  transaction_id: Hash,
-  settlement_type: SettlementType,
-  participants: Set<PublicKey>
+timestamp: i64,
+transaction_id: Hash,
+settlement_type: SettlementType,
+participants: Set<PublicKey>
 }
 
 ## Settlement Operations
 
 SEQUENCE process_settlement:
-  1. Validation
-     - Verify token accounts
-     - Check balances
-     - Validate authorities
-     - Verify preconditions
 
-  2. Settlement Execution
-     - Lock source accounts
-     - Calculate distributions
-     - Process transfers
-     - Update state
+1. Validation
 
-  3. Verification
-     - Check token conservation
-     - Verify final balances
-     - Validate state updates
-     - Emit events
+   - Verify token accounts
+   - Check balances
+   - Validate authorities
+   - Verify preconditions
+
+2. Settlement Execution
+
+   - Lock source accounts
+   - Calculate distributions
+   - Process transfers
+   - Update state
+
+3. Verification
+   - Check token conservation
+   - Verify final balances
+   - Validate state updates
+   - Emit events
 
 PROPERTY settlement_atomicity:
-  FORALL s IN settlements:
-    s.complete OR s.reverted
+FORALL s IN settlements:
+s.complete OR s.reverted
 
 ## Distribution Logic
 
 SEQUENCE calculate_distribution:
-  1. Outcome Analysis
-     - Determine settlement type
-     - Count participants
-     - Calculate shares
-     - Verify totals
 
-  2. Account Preparation
-     - Verify recipient accounts
-     - Check account ownership
-     - Validate permissions
-     - Reserve balances
+1. Outcome Analysis
 
-  3. Transfer Execution
-     - Process in order
-     - Update balances
-     - Record transfers
-     - Emit events
+   - Determine settlement type
+   - Count participants
+   - Calculate shares
+   - Verify totals
+
+2. Account Preparation
+
+   - Verify recipient accounts
+   - Check account ownership
+   - Validate permissions
+   - Reserve balances
+
+3. Transfer Execution
+   - Process in order
+   - Update balances
+   - Record transfers
+   - Emit events
 
 PROPERTY distribution_fairness:
-  FORALL share IN distribution:
-    share == total_amount / participant_count
+FORALL share IN distribution:
+share == total_amount / participant_count
 
 ## Token Account Management
 
 TYPE TokenAccounts = {
-  thread: Account<TokenAccount>,
-  escrow: Account<TokenAccount>,
-  treasury: Account<TokenAccount>,
-  participant_accounts: Map<PublicKey, Account<TokenAccount>>
+thread: Account<TokenAccount>,
+escrow: Account<TokenAccount>,
+treasury: Account<TokenAccount>,
+participant_accounts: Map<PublicKey, Account<TokenAccount>>
 }
 
 SEQUENCE manage_accounts:
-  1. Account Validation
-     - Verify ownership
-     - Check authorities
-     - Validate balances
-     - Verify PDAs
 
-  2. Balance Management
-     - Lock amounts
-     - Process transfers
-     - Update balances
-     - Release locks
+1. Account Validation
 
-  3. State Synchronization
-     - Update thread state
-     - Record settlements
-     - Emit events
-     - Verify consistency
+   - Verify ownership
+   - Check authorities
+   - Validate balances
+   - Verify PDAs
+
+2. Balance Management
+
+   - Lock amounts
+   - Process transfers
+   - Update balances
+   - Release locks
+
+3. State Synchronization
+   - Update thread state
+   - Record settlements
+   - Emit events
+   - Verify consistency
 
 PROPERTY account_integrity:
-  FORALL account IN token_accounts:
-    valid_owner(account) AND
-    valid_authority(account) AND
-    valid_balance(account)
+FORALL account IN token_accounts:
+valid_owner(account) AND
+valid_authority(account) AND
+valid_balance(account)
 
 ## Settlement Flows
 
 1. **Unanimous Approval**
+
    ```
    SEQUENCE settle_unanimous:
      1. Verify unanimous consent
@@ -133,6 +143,7 @@ PROPERTY account_integrity:
    ```
 
 2. **Denial Settlement**
+
    ```
    SEQUENCE settle_denial:
      1. Calculate denier shares
@@ -142,6 +153,7 @@ PROPERTY account_integrity:
    ```
 
 3. **Mixed Outcome**
+
    ```
    SEQUENCE settle_mixed:
      1. Calculate treasury portion
@@ -162,6 +174,7 @@ PROPERTY account_integrity:
 ## Security Properties
 
 1. **Conservation**
+
    ```
    PROPERTY token_conservation:
      FORALL settlement IN settlements:
@@ -171,6 +184,7 @@ PROPERTY account_integrity:
    ```
 
 2. **Authority**
+
    ```
    PROPERTY settlement_authority:
      FORALL transfer IN transfers:
@@ -192,29 +206,31 @@ PROPERTY account_integrity:
 ## Error Handling
 
 TYPE SettlementError =
-  | InsufficientBalance
-  | InvalidAccount
-  | UnauthorizedTransfer
-  | SettlementFailed
-  | AccountMismatch
+| InsufficientBalance
+| InvalidAccount
+| UnauthorizedTransfer
+| SettlementFailed
+| AccountMismatch
 
 FUNCTION handle_settlement_error(error: SettlementError) -> Result<()>:
-  revert_transfers()
-  unlock_accounts()
-  emit_error_event(error)
-  RETURN Err(error)
+revert_transfers()
+unlock_accounts()
+emit_error_event(error)
+RETURN Err(error)
 
 ## Implementation Notes
 
 The settlement system maintains several critical properties:
 
 1. Token Safety
+
    - All transfers are atomic
    - Balances are always conserved
    - Accounts are properly validated
    - Authorities are strictly checked
 
 2. Settlement Integrity
+
    - Outcomes are deterministic
    - Distributions are fair
    - State is consistent

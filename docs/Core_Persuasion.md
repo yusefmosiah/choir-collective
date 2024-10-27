@@ -1,21 +1,22 @@
 # Medium-to-Advanced Understanding Patterns
 
 VERSION persuasion_system:
-  invariants: {
-    "Natural progression",
-    "Value revelation",
-    "Pattern recognition"
-  }
-  assumptions: {
-    "Intellectual curiosity",
-    "Practical grounding",
-    "Growth readiness"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Natural progression",
+"Value revelation",
+"Pattern recognition"
+}
+assumptions: {
+"Intellectual curiosity",
+"Practical grounding",
+"Growth readiness"
+}
+docs_version: "0.2.0"
 
 ## The Critical Middle Layer
 
 The medium-to-advanced layer is where intellectual curiosity meets practical value:
+
 - Beyond surface-level features
 - Before esoteric theory
 - Where patterns become visible
@@ -24,6 +25,7 @@ The medium-to-advanced layer is where intellectual curiosity meets practical val
 ## Evolution Recognition
 
 Users at this level begin to see:
+
 - How threads naturally evolve
 - Why token mechanics matter
 - Where value accumulates
@@ -32,6 +34,7 @@ Users at this level begin to see:
 ## Asset Patterns
 
 The relationship between threads and assets becomes clear:
+
 - Natural progression from chat to coordination
 - Organic evolution into value containers
 - Community-driven development
@@ -40,6 +43,7 @@ The relationship between threads and assets becomes clear:
 ## Economic Understanding
 
 Token mechanics reveal their elegance:
+
 - Stake-based quality control
 - Value distribution patterns
 - Growth incentives
@@ -48,6 +52,7 @@ Token mechanics reveal their elegance:
 ## Community Dynamics
 
 Social patterns emerge naturally:
+
 - Co-authorship value
 - Trust network formation
 - Collaborative potential
@@ -56,6 +61,7 @@ Social patterns emerge naturally:
 ## Practical Implications
 
 Understanding deepens through use:
+
 - Pattern recognition in practice
 - Value creation opportunities
 - Community building potential
@@ -64,6 +70,7 @@ Understanding deepens through use:
 ## Bridge to Advanced
 
 This layer creates natural curiosity about:
+
 - System properties
 - Emergence patterns
 - Economic topology

@@ -1,17 +1,17 @@
 # Core Mechanics and Their Implications
 
 VERSION mechanics_system:
-  invariants: {
-    "Natural quality emergence",
-    "Energy conservation",
-    "Phase transitions"
-  }
-  assumptions: {
-    "Thermodynamic evolution",
-    "Pattern recognition",
-    "Self-organization"
-  }
-  implementation: "0.2.0"
+invariants: {
+"Natural quality emergence",
+"Energy conservation",
+"Phase transitions"
+}
+assumptions: {
+"Thermodynamic evolution",
+"Pattern recognition",
+"Self-organization"
+}
+docs_version: "0.2.0"
 
 ## Understanding Thread Dynamics
 
@@ -20,12 +20,14 @@ At Level 2, we begin to see how Choir's mechanics mirror natural physical system
 ### Temperature and Energy
 
 1. **Thread Temperature (T)**
+
    - Measures chaos/volatility
    - Hot threads are more volatile
    - Cool threads are more stable
    - Natural cooling over time
 
 2. **Thread Energy (E)**
+
    - Total thread energy from stakes
    - Conserved during transitions
    - Flows according to decisions
@@ -40,6 +42,7 @@ At Level 2, we begin to see how Choir's mechanics mirror natural physical system
 ### Natural Evolution
 
 1. **Young Threads**
+
    - Start hot and volatile
    - High potential energy
    - Raw patterns emerging
@@ -56,12 +59,14 @@ At Level 2, we begin to see how Choir's mechanics mirror natural physical system
 The interplay of temperature and frequency creates fascinating dynamics:
 
 1. **High T, Low ω**
+
    - Chaotic but energetic
    - Expensive to join
    - Pattern recognition opportunity
    - Potential for crystallization
 
 2. **Low T, High ω**
+
    - Organized and stable
    - More accessible
    - Clear value patterns
@@ -76,12 +81,14 @@ The interplay of temperature and frequency creates fascinating dynamics:
 ### Practical Implications
 
 1. **For Participants**
+
    - Look for hidden patterns in chaos
    - Join before crystallization
    - Help shape emerging order
    - Contribute to coherence
 
 2. **For Communities**
+
    - Quality emerges naturally
    - Standards self-organize
    - Value aligns with coherence
@@ -96,10 +103,13 @@ The interplay of temperature and frequency creates fascinating dynamics:
 ### Understanding Stake Requirements
 
 The quantum harmonic oscillator formula:
+
 ```
 stake = base_stake * (0.5 + 1/[exp(ℏω/kT) - 1])
 ```
+
 Creates natural dynamics where:
+
 - High temperature increases stakes
 - High frequency moderates stakes
 - Quality emerges from balance
@@ -108,12 +118,14 @@ Creates natural dynamics where:
 ### Why This Works
 
 The thermodynamic model works because it:
+
 - Mirrors natural systems
 - Enables self-organization
 - Rewards pattern recognition
 - Creates sustainable evolution
 
 Understanding these mechanics helps explain why:
+
 - Best threads are often accessible
 - Quality emerges without rules
 - Communities find equilibrium

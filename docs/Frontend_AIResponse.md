@@ -1,43 +1,43 @@
 # AIResponse Component Specification
 
 VERSION ai_response_system:
-  invariants: {
-    "Step sequence integrity",
-    "Source coherence",
-    "Markdown rendering fidelity"
-  }
-  assumptions: {
-    "Step completeness",
-    "Source availability",
-    "Markdown safety"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Step sequence integrity",
+"Source coherence",
+"Markdown rendering fidelity"
+}
+assumptions: {
+"Step completeness",
+"Source availability",
+"Markdown safety"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE AIResponseState = {
-  // Message State
-  message: {
-    content: string,
-    steps: Array<Step>,
-    sources: Array<Source>,
-    status: ResponseStatus
-  },
+// Message State
+message: {
+content: string,
+steps: Array<Step>,
+sources: Array<Source>,
+status: ResponseStatus
+},
 
-  // Display State
-  display: {
-    activeStep: StepId,
-    expandedSources: Set<SourceId>,
-    renderState: RenderState,
-    error: Option<Error>
-  },
+// Display State
+display: {
+activeStep: StepId,
+expandedSources: Set<SourceId>,
+renderState: RenderState,
+error: Option<Error>
+},
 
-  // Animation State
-  animation: {
-    stepTransitions: Map<StepId, AnimationState>,
-    contentFade: AnimationState,
-    sourceReveal: AnimationState
-  }
+// Animation State
+animation: {
+stepTransitions: Map<StepId, AnimationState>,
+contentFade: AnimationState,
+sourceReveal: AnimationState
+}
 }
 
 ## Step Management
@@ -254,4 +254,3 @@ PROPERTY response_invariants:
     render.animations_smooth AND
     render.interactions_responsive
 ```
-

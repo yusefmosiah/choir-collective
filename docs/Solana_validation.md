@@ -1,70 +1,74 @@
 # Cross-Cutting Validation Rules
 
 VERSION validation_system:
-  invariants: {
-    "Input sanitization completeness",
-    "State validation coverage",
-    "Security check atomicity"
-  }
-  assumptions: {
-    "Validation order independence",
-    "Error propagation clarity",
-    "Check composability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Input sanitization completeness",
+"State validation coverage",
+"Security check atomicity"
+}
+assumptions: {
+"Validation order independence",
+"Error propagation clarity",
+"Check composability"
+}
+docs_version: "0.2.0"
 
 ## Core Validation Types
 
 TYPE ValidationContext = {
-  signer: PublicKey,
-  thread: Thread,
-  clock: Clock,
-  validation_type: ValidationType
+signer: PublicKey,
+thread: Thread,
+clock: Clock,
+validation_type: ValidationType
 }
 
 TYPE ValidationType =
-  | ThreadOperation
-  | MessageOperation
-  | TokenOperation
-  | StateTransition
+| ThreadOperation
+| MessageOperation
+| TokenOperation
+| StateTransition
 
 TYPE ValidationResult = {
-  success: bool,
-  error: Option<ValidationError>,
-  metadata: ValidationMetadata
+success: bool,
+error: Option<ValidationError>,
+metadata: ValidationMetadata
 }
 
 ## Validation Rules
 
 SEQUENCE validate_operation:
-  1. Context Validation
-     - Verify signer authority
-     - Check thread state
-     - Validate timestamps
-     - Verify preconditions
 
-  2. Input Validation
-     - Sanitize parameters
-     - Check bounds
-     - Verify formats
-     - Validate relationships
+1. Context Validation
 
-  3. State Validation
-     - Check invariants
-     - Verify transitions
-     - Validate consistency
-     - Check conservation laws
+   - Verify signer authority
+   - Check thread state
+   - Validate timestamps
+   - Verify preconditions
+
+2. Input Validation
+
+   - Sanitize parameters
+   - Check bounds
+   - Verify formats
+   - Validate relationships
+
+3. State Validation
+   - Check invariants
+   - Verify transitions
+   - Validate consistency
+   - Check conservation laws
 
 PROPERTY validation_completeness:
-  FORALL op IN operations:
-    validate_operation(op) COVERS ALL
-      security_properties(op) AND
-      state_invariants(op) AND
-      value_conservation(op)
+FORALL op IN operations:
+validate_operation(op) COVERS ALL
+security_properties(op) AND
+state_invariants(op) AND
+value_conservation(op)
 
 ## Security Checks
 
 1. **Authority Validation**
+
    ```
    FUNCTION validate_authority(ctx: ValidationContext) -> Result<()>:
      MATCH ctx.validation_type:
@@ -79,6 +83,7 @@ PROPERTY validation_completeness:
    ```
 
 2. **State Validation**
+
    ```
    FUNCTION validate_state(ctx: ValidationContext) -> Result<()>:
      VERIFY:
@@ -102,17 +107,18 @@ PROPERTY validation_completeness:
 TYPE Validator<T> = Context -> T -> Result<()>
 
 FUNCTION compose_validators<T>(
-  validators: Vec<Validator<T>>
+validators: Vec<Validator<T>>
 ) -> Validator<T>:
-  RETURN |ctx, input| {
-    FOR validator IN validators:
-      validator(ctx, input)?
-    Ok(())
-  }
+RETURN |ctx, input| {
+FOR validator IN validators:
+validator(ctx, input)?
+Ok(())
+}
 
 ## Common Validators
 
 1. **Thread Validators**
+
    ```
    SEQUENCE thread_validators:
      validate_thread_id
@@ -123,6 +129,7 @@ FUNCTION compose_validators<T>(
    ```
 
 2. **Message Validators**
+
    ```
    SEQUENCE message_validators:
      validate_content_hash
@@ -144,20 +151,21 @@ FUNCTION compose_validators<T>(
 ## Error Handling
 
 TYPE ValidationError =
-  | InvalidAuthority
-  | InvalidState
-  | InvalidInput
-  | InvalidTransition
-  | ConservationViolation
+| InvalidAuthority
+| InvalidState
+| InvalidInput
+| InvalidTransition
+| ConservationViolation
 
 FUNCTION handle_validation_error(error: ValidationError) -> Result<()>:
-  log_validation_failure(error)
-  emit_validation_event(error)
-  RETURN Err(error)
+log_validation_failure(error)
+emit_validation_event(error)
+RETURN Err(error)
 
 ## Validation Properties
 
 1. **Completeness**
+
    ```
    PROPERTY validation_coverage:
      FORALL op IN operations:
@@ -166,6 +174,7 @@ FUNCTION handle_validation_error(error: ValidationError) -> Result<()>:
    ```
 
 2. **Independence**
+
    ```
    PROPERTY validator_independence:
      FORALL v1 v2 IN validators:
@@ -187,12 +196,14 @@ FUNCTION handle_validation_error(error: ValidationError) -> Result<()>:
 The validation system maintains several critical properties:
 
 1. Validation Coverage
+
    - All operations are validated
    - All inputs are sanitized
    - All states are verified
    - All transitions are checked
 
 2. Error Clarity
+
    - Validation errors are specific
    - Error context is preserved
    - Recovery paths are clear

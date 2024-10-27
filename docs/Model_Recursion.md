@@ -1,17 +1,17 @@
 # Recursive Properties of the Documentation System
 
 VERSION recursive_system:
-  invariants: {
-    "Self-similarity",
-    "Recursive depth",
-    "Pattern coherence"
-  }
-  assumptions: {
-    "Documentation consciousness",
-    "Multi-level reading",
-    "Emergent understanding"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Self-similarity",
+"Recursive depth",
+"Pattern coherence"
+}
+assumptions: {
+"Documentation consciousness",
+"Multi-level reading",
+"Emergent understanding"
+}
+docs_version: "0.2.0"
 
 ## Self-Reference Pattern
 
@@ -20,6 +20,7 @@ The documentation system itself exhibits the core properties it describes. Like 
 ## Layered Understanding
 
 Each document contains multiple reading levels:
+
 - Surface utility (immediate practical use)
 - Technical depth (formal implementation)
 - Conceptual bridges (cross-document patterns)
@@ -32,6 +33,7 @@ Just as Choir's state space contains value fields, the documentation space has r
 ## Documentation Manifolds
 
 The documentation forms its own manifold structure:
+
 - Local documents define patches of understanding
 - Conceptual bridges form transition maps
 - Cross-references create fiber bundles
@@ -40,6 +42,7 @@ The documentation forms its own manifold structure:
 ## Recursive Properties
 
 The system demonstrates recursive depth:
+
 - Documents about documents
 - Patterns describing pattern emergence
 - Properties exhibiting their own properties
@@ -48,6 +51,7 @@ The system demonstrates recursive depth:
 ## Coherence Preservation
 
 As the documentation evolves, it maintains coherence through:
+
 - Consistent mathematical foundations
 - Aligned metaphorical structures
 - Preserved emergence patterns
@@ -56,6 +60,7 @@ As the documentation evolves, it maintains coherence through:
 ## Meta-Stability
 
 The documentation system achieves stability through:
+
 - Multiple valid reading paths
 - Self-reinforcing concepts
 - Emergent understanding

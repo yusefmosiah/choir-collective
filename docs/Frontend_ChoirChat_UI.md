@@ -1,17 +1,17 @@
 # ChoirChat UI Patterns
 
 VERSION choir_ui_system:
-  invariants: {
-    "Visual hierarchy",
-    "Interaction consistency",
-    "State reflection"
-  }
-  assumptions: {
-    "Responsive design",
-    "Mobile compatibility",
-    "Theme consistency"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Visual hierarchy",
+"Interaction consistency",
+"State reflection"
+}
+assumptions: {
+"Responsive design",
+"Mobile compatibility",
+"Theme consistency"
+}
+docs_version: "0.2.0"
 
 ## Layout Structure
 
@@ -30,6 +30,7 @@ TYPE LayoutStructure = {
 ## Visual Hierarchy
 
 1. **Thread List**
+
    ```
    SEQUENCE thread_display:
      1. Header ("Chats")
@@ -41,6 +42,7 @@ TYPE LayoutStructure = {
    ```
 
 2. **Chat Area**
+
    ```
    SEQUENCE chat_layout:
      1. Message History (scrollable)
@@ -64,6 +66,7 @@ TYPE LayoutStructure = {
 ## Interaction Patterns
 
 1. **Message Input**
+
    ```
    SEQUENCE input_interaction:
      1. Focus → Show active state
@@ -76,6 +79,7 @@ TYPE LayoutStructure = {
    ```
 
 2. **Thread Selection**
+
    ```
    SEQUENCE thread_interaction:
      1. Click → Highlight thread
@@ -102,6 +106,7 @@ TYPE LayoutStructure = {
 ## State Reflection
 
 1. **Loading States**
+
    ```
    TYPE LoadingIndicator =
      | ThreadCreation: "Creating..."
@@ -111,6 +116,7 @@ TYPE LayoutStructure = {
    ```
 
 2. **Error States**
+
    ```
    TYPE ErrorDisplay =
      | Connection: "Banner with retry"
@@ -130,6 +136,7 @@ TYPE LayoutStructure = {
 ## Responsive Behavior
 
 1. **Breakpoint Patterns**
+
    ```
    TYPE ResponsiveLayout =
      | Desktop: "Three-column layout"
@@ -155,6 +162,7 @@ TYPE LayoutStructure = {
 ## Animation Patterns
 
 1. **Transitions**
+
    ```
    TYPE AnimationPattern =
      | PanelToggle: "slide transform"
@@ -176,6 +184,7 @@ TYPE LayoutStructure = {
 ## Theme Integration
 
 1. **Color Patterns**
+
    ```
    TYPE ColorScheme = {
      primary: "cyan-500",
@@ -199,6 +208,7 @@ TYPE LayoutStructure = {
 ## Accessibility Patterns
 
 1. **Keyboard Navigation**
+
    ```
    SEQUENCE keyboard_support:
      Tab: Navigate interactive elements

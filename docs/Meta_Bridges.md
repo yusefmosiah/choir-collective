@@ -1,17 +1,17 @@
 # Choir Conceptual Bridges
 
 VERSION bridge_system:
-  invariants: {
-    "Conceptual continuity",
-    "Knowledge building",
-    "System coherence"
-  }
-  assumptions: {
-    "Core stability",
-    "Concept relationships",
-    "Learning paths"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Conceptual continuity",
+"Knowledge building",
+"System coherence"
+}
+assumptions: {
+"Core stability",
+"Concept relationships",
+"Learning paths"
+}
+docs_version: "0.2.0"
 
 ## State and Ownership
 

@@ -1,32 +1,32 @@
 # Thread Fuzzing Specification
 
 VERSION fuzzer_system:
-  invariants: {
-    "State space coverage",
-    "Transition validity",
-    "Property preservation"
-  }
-  assumptions: {
-    "Trident framework",
-    "Random generation",
-    "State reachability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"State space coverage",
+"Transition validity",
+"Property preservation"
+}
+assumptions: {
+"Trident framework",
+"Random generation",
+"State reachability"
+}
+docs_version: "0.2.0"
 
 ## Core Fuzzing Types
 
 TYPE ThreadFuzzer = {
-  accounts: FuzzAccounts,
-  instructions: Vec<FuzzInstruction>,
-  properties: Vec<Property>,
-  state_tracker: StateTracker
+accounts: FuzzAccounts,
+instructions: Vec<FuzzInstruction>,
+properties: Vec<Property>,
+state_tracker: StateTracker
 }
 
 TYPE FuzzAccounts = {
-  thread: AccountsStorage<PdaStore>,
-  co_authors: AccountsStorage<KeypairStore>,
-  tokens: AccountsStorage<TokenStore>,
-  specs: AccountsStorage<SpecStore>
+thread: AccountsStorage<PdaStore>,
+co_authors: AccountsStorage<KeypairStore>,
+tokens: AccountsStorage<TokenStore>,
+specs: AccountsStorage<SpecStore>
 }
 
 ## Instruction Generation
@@ -57,7 +57,7 @@ pub struct FuzzInstruction {
 
 ## Property Testing
 
-```rust
+````rust
 PROPERTY thread_invariants:
   1. State Properties
      ```rust
@@ -92,28 +92,31 @@ PROPERTY thread_invariants:
            no_token_creation(ops)
      }
      ```
-```
+````
 
 ## State Space Exploration
 
 SEQUENCE explore_state_space:
-  1. State Generation
-     - Random valid states
-     - Edge case states
-     - Invalid states
-     - Transition states
 
-  2. Operation Sequences
-     - Valid operation chains
-     - Invalid operation mixes
-     - Concurrent operations
-     - Interleaved sequences
+1. State Generation
 
-  3. Coverage Tracking
-     - State coverage maps
-     - Transition coverage
-     - Property verification
-     - Error discovery
+   - Random valid states
+   - Edge case states
+   - Invalid states
+   - Transition states
+
+2. Operation Sequences
+
+   - Valid operation chains
+   - Invalid operation mixes
+   - Concurrent operations
+   - Interleaved sequences
+
+3. Coverage Tracking
+   - State coverage maps
+   - Transition coverage
+   - Property verification
+   - Error discovery
 
 ## Mutation Strategies
 
@@ -157,6 +160,7 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
 ## Coverage Requirements
 
 1. **State Coverage**
+
    ```rust
    PROPERTY state_coverage:
      FORALL state IN reachable_states:
@@ -165,6 +169,7 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
    ```
 
 2. **Transition Coverage**
+
    ```rust
    PROPERTY transition_coverage:
      FORALL t IN valid_transitions:
@@ -185,12 +190,14 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
 The fuzzing system maintains several critical aspects:
 
 1. Generation Strategy
+
    - Smart account generation
    - Valid state construction
    - Meaningful mutations
    - Targeted exploration
 
 2. Coverage Optimization
+
    - State space mapping
    - Transition tracking
    - Property verification

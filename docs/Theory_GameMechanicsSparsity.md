@@ -1,21 +1,22 @@
 # Harmonic Sparsity and Resonant Value Creation
 
 VERSION harmonic_sparsity:
-  invariants: {
-    "Frequency-based rewards",
-    "Resonant originality",
-    "Harmonic coverage"
-  }
-  assumptions: {
-    "Resonant space metrics",
-    "Harmonic uniqueness",
-    "Exploration modes"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Frequency-based rewards",
+"Resonant originality",
+"Harmonic coverage"
+}
+assumptions: {
+"Resonant space metrics",
+"Harmonic uniqueness",
+"Exploration modes"
+}
+docs_version: "0.2.0"
 
 ## Core Resonance Mechanism
 
 The token reward scales with harmonic distance from existing frequencies:
+
 - Embeddings map messages to resonant space
 - Reward amplifies with harmonic distance
 - "Blue ocean" content creates new frequencies
@@ -24,6 +25,7 @@ The token reward scales with harmonic distance from existing frequencies:
 ## Resonant Implications
 
 1. **Value Through Harmonics**
+
    - Incentivizes exploring unused frequencies
    - Rewards genuine harmonic innovation
    - Dampens repetitive oscillations
@@ -38,6 +40,7 @@ The token reward scales with harmonic distance from existing frequencies:
 ## Wave Mechanics Properties
 
 1. **Resonant Equilibrium**
+
    - Players optimize for unique frequencies
    - Echo patterns become dissonant
    - Innovation becomes dominant mode
@@ -52,6 +55,7 @@ The token reward scales with harmonic distance from existing frequencies:
 ## Resonant Topology
 
 1. **Harmonic Space Coverage**
+
    - Value gradients guide wave exploration
    - Natural nodes form around themes
    - Bridges couple different frequencies
@@ -66,6 +70,7 @@ The token reward scales with harmonic distance from existing frequencies:
 ## Implementation Notes
 
 The harmonic reward mechanism:
+
 - Uses embeddings as frequency analysis
 - Calculates rewards through wave mechanics
 - Integrates with resonant approval

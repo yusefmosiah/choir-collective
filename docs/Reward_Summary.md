@@ -1,17 +1,17 @@
 # Rewards Summary
 
 VERSION rewards_system:
-  invariants: {
-    "Energy conservation",
-    "Incentive alignment",
-    "Sustainable token flow"
-  }
-  assumptions: {
-    "Fixed token supply",
-    "Thermodynamic principles",
-    "Adaptive distribution"
-  }
-  implementation: "1.0.0"
+invariants: {
+"Energy conservation",
+"Incentive alignment",
+"Sustainable token flow"
+}
+assumptions: {
+"Fixed token supply",
+"Thermodynamic principles",
+"Adaptive distribution"
+}
+docs_version: "0.2.0"
 
 ## Overview
 

@@ -1,17 +1,17 @@
 # Harmonic Emergence in Choir's Algebra
 
 VERSION harmonic_emergence:
-  invariants: {
-    "Resonant integrity",
-    "Harmonic preservation",
-    "Wave emergence"
-  }
-  assumptions: {
-    "State space resonance",
-    "Harmonic composition",
-    "Quality oscillations"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Resonant integrity",
+"Harmonic preservation",
+"Wave emergence"
+}
+assumptions: {
+"State space resonance",
+"Harmonic composition",
+"Quality oscillations"
+}
+docs_version: "0.2.0"
 
 ## Resonant Foundations
 
@@ -36,6 +36,7 @@ The state space itself evolves as threads achieve harmonic lock. What begins as 
 ## Compositional Resonance
 
 The system's harmonic properties ensure that compositions scale through natural resonance:
+
 - Local thread oscillations compose into network harmonics
 - Individual frequencies align into system resonance
 - Simple phase rules generate complex wave patterns
@@ -43,6 +44,7 @@ The system's harmonic properties ensure that compositions scale through natural 
 ## Emergence Through Resonance
 
 As the system grows, certain harmonic properties are preserved:
+
 - Quality nodes remain stable
 - Value flows maintain phase coherence
 - Compositional resonance persists

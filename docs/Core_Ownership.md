@@ -1,57 +1,59 @@
 # Choir Ownership Model
 
 VERSION ownership_system:
-  invariants: {
-    "Energy conservation",
-    "Temperature coherence",
-    "Frequency stability"
-  }
-  assumptions: {
-    "Thermodynamic evolution",
-    "Natural cooling",
-    "Phase transitions"
-  }
-  implementation: "0.2.0"
+invariants: {
+"Energy conservation",
+"Temperature coherence",
+"Frequency stability"
+}
+assumptions: {
+"Thermodynamic evolution",
+"Natural cooling",
+"Phase transitions"
+}
+docs_version: "0.2.0"
 
 ## Core Ownership Concepts
 
 ASSUMPTION ownership_model:
-  "Temperature-based access control"
-  "Energy-driven participation"
-  "Must maintain thermodynamic stability"
+"Temperature-based access control"
+"Energy-driven participation"
+"Must maintain thermodynamic stability"
 
 ## Thread Thermodynamics
 
 1. **State Properties**
+
    ```typescript
    type ThreadState = {
-     energy: number,           // E (total thread energy)
-     temperature: number,      // T = E/N (energy per co-author)
-     frequency: number,        // ω (evolution rate)
-     co_authors: PublicKey[],  // N (system size)
-     cooling_factor: number    // κ (age-based cooling)
-   }
+     energy: number; // E (total thread energy)
+     temperature: number; // T = E/N (energy per co-author)
+     frequency: number; // ω (evolution rate)
+     co_authors: PublicKey[]; // N (system size)
+     cooling_factor: number; // κ (age-based cooling)
+   };
    ```
 
 2. **Energy Distribution**
    ```typescript
    type EnergyFlow = {
      rejection: {
-       effect: "Increases thread energy",
-       temperature: "Rises (E/N increases)",
-       frequency: "Unchanged"
-     },
+       effect: "Increases thread energy";
+       temperature: "Rises (E/N increases)";
+       frequency: "Unchanged";
+     };
      approval: {
-       effect: "Distributes energy to approvers",
-       temperature: "Moderates (E/N decreases)",
-       frequency: "Increases"
-     }
-   }
+       effect: "Distributes energy to approvers";
+       temperature: "Moderates (E/N decreases)";
+       frequency: "Increases";
+     };
+   };
    ```
 
 ## Access Control
 
 1. **Temperature-Based Barriers**
+
    - Hot threads: Higher stake requirements
    - Cool threads: Lower barriers to entry
    - Natural selection through energy requirements
@@ -66,6 +68,7 @@ ASSUMPTION ownership_model:
 ## State Management
 
 1. **Energy Conservation**
+
    ```typescript
    PROPERTY energy_conservation:
      thread.energy = sum(stakes) - sum(distributions)
@@ -73,6 +76,7 @@ ASSUMPTION ownership_model:
    ```
 
 2. **Temperature Evolution**
+
    ```typescript
    FUNCTION evolve_temperature(thread: Thread, time: Duration):
      cooling = 1 + sqrt(time.days * thread.co_authors.length)
@@ -91,6 +95,7 @@ ASSUMPTION ownership_model:
 ## Phase Transitions
 
 1. **Thread Evolution**
+
    - Young threads start hot and volatile
    - Mature threads cool and stabilize
    - Quality barriers emerge naturally
@@ -108,18 +113,19 @@ ASSUMPTION ownership_model:
 ## Implementation Notes
 
 NOTE thermodynamic_implementation:
-  "Current model uses classical thermodynamics"
-  "May introduce quantum effects"
-  "Must preserve energy conservation"
+"Current model uses classical thermodynamics"
+"May introduce quantum effects"
+"Must preserve energy conservation"
 
 NOTE scaling_considerations:
-  "Anderson normalization for large N"
-  "Natural cooling prevents instability"
-  "Must maintain coherent evolution"
+"Anderson normalization for large N"
+"Natural cooling prevents instability"
+"Must maintain coherent evolution"
 
 ## Future Directions
 
 1. **Advanced Thermodynamics**
+
    - Multi-thread energy coupling
    - Complex phase transitions
    - Quantum coherence effects

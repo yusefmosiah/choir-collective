@@ -1,21 +1,22 @@
 # Harmonic Game Theory and Resonance Design
 
 VERSION harmonic_mechanism:
-  invariants: {
-    "Resonant compatibility",
-    "Harmonic stability",
-    "Wave emergence"
-  }
-  assumptions: {
-    "Multi-scale resonance",
-    "Phase coherence",
-    "Irreducible harmonics"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Resonant compatibility",
+"Harmonic stability",
+"Wave emergence"
+}
+assumptions: {
+"Multi-scale resonance",
+"Phase coherence",
+"Irreducible harmonics"
+}
+docs_version: "0.2.0"
 
 ## Core Resonance Properties
 
 1. **Dominant Strategy Through Resonance**
+
    - Natural frequency alignment is optimal strategy
    - True resonance assessment maximizes returns
    - Genuine oscillation outperforms dissonance
@@ -30,6 +31,7 @@ VERSION harmonic_mechanism:
 ## Resonant Actors
 
 1. **Human Oscillators**
+
    - Content creators generating frequencies
    - Quality recognizers tuning resonance
    - Community builders coupling oscillators
@@ -44,6 +46,7 @@ VERSION harmonic_mechanism:
 ## Resonance Design
 
 1. **Core Frequencies**
+
    - Stake requirement creates base frequency
    - Unanimous approval ensures phase lock
    - Non-refundable stakes maintain coherence
@@ -58,6 +61,7 @@ VERSION harmonic_mechanism:
 ## Strategic Harmonics
 
 1. **Local Oscillations**
+
    - Message frequency choices
    - Phase alignment decisions
    - Amplitude sizing
@@ -72,6 +76,7 @@ VERSION harmonic_mechanism:
 ## Irreducible Harmonics
 
 1. **Why Prediction is Impossible**
+
    - Wave packets have quantum nature
    - AI evolution creates new frequencies
    - Semantic fields have harmonic topology
@@ -86,6 +91,7 @@ VERSION harmonic_mechanism:
 ## Evolutionary Waves
 
 1. **Strategy Evolution**
+
    - Resonant patterns amplify
    - Dissonant approaches decay
    - New frequencies emerge
@@ -100,6 +106,7 @@ VERSION harmonic_mechanism:
 ## Mechanism Properties
 
 1. **Stability**
+
    - Nash equilibrium at resonance
    - Robust against dissonance
    - Self-tuning dynamics
@@ -114,12 +121,14 @@ VERSION harmonic_mechanism:
 ## Value Alignment
 
 The mechanism naturally aligns through resonance:
+
 - Individual waves with collective fields
 - Short-term modes with long-term harmonics
 - Local oscillations with global patterns
 - Personal frequency with shared resonance
 
 Through these harmonic game principles, Choir creates conditions where:
+
 - Quality emerges through resonance
 - Value flows to harmonic truth
 - Complexity serves wave coherence

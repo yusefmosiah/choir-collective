@@ -1,17 +1,17 @@
 # Getting Started with Choir
 
 VERSION basic_system:
-  invariants: {
-    "User accessibility",
-    "Immediate utility",
-    "Clear benefits"
-  }
-  assumptions: {
-    "New user experience",
-    "Basic functionality",
-    "Initial engagement"
-  }
-  implementation: "0.1.0"
+invariants: {
+"User accessibility",
+"Immediate utility",
+"Clear benefits"
+}
+assumptions: {
+"New user experience",
+"Basic functionality",
+"Initial engagement"
+}
+docs_version: "0.2.0"
 
 Choir is a chat platform where you actually own your messages and can earn tokens for quality contributions. Let's break down how it works in simple terms:
 

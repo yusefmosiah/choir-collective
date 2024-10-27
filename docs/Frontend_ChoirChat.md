@@ -1,56 +1,57 @@
 # ChoirChat Component Specification
 
 VERSION choir_chat_system:
-  invariants: {
-    "State coherence",
-    "Message ordering",
-    "Thread integrity"
-  }
-  assumptions: {
-    "WebSocket availability",
-    "Wallet connectivity",
-    "Thread persistence"
-  }
-  implementation: "0.1.0"
+invariants: {
+"State coherence",
+"Message ordering",
+"Thread integrity"
+}
+assumptions: {
+"WebSocket availability",
+"Wallet connectivity",
+"Thread persistence"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE ChoirChatState = {
-  // Thread State
-  threads: {
-    all: Map<ThreadId, Thread>,
-    selected: Option<ThreadId>,
-    creating: boolean,
-    error: Option<string>
-  },
+// Thread State
+threads: {
+all: Map<ThreadId, Thread>,
+selected: Option<ThreadId>,
+creating: boolean,
+error: Option<string>
+},
 
-  // Message State
-  messages: {
-    history: Array<Message>,
-    pending: Option<Message>,
-    streaming: boolean,
-    input: string
-  },
+// Message State
+messages: {
+history: Array<Message>,
+pending: Option<Message>,
+streaming: boolean,
+input: string
+},
 
-  // Connection State
-  connection: {
-    websocket: Option<WebSocket>,
-    user: Option<User>,
-    status: ConnectionStatus,
-    retryCount: number
-  },
+// Connection State
+connection: {
+websocket: Option<WebSocket>,
+user: Option<User>,
+status: ConnectionStatus,
+retryCount: number
+},
 
-  // UI State
-  display: {
-    panelVisible: boolean,
-    sortOption: SortOption,
-    sources: Array<Source>
-  }
+// UI State
+display: {
+panelVisible: boolean,
+sortOption: SortOption,
+sources: Array<Source>
+}
 }
 
 ## State Transitions
 
 1. **Thread Management**
+
    ```
    SEQUENCE thread_operations:
      create_thread : UserId → Result<Thread>
@@ -60,6 +61,7 @@ TYPE ChoirChatState = {
    ```
 
 2. **Message Handling**
+
    ```
    SEQUENCE message_operations:
      submit_message : (ThreadId, string) → Result<Message>
@@ -80,6 +82,7 @@ TYPE ChoirChatState = {
 ## Effect Handlers
 
 1. **WebSocket Effects**
+
    ```
    TYPE WebSocketEffect =
      | Connect(config: WebSocketConfig)
@@ -95,6 +98,7 @@ TYPE ChoirChatState = {
    ```
 
 2. **Thread Effects**
+
    ```
    TYPE ThreadEffect =
      | Create(name: string)
@@ -112,6 +116,7 @@ TYPE ChoirChatState = {
 ## Error Recovery
 
 1. **Connection Recovery**
+
    ```
    SEQUENCE handle_connection_error:
      1. log_error(error)
@@ -208,6 +213,7 @@ PROPERTY state_invariants:
 ## Performance Optimizations
 
 1. **Message Batching**
+
    ```
    SEQUENCE batch_messages:
      collect_pending(timeout)

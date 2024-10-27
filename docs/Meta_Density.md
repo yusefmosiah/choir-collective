@@ -1,17 +1,17 @@
 # Documentation Density Analysis
 
 VERSION density_system:
-  invariants: {
-    "Information distribution",
-    "Concept clustering",
-    "Connection patterns"
-  }
-  assumptions: {
-    "Documentation maturity",
-    "Usage patterns",
-    "Growth directions"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Information distribution",
+"Concept clustering",
+"Connection patterns"
+}
+assumptions: {
+"Documentation maturity",
+"Usage patterns",
+"Growth directions"
+}
+docs_version: "0.2.0"
 
 ## High Density Regions
 
@@ -36,6 +36,7 @@ Some areas show evolving density patterns:
 ## Density Gradients
 
 We can observe clear density gradients:
+
 - From abstract (sparse) to concrete (dense) in implementation docs
 - From principles (dense) to practices (sparse) in security docs
 - From core (dense) to periphery (sparse) in state management

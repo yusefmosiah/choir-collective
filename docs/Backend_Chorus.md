@@ -1,17 +1,17 @@
 # Crystallized Chorus Loop
 
 VERSION chorus_system:
-  invariants: {
-    "Pure function transformation",
-    "State isolation",
-    "Error correction capability"
-  }
-  assumptions: {
-    "AI response stability",
-    "State transition atomicity",
-    "Message ordering"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Pure function transformation",
+"State isolation",
+"Error correction capability"
+}
+assumptions: {
+"AI response stability",
+"State transition atomicity",
+"Message ordering"
+}
+docs_version: "0.2.0"
 
 ## Core Types
 

@@ -1,17 +1,17 @@
 # Thread Account Management
 
 VERSION thread_system:
-  invariants: {
-    "Thread account data integrity",
-    "Co-author set non-empty",
-    "Token balance consistency"
-  }
-  assumptions: {
-    "PDA derivation security",
-    "Account size limits",
-    "Rent exemption"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Thread account data integrity",
+"Co-author set non-empty",
+"Token balance consistency"
+}
+assumptions: {
+"PDA derivation security",
+"Account size limits",
+"Rent exemption"
+}
+docs_version: "0.2.0"
 
 ## Thread Account Structure
 

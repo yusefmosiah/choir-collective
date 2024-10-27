@@ -11,7 +11,7 @@ assumptions: {
 "Validation completeness",
 "State coherence"
 }
-implementation: "0.1.0"
+docs_version: "0.2.0"
 
 ## Core Types
 

@@ -11,43 +11,43 @@ Frontend_AIResponse
 # AIResponse Component Specification
 
 VERSION ai_response_system:
-  invariants: {
-    "Step sequence integrity",
-    "Source coherence",
-    "Markdown rendering fidelity"
-  }
-  assumptions: {
-    "Step completeness",
-    "Source availability",
-    "Markdown safety"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Step sequence integrity",
+"Source coherence",
+"Markdown rendering fidelity"
+}
+assumptions: {
+"Step completeness",
+"Source availability",
+"Markdown safety"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE AIResponseState = {
-  // Message State
-  message: {
-    content: string,
-    steps: Array<Step>,
-    sources: Array<Source>,
-    status: ResponseStatus
-  },
+// Message State
+message: {
+content: string,
+steps: Array<Step>,
+sources: Array<Source>,
+status: ResponseStatus
+},
 
-  // Display State
-  display: {
-    activeStep: StepId,
-    expandedSources: Set<SourceId>,
-    renderState: RenderState,
-    error: Option<Error>
-  },
+// Display State
+display: {
+activeStep: StepId,
+expandedSources: Set<SourceId>,
+renderState: RenderState,
+error: Option<Error>
+},
 
-  // Animation State
-  animation: {
-    stepTransitions: Map<StepId, AnimationState>,
-    contentFade: AnimationState,
-    sourceReveal: AnimationState
-  }
+// Animation State
+animation: {
+stepTransitions: Map<StepId, AnimationState>,
+contentFade: AnimationState,
+sourceReveal: AnimationState
+}
 }
 
 ## Step Management
@@ -266,7 +266,6 @@ PROPERTY response_invariants:
 ```
 
 
-
 ==
 Frontend_ChoirChat
 ==
@@ -275,56 +274,57 @@ Frontend_ChoirChat
 # ChoirChat Component Specification
 
 VERSION choir_chat_system:
-  invariants: {
-    "State coherence",
-    "Message ordering",
-    "Thread integrity"
-  }
-  assumptions: {
-    "WebSocket availability",
-    "Wallet connectivity",
-    "Thread persistence"
-  }
-  implementation: "0.1.0"
+invariants: {
+"State coherence",
+"Message ordering",
+"Thread integrity"
+}
+assumptions: {
+"WebSocket availability",
+"Wallet connectivity",
+"Thread persistence"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE ChoirChatState = {
-  // Thread State
-  threads: {
-    all: Map<ThreadId, Thread>,
-    selected: Option<ThreadId>,
-    creating: boolean,
-    error: Option<string>
-  },
+// Thread State
+threads: {
+all: Map<ThreadId, Thread>,
+selected: Option<ThreadId>,
+creating: boolean,
+error: Option<string>
+},
 
-  // Message State
-  messages: {
-    history: Array<Message>,
-    pending: Option<Message>,
-    streaming: boolean,
-    input: string
-  },
+// Message State
+messages: {
+history: Array<Message>,
+pending: Option<Message>,
+streaming: boolean,
+input: string
+},
 
-  // Connection State
-  connection: {
-    websocket: Option<WebSocket>,
-    user: Option<User>,
-    status: ConnectionStatus,
-    retryCount: number
-  },
+// Connection State
+connection: {
+websocket: Option<WebSocket>,
+user: Option<User>,
+status: ConnectionStatus,
+retryCount: number
+},
 
-  // UI State
-  display: {
-    panelVisible: boolean,
-    sortOption: SortOption,
-    sources: Array<Source>
-  }
+// UI State
+display: {
+panelVisible: boolean,
+sortOption: SortOption,
+sources: Array<Source>
+}
 }
 
 ## State Transitions
 
 1. **Thread Management**
+
    ```
    SEQUENCE thread_operations:
      create_thread : UserId → Result<Thread>
@@ -334,6 +334,7 @@ TYPE ChoirChatState = {
    ```
 
 2. **Message Handling**
+
    ```
    SEQUENCE message_operations:
      submit_message : (ThreadId, string) → Result<Message>
@@ -354,6 +355,7 @@ TYPE ChoirChatState = {
 ## Effect Handlers
 
 1. **WebSocket Effects**
+
    ```
    TYPE WebSocketEffect =
      | Connect(config: WebSocketConfig)
@@ -369,6 +371,7 @@ TYPE ChoirChatState = {
    ```
 
 2. **Thread Effects**
+
    ```
    TYPE ThreadEffect =
      | Create(name: string)
@@ -386,6 +389,7 @@ TYPE ChoirChatState = {
 ## Error Recovery
 
 1. **Connection Recovery**
+
    ```
    SEQUENCE handle_connection_error:
      1. log_error(error)
@@ -482,6 +486,7 @@ PROPERTY state_invariants:
 ## Performance Optimizations
 
 1. **Message Batching**
+
    ```
    SEQUENCE batch_messages:
      collect_pending(timeout)
@@ -510,17 +515,17 @@ Frontend_ChoirChat_UI
 # ChoirChat UI Patterns
 
 VERSION choir_ui_system:
-  invariants: {
-    "Visual hierarchy",
-    "Interaction consistency",
-    "State reflection"
-  }
-  assumptions: {
-    "Responsive design",
-    "Mobile compatibility",
-    "Theme consistency"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Visual hierarchy",
+"Interaction consistency",
+"State reflection"
+}
+assumptions: {
+"Responsive design",
+"Mobile compatibility",
+"Theme consistency"
+}
+docs_version: "0.2.0"
 
 ## Layout Structure
 
@@ -539,6 +544,7 @@ TYPE LayoutStructure = {
 ## Visual Hierarchy
 
 1. **Thread List**
+
    ```
    SEQUENCE thread_display:
      1. Header ("Chats")
@@ -550,6 +556,7 @@ TYPE LayoutStructure = {
    ```
 
 2. **Chat Area**
+
    ```
    SEQUENCE chat_layout:
      1. Message History (scrollable)
@@ -573,6 +580,7 @@ TYPE LayoutStructure = {
 ## Interaction Patterns
 
 1. **Message Input**
+
    ```
    SEQUENCE input_interaction:
      1. Focus → Show active state
@@ -585,6 +593,7 @@ TYPE LayoutStructure = {
    ```
 
 2. **Thread Selection**
+
    ```
    SEQUENCE thread_interaction:
      1. Click → Highlight thread
@@ -611,6 +620,7 @@ TYPE LayoutStructure = {
 ## State Reflection
 
 1. **Loading States**
+
    ```
    TYPE LoadingIndicator =
      | ThreadCreation: "Creating..."
@@ -620,6 +630,7 @@ TYPE LayoutStructure = {
    ```
 
 2. **Error States**
+
    ```
    TYPE ErrorDisplay =
      | Connection: "Banner with retry"
@@ -639,6 +650,7 @@ TYPE LayoutStructure = {
 ## Responsive Behavior
 
 1. **Breakpoint Patterns**
+
    ```
    TYPE ResponsiveLayout =
      | Desktop: "Three-column layout"
@@ -664,6 +676,7 @@ TYPE LayoutStructure = {
 ## Animation Patterns
 
 1. **Transitions**
+
    ```
    TYPE AnimationPattern =
      | PanelToggle: "slide transform"
@@ -685,6 +698,7 @@ TYPE LayoutStructure = {
 ## Theme Integration
 
 1. **Color Patterns**
+
    ```
    TYPE ColorScheme = {
      primary: "cyan-500",
@@ -708,6 +722,7 @@ TYPE LayoutStructure = {
 ## Accessibility Patterns
 
 1. **Keyboard Navigation**
+
    ```
    SEQUENCE keyboard_support:
      Tab: Navigate interactive elements
@@ -737,42 +752,42 @@ Frontend_ChorusPanel
 # ChorusPanel Component Specification
 
 VERSION chorus_panel_system:
-  invariants: {
-    "Step coherence",
-    "Source ordering",
-    "State verification"
-  }
-  assumptions: {
-    "Step sequence validity",
-    "Source availability",
-    "Sort stability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Step coherence",
+"Source ordering",
+"State verification"
+}
+assumptions: {
+"Step sequence validity",
+"Source availability",
+"Sort stability"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE ChorusPanelState = {
-  // Step State
-  steps: {
-    current: Step,
-    sequence: Array<Step>,
-    display: Map<Step, DisplayState>
-  },
+// Step State
+steps: {
+current: Step,
+sequence: Array<Step>,
+display: Map<Step, DisplayState>
+},
 
-  // Source State
-  sources: {
-    items: Array<Source>,
-    sortOption: SortOption,
-    sortOrder: SortOrder,
-    filters: Set<Filter>
-  },
+// Source State
+sources: {
+items: Array<Source>,
+sortOption: SortOption,
+sortOrder: SortOrder,
+filters: Set<Filter>
+},
 
-  // Display State
-  view: {
-    expanded: Set<StepId>,
-    activeTab: TabOption,
-    scrollPosition: number
-  }
+// Display State
+view: {
+expanded: Set<StepId>,
+activeTab: TabOption,
+scrollPosition: number
+}
 }
 
 ## Step Display Normalization
@@ -952,35 +967,35 @@ Frontend_UserInput
 # UserInput Component Specification
 
 VERSION user_input_system:
-  invariants: {
-    "Message immutability",
-    "Display consistency",
-    "Accessibility compliance"
-  }
-  assumptions: {
-    "Content sanitization",
-    "Theme consistency",
-    "Responsive layout"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Message immutability",
+"Display consistency",
+"Accessibility compliance"
+}
+assumptions: {
+"Content sanitization",
+"Theme consistency",
+"Responsive layout"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE UserInputState = {
-  // Message State
-  message: {
-    content: string,
-    timestamp: DateTime,
-    author: Author,
-    id: MessageId
-  },
+// Message State
+message: {
+content: string,
+timestamp: DateTime,
+author: Author,
+id: MessageId
+},
 
-  // Display State
-  display: {
-    theme: ThemeVariant,
-    layout: LayoutPosition,
-    animation: AnimationState
-  }
+// Display State
+display: {
+theme: ThemeVariant,
+layout: LayoutPosition,
+animation: AnimationState
+}
 }
 
 ## Display Properties
@@ -1150,6 +1165,7 @@ PROPERTY message_invariants:
 This specification provides a complete model for the UserInput component, focusing on clean message display, accessibility, and performance. The implementation should maintain these patterns while providing a consistent user experience.
 
 Key aspects:
+
 1. Clean content processing
 2. Strong accessibility support
 3. Smooth animations
@@ -1157,6 +1173,7 @@ Key aspects:
 5. Performance optimization
 
 Would you like me to:
+
 1. Add more detail to any section?
 2. Include additional patterns?
 3. Expand on specific features?

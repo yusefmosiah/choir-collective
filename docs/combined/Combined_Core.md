@@ -11,41 +11,45 @@ Core_Blueprint
 # Choir Technical Blueprint
 
 VERSION blueprint_system:
-  invariants: {
-    "State consistency",
-    "Value conservation",
-    "Security boundaries"
-  }
-  assumptions: {
-    "Documentation-driven development",
-    "AI-assisted code generation",
-    "Test-first implementation"
-  }
-  implementation: "0.1.0"
+invariants: {
+"State consistency",
+"Value conservation",
+"Security boundaries"
+}
+assumptions: {
+"Documentation-driven development",
+"AI-assisted code generation",
+"Test-first implementation"
+}
+docs_version: "0.2.0"
 
 ## System Architecture
 
 The system operates across four interconnected layers:
 
 ### 1. Value Layer (Solana)
+
 - Thread ownership and token custody
 - State transitions and approvals
 - Token balances and stakes
 - Security boundaries
 
 ### 2. Content Layer (Qdrant)
+
 - Message storage and retrieval
 - Vector embeddings for search
 - Metadata management
 - Access control
 
 ### 3. Coordination Layer (Backend)
+
 - Real-time state synchronization
 - WebSocket communication
 - Cache management
 - API endpoints
 
 ### 4. Interaction Layer (Frontend)
+
 - Real-time chat interface
 - Wallet integration
 - State visualization
@@ -54,12 +58,14 @@ The system operates across four interconnected layers:
 ## Core Components
 
 1. **Thread System**
+
    - Co-author management
    - Message approval process
    - Token balance tracking
    - State transitions
 
 2. **Token Mechanics**
+
    - CHOIR token implementation
    - Stake management
    - Value distribution
@@ -74,30 +80,35 @@ The system operates across four interconnected layers:
 ## Implementation Timeline
 
 ### Phase 1: Foundation (Oct 26-27)
+
 - Study Trident fuzzing framework
 - Setup development environment
 - Configure CI/CD and testing
 - Establish security boundaries
 
 ### Phase 2: Core Protocol (Oct 28-29)
+
 - CHOIR token implementation
 - Thread program development
 - State transition handlers
 - Security verification
 
 ### Phase 3: Backend (Oct 30)
+
 - FastAPI implementation
 - WebSocket protocol
 - Qdrant integration
 - State synchronization
 
 ### Phase 4: Frontend (Oct 31)
+
 - Core UI components
 - Wallet integration
 - Real-time updates
 - Soft launch
 
 ### Phase 5: Integration (Nov 1-2)
+
 - System integration
 - Analytics setup
 - Monitoring implementation
@@ -106,12 +117,14 @@ The system operates across four interconnected layers:
 ## Development Approach
 
 1. **Documentation-Driven Development**
+
    - Comprehensive specifications
    - Test generation from docs
    - AI-assisted implementation
    - High doc-to-code ratio
 
 2. **Test-First Development**
+
    - Fuzzing-driven program design
    - Property-based testing
    - Invariant verification
@@ -126,6 +139,7 @@ The system operates across four interconnected layers:
 ## Security Model
 
 1. **Core Security**
+
    - State transition atomicity
    - Value conservation
    - Access control
@@ -140,6 +154,7 @@ The system operates across four interconnected layers:
 ## Future Evolution
 
 The system is designed to evolve with:
+
 - Improved AI capabilities
 - Enhanced testing tools
 - Automated code generation
@@ -166,11 +181,12 @@ assumptions: {
 "AI-assisted evolution",
 "Test-first implementation"
 }
-implementation: "0.1.0"
+docs_version: "0.2.0"
 
 ## Core Concept
 
 At its simplest, Choir is a chat platform where:
+
 - Users own their messages
 - Public visibility requires collective judgment
 - Quality contributions earn tokens
@@ -179,12 +195,14 @@ At its simplest, Choir is a chat platform where:
 ## Basic Mechanics
 
 ### 1. Message Ownership & Expression
+
 - Each message is owned by its creator
 - Users express judgment through approval decisions
 - Co-authors shape thread quality through collective taste
 - System empowers quality discernment
 
 ### 2. Public Message Process
+
 - Public visibility requires unanimous co-author approval
 - Non-co-authors can submit "specs" by staking tokens
 - 7-day window for co-authors to express judgment
@@ -366,211 +384,213 @@ Core_Consistency
 # Choir Consistency Model
 
 VERSION consistency_system:
-  invariants: {
-    "Solana state is source of truth for ownership",
-    "Content hash integrity across systems",
-    "Co-author set consistency"
-  }
-  assumptions: {
-    "Two-phase state updates",
-    "Eventually consistent content",
-    "Strongly consistent ownership"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Solana state is source of truth for ownership",
+"Content hash integrity across systems",
+"Co-author set consistency"
+}
+assumptions: {
+"Two-phase state updates",
+"Eventually consistent content",
+"Strongly consistent ownership"
+}
+docs_version: "0.2.0"
 
 ## State Distribution
 
 1. **Source of Truth**
 
    TYPE StateAuthority =
-     | Solana:    Ownership, Tokens, Approvals
-     | Qdrant:    Content, Embeddings
-     | Backend:   Session, Cache
-     | Frontend:  UI, Local Updates
+   | Solana: Ownership, Tokens, Approvals
+   | Qdrant: Content, Embeddings
+   | Backend: Session, Cache
+   | Frontend: UI, Local Updates
 
 2. **Consistency Requirements**
 
    PROPERTY state_invariants:
-     solana.thread.co_authors = qdrant.thread.metadata.co_authors
-     solana.message.hash = qdrant.message.content_hash
-     frontend.thread_state ⊆ backend.thread_state
+   solana.thread.co_authors = qdrant.thread.metadata.co_authors
+   solana.message.hash = qdrant.message.content_hash
+   frontend.thread_state ⊆ backend.thread_state
 
 ## Consistency Patterns
 
 1. **Eventually Consistent**
 
    SEQUENCE content_update:
-     1. Store content in Qdrant
-     2. Record hash on Solana
-     3. Update backend cache
-     4. Propagate to frontend
 
-     PROPERTY eventual_consistency:
-       AFTER finite_time:
-         all_nodes_agree(content_hash)
+   1. Store content in Qdrant
+   2. Record hash on Solana
+   3. Update backend cache
+   4. Propagate to frontend
+
+   PROPERTY eventual_consistency:
+   AFTER finite_time:
+   all_nodes_agree(content_hash)
 
 2. **Strongly Consistent**
 
    SEQUENCE ownership_update:
-     1. Update Solana state
-     2. Wait for confirmation
-     3. Update other systems
 
-     PROPERTY strong_consistency:
-       NO intermediate_state_visible
-       ALL observers_see_same_order
+   1. Update Solana state
+   2. Wait for confirmation
+   3. Update other systems
+
+   PROPERTY strong_consistency:
+   NO intermediate_state_visible
+   ALL observers_see_same_order
 
 ## State Synchronization
 
-1. **Initial Sync**
+1.  **Initial Sync**
 
-   FUNCTION initial_sync(thread_id: ThreadId):
-     solana_state = get_solana_state(thread_id)
-     qdrant_state = get_qdrant_state(thread_id)
+    FUNCTION initial_sync(thread_id: ThreadId):
+    solana_state = get_solana_state(thread_id)
+    qdrant_state = get_qdrant_state(thread_id)
 
-     VERIFY:
-       solana_state.hashes ⊆ qdrant_state.hashes
-       solana_state.authors = qdrant_state.authors
+    VERIFY:
+    solana_state.hashes ⊆ qdrant_state.hashes
+    solana_state.authors = qdrant_state.authors
 
-     RETURN synchronized_state
+    RETURN synchronized_state
 
-2. **Continuous Sync**
+2.  **Continuous Sync**
 
-   FUNCTION maintain_sync():
-     EVERY sync_interval:
-       current = get_current_state()
-       expected = compute_expected_state()
+    FUNCTION maintain_sync():
+    EVERY sync_interval:
+    current = get_current_state()
+    expected = compute_expected_state()
 
-       IF diverged(current, expected):
-         reconcile_states()
+        IF diverged(current, expected):
+          reconcile_states()
 
 ## Conflict Resolution
 
-1. **Conflict Types**
+1.  **Conflict Types**
 
-   TYPE Conflict =
-     | HashMismatch      // Content hash doesn't match
-     | OwnershipConflict // Co-author sets differ
-     | StateDesync       // Systems out of sync
-     | TimestampConflict // Event ordering issue
+    TYPE Conflict =
+    | HashMismatch // Content hash doesn't match
+    | OwnershipConflict // Co-author sets differ
+    | StateDesync // Systems out of sync
+    | TimestampConflict // Event ordering issue
 
-2. **Resolution Strategies**
+2.  **Resolution Strategies**
 
-   FUNCTION resolve_conflict(conflict: Conflict):
-     MATCH conflict:
-       HashMismatch ->
-         recompute_hash()
-         verify_content()
-         update_references()
+    FUNCTION resolve_conflict(conflict: Conflict):
+    MATCH conflict:
+    HashMismatch ->
+    recompute_hash()
+    verify_content()
+    update_references()
 
-       OwnershipConflict ->
-         use_solana_state()
-         propagate_updates()
+        OwnershipConflict ->
+          use_solana_state()
+          propagate_updates()
 
-       StateDesync ->
-         fetch_solana_state()
-         rebuild_derived_state()
+        StateDesync ->
+          fetch_solana_state()
+          rebuild_derived_state()
 
 ## Recovery Procedures
 
-1. **State Recovery**
+1.  **State Recovery**
 
-   FUNCTION recover_state():
-     checkpoint = get_last_valid_state()
-     missed_events = get_events_since(checkpoint)
+    FUNCTION recover_state():
+    checkpoint = get_last_valid_state()
+    missed_events = get_events_since(checkpoint)
 
-     FOR event IN missed_events:
-       validate_event(event)
-       apply_event(event)
-       verify_consistency()
+    FOR event IN missed_events:
+    validate_event(event)
+    apply_event(event)
+    verify_consistency()
 
-2. **Partial Failure**
+2.  **Partial Failure**
 
-   FUNCTION handle_partial_failure():
-     MATCH failure_type:
-       SolanaUnavailable ->
-         queue_updates()
-         use_cached_state()
+    FUNCTION handle_partial_failure():
+    MATCH failure_type:
+    SolanaUnavailable ->
+    queue_updates()
+    use_cached_state()
 
-       QdrantUnavailable ->
-         serve_cached_content()
-         buffer_updates()
+        QdrantUnavailable ->
+          serve_cached_content()
+          buffer_updates()
 
-       BackendFailure ->
-         fallback_to_direct_queries()
+        BackendFailure ->
+          fallback_to_direct_queries()
 
 ## Monitoring and Verification
 
 1. **Health Checks**
 
    FUNCTION verify_system_health():
-     check_solana_state()
-     verify_qdrant_indices()
-     validate_cache_state()
-     confirm_frontend_sync()
+   check_solana_state()
+   verify_qdrant_indices()
+   validate_cache_state()
+   confirm_frontend_sync()
 
 2. **Consistency Metrics**
 
    MEASURE consistency_health:
-     sync_delay
-     conflict_rate
-     resolution_time
-     state_drift
+   sync_delay
+   conflict_rate
+   resolution_time
+   state_drift
 
 ## Performance Considerations
 
 1. **Caching Strategy**
 
    FUNCTION manage_cache():
-     cache_frequently_accessed()
-     invalidate_on_update()
-     predict_access_patterns()
-     optimize_cache_size()
+   cache_frequently_accessed()
+   invalidate_on_update()
+   predict_access_patterns()
+   optimize_cache_size()
 
 2. **Batch Processing**
 
    FUNCTION batch_updates():
-     collect_related_updates()
-     order_by_dependency()
-     process_in_parallel()
-     verify_batch_success()
+   collect_related_updates()
+   order_by_dependency()
+   process_in_parallel()
+   verify_batch_success()
 
 ## System Boundaries
 
 1. **Consistency Domains**
 
    TYPE ConsistencyDomain =
-     | Ownership:  Solana-primary
-     | Content:    Qdrant-primary
-     | Session:    Backend-primary
-     | Display:    Frontend-primary
+   | Ownership: Solana-primary
+   | Content: Qdrant-primary
+   | Session: Backend-primary
+   | Display: Frontend-primary
 
 2. **Cross-Domain Updates**
 
    FUNCTION cross_domain_update():
-     begin_transaction()
-     update_primary_domain()
-     propagate_to_secondary()
-     verify_consistency()
-     commit_transaction()
+   begin_transaction()
+   update_primary_domain()
+   propagate_to_secondary()
+   verify_consistency()
+   commit_transaction()
 
 ## Error Handling
 
 1. **Consistency Errors**
 
    TYPE ConsistencyError =
-     | ValidationFailed
-     | PropagationFailed
-     | ReconciliationFailed
-     | TimeoutError
+   | ValidationFailed
+   | PropagationFailed
+   | ReconciliationFailed
+   | TimeoutError
 
 2. **Recovery Actions**
 
    FUNCTION handle_consistency_error(error: ConsistencyError):
-     log_error_context()
-     attempt_recovery()
-     notify_monitoring()
-     update_health_status()
+   log_error_context()
+   attempt_recovery()
+   notify_monitoring()
+   update_health_status()
 
 
 ==
@@ -581,17 +601,17 @@ Core_Context
 # Choir Project Context
 
 VERSION context_system:
-  invariants: {
-    "Value conservation",
-    "Quality emergence",
-    "Pattern discovery"
-  }
-  assumptions: {
-    "Documentation-driven development",
-    "AI-assisted evolution",
-    "Test-first implementation"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Value conservation",
+"Quality emergence",
+"Pattern discovery"
+}
+assumptions: {
+"Documentation-driven development",
+"AI-assisted evolution",
+"Test-first implementation"
+}
+docs_version: "0.2.0"
 
 ## Overview
 
@@ -600,24 +620,28 @@ Choir is a chat platform where users own their messages and express collective j
 ## Core Components
 
 ### 1. Message Ownership & Expression
+
 - Users own their messages
 - Public visibility requires collective judgment
 - Co-authors shape thread quality through taste
 - System empowers quality discernment
 
 ### 2. Token System
+
 - CHOIR token (10 billion fixed supply)
 - Used for staking and rewards
 - Threads hold tokens in Solana accounts
 - Treasury enables perpetual citation rewards
 
 ### 3. State Architecture
+
 - Solana: Ownership and token custody
 - Qdrant: Content and embeddings
 - Backend: Real-time coordination
 - Frontend: User interaction
 
 ### 4. Development Approach
+
 - Documentation-driven development
 - Test-first implementation
 - AI-assisted code generation
@@ -626,12 +650,14 @@ Choir is a chat platform where users own their messages and express collective j
 ## Current Status (Oct 26)
 
 ### Implementation Progress
+
 - Documentation corpus (~100k tokens)
 - create-solana-dapp template deployed
 - Initial Render deployment
 - Studying Trident fuzzing
 
 ### Immediate Timeline
+
 - Oct 27: Environment setup
 - Oct 28-29: Token and Solana program
 - Oct 30: Backend development
@@ -641,6 +667,7 @@ Choir is a chat platform where users own their messages and express collective j
 ## Discovered Patterns
 
 Through implementation and observation, several fascinating patterns have emerged:
+
 - Natural temperature dynamics in threads
 - Frequency evolution through interaction
 - Energy conservation in token flows
@@ -651,18 +678,21 @@ These patterns weren't designed in - they emerged through development and provid
 ## Development Strategy
 
 ### 1. Documentation-Driven
+
 - Comprehensive specifications
 - Test generation from docs
 - AI-assisted implementation
 - High doc-to-code ratio
 
 ### 2. Test-First
+
 - Fuzzing-driven program design
 - Property-based testing
 - Invariant verification
 - Security-first approach
 
 ### 3. AI-Assisted
+
 - Code generation from docs
 - Test case generation
 - Pattern recognition
@@ -671,12 +701,14 @@ These patterns weren't designed in - they emerged through development and provid
 ## Future Evolution
 
 The system will evolve through:
+
 - Enhanced AI capabilities
 - Advanced testing tools
 - Pattern discovery
 - Natural selection of features
 
 Through this approach, we create a foundation for:
+
 - Quality content emergence
 - Value conservation
 - Pattern recognition
@@ -693,21 +725,22 @@ Core_Convergence
 # Convergent Context Creation
 
 VERSION context_system:
-  invariants: {
-    "Emergence guidance",
-    "Convergence patterns",
-    "Context coherence"
-  }
-  assumptions: {
-    "LLM behavior",
-    "Human-AI interaction",
-    "Value creation"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Emergence guidance",
+"Convergence patterns",
+"Context coherence"
+}
+assumptions: {
+"LLM behavior",
+"Human-AI interaction",
+"Value creation"
+}
+docs_version: "0.2.0"
 
 ## Context as Catalyst
 
 Well-structured context acts as a catalyst for emergence by:
+
 - Providing conceptual handles
 - Establishing pattern languages
 - Creating semantic fields
@@ -716,6 +749,7 @@ Well-structured context acts as a catalyst for emergence by:
 ## Convergence Properties
 
 Certain context patterns naturally guide both LLMs and humans toward:
+
 - Productive exploration spaces
 - Coherent understanding
 - Value-generating insights
@@ -724,6 +758,7 @@ Certain context patterns naturally guide both LLMs and humans toward:
 ## Value Creation
 
 The ability to create convergent contexts becomes increasingly valuable as:
+
 - LLMs become more powerful
 - Complexity increases
 - Emergence accelerates
@@ -732,6 +767,7 @@ The ability to create convergent contexts becomes increasingly valuable as:
 ## Context Design
 
 Effective convergent contexts:
+
 - Build on existing patterns
 - Allow natural evolution
 - Guide without constraining
@@ -758,20 +794,21 @@ assumptions: {
 "Phase-locked incentives",
 "Harmonic distribution"
 }
-implementation: "0.1.0"
+docs_version: "0.2.0"
 
 ## Token Flow as Wave Mechanics
 
 TYPE TokenFlow = {
-treasury: ResonantWell,                  // Base frequency source
-threads: Map<ThreadId, StandingWave>,    // Resonant cavities
-stakes: Map<Hash, WavePacket>,           // Energy quanta
-escrow: Map<Hash, PotentialWell>         // Temporary coupling
+treasury: ResonantWell, // Base frequency source
+threads: Map<ThreadId, StandingWave>, // Resonant cavities
+stakes: Map<Hash, WavePacket>, // Energy quanta
+escrow: Map<Hash, PotentialWell> // Temporary coupling
 }
 
 ## Bonding Curve Mechanics
 
 The core pricing function derives from quantum harmonic oscillator:
+
 ```
 P(q) = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
 
@@ -783,7 +820,9 @@ where:
 ```
 
 This creates:
+
 1. **Entry Price (Bid)**
+
    ```typescript
    function calculateStakeRequired(thread: Thread): number {
      const ω = measureThreadActivity(thread)
@@ -793,21 +832,23 @@ This creates:
    ```
 
 2. **Exit Amount (Divestment)**
+
    ```typescript
    function calculateDivestmentAmount(thread: Thread): number {
-     const ℏ = PLATFORM_COUPLING_CONSTANT
-     const ω = measureThreadFrequency(thread)
-     const N = thread.coAuthors.length
-     const balance = thread.tokenBalance
+     const ℏ = PLATFORM_COUPLING_CONSTANT;
+     const ω = measureThreadFrequency(thread);
+     const N = thread.coAuthors.length;
+     const balance = thread.tokenBalance;
 
      // Use quantum oscillator decoupling formula
-     return Math.min((ℏ * ω)/(N-1), balance/(N-1))
+     return Math.min((ℏ * ω) / (N - 1), balance / (N - 1));
    }
    ```
 
 ## Incentive Resonance
 
 1. **Stake Harmonics**
+
    ```
    PROPERTY stake_resonance:
      stake_energy > noise_threshold AND
@@ -827,6 +868,7 @@ This creates:
 ## Game Theoretic Harmonics
 
 1. **Strategy Space**
+
    ```
    TYPE Strategy =
      | NaturalResonance    // Align with thread harmonics
@@ -847,6 +889,7 @@ This creates:
 ## Economic Invariants
 
 1. **Energy Conservation**
+
    ```
    INVARIANT wave_conservation:
      treasury_energy + sum(thread_energy) + sum(stake_energy) = TOTAL_SUPPLY
@@ -865,69 +908,74 @@ This creates:
 ## Market Dynamics
 
 1. **Thread Resonance**
+
    ```typescript
    function calculateThreadFrequency(thread: Thread): number {
      // Message mode frequency
-     const ω_m = thread.messageRate / Math.sqrt(thread.coAuthors.length)
+     const ω_m = thread.messageRate / Math.sqrt(thread.coAuthors.length);
 
      // Value mode frequency
-     const ω_v = Math.log(1 + thread.tokenBalance/thread.coAuthors.length)
+     const ω_v = Math.log(1 + thread.tokenBalance / thread.coAuthors.length);
 
      // Coupling constant
-     const g = 1/thread.coAuthors.length
+     const g = 1 / thread.coAuthors.length;
 
      // Collective frequency using Anderson normalization
-     return Math.sqrt((ω_m**2 + ω_v**2)/2 + g * thread.coAuthors.length)
+     return Math.sqrt((ω_m ** 2 + ω_v ** 2) / 2 + g * thread.coAuthors.length);
    }
    ```
 
 2. **Dynamic Tuning**
+
    ```typescript
    function calculateThreadTemperature(thread: Thread): number {
-     const E = thread.tokenBalance + thread.messageRate
-     const N = thread.coAuthors.length
-     const coolingFactor = 1 + Math.sqrt(thread.ageInDays * N)
+     const E = thread.tokenBalance + thread.messageRate;
+     const N = thread.coAuthors.length;
+     const coolingFactor = 1 + Math.sqrt(thread.ageInDays * N);
 
      // Temperature with critical slowing down
-     return (E/N)/coolingFactor
+     return E / N / coolingFactor;
    }
    ```
 
 ## Example Scenarios
 
 1. **New Thread**
+
    ```typescript
    const newThread = {
-     messageRate: 2,        // Low frequency
-     coAuthorCount: 2,      // Few oscillators
-     tokenBalance: 500,     // Low energy
-     approvalRate: 1.0,     // Perfect phase
-     ageInDays: 1          // High temperature
-   }
+     messageRate: 2, // Low frequency
+     coAuthorCount: 2, // Few oscillators
+     tokenBalance: 500, // Low energy
+     approvalRate: 1.0, // Perfect phase
+     ageInDays: 1, // High temperature
+   };
    // Results in low stake (~75 CHOIR)
    ```
 
 2. **Active Thread**
    ```typescript
    const activeThread = {
-     messageRate: 20,       // High frequency
-     coAuthorCount: 10,     // Many oscillators
-     tokenBalance: 10000,   // High energy
-     approvalRate: 0.8,     // Good phase coherence
-     ageInDays: 30         // Stable temperature
-   }
+     messageRate: 20, // High frequency
+     coAuthorCount: 10, // Many oscillators
+     tokenBalance: 10000, // High energy
+     approvalRate: 0.8, // Good phase coherence
+     ageInDays: 30, // Stable temperature
+   };
    // Results in higher stake (~300 CHOIR)
    ```
 
 ## Treasury and Citation Rewards
 
 1. **Treasury as Energy Reservoir**
+
    - Accumulates tokens from split decisions
    - Funds perpetual citation rewards
    - Enables circular token flow
    - Maintains system sustainability
 
 2. **New Message Rewards**
+
    - High initial distribution
    - Logarithmic decay over time
    - 50% distributed in first year
@@ -940,12 +988,14 @@ This creates:
    - Promotes knowledge network growth
 
 Through this harmonic economic model, we see how:
+
 - Value flows follow wave mechanics
 - Prices emerge from resonant patterns
 - Incentives align through phase-locking
 - Stability comes from natural harmonics
 
 The model creates an economic system that:
+
 - Rewards authentic participation
 - Dampens artificial behavior
 - Enables natural value flow
@@ -960,32 +1010,34 @@ Core_Invariants
 # Choir Core Invariants
 
 VERSION core_system:
-  invariants: {
-    "System-wide state consistency",
-    "Economic conservation laws",
-    "Security boundaries"
-  }
-  assumptions: {
-    "Invariant verification methods",
-    "Recovery procedures",
-    "Monitoring approaches"
-  }
-  implementation: "0.1.0"
+invariants: {
+"System-wide state consistency",
+"Economic conservation laws",
+"Security boundaries"
+}
+assumptions: {
+"Invariant verification methods",
+"Recovery procedures",
+"Monitoring approaches"
+}
+docs_version: "0.2.0"
 
 ## System Invariants
 
 ASSUMPTION invariant_checking:
-  "Real-time invariant verification"
-  "May introduce async verification"
-  "Must catch all violations"
+"Real-time invariant verification"
+"May introduce async verification"
+"Must catch all violations"
 
 1. **Thread Ownership**
+
    - A thread MUST always have at least one co-author
    - Co-authors MUST be unique within a thread
    - Only co-authors MAY approve or deny specs
    - Thread token balance MUST equal sum of all successful stakes minus distributions
 
 2. **Message Integrity**
+
    - Each message MUST have a unique content hash
    - Content hash on Solana MUST match content hash in Qdrant
    - Message author MUST be either co-author or spec submitter
@@ -1000,52 +1052,57 @@ ASSUMPTION invariant_checking:
 ## State Transition Rules
 
 ASSUMPTION state_transitions:
-  "Synchronous transition verification"
-  "May introduce batched transitions"
-  "Must maintain atomicity"
+"Synchronous transition verification"
+"May introduce batched transitions"
+"Must maintain atomicity"
 
 1. **Thread Creation**
    INVARIANT create_thread(creator) -> thread:
-     - thread.co_authors = [creator]
-     - thread.token_balance = 0
-     - thread.created_at <= now()
-     - EMITS ThreadCreated
+
+   - thread.co_authors = [creator]
+   - thread.token_balance = 0
+   - thread.created_at <= now()
+   - EMITS ThreadCreated
 
 2. **Spec Submission**
    INVARIANT submit_spec(author, thread, stake) -> spec:
-     - author NOT IN thread.co_authors
-     - stake >= MINIMUM_STAKE
-     - spec.expires_at = now() + 7 days
-     - EMITS SpecSubmitted
+
+   - author NOT IN thread.co_authors
+   - stake >= MINIMUM_STAKE
+   - spec.expires_at = now() + 7 days
+   - EMITS SpecSubmitted
 
 3. **Approval Processing**
    INVARIANT process_approval(co_author, spec, decision) -> result:
-     - co_author IN thread.co_authors
-     - spec.expires_at > now()
-     - NOT already_voted(co_author, spec)
-     - EMITS ApprovalProcessed
+
+   - co_author IN thread.co_authors
+   - spec.expires_at > now()
+   - NOT already_voted(co_author, spec)
+   - EMITS ApprovalProcessed
 
 4. **Token Distribution**
    INVARIANT distribute_tokens(thread, recipients, amount):
-     - amount <= thread.token_balance
-     - recipients.all IN thread.co_authors
-     - sum(distributions) = amount
-     - EMITS TokensDistributed
+   - amount <= thread.token_balance
+   - recipients.all IN thread.co_authors
+   - sum(distributions) = amount
+   - EMITS TokensDistributed
 
 ## Security Properties
 
 ASSUMPTION security_verification:
-  "Continuous security property verification"
-  "May introduce formal verification"
-  "Must catch all violations immediately"
+"Continuous security property verification"
+"May introduce formal verification"
+"Must catch all violations immediately"
 
 1. **Access Control**
+
    - Only co-authors MAY modify thread state
    - Only spec author MAY cancel unexpired spec
    - Only Choir Treasury MAY mint tokens
    - Only thread PDA MAY hold thread tokens
 
 2. **Temporal Constraints**
+
    - Specs MUST be processed within 7 days
    - Approvals MUST be processed in order
    - State updates MUST be atomic
@@ -1060,11 +1117,12 @@ ASSUMPTION security_verification:
 ## Data Integrity
 
 ASSUMPTION data_verification:
-  "Hash-based integrity verification"
-  "May introduce additional verification methods"
-  "Must maintain perfect accuracy"
+"Hash-based integrity verification"
+"May introduce additional verification methods"
+"Must maintain perfect accuracy"
 
 1. **Content Storage**
+
    - Message content MUST be stored in Qdrant
    - Content hash MUST be stored on Solana
    - Premium user content MAY be unsearchable
@@ -1079,14 +1137,14 @@ ASSUMPTION data_verification:
 ## Implementation Notes
 
 NOTE verification_implementation:
-  "Current implementation uses direct checking"
-  "May introduce automated verification"
-  "Must maintain real-time guarantees"
+"Current implementation uses direct checking"
+"May introduce automated verification"
+"Must maintain real-time guarantees"
 
 NOTE recovery_procedures:
-  "Current recovery uses checkpointing"
-  "May introduce continuous backup"
-  "Must guarantee complete recovery"
+"Current recovery uses checkpointing"
+"May introduce continuous backup"
+"Must guarantee complete recovery"
 
 
 ==
@@ -1097,33 +1155,36 @@ Core_Moat
 # The Choir Ideological Moat
 
 VERSION moat_system:
-  invariants: {
-    "Defense depth",
-    "Time evolution",
-    "Multi-perspective coherence"
-  }
-  assumptions: {
-    "Competitive dynamics",
-    "Understanding levels",
-    "Value emergence"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Defense depth",
+"Time evolution",
+"Multi-perspective coherence"
+}
+assumptions: {
+"Competitive dynamics",
+"Understanding levels",
+"Value emergence"
+}
+docs_version: "0.2.0"
 
 ## Immediate Timeframe
 
 From a Product Perspective:
+
 - Features appear simple and copyable
 - But they work as a holistic system
 - Each "optimization" reduces value
 - Competitors see parts, miss whole
 
 From a User Perspective:
+
 - Initial experience feels natural
 - Value becomes clear through use
 - Understanding deepens organically
 - Alternatives feel increasingly shallow
 
 From a Market Perspective:
+
 - Low barrier to basic competition
 - Insurmountable barrier to true replication
 - Network effects compound understanding
@@ -1132,18 +1193,21 @@ From a Market Perspective:
 ## Medium Timeframe
 
 From an Economic Perspective:
+
 - Simple rules create complex value
 - Attempts to extract value destroy it
 - Natural selection for genuine participation
 - Premium through apparent underpricing
 
 From a Social Perspective:
+
 - Trust networks form naturally
 - Community understanding compounds
 - Shared context creates value
 - Relationships resist commodification
 
 From a Technical Perspective:
+
 - Quantum properties emerge
 - System coherence strengthens
 - State space enriches
@@ -1152,18 +1216,21 @@ From a Technical Perspective:
 ## Long Timeframe
 
 From an Evolutionary Perspective:
+
 - System learns from itself
 - Understanding deepens recursively
 - New capabilities emerge naturally
 - Moat gets deeper autonomously
 
 From a Cultural Perspective:
+
 - Shared understanding evolves
 - Community wisdom accumulates
 - Value creation patterns mature
 - Collective intelligence grows
 
 From a Philosophical Perspective:
+
 - Quantum semantics manifest
 - Meaning and value entangle
 - Natural selection operates
@@ -1172,6 +1239,7 @@ From a Philosophical Perspective:
 ## Cross-Cutting Properties
 
 The moat is:
+
 - Self-reinforcing (gets deeper with use)
 - Multi-dimensional (works at all levels)
 - Naturally evolving (grows without effort)
@@ -1180,15 +1248,17 @@ The moat is:
 ## Competitive Implications
 
 Attempts to compete through:
+
 - Feature copying (misses the system)
 - Economic optimization (destroys value)
 - Social engineering (breaks emergence)
 - Technical sophistication (adds friction)
-All strengthen Choir's advantage
+  All strengthen Choir's advantage
 
 ## Future Evolution
 
 The moat will:
+
 - Deepen through natural use
 - Expand through emergence
 - Strengthen through selection
@@ -1205,57 +1275,59 @@ Core_Ownership
 # Choir Ownership Model
 
 VERSION ownership_system:
-  invariants: {
-    "Energy conservation",
-    "Temperature coherence",
-    "Frequency stability"
-  }
-  assumptions: {
-    "Thermodynamic evolution",
-    "Natural cooling",
-    "Phase transitions"
-  }
-  implementation: "0.2.0"
+invariants: {
+"Energy conservation",
+"Temperature coherence",
+"Frequency stability"
+}
+assumptions: {
+"Thermodynamic evolution",
+"Natural cooling",
+"Phase transitions"
+}
+docs_version: "0.2.0"
 
 ## Core Ownership Concepts
 
 ASSUMPTION ownership_model:
-  "Temperature-based access control"
-  "Energy-driven participation"
-  "Must maintain thermodynamic stability"
+"Temperature-based access control"
+"Energy-driven participation"
+"Must maintain thermodynamic stability"
 
 ## Thread Thermodynamics
 
 1. **State Properties**
+
    ```typescript
    type ThreadState = {
-     energy: number,           // E (total thread energy)
-     temperature: number,      // T = E/N (energy per co-author)
-     frequency: number,        // ω (evolution rate)
-     co_authors: PublicKey[],  // N (system size)
-     cooling_factor: number    // κ (age-based cooling)
-   }
+     energy: number; // E (total thread energy)
+     temperature: number; // T = E/N (energy per co-author)
+     frequency: number; // ω (evolution rate)
+     co_authors: PublicKey[]; // N (system size)
+     cooling_factor: number; // κ (age-based cooling)
+   };
    ```
 
 2. **Energy Distribution**
    ```typescript
    type EnergyFlow = {
      rejection: {
-       effect: "Increases thread energy",
-       temperature: "Rises (E/N increases)",
-       frequency: "Unchanged"
-     },
+       effect: "Increases thread energy";
+       temperature: "Rises (E/N increases)";
+       frequency: "Unchanged";
+     };
      approval: {
-       effect: "Distributes energy to approvers",
-       temperature: "Moderates (E/N decreases)",
-       frequency: "Increases"
-     }
-   }
+       effect: "Distributes energy to approvers";
+       temperature: "Moderates (E/N decreases)";
+       frequency: "Increases";
+     };
+   };
    ```
 
 ## Access Control
 
 1. **Temperature-Based Barriers**
+
    - Hot threads: Higher stake requirements
    - Cool threads: Lower barriers to entry
    - Natural selection through energy requirements
@@ -1270,6 +1342,7 @@ ASSUMPTION ownership_model:
 ## State Management
 
 1. **Energy Conservation**
+
    ```typescript
    PROPERTY energy_conservation:
      thread.energy = sum(stakes) - sum(distributions)
@@ -1277,6 +1350,7 @@ ASSUMPTION ownership_model:
    ```
 
 2. **Temperature Evolution**
+
    ```typescript
    FUNCTION evolve_temperature(thread: Thread, time: Duration):
      cooling = 1 + sqrt(time.days * thread.co_authors.length)
@@ -1295,6 +1369,7 @@ ASSUMPTION ownership_model:
 ## Phase Transitions
 
 1. **Thread Evolution**
+
    - Young threads start hot and volatile
    - Mature threads cool and stabilize
    - Quality barriers emerge naturally
@@ -1312,18 +1387,19 @@ ASSUMPTION ownership_model:
 ## Implementation Notes
 
 NOTE thermodynamic_implementation:
-  "Current model uses classical thermodynamics"
-  "May introduce quantum effects"
-  "Must preserve energy conservation"
+"Current model uses classical thermodynamics"
+"May introduce quantum effects"
+"Must preserve energy conservation"
 
 NOTE scaling_considerations:
-  "Anderson normalization for large N"
-  "Natural cooling prevents instability"
-  "Must maintain coherent evolution"
+"Anderson normalization for large N"
+"Natural cooling prevents instability"
+"Must maintain coherent evolution"
 
 ## Future Directions
 
 1. **Advanced Thermodynamics**
+
    - Multi-thread energy coupling
    - Complex phase transitions
    - Quantum coherence effects
@@ -1346,21 +1422,22 @@ Core_Persuasion
 # Medium-to-Advanced Understanding Patterns
 
 VERSION persuasion_system:
-  invariants: {
-    "Natural progression",
-    "Value revelation",
-    "Pattern recognition"
-  }
-  assumptions: {
-    "Intellectual curiosity",
-    "Practical grounding",
-    "Growth readiness"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Natural progression",
+"Value revelation",
+"Pattern recognition"
+}
+assumptions: {
+"Intellectual curiosity",
+"Practical grounding",
+"Growth readiness"
+}
+docs_version: "0.2.0"
 
 ## The Critical Middle Layer
 
 The medium-to-advanced layer is where intellectual curiosity meets practical value:
+
 - Beyond surface-level features
 - Before esoteric theory
 - Where patterns become visible
@@ -1369,6 +1446,7 @@ The medium-to-advanced layer is where intellectual curiosity meets practical val
 ## Evolution Recognition
 
 Users at this level begin to see:
+
 - How threads naturally evolve
 - Why token mechanics matter
 - Where value accumulates
@@ -1377,6 +1455,7 @@ Users at this level begin to see:
 ## Asset Patterns
 
 The relationship between threads and assets becomes clear:
+
 - Natural progression from chat to coordination
 - Organic evolution into value containers
 - Community-driven development
@@ -1385,6 +1464,7 @@ The relationship between threads and assets becomes clear:
 ## Economic Understanding
 
 Token mechanics reveal their elegance:
+
 - Stake-based quality control
 - Value distribution patterns
 - Growth incentives
@@ -1393,6 +1473,7 @@ Token mechanics reveal their elegance:
 ## Community Dynamics
 
 Social patterns emerge naturally:
+
 - Co-authorship value
 - Trust network formation
 - Collaborative potential
@@ -1401,6 +1482,7 @@ Social patterns emerge naturally:
 ## Practical Implications
 
 Understanding deepens through use:
+
 - Pattern recognition in practice
 - Value creation opportunities
 - Community building potential
@@ -1409,6 +1491,7 @@ Understanding deepens through use:
 ## Bridge to Advanced
 
 This layer creates natural curiosity about:
+
 - System properties
 - Emergence patterns
 - Economic topology
@@ -1425,65 +1508,72 @@ Core_ProofOfText
 # Proof of Text: Choir's Consensus Mechanism
 
 VERSION consensus_system:
-  invariants: {
-    "Quality-driven content curation",
-    "Thermodynamic state evolution",
-    "Energy conservation"
-  }
-  assumptions: {
-    "Temperature dynamics",
-    "Energy flow patterns",
-    "Phase transitions"
-  }
-  implementation: "0.2.0"
+invariants: {
+"Quality-driven content curation",
+"Thermodynamic state evolution",
+"Energy conservation"
+}
+assumptions: {
+"Temperature dynamics",
+"Energy flow patterns",
+"Phase transitions"
+}
+docs_version: "0.2.0"
 
 ## Core Mechanism
 
 ASSUMPTION consensus_model:
-  "Temperature-based quality emergence"
-  "Energy conservation in transitions"
-  "Must maintain thermodynamic stability"
+"Temperature-based quality emergence"
+"Energy conservation in transitions"
+"Must maintain thermodynamic stability"
 
 1. **Message Contribution and Energy**
+
    - Users stake CHOIR tokens (energy quanta)
    - Stake amount varies with thread temperature
    - Energy locked until state transition
 
 2. **Thermodynamic Transitions**
+
    - Rejection: Increases thread temperature
-     * Stake energy flows into thread (increases E)
-     * Co-author count unchanged (N constant)
-     * Results in higher E/N ratio
-     * Creates "heated" state
+
+     - Stake energy flows into thread (increases E)
+     - Co-author count unchanged (N constant)
+     - Results in higher E/N ratio
+     - Creates "heated" state
 
    - Split Decision: Hybrid energy flow
-     * Approvers' stake flows to Treasury
-     * Treasury funds citation rewards
-     * Maintains circular token flow
-     * Enables perpetual incentives
+
+     - Approvers' stake flows to Treasury
+     - Treasury funds citation rewards
+     - Maintains circular token flow
+     - Enables perpetual incentives
 
    - Approval: Moderates temperature
-     * Stake energy distributes to approvers
-     * New co-author added (increases N)
-     * E/N ratio decreases
-     * Creates more stable state
+     - Stake energy distributes to approvers
+     - New co-author added (increases N)
+     - E/N ratio decreases
+     - Creates more stable state
 
 3. **Natural Selection**
+
    - Hot threads (high rejection rate):
-     * Higher energy barriers to entry
-     * Self-selecting for quality
-     * Natural filter for contributions
-     * Crystallizes high standards
+
+     - Higher energy barriers to entry
+     - Self-selecting for quality
+     - Natural filter for contributions
+     - Crystallizes high standards
 
    - Cool threads (high approval rate):
-     * Lower energy barriers
-     * Open to experimentation
-     * Nurtures new voices
-     * Enables exploration
+     - Lower energy barriers
+     - Open to experimentation
+     - Nurtures new voices
+     - Enables exploration
 
 ## Quality Emergence
 
 1. **Thermodynamic Quality Control**
+
    - No explicit reputation system needed
    - Quality standards emerge naturally
    - Different threads find different equilibria
@@ -1498,6 +1588,7 @@ ASSUMPTION consensus_model:
 ## Phase Transitions
 
 1. **Thread Evolution**
+
    - Cool threads act as nurseries
    - Successful threads naturally heat up
    - Quality barriers emerge organically
@@ -1512,11 +1603,12 @@ ASSUMPTION consensus_model:
 ## Future Considerations
 
 ASSUMPTION mechanism_evolution:
-  "Thermodynamic proof-of-text v2"
-  "May introduce additional phase transitions"
-  "Must preserve energy conservation"
+"Thermodynamic proof-of-text v2"
+"May introduce additional phase transitions"
+"Must preserve energy conservation"
 
 1. **Advanced Thermodynamics**
+
    - Complex phase transitions
    - Multi-thread energy coupling
    - Quantum coherence effects
@@ -1545,124 +1637,125 @@ Core_StateTransitions
 # Choir State Transitions
 
 VERSION transition_system:
-  invariants: {
-    "Energy conservation",
-    "Temperature evolution",
-    "Frequency coherence"
-  }
-  assumptions: {
-    "Thermodynamic transitions",
-    "Phase stability",
-    "Heat flow patterns"
-  }
-  implementation: "0.2.0"
+invariants: {
+"Energy conservation",
+"Temperature evolution",
+"Frequency coherence"
+}
+assumptions: {
+"Thermodynamic transitions",
+"Phase stability",
+"Heat flow patterns"
+}
+docs_version: "0.2.0"
 
 ## Core State Transitions
 
-1. **Thread Creation**
+1.  **Thread Creation**
 
-   FUNCTION create_thread(creator, thread_id) -> Result<Thread>:
-     // Initial Thermodynamic State
-     thread_pda = DERIVE_PDA([THREAD_SEED, thread_id])
-     initial_state = {
-       co_authors: [creator],        // N = 1
-       energy: 0,                    // E = 0
-       temperature: ROOM_TEMP,       // T = T_0
-       frequency: BASE_FREQ,         // ω = ω_0
-       created_at: now()
-     }
+    FUNCTION create_thread(creator, thread_id) -> Result<Thread>:
+    // Initial Thermodynamic State
+    thread_pda = DERIVE_PDA([THREAD_SEED, thread_id])
+    initial_state = {
+    co_authors: [creator], // N = 1
+    energy: 0, // E = 0
+    temperature: ROOM_TEMP, // T = T_0
+    frequency: BASE_FREQ, // ω = ω_0
+    created_at: now()
+    }
 
-     EMIT(ThreadCreated{thread_id, creator, initial_state})
-     RETURN Ok(thread_pda)
+    EMIT(ThreadCreated{thread_id, creator, initial_state})
+    RETURN Ok(thread_pda)
 
-2. **Message Submission**
+2.  **Message Submission**
 
-   FUNCTION submit_message(author, thread_id, content) -> Result<Hash>:
-     thread = get_thread_state(thread_id)
+    FUNCTION submit_message(author, thread_id, content) -> Result<Hash>:
+    thread = get_thread_state(thread_id)
 
-     // Energy Requirements using quantum harmonic oscillator formula
-     ω = calculate_frequency(thread)
-     T = calculate_temperature(thread)
-     required_stake = calculate_stake_requirement(thread, ω, T)
+    // Energy Requirements using quantum harmonic oscillator formula
+    ω = calculate_frequency(thread)
+    T = calculate_temperature(thread)
+    required_stake = calculate_stake_requirement(thread, ω, T)
 
-     MATCH check_author_status(author, thread_id):
-       CASE NotCoAuthor:
-         verify_stake_amount(required_stake)
-         create_spec(thread_id, author, content_hash, required_stake)
-       CASE CoAuthor:
-         store_message(thread_id, content_hash)
-         update_frequency(thread)
+    MATCH check_author_status(author, thread_id):
+    CASE NotCoAuthor:
+    verify_stake_amount(required_stake)
+    create_spec(thread_id, author, content_hash, required_stake)
+    CASE CoAuthor:
+    store_message(thread_id, content_hash)
+    update_frequency(thread)
 
-3. **Approval Processing**
+3.  **Approval Processing**
 
-   FUNCTION process_approval(decision: Decision) -> Result<()>:
-     MATCH decision:
-       CASE Reject:
-         // Temperature increases
-         thread.energy += stake_amount  // Stake flows to thread
-         thread.temperature = thread.energy / thread.co_authors.len()
-         // Frequency unchanged
+    FUNCTION process_approval(decision: Decision) -> Result<()>:
+    MATCH decision:
+    CASE Reject:
+    // Temperature increases
+    thread.energy += stake_amount // Stake flows to thread
+    thread.temperature = thread.energy / thread.co_authors.len()
+    // Frequency unchanged
 
-       CASE SplitDecision:
-         // Approvers' stake to Treasury
-         treasury.balance += approvers_stake_amount
-         // Temperature unchanged
-         // Enables citation rewards
+        CASE SplitDecision:
+          // Approvers' stake to Treasury
+          treasury.balance += approvers_stake_amount
+          // Temperature unchanged
+          // Enables citation rewards
 
-       CASE Approve:
-         // Temperature moderates
-         distribute_energy_to_approvers(stake_amount)  // Stake to approvers
-         add_co_author(author)
-         thread.temperature = thread.energy / thread.co_authors.len()
-         // Frequency increases
-         thread.frequency = calculate_new_frequency(thread)
+        CASE Approve:
+          // Temperature moderates
+          distribute_energy_to_approvers(stake_amount)  // Stake to approvers
+          add_co_author(author)
+          thread.temperature = thread.energy / thread.co_authors.len()
+          // Frequency increases
+          thread.frequency = calculate_new_frequency(thread)
 
 ## State Verification
 
 FUNCTION verify_thermodynamic_state(thread: Thread) -> Result<bool>:
-  VERIFY:
-    thread.energy >= 0
-    thread.temperature > 0
-    thread.frequency > 0
-    energy_conserved(thread)
+VERIFY:
+thread.energy >= 0
+thread.temperature > 0
+thread.frequency > 0
+energy_conserved(thread)
 
 ## Temperature Evolution
 
 FUNCTION evolve_temperature(thread: Thread, time_delta: Duration):
-  // Natural cooling over time
-  cooling_factor = 1 + sqrt(time_delta.days * thread.co_authors.len())
-  thread.temperature = thread.temperature / cooling_factor
+// Natural cooling over time
+cooling_factor = 1 + sqrt(time_delta.days \* thread.co_authors.len())
+thread.temperature = thread.temperature / cooling_factor
 
 ## Frequency Management
 
 FUNCTION update_frequency(thread: Thread):
-  message_mode = thread.message_rate / sqrt(thread.co_authors.len())
-  value_mode = log(1 + thread.energy / thread.co_authors.len())
-  coupling = 1.0 / thread.co_authors.len()
+message_mode = thread.message_rate / sqrt(thread.co_authors.len())
+value_mode = log(1 + thread.energy / thread.co_authors.len())
+coupling = 1.0 / thread.co_authors.len()
 
-  thread.frequency = sqrt(
-    (message_mode.pow(2) + value_mode.pow(2)) / 2.0 +
-    coupling * thread.co_authors.len()
-  )
+thread.frequency = sqrt(
+(message_mode.pow(2) + value_mode.pow(2)) / 2.0 +
+coupling \* thread.co_authors.len()
+)
 
 ## Error Handling
 
 TYPE ThermodynamicError =
-  | EnergyConservationViolation
-  | TemperatureInstability
-  | FrequencyDecoherence
-  | PhaseTransitionFailure
+| EnergyConservationViolation
+| TemperatureInstability
+| FrequencyDecoherence
+| PhaseTransitionFailure
 
 FUNCTION handle_error(error: ThermodynamicError) -> Recovery:
-  MATCH error:
-    EnergyConservationViolation -> recompute_energy()
-    TemperatureInstability -> stabilize_temperature()
-    FrequencyDecoherence -> realign_frequency()
-    PhaseTransitionFailure -> reverse_transition()
+MATCH error:
+EnergyConservationViolation -> recompute_energy()
+TemperatureInstability -> stabilize_temperature()
+FrequencyDecoherence -> realign_frequency()
+PhaseTransitionFailure -> reverse_transition()
 
 ## Monitoring Points
 
 1. **Thermodynamic Health**
+
    - Energy conservation
    - Temperature stability
    - Frequency coherence
@@ -1677,6 +1770,7 @@ FUNCTION handle_error(error: ThermodynamicError) -> Recovery:
 ## Future Considerations
 
 1. **Advanced Thermodynamics**
+
    - Multi-thread heat exchange
    - Complex phase transitions
    - Quantum coherence effects

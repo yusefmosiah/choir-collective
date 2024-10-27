@@ -1,17 +1,17 @@
 # Choir Pseudocode Conventions
 
 VERSION pseudocode_system:
-  invariants: {
-    "Functional clarity",
-    "Type safety",
-    "Pattern consistency"
-  }
-  assumptions: {
-    "Reader familiarity with functional concepts",
-    "Implementation language agnostic",
-    "Documentation-first development"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Functional clarity",
+"Type safety",
+"Pattern consistency"
+}
+assumptions: {
+"Reader familiarity with functional concepts",
+"Implementation language agnostic",
+"Documentation-first development"
+}
+docs_version: "0.2.0"
 
 ## Core Philosophy
 

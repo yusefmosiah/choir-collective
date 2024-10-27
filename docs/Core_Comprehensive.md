@@ -11,11 +11,12 @@ assumptions: {
 "AI-assisted evolution",
 "Test-first implementation"
 }
-implementation: "0.1.0"
+docs_version: "0.2.0"
 
 ## Core Concept
 
 At its simplest, Choir is a chat platform where:
+
 - Users own their messages
 - Public visibility requires collective judgment
 - Quality contributions earn tokens
@@ -24,12 +25,14 @@ At its simplest, Choir is a chat platform where:
 ## Basic Mechanics
 
 ### 1. Message Ownership & Expression
+
 - Each message is owned by its creator
 - Users express judgment through approval decisions
 - Co-authors shape thread quality through collective taste
 - System empowers quality discernment
 
 ### 2. Public Message Process
+
 - Public visibility requires unanimous co-author approval
 - Non-co-authors can submit "specs" by staking tokens
 - 7-day window for co-authors to express judgment

@@ -11,7 +11,7 @@ assumptions: {
 "Metastable transitions",
 "Collective oscillation"
 }
-implementation: "0.1.0"
+docs_version: "0.2.0"
 
 ## Core Types
 
@@ -37,12 +37,12 @@ TYPE Temperature = Hot | Cool | Metastable
 
 ## State Functions
 
-FUNCTION calculate_temperature(thread: Thread) -> Temperature:
+FUNCTION calculate*temperature(thread: Thread) -> Temperature:
 // Calculate intensive temperature from extensive energy
 extensive_energy = thread.token_balance + thread.message_rate
 n = thread.co_authors.size()
-cooling = 1 + sqrt(thread.age_days _ n)
-RETURN extensive_energy / (n _ cooling)
+cooling = 1 + sqrt(thread.age_days * n)
+RETURN extensive*energy / (n * cooling)
 
 FUNCTION calculate_frequency(thread: Thread) -> Frequency:
 // Calculate collective mode frequency
@@ -60,11 +60,11 @@ T = calculate_temperature(thread)
 MATCH (T, ω):
 (0, _) -> constants.base_stake \* 2
 (_, \_) ->
-exp_term = exp(constants.ℏ _ ω / (constants.k _ T)) - 1
+exp*term = exp(constants.ℏ * ω / (constants.k _ T)) - 1
 IF exp_term <= 0:
 constants.base_stake _ 0.5
 ELSE:
-constants.base_stake _ (0.5 + 1/exp_term)
+constants.base*stake * (0.5 + 1/exp_term)
 
 FUNCTION calculate_divestment(thread: Thread, constants: Constants) -> TokenAmount:
 // Oscillator decoupling energy
@@ -77,54 +77,54 @@ RETURN min(energy_share, balance_share)
 ## Energy Flow
 
 FUNCTION process_rejection(thread: Thread, stake: TokenAmount) -> ThreadState:
-  // Rejection increases thread energy directly
-  thread.token_balance += stake
-  thread.temperature = calculate_temperature(thread)
-  RETURN thread
+// Rejection increases thread energy directly
+thread.token_balance += stake
+thread.temperature = calculate_temperature(thread)
+RETURN thread
 
 FUNCTION process_split_decision(
-  thread: Thread,
-  stake: TokenAmount,
-  approvers: Set<PublicKey>
+thread: Thread,
+stake: TokenAmount,
+approvers: Set<PublicKey>
 ) -> (ThreadState, TreasuryState):
-  // Split decision: approvers' stake to Treasury
-  treasury.balance += calculate_approver_stake(stake, approvers)
-  // Thread temperature unchanged
-  RETURN (thread, treasury)
+// Split decision: approvers' stake to Treasury
+treasury.balance += calculate_approver_stake(stake, approvers)
+// Thread temperature unchanged
+RETURN (thread, treasury)
 
 FUNCTION process_approval(
-  thread: Thread,
-  stake: TokenAmount,
-  approvers: Set<PublicKey>
+thread: Thread,
+stake: TokenAmount,
+approvers: Set<PublicKey>
 ) -> ThreadState:
-  // Distribute stake to approvers
-  distribute_to_approvers(stake, approvers)
-  thread.temperature = calculate_temperature(thread)
-  thread.frequency = calculate_frequency(thread)
-  RETURN thread
+// Distribute stake to approvers
+distribute_to_approvers(stake, approvers)
+thread.temperature = calculate_temperature(thread)
+thread.frequency = calculate_frequency(thread)
+RETURN thread
 
 ## Reward Dynamics
 
-FUNCTION calculate_new_message_reward(
-  time: Years,
-  total_reward: TokenAmount
+FUNCTION calculate*new_message_reward(
+time: Years,
+total_reward: TokenAmount
 ) -> TokenAmount:
-  // Logarithmic decay over 4 years
-  // 50% distributed in year 1
-  // 99% distributed by year 4
-  k = 2.04  // Decay constant
-  reward_rate = total_reward * (0.6667 / (1 + k * time))
-  RETURN reward_rate
+// Logarithmic decay over 4 years
+// 50% distributed in year 1
+// 99% distributed by year 4
+k = 2.04 // Decay constant
+reward_rate = total_reward * (0.6667 / (1 + k \_ time))
+RETURN reward_rate
 
-FUNCTION calculate_citation_reward(
-  treasury: TreasuryState,
-  citation: Citation
+FUNCTION calculate*citation_reward(
+treasury: TreasuryState,
+citation: Citation
 ) -> TokenAmount:
-  // Perpetual rewards funded by Treasury
-  base_reward = constants.citation_base
-  treasury_factor = treasury.balance / treasury.baseline
-  relevance_factor = calculate_relevance(citation)
-  RETURN base_reward * treasury_factor * relevance_factor
+// Perpetual rewards funded by Treasury
+base_reward = constants.citation_base
+treasury_factor = treasury.balance / treasury.baseline
+relevance_factor = calculate_relevance(citation)
+RETURN base_reward * treasury*factor * relevance_factor
 
 ## State Transitions
 

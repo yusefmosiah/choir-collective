@@ -1,65 +1,72 @@
 # Proof of Text: Choir's Consensus Mechanism
 
 VERSION consensus_system:
-  invariants: {
-    "Quality-driven content curation",
-    "Thermodynamic state evolution",
-    "Energy conservation"
-  }
-  assumptions: {
-    "Temperature dynamics",
-    "Energy flow patterns",
-    "Phase transitions"
-  }
-  implementation: "0.2.0"
+invariants: {
+"Quality-driven content curation",
+"Thermodynamic state evolution",
+"Energy conservation"
+}
+assumptions: {
+"Temperature dynamics",
+"Energy flow patterns",
+"Phase transitions"
+}
+docs_version: "0.2.0"
 
 ## Core Mechanism
 
 ASSUMPTION consensus_model:
-  "Temperature-based quality emergence"
-  "Energy conservation in transitions"
-  "Must maintain thermodynamic stability"
+"Temperature-based quality emergence"
+"Energy conservation in transitions"
+"Must maintain thermodynamic stability"
 
 1. **Message Contribution and Energy**
+
    - Users stake CHOIR tokens (energy quanta)
    - Stake amount varies with thread temperature
    - Energy locked until state transition
 
 2. **Thermodynamic Transitions**
+
    - Rejection: Increases thread temperature
-     * Stake energy flows into thread (increases E)
-     * Co-author count unchanged (N constant)
-     * Results in higher E/N ratio
-     * Creates "heated" state
+
+     - Stake energy flows into thread (increases E)
+     - Co-author count unchanged (N constant)
+     - Results in higher E/N ratio
+     - Creates "heated" state
 
    - Split Decision: Hybrid energy flow
-     * Approvers' stake flows to Treasury
-     * Treasury funds citation rewards
-     * Maintains circular token flow
-     * Enables perpetual incentives
+
+     - Approvers' stake flows to Treasury
+     - Treasury funds citation rewards
+     - Maintains circular token flow
+     - Enables perpetual incentives
 
    - Approval: Moderates temperature
-     * Stake energy distributes to approvers
-     * New co-author added (increases N)
-     * E/N ratio decreases
-     * Creates more stable state
+     - Stake energy distributes to approvers
+     - New co-author added (increases N)
+     - E/N ratio decreases
+     - Creates more stable state
 
 3. **Natural Selection**
+
    - Hot threads (high rejection rate):
-     * Higher energy barriers to entry
-     * Self-selecting for quality
-     * Natural filter for contributions
-     * Crystallizes high standards
+
+     - Higher energy barriers to entry
+     - Self-selecting for quality
+     - Natural filter for contributions
+     - Crystallizes high standards
 
    - Cool threads (high approval rate):
-     * Lower energy barriers
-     * Open to experimentation
-     * Nurtures new voices
-     * Enables exploration
+     - Lower energy barriers
+     - Open to experimentation
+     - Nurtures new voices
+     - Enables exploration
 
 ## Quality Emergence
 
 1. **Thermodynamic Quality Control**
+
    - No explicit reputation system needed
    - Quality standards emerge naturally
    - Different threads find different equilibria
@@ -74,6 +81,7 @@ ASSUMPTION consensus_model:
 ## Phase Transitions
 
 1. **Thread Evolution**
+
    - Cool threads act as nurseries
    - Successful threads naturally heat up
    - Quality barriers emerge organically
@@ -88,11 +96,12 @@ ASSUMPTION consensus_model:
 ## Future Considerations
 
 ASSUMPTION mechanism_evolution:
-  "Thermodynamic proof-of-text v2"
-  "May introduce additional phase transitions"
-  "Must preserve energy conservation"
+"Thermodynamic proof-of-text v2"
+"May introduce additional phase transitions"
+"Must preserve energy conservation"
 
 1. **Advanced Thermodynamics**
+
    - Complex phase transitions
    - Multi-thread energy coupling
    - Quantum coherence effects

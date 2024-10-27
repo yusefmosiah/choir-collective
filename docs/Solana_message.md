@@ -1,17 +1,17 @@
 # Message Account Management
 
 VERSION message_system:
-  invariants: {
-    "Message immutability post-approval",
-    "Content hash integrity",
-    "Approval state consistency"
-  }
-  assumptions: {
-    "Account size limits",
-    "PDA derivation security",
-    "Rent exemption"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Message immutability post-approval",
+"Content hash integrity",
+"Approval state consistency"
+}
+assumptions: {
+"Account size limits",
+"PDA derivation security",
+"Rent exemption"
+}
+docs_version: "0.2.0"
 
 ## Message Account Structure
 

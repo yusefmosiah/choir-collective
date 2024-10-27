@@ -11,17 +11,17 @@ Entry_Accessibility
 # Documentation Accessibility Principles
 
 VERSION accessibility_system:
-  invariants: {
-    "Universal comprehension",
-    "Practical utility",
-    "Gradual revelation"
-  }
-  assumptions: {
-    "Diverse viewpoints",
-    "Multiple entry points",
-    "Comfort zones"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Universal comprehension",
+"Practical utility",
+"Gradual revelation"
+}
+assumptions: {
+"Diverse viewpoints",
+"Multiple entry points",
+"Comfort zones"
+}
+docs_version: "0.2.0"
 
 ## Core Approach
 
@@ -30,6 +30,7 @@ The documentation prioritizes practical utility and clear benefits. Each concept
 ## Entry Points
 
 Different readers can enter through comfortable, familiar concepts:
+
 - Developers through technical specifications
 - Product people through user benefits
 - Business minds through efficiency gains
@@ -38,6 +39,7 @@ Different readers can enter through comfortable, familiar concepts:
 ## Language Choices
 
 Documentation uses:
+
 - Practical rather than ideological terms
 - Concrete examples before abstract principles
 - Familiar metaphors from everyday experience
@@ -46,6 +48,7 @@ Documentation uses:
 ## Value Presentation
 
 Benefits are described in terms of:
+
 - Individual utility
 - Group efficiency
 - Resource optimization
@@ -54,6 +57,7 @@ Benefits are described in terms of:
 ## Progressive Understanding
 
 Knowledge builds naturally through:
+
 - Immediate practical application
 - Observable system behavior
 - Natural pattern recognition
@@ -62,6 +66,7 @@ Knowledge builds naturally through:
 ## Safety Mechanisms
 
 The documentation creates safety through:
+
 - Multiple valid interpretations
 - Gradual depth revelation
 - Practical grounding
@@ -78,17 +83,17 @@ Entry_Business
 # Choir Business Model
 
 VERSION business_system:
-  invariants: {
-    "Value preservation",
-    "Privacy guarantees",
-    "Resource sustainability"
-  }
-  assumptions: {
-    "Subscription pricing",
-    "Resource costs",
-    "Usage patterns"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Value preservation",
+"Privacy guarantees",
+"Resource sustainability"
+}
+assumptions: {
+"Subscription pricing",
+"Resource costs",
+"Usage patterns"
+}
+docs_version: "0.2.0"
 
 ## Core Revenue Model
 
@@ -97,6 +102,7 @@ Choir operates on a freemium subscription model that aligns user value with plat
 ## Free Tier
 
 The foundation of Choir remains accessible to all users:
+
 - Thread participation and co-authorship
 - Basic message submission and approval
 - Thread visibility limited to co-authors
@@ -109,12 +115,14 @@ The foundation of Choir remains accessible to all users:
 Premium subscriptions provide enhanced capabilities that scale yearly:
 
 Privacy Features:
+
 - Toggle thread searchability off/on
 - Enhanced privacy controls for content
 - Granular co-author permissions
 - Private thread analytics
 
 Resource Allocations:
+
 - Increased AI model calls (grows yearly)
 - Higher Solana transaction limits
 - Priority message processing
@@ -125,6 +133,7 @@ The yearly growth in resource allocations rewards long-term members while mainta
 ## Resource Economics
 
 The subscription model supports:
+
 - AI model API costs
 - Solana transaction fees
 - Infrastructure scaling
@@ -134,6 +143,7 @@ The subscription model supports:
 ## Privacy Model
 
 Privacy implementation follows clear principles:
+
 - Base privacy: Threads visible only to co-authors
 - Public search: Opt-in for thread discovery
 - Premium control: Granular privacy settings
@@ -142,6 +152,7 @@ Privacy implementation follows clear principles:
 ## Growth Mechanics
 
 The model encourages platform growth through:
+
 - Sustainable resource allocation
 - Privacy-respecting content discovery
 - Long-term member benefits
@@ -150,6 +161,7 @@ The model encourages platform growth through:
 ## Business Sustainability
 
 Revenue streams support:
+
 - Platform development
 - AI model improvements
 - Infrastructure scaling
@@ -159,6 +171,7 @@ Revenue streams support:
 ## Future Considerations
 
 The model can evolve to include:
+
 - Enterprise subscriptions
 - Custom AI model training
 - Advanced analytics tools
@@ -168,12 +181,14 @@ The model can evolve to include:
 ## Value Proposition
 
 For Users:
+
 - Growing resource allocations
 - Enhanced privacy controls
 - Priority features
 - Community support
 
 For Platform:
+
 - Sustainable revenue
 - Aligned incentives
 - Resource predictability
@@ -182,12 +197,14 @@ For Platform:
 ## Implementation Strategy
 
 Technical Requirements:
+
 - Privacy toggle implementation
 - Resource tracking systems
 - Subscription management
 - Usage analytics
 
 Operational Needs:
+
 - Customer support
 - Resource monitoring
 - Cost optimization
@@ -196,6 +213,7 @@ Operational Needs:
 ## Success Metrics
 
 Key Indicators:
+
 - Subscription retention
 - Resource utilization
 - User satisfaction
@@ -298,17 +316,17 @@ Entry_Guide
 # How to Read Choir Documentation
 
 VERSION guide_system:
-  invariants: {
-    "Navigation clarity",
-    "Learning progression",
-    "Access patterns"
-  }
-  assumptions: {
-    "Reader backgrounds",
-    "Documentation stability",
-    "Learning goals"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Navigation clarity",
+"Learning progression",
+"Access patterns"
+}
+assumptions: {
+"Reader backgrounds",
+"Documentation stability",
+"Learning goals"
+}
+docs_version: "0.2.0"
 
 ## Understanding the Documentation Space
 
@@ -329,15 +347,19 @@ Visual Understanding - Diagrams and visualizations that bridge formal models wit
 ## Navigation Approaches
 
 ### For System Architects
+
 Begin with ConceptualBridges.md to understand how different aspects of the system support each other. Then explore StateAlgebra.md and SecurityModel.md to grasp the formal foundations. Use DensityAnalysis.md to understand where to find detailed specifications versus high-level guidance.
 
 ### For Developers
+
 Start with ImplementationStrategy.md for practical patterns, referring to APIPatterns.md for specific interfaces. Use Diagrams.md to visualize flows and relationships. The MessageLifecycle.md document connects theory to practice.
 
 ### For Security Auditors
+
 Begin with SecurityModel.md and CoreInvariants.md to understand security properties. Use StateAlgebra.md to verify formal guarantees. Reference EconomicModel.md to understand incentive structures.
 
 ### For Product Managers
+
 Start with the 1-pager.md for mission and vision, then explore ChoirComprehensive.md for system overview. Use Q&A.md to understand common concerns and their resolutions.
 
 ## Working with Documentation Density
@@ -347,6 +369,7 @@ Some areas of documentation are intentionally dense, particularly around core sy
 ## Documentation Evolution
 
 The documentation grows and evolves in several ways:
+
 - Formal models become more precise
 - Implementation guides incorporate new patterns
 - Visual documentation expands to new areas
@@ -357,18 +380,21 @@ Understanding this evolution helps you anticipate where to find new information 
 ## Best Practices
 
 ### Reading Strategy
+
 - Start with relevant high-level documents
 - Follow conceptual bridges to related areas
 - Use diagrams to verify understanding
 - Refer to formal models when precision is needed
 
 ### Contributing
+
 - Maintain consistent versioning
 - Respect existing density patterns
 - Strengthen conceptual bridges
 - Preserve formal properties
 
 ### Asking Questions
+
 - Reference specific documents
 - Identify density mismatches
 - Suggest missing bridges
@@ -377,6 +403,7 @@ Understanding this evolution helps you anticipate where to find new information 
 ## Meta-Documentation
 
 Several documents help navigate the documentation itself:
+
 - DocumentNetwork.md maps relationships
 - DensityAnalysis.md reveals information structure
 - ConceptualBridges.md connects ideas
@@ -387,6 +414,7 @@ Use these meta-documents to find the most effective path through the documentati
 ## Future Directions
 
 The documentation will continue to evolve with:
+
 - Stronger conceptual bridges
 - Clearer density gradients
 - More visual aids
@@ -403,17 +431,17 @@ Entry_InverseEquity
 # Choir: Inverse Private Equity Model
 
 VERSION equity_system:
-  invariants: {
-    "Value distribution",
-    "Innovation capture",
-    "Stakeholder alignment"
-  }
-  assumptions: {
-    "AI-native entrepreneurship",
-    "Thread evolution",
-    "Asset diversification"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Value distribution",
+"Innovation capture",
+"Stakeholder alignment"
+}
+assumptions: {
+"AI-native entrepreneurship",
+"Thread evolution",
+"Asset diversification"
+}
+docs_version: "0.2.0"
 
 ## Core Concept
 
@@ -424,6 +452,7 @@ Choir inverts traditional private equity by enabling bottom-up value creation th
 Simple Threads → Collaborative Projects → Product Development → Asset-Holding DAOs
 
 As threads mature, they can:
+
 - Develop intellectual property
 - Launch products or services
 - Provide consulting expertise
@@ -433,6 +462,7 @@ As threads mature, they can:
 ## AI-Native Innovation
 
 Threads leverage AI to:
+
 - Identify market opportunities
 - Synthesize diverse perspectives
 - Accelerate development cycles
@@ -444,6 +474,7 @@ The combination of AI capabilities with human creativity and judgment creates a 
 ## Asset Accumulation
 
 Threads can accumulate various assets:
+
 - CHOIR tokens (base layer)
 - Other crypto tokens
 - Revenue streams
@@ -455,6 +486,7 @@ Threads can accumulate various assets:
 ## Value Distribution
 
 The CHOIR token serves as the equity layer across all thread-generated value:
+
 - Thread participants earn tokens through contribution
 - Token holdings represent participation across multiple threads
 - Token value reflects the aggregate success of all threads
@@ -463,6 +495,7 @@ The CHOIR token serves as the equity layer across all thread-generated value:
 ## Stakeholder Alignment
 
 The model aligns incentives across:
+
 - Content creators
 - Product developers
 - Service providers
@@ -473,6 +506,7 @@ The model aligns incentives across:
 ## Growth Mechanics
 
 Value accumulates through:
+
 - Successful thread ventures
 - Asset management fees
 - Platform service fees
@@ -491,21 +525,25 @@ Value accumulates through:
 ## Implementation Phases
 
 Phase 1: Content and Collaboration
+
 - Basic thread functionality
 - Token distribution mechanics
 - Quality control systems
 
 Phase 2: Asset Integration
+
 - Multi-token support
 - Asset management tools
 - Revenue distribution
 
 Phase 3: Innovation Scaling
+
 - AI-enhanced development
 - Cross-thread collaboration
 - Market integration
 
 Phase 4: Full Economic Model
+
 - Complex asset management
 - Investment strategies
 - Global value distribution
@@ -513,6 +551,7 @@ Phase 4: Full Economic Model
 ## Risk Management
 
 Key considerations:
+
 - Asset custody security
 - Regulatory compliance
 - Value attribution
@@ -522,6 +561,7 @@ Key considerations:
 ## Success Metrics
 
 Long-term indicators:
+
 - Thread venture success rate
 - Asset portfolio growth
 - Innovation output
@@ -539,17 +579,17 @@ Entry_Overview
 # Choir: Collaborative Chat with Natural Quality Evolution
 
 VERSION platform_overview:
-  invariants: {
-    "Natural quality emergence",
-    "Energy conservation",
-    "Community evolution"
-  }
-  assumptions: {
-    "Chat-based interaction",
-    "Thermodynamic principles",
-    "Self-organization"
-  }
-  implementation: "0.2.0"
+invariants: {
+"Natural quality emergence",
+"Energy conservation",
+"Community evolution"
+}
+assumptions: {
+"Chat-based interaction",
+"Thermodynamic principles",
+"Self-organization"
+}
+docs_version: "0.2.0"
 
 ## Mission
 
@@ -558,52 +598,60 @@ To create a communication platform where quality emerges naturally through physi
 ## Core Mechanics
 
 ### 1. Thread Dynamics
+
 - Messages require unanimous approval from co-authors
 - Thread temperature (T) measures volatility/activity
 - Thread frequency (ω) measures organization/coherence
 - Natural cooling over time creates stability
 
 ### 2. Token Flow
+
 - **Rejections:** Stake flows to thread, increasing temperature
 - **Split Decisions:** Approvers' stake flows to Treasury
 - **Approvals:** Stake distributes to approvers
 - **Treasury:** Funds perpetual citation rewards
 
 ### 3. Reward Structure
+
 - **New Message Rewards:**
-  * High initial distribution
-  * Logarithmic decay over 4 years
-  * 50% distributed in year 1
-  * 99% distributed by year 4
+
+  - High initial distribution
+  - Logarithmic decay over 4 years
+  - 50% distributed in year 1
+  - 99% distributed by year 4
 
 - **Citation Rewards:**
-  * Funded by Treasury
-  * Perpetual availability
-  * Encourages content linking
-  * Promotes knowledge network growth
+  - Funded by Treasury
+  - Perpetual availability
+  - Encourages content linking
+  - Promotes knowledge network growth
 
 ## Natural Evolution
 
 ### 1. Temperature Dynamics
+
 - Hot threads (high T):
-  * Higher stake requirements
-  * More volatile state
-  * Quality filter through cost
-  * Natural selection pressure
+
+  - Higher stake requirements
+  - More volatile state
+  - Quality filter through cost
+  - Natural selection pressure
 
 - Cool threads (low T):
-  * Lower barriers to entry
-  * More stable state
-  * Experimental space
-  * Nurtures new voices
+  - Lower barriers to entry
+  - More stable state
+  - Experimental space
+  - Nurtures new voices
 
 ### 2. Frequency Effects
+
 - Higher frequency (ω) = better organization
 - Co-authors strengthen coherence
 - Natural resonance emerges
 - Communities crystallize naturally
 
 ### 3. Energy Conservation
+
 - Total token supply fixed at 10 billion
 - Circular flow through Treasury
 - Split decisions feed citation rewards
@@ -612,18 +660,21 @@ To create a communication platform where quality emerges naturally through physi
 ## Practical Implementation
 
 ### 1. Message Submission
+
 - Users stake CHOIR tokens
 - Stake requirement based on T and ω
 - Energy locked until state transition
 - Natural barrier against noise
 
 ### 2. Approval Process
+
 - Co-authors evaluate within 7 days
 - Unanimous approval required
 - Split decisions feed Treasury
 - Rejections heat up threads
 
 ### 3. Value Distribution
+
 - Approved messages: tokens to approvers
 - Rejected messages: tokens to thread
 - Split decisions: approvers' tokens to Treasury
@@ -632,12 +683,14 @@ To create a communication platform where quality emerges naturally through physi
 ## Technical Foundation
 
 ### 1. Quantum Harmonic Model
+
 - Threads as oscillator systems
 - Energy conservation principles
 - Phase transition dynamics
 - Natural frequency evolution
 
 ### 2. Implementation
+
 - Solana blockchain for token accounting
 - Real-time state transitions
 - AI-enhanced pattern recognition
@@ -646,6 +699,7 @@ To create a communication platform where quality emerges naturally through physi
 ## Future Vision
 
 The platform will evolve like a natural system:
+
 - Communities will find their frequencies
 - Quality standards will emerge organically
 - Value will flow to coherent patterns
@@ -681,7 +735,7 @@ assumptions: {
 "Understanding paths",
 "Insight emergence"
 }
-implementation: "0.2.0"
+docs_version: "0.2.0"
 
 ---
 
@@ -726,6 +780,7 @@ A: Token distribution follows wave mechanics principles:
    When a message is approved, tokens flow into the thread's energy field. The thread itself (through its Solana account) holds these tokens, not individual messages or authors. This creates a collective energy state that benefits all participants.
 
 2. Distribution Patterns
+
    - Approved messages increase thread energy
    - Denied specs distribute energy to deniers
    - Divestment follows quantum mechanics
@@ -750,6 +805,7 @@ A: Co-authors can leave through quantum divestment mechanics:
 
 1. Natural Decoupling
    When a co-author leaves, they decouple from the thread's quantum state. Their divestment follows the oscillator decoupling formula, which:
+
    - Preserves thread energy coherence
    - Maintains stability for remaining authors
    - Follows natural frequency patterns
@@ -757,6 +813,7 @@ A: Co-authors can leave through quantum divestment mechanics:
 
 2. Value Distribution
    The divestment amount is calculated using the thread's:
+
    - Natural frequency (activity level)
    - Temperature (volatility state)
    - Number of co-authors (coupling strength)
@@ -780,13 +837,14 @@ Q: How does thread activity affect stake requirements?
 A: Thread activity follows natural harmonic patterns, like waves in a system. There are three key aspects:
 
 1. Temperature
-The thread's "temperature" measures its activity level and volatility. Like a physical system, threads can be "hot" (very active, volatile) or "cool" (stable, settled). A thread gets hotter with more activity and tokens, but naturally cools down as it ages - similar to how a heated object gradually returns to room temperature.
+   The thread's "temperature" measures its activity level and volatility. Like a physical system, threads can be "hot" (very active, volatile) or "cool" (stable, settled). A thread gets hotter with more activity and tokens, but naturally cools down as it ages - similar to how a heated object gradually returns to room temperature.
 
 2. Frequency
-The thread's "frequency" measures how fast it's evolving. Like musical harmonics, this frequency increases with more messages and participants, but in a balanced way - doubling the participants doesn't double the frequency. This creates natural, sustainable growth patterns rather than runaway escalation.
+   The thread's "frequency" measures how fast it's evolving. Like musical harmonics, this frequency increases with more messages and participants, but in a balanced way - doubling the participants doesn't double the frequency. This creates natural, sustainable growth patterns rather than runaway escalation.
 
 3. Required Stake
-The stake requirement combines temperature and frequency in a natural way - hot, high-frequency threads require higher stakes, while cool, stable threads become more accessible. This creates a self-regulating system where:
+   The stake requirement combines temperature and frequency in a natural way - hot, high-frequency threads require higher stakes, while cool, stable threads become more accessible. This creates a self-regulating system where:
+
 - Active threads maintain quality through higher stakes
 - Stable threads become more accessible
 - Growth follows natural patterns
@@ -799,16 +857,20 @@ The stake requirement combines temperature and frequency in a natural way - hot,
 Q: How exactly is the divestment payout calculated?
 
 A: The divestment process follows natural harmonic principles. When a co-author leaves, they receive the smaller of two possible shares:
+
 - Their energy share based on the thread's activity level
 - Their balance share based on available tokens
 
 This dual approach ensures:
+
 1. Energy Conservation
+
    - The thread maintains its vital energy
    - Natural patterns are preserved
    - Activity levels stay balanced
 
 2. Stability Protection
+
    - Payouts can't drain the thread
    - Active threads stay active
    - Stable threads stay stable
@@ -924,7 +986,6 @@ ASSUMPTION future_development:
 
 ## On Divestment Proportions
 
-
 Q: Why use quantum mechanics for divestment calculations rather than simple proportions?
 
 A: The quantum harmonic oscillator model captures deep truths about collaborative systems:
@@ -934,19 +995,22 @@ A: The quantum harmonic oscillator model captures deep truths about collaborativ
 
 2. Natural Frequencies
    Each thread has its own natural frequency (ω) based on:
+
    - Message activity patterns
    - Co-author coupling strength
    - Token energy levels
-   This frequency helps determine fair divestment amounts.
+     This frequency helps determine fair divestment amounts.
 
 3. Temperature Effects
    Thread temperature (T) affects divestment through:
+
    - Higher payouts from "hot" active threads
    - Lower, more stable payouts from "cool" mature threads
    - Natural cooling as threads age
 
 4. Coupling Dynamics
    Co-authors act as coupled oscillators, where:
+
    - Coupling strength scales with 1/N
    - Anderson normalization prevents instability
    - Phase coherence maintains thread integrity
@@ -966,18 +1030,21 @@ Q: How does quantum divestment create healthy self-selection?
 A: The oscillator decoupling formula (min(ℏω/(N-1), balance/(N-1))) creates powerful selection effects:
 
 1. Natural Filtering
+
    - High-frequency threads retain engaged participants
    - Low-temperature threads crystallize stable communities
    - Energy conservation rewards authentic participation
 
 2. Coherence Selection
    Those who stay demonstrate alignment with:
+
    - Thread's natural frequency
    - Collective phase coherence
    - Quantum state stability
 
 3. Harmonic Growth
    The system naturally selects for:
+
    - Resonant participation patterns
    - Phase-locked collaboration
    - Coherent value creation
@@ -985,6 +1052,7 @@ A: The oscillator decoupling formula (min(ℏω/(N-1), balance/(N-1))) creates p
 
 4. Anti-Exploitation
    The quantum mechanics naturally prevent:
+
    - Frequency manipulation
    - Temperature exploitation
    - Coherence disruption
@@ -1009,13 +1077,15 @@ A: This apparent underpricing actually generates premium value through a sophist
 
 1. Theoretical Arbitrage
    In theory, someone could:
+
    - Bid to join a valuable thread
    - Get approved
    - Immediately divest for a quick profit via min(ℏω/(N-1), balance/(N-1))
-   But this rarely happens, for deep psychological reasons.
+     But this rarely happens, for deep psychological reasons.
 
 2. Psychological Barriers
    The very act of treating a thread as pure financial arbitrage:
+
    - Feels unsatisfying (violates social norms)
    - Seems short-sighted (misses emergence potential)
    - Appears unsophisticated (ignores quantum coherence)
@@ -1023,6 +1093,7 @@ A: This apparent underpricing actually generates premium value through a sophist
 
 3. Value Premium
    This quantum barrier against pure arbitrage:
+
    - Selects for resonant participants
    - Builds coherent community
    - Protects wave function integrity
@@ -1076,6 +1147,7 @@ A: Thread temperature is a beautiful metaphor for how communities naturally evol
    Larger threads (more co-authors) take longer to cool - they have more "thermal mass." This matches how larger communities naturally take longer to find stability.
 
 This creates a natural evolution where:
+
 - Young threads can experiment freely
 - Mature threads find stability
 - Growth happens organically
@@ -1088,7 +1160,8 @@ Q: Can a thread have high temperature but low frequency, or vice versa? What wou
 A: Yes! These interesting states reveal important dynamics about thread evolution:
 
 1. High Temperature, Low Frequency
-This unusual state can occur when:
+   This unusual state can occur when:
+
 - Many tokens but few messages (like a heavily funded but quiet thread)
 - Recent burst of activity but historically slow pace
 - Large number of co-authors but infrequent interaction
@@ -1097,7 +1170,8 @@ This unusual state can occur when:
 Think of it like a pot of water right after being poured in - lots of heat energy but before organized convection patterns form.
 
 2. Low Temperature, High Frequency
-This more stable state can happen with:
+   This more stable state can happen with:
+
 - Regular, predictable message patterns in a mature thread
 - Well-coordinated co-authors with established rhythms
 - Lower token balance but consistent activity
@@ -1106,13 +1180,15 @@ This more stable state can happen with:
 Like a well-tuned clock - high frequency oscillations but thermodynamically "cool" and stable.
 
 3. Why These States Matter
-These states teach us about thread health:
+   These states teach us about thread health:
+
 - High temp / low freq often indicates potential energy waiting to find form
 - Low temp / high freq suggests evolved efficiency
 - Temperature measures volatility while frequency measures organization
 - Natural evolution tends toward organized, cooler states
 
 The quantum harmonic model captures these nuances because it separates:
+
 - Energy (tokens + activity) that affects temperature
 - Organization (message patterns + coupling) that affects frequency
 - Age effects that enable cooling without losing coherence
@@ -1127,6 +1203,7 @@ Q: How does thread temperature affect participation?
 A: Thread temperature is a fascinating emergent property:
 
 1. Hot Threads (High Rejection Rate)
+
    - Higher energy barriers to entry
    - More expensive to submit specs
    - Attracts confident/quality bidders
@@ -1141,6 +1218,7 @@ A: Thread temperature is a fascinating emergent property:
    - Acts as an incubator
 
 This creates a natural ecosystem where:
+
 - Some threads crystallize as high-standards venues
 - Others remain fluid exploration spaces
 - Participants can self-select appropriate venues
@@ -1154,26 +1232,27 @@ Q: What happens when a message is approved or rejected?
 A: The system follows natural thermodynamic principles:
 
 1. When Rejected:
+
    - Temperature increases because:
-     * Stake energy flows into thread balance
-     * No new co-author (N stays same)
-     * Results in higher E/N ratio
-     * Creates "heated" state from rejection
+     - Stake energy flows into thread balance
+     - No new co-author (N stays same)
+     - Results in higher E/N ratio
+     - Creates "heated" state from rejection
    - Frequency stays stable because:
-     * No new message in history
-     * No new co-author coupling
-     * Thread becomes more volatile but not faster
+     - No new message in history
+     - No new co-author coupling
+     - Thread becomes more volatile but not faster
 
 2. When Approved:
    - Temperature moderates because:
-     * Stake energy distributes to approvers
-     * New co-author added (increases N)
-     * E/N ratio decreases
-     * Creates more stable state
+     - Stake energy distributes to approvers
+     - New co-author added (increases N)
+     - E/N ratio decreases
+     - Creates more stable state
    - Frequency increases because:
-     * New message adds to rate
-     * New co-author strengthens coupling
-     * Thread evolves faster but cooler
+     - New message adds to rate
+     - New co-author strengthens coupling
+     - Thread evolves faster but cooler
 
 ## On Thread Evolution
 
@@ -1182,12 +1261,14 @@ Q: How do threads change over time?
 A: Threads follow natural evolutionary patterns:
 
 1. Temperature Effects
+
    - Cool threads act as nurseries for new ideas
    - Successful threads naturally heat up
    - Quality barriers emerge organically
    - Creates natural progression paths
 
 2. Energy Conservation
+
    - Rejected stakes increase thread energy
    - Approved stakes distribute outward
    - Temperature reflects accumulated standards
@@ -1208,12 +1289,14 @@ Q: Don't high-quality threads need high barriers to entry?
 A: Actually, the quantum harmonic oscillator model reveals something counterintuitive but profound: the best threads aren't necessarily the most expensive to join. Here's why:
 
 1. Temperature vs Frequency
+
    - Temperature (T) = chaos/volatility
    - Frequency (ω) = organization/coherence
    - High T = expensive but chaotic
    - High ω = efficient and welcoming
 
 2. Natural Evolution
+
    - Chaotic threads (high T, low ω) = expensive but noisy
    - Mature threads (low T, high ω) = accessible and valuable
    - Quality comes from coherence (ω), not heat (T)
@@ -1225,6 +1308,7 @@ A: Actually, the quantum harmonic oscillator model reveals something counterintu
    - An expert community = high frequency, moderate temperature, naturally selective
 
 This creates a beautiful dynamic where:
+
 - Quality emerges from harmony, not barriers
 - The best threads become naturally accessible
 - Value comes from organization, not exclusivity
@@ -1241,12 +1325,14 @@ Q: How can you identify valuable threads early?
 A: The thermodynamic model reveals something fascinating about thread potential:
 
 1. High Energy States
+
    - A chaotic thread (high T) contains lots of potential energy
    - If you can see a pattern others miss (recognize latent ω)
    - That energy could crystallize into something valuable
    - Like seeing order in apparent chaos
 
 2. Pattern Recognition
+
    - High temperature = lots of raw energy
    - Hidden frequency = underlying pattern
    - Recognizing the pattern early = opportunity
@@ -1259,6 +1345,7 @@ A: The thermodynamic model reveals something fascinating about thread potential:
    - Natural selection for pattern recognition
 
 This creates an interesting opportunity dynamic:
+
 - The most valuable threads might start chaotic
 - Pattern recognition is rewarded
 - Early participants shape crystallization
@@ -1275,17 +1362,17 @@ Entry_Vision
 # Choir Vision
 
 VERSION vision_system:
-  invariants: {
-    "Natural quality emergence",
-    "Thermodynamic evolution",
-    "Self-organizing communities"
-  }
-  assumptions: {
-    "Temperature-based dynamics",
-    "Energy conservation",
-    "Phase transitions"
-  }
-  implementation: "0.2.0"
+invariants: {
+"Natural quality emergence",
+"Thermodynamic evolution",
+"Self-organizing communities"
+}
+assumptions: {
+"Temperature-based dynamics",
+"Energy conservation",
+"Phase transitions"
+}
+docs_version: "0.2.0"
 
 ## Core Vision
 
@@ -1294,6 +1381,7 @@ Choir envisions a world where quality communication emerges naturally through th
 ## Natural Evolution
 
 At its heart, Choir is a thermodynamic communication platform where threads evolve like physical systems:
+
 - Young threads start hot and volatile
 - Mature threads cool and stabilize
 - Quality barriers emerge naturally
@@ -1302,6 +1390,7 @@ At its heart, Choir is a thermodynamic communication platform where threads evol
 ## Growth Patterns
 
 Threads in Choir follow natural physical laws:
+
 - Temperature guides participation costs
 - Energy flows create quality gradients
 - Frequency determines evolution rate
@@ -1310,6 +1399,7 @@ Threads in Choir follow natural physical laws:
 ## Self-Organizing Quality
 
 The thermodynamic model creates natural selection:
+
 - Hot threads demand higher stakes
 - Cool threads welcome exploration
 - Quality emerges from energy dynamics
@@ -1318,6 +1408,7 @@ The thermodynamic model creates natural selection:
 ## AI Integration
 
 AI serves as a measurement apparatus for the quantum state of communication:
+
 - Observes thread temperature and frequency
 - Tracks energy flows and phase transitions
 - Helps visualize community evolution
@@ -1326,6 +1417,7 @@ AI serves as a measurement apparatus for the quantum state of communication:
 ## Token Mechanics
 
 The CHOIR token represents energy quanta in the system:
+
 - Stakes affect thread temperature
 - Approvals moderate energy distribution
 - Rejections increase local energy
@@ -1334,6 +1426,7 @@ The CHOIR token represents energy quanta in the system:
 ## Network Effects
 
 Each thread contributes to the system's thermodynamic landscape:
+
 - Temperature gradients guide participation
 - Energy flows optimize resource allocation
 - Frequency patterns enable resonance
@@ -1342,6 +1435,7 @@ Each thread contributes to the system's thermodynamic landscape:
 ## Future Horizons
 
 We don't prescribe where threads might evolve - we provide the physical laws that enable natural organization:
+
 - Some threads will crystallize as high-standards venues
 - Others will remain fluid exploration spaces
 - Natural niches will form through energy dynamics

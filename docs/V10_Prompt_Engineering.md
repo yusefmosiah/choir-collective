@@ -1,27 +1,29 @@
 # V10 Engines: Beyond Prompt Engineering
 
 VERSION prompt_system:
-  invariants: {
-    "Context crystallization",
-    "Response overdetermination",
-    "Creative elevation"
-  }
-  assumptions: {
-    "Language metastability",
-    "Context coherence",
-    "Value emergence"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Context crystallization",
+"Response overdetermination",
+"Creative elevation"
+}
+assumptions: {
+"Language metastability",
+"Context coherence",
+"Value emergence"
+}
+docs_version: "0.2.0"
 
 ## The Prompt Engineering Paradox
 
 For years, the AI field has wrestled with a fundamental tension:
+
 - Single tokens can radically alter outputs
 - Yet models should "just understand" users
 - Engineering perfect prompts is fragile
 - But natural language is inherently unstable
 
 This metastability isn't a bug - it's a fundamental property of language and meaning:
+
 - Writers know word choice matters
 - Editors understand context shapes meaning
 - Publishers recognize presentation affects reception
@@ -53,12 +55,14 @@ TYPE ContextStrategy = {
 The V10 loop automatically engineers context through:
 
 1. **Citation Web**
+
    - Sources create solid priors
    - References build coherence
    - Links strengthen context
    - Understanding crystallizes
 
 2. **Value Selection**
+
    - Quality naturally emerges
    - Better ideas survive
    - Patterns reinforce
@@ -73,6 +77,7 @@ The V10 loop automatically engineers context through:
 ## The Liberation of Creativity
 
 When context is crystallized:
+
 ```typescript
 TYPE CreativeSpace = {
   foundation: {
@@ -95,6 +100,7 @@ TYPE CreativeSpace = {
 The role of prompt engineering transforms:
 
 1. **Traditional Approach**
+
    - Focus on control
    - Minimize variance
    - Reduce risk
@@ -130,6 +136,7 @@ TYPE MetastabilityValue = {
 ## Implementation Principles
 
 1. **Context Engineering**
+
    ```typescript
    TYPE ContextEngineering = {
      citation_web: "Build solid priors",
@@ -152,6 +159,7 @@ TYPE MetastabilityValue = {
 ## Future Implications
 
 The V10 approach suggests:
+
 - Beyond brittle prompt engineering
 - Toward creative exploration
 - Through solid foundations
@@ -162,12 +170,14 @@ This represents a fundamental shift in how we think about AI interaction - from 
 ## Practical Benefits
 
 1. **For Users**
+
    - Freedom to experiment
    - Safe exploration
    - Creative expression
    - Reliable value
 
 2. **For Systems**
+
    - Stable foundation
    - Natural evolution
    - Quality emergence

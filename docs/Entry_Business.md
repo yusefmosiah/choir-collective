@@ -1,17 +1,17 @@
 # Choir Business Model
 
 VERSION business_system:
-  invariants: {
-    "Value preservation",
-    "Privacy guarantees",
-    "Resource sustainability"
-  }
-  assumptions: {
-    "Subscription pricing",
-    "Resource costs",
-    "Usage patterns"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Value preservation",
+"Privacy guarantees",
+"Resource sustainability"
+}
+assumptions: {
+"Subscription pricing",
+"Resource costs",
+"Usage patterns"
+}
+docs_version: "0.2.0"
 
 ## Core Revenue Model
 
@@ -20,6 +20,7 @@ Choir operates on a freemium subscription model that aligns user value with plat
 ## Free Tier
 
 The foundation of Choir remains accessible to all users:
+
 - Thread participation and co-authorship
 - Basic message submission and approval
 - Thread visibility limited to co-authors
@@ -32,12 +33,14 @@ The foundation of Choir remains accessible to all users:
 Premium subscriptions provide enhanced capabilities that scale yearly:
 
 Privacy Features:
+
 - Toggle thread searchability off/on
 - Enhanced privacy controls for content
 - Granular co-author permissions
 - Private thread analytics
 
 Resource Allocations:
+
 - Increased AI model calls (grows yearly)
 - Higher Solana transaction limits
 - Priority message processing
@@ -48,6 +51,7 @@ The yearly growth in resource allocations rewards long-term members while mainta
 ## Resource Economics
 
 The subscription model supports:
+
 - AI model API costs
 - Solana transaction fees
 - Infrastructure scaling
@@ -57,6 +61,7 @@ The subscription model supports:
 ## Privacy Model
 
 Privacy implementation follows clear principles:
+
 - Base privacy: Threads visible only to co-authors
 - Public search: Opt-in for thread discovery
 - Premium control: Granular privacy settings
@@ -65,6 +70,7 @@ Privacy implementation follows clear principles:
 ## Growth Mechanics
 
 The model encourages platform growth through:
+
 - Sustainable resource allocation
 - Privacy-respecting content discovery
 - Long-term member benefits
@@ -73,6 +79,7 @@ The model encourages platform growth through:
 ## Business Sustainability
 
 Revenue streams support:
+
 - Platform development
 - AI model improvements
 - Infrastructure scaling
@@ -82,6 +89,7 @@ Revenue streams support:
 ## Future Considerations
 
 The model can evolve to include:
+
 - Enterprise subscriptions
 - Custom AI model training
 - Advanced analytics tools
@@ -91,12 +99,14 @@ The model can evolve to include:
 ## Value Proposition
 
 For Users:
+
 - Growing resource allocations
 - Enhanced privacy controls
 - Priority features
 - Community support
 
 For Platform:
+
 - Sustainable revenue
 - Aligned incentives
 - Resource predictability
@@ -105,12 +115,14 @@ For Platform:
 ## Implementation Strategy
 
 Technical Requirements:
+
 - Privacy toggle implementation
 - Resource tracking systems
 - Subscription management
 - Usage analytics
 
 Operational Needs:
+
 - Customer support
 - Resource monitoring
 - Cost optimization
@@ -119,6 +131,7 @@ Operational Needs:
 ## Success Metrics
 
 Key Indicators:
+
 - Subscription retention
 - Resource utilization
 - User satisfaction

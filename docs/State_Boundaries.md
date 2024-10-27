@@ -1,114 +1,115 @@
 # State Distribution Across Systems
 
 VERSION state_boundaries:
-  invariants: {
-    "Clear ownership of state",
-    "Consistent data flow",
-    "Verifiable boundaries"
-  }
-  assumptions: {
-    "System availability",
-    "Network reliability",
-    "Cache coherence"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Clear ownership of state",
+"Consistent data flow",
+"Verifiable boundaries"
+}
+assumptions: {
+"System availability",
+"Network reliability",
+"Cache coherence"
+}
+docs_version: "0.2.0"
 
 ## 1. Solana State (Source of Truth for Ownership)
 
 TYPE SolanaState = {
-  thread: {
-    co_authors: Set<PublicKey>,      // Thread ownership
-    token_balance: u64,              // Thread value
-    content_hashes: Set<Hash>,       // Content verification
-    created_at: i64                  // Thread timestamp
-  },
+thread: {
+co_authors: Set<PublicKey>, // Thread ownership
+token_balance: u64, // Thread value
+content_hashes: Set<Hash>, // Content verification
+created_at: i64 // Thread timestamp
+},
 
-  approvals: {
-    pending: Map<Hash, Set<PublicKey>>,  // Active votes
-    decisions: Map<Hash, Decision>,      // Final outcomes
-    expiry: Map<Hash, i64>              // Timeout tracking
-  },
+approvals: {
+pending: Map<Hash, Set<PublicKey>>, // Active votes
+decisions: Map<Hash, Decision>, // Final outcomes
+expiry: Map<Hash, i64> // Timeout tracking
+},
 
-  tokens: {
-    stakes: Map<Hash, TokenAmount>,     // Locked stakes
-    thread_balances: Map<ThreadId, TokenAmount>,  // Thread energy
-    treasury: {
-      balance: TokenAmount,             // Treasury reserve
-      citation_rewards: TokenAmount,    // Allocated for citations
-      new_message_rewards: TokenAmount  // Decaying reward pool
-    }
-  }
+tokens: {
+stakes: Map<Hash, TokenAmount>, // Locked stakes
+thread_balances: Map<ThreadId, TokenAmount>, // Thread energy
+treasury: {
+balance: TokenAmount, // Treasury reserve
+citation_rewards: TokenAmount, // Allocated for citations
+new_message_rewards: TokenAmount // Decaying reward pool
+}
+}
 }
 
 ## 2. Qdrant State (Source of Truth for Content)
 
 TYPE QdrantState = {
-  content: {
-    messages: Map<Hash, String>,        // Raw content
-    embeddings: Map<Hash, Vector>,      // Semantic vectors
-    metadata: Map<Hash, Metadata>       // Content properties
-  },
+content: {
+messages: Map<Hash, String>, // Raw content
+embeddings: Map<Hash, Vector>, // Semantic vectors
+metadata: Map<Hash, Metadata> // Content properties
+},
 
-  indices: {
-    semantic: VectorIndex,              // Similarity search
-    temporal: TimeIndex,                // Time-based access
-    author: AuthorIndex                 // Creator lookup
-  },
+indices: {
+semantic: VectorIndex, // Similarity search
+temporal: TimeIndex, // Time-based access
+author: AuthorIndex // Creator lookup
+},
 
-  search: {
-    filters: Set<Filter>,               // Access control
-    rankings: Map<Hash, Score>,         // Relevance scores
-    cache: Map<Query, Results>          // Search optimization
-  }
+search: {
+filters: Set<Filter>, // Access control
+rankings: Map<Hash, Score>, // Relevance scores
+cache: Map<Query, Results> // Search optimization
+}
 }
 
 ## 3. Backend State (Session and Cache Management)
 
 TYPE BackendState = {
-  session: {
-    connections: Map<ClientId, WebSocket>,  // Active clients
-    subscriptions: Map<ThreadId, Set<ClientId>>, // Room membership
-    heartbeats: Map<ClientId, Timestamp>    // Connection health
-  },
+session: {
+connections: Map<ClientId, WebSocket>, // Active clients
+subscriptions: Map<ThreadId, Set<ClientId>>, // Room membership
+heartbeats: Map<ClientId, Timestamp> // Connection health
+},
 
-  cache: {
-    threads: Map<ThreadId, ThreadCache>,    // Hot thread data
-    messages: Map<Hash, MessageCache>,      // Recent messages
-    users: Map<PublicKey, UserCache>        // Active user data
-  },
+cache: {
+threads: Map<ThreadId, ThreadCache>, // Hot thread data
+messages: Map<Hash, MessageCache>, // Recent messages
+users: Map<PublicKey, UserCache> // Active user data
+},
 
-  websocket: {
-    rooms: Map<ThreadId, Room>,            // Chat rooms
-    events: Queue<Event>,                  // Message queue
-    state: Map<ClientId, ClientState>      // Connection state
-  }
+websocket: {
+rooms: Map<ThreadId, Room>, // Chat rooms
+events: Queue<Event>, // Message queue
+state: Map<ClientId, ClientState> // Connection state
+}
 }
 
 ## 4. Frontend State (UI and Optimistic Updates)
 
 TYPE FrontendState = {
-  ui: {
-    threads: Map<ThreadId, ThreadUI>,      // Thread display
-    messages: Map<Hash, MessageUI>,        // Message display
-    notifications: Queue<Notification>      // User alerts
-  },
+ui: {
+threads: Map<ThreadId, ThreadUI>, // Thread display
+messages: Map<Hash, MessageUI>, // Message display
+notifications: Queue<Notification> // User alerts
+},
 
-  optimistic: {
-    pending: Map<Hash, OptimisticUpdate>,  // Unconfirmed changes
-    rollbacks: Map<Hash, RollbackState>,   // Recovery data
-    conflicts: Set<StateConflict>          // Sync issues
-  },
+optimistic: {
+pending: Map<Hash, OptimisticUpdate>, // Unconfirmed changes
+rollbacks: Map<Hash, RollbackState>, // Recovery data
+conflicts: Set<StateConflict> // Sync issues
+},
 
-  local: {
-    wallet: WalletState,                   // Connection state
-    preferences: UserPreferences,          // Settings
-    drafts: Map<ThreadId, Draft>          // Unsent messages
-  }
+local: {
+wallet: WalletState, // Connection state
+preferences: UserPreferences, // Settings
+drafts: Map<ThreadId, Draft> // Unsent messages
+}
 }
 
 ## State Flow Patterns
 
 1. **Ownership Flow**
+
    ```
    Solana -> Backend -> Frontend
    PROPERTY: ownership_flow
@@ -117,6 +118,7 @@ TYPE FrontendState = {
    ```
 
 2. **Content Flow**
+
    ```
    Frontend -> Backend -> Qdrant
    PROPERTY: content_flow
@@ -135,6 +137,7 @@ TYPE FrontendState = {
 ## Token Flow Boundaries
 
 0. **Approval Flow**
+
    ```
    Stake -> Approvers
    PROPERTY: approval_flow
@@ -146,6 +149,7 @@ TYPE FrontendState = {
    ```
 
 1. **Rejection Flow**
+
    ```
    Stake -> Thread Balance
    PROPERTY: rejection_flow
@@ -154,6 +158,7 @@ TYPE FrontendState = {
    ```
 
 2. **Split Decision Flow**
+
    ```
    Approver Stakes -> Treasury
    PROPERTY: split_decision_flow
@@ -162,6 +167,7 @@ TYPE FrontendState = {
    ```
 
 3. **New Message Rewards**
+
    ```
    Treasury -> Authors
    PROPERTY: reward_flow
@@ -182,6 +188,7 @@ TYPE FrontendState = {
 ## Boundary Enforcement
 
 1. **State Authority**
+
    ```
    RULE state_ownership:
      ownership_changes MUST originate from Solana
@@ -191,6 +198,7 @@ TYPE FrontendState = {
    ```
 
 2. **Update Propagation**
+
    ```
    SEQUENCE state_update:
      1. Update authoritative source
@@ -212,6 +220,7 @@ TYPE FrontendState = {
 ## Monitoring and Verification
 
 1. **Health Checks**
+
    ```
    FUNCTION verify_boundaries():
      check_solana_consistency()

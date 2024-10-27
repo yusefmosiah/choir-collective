@@ -11,17 +11,17 @@ Level_0_SystemOverview
 # Choir: A View Through the Depths
 
 VERSION depth_system:
-  invariants: {
-    "Wave function coherence",
-    "Energy conservation",
-    "Phase stability"
-  }
-  assumptions: {
-    "Natural emergence",
-    "Quantum coupling",
-    "Value resonance"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Wave function coherence",
+"Energy conservation",
+"Phase stability"
+}
+assumptions: {
+"Natural emergence",
+"Quantum coupling",
+"Value resonance"
+}
+docs_version: "0.2.0"
 
 At the surface (Level 1), Choir appears straightforward: a chat platform where you own your messages and collaborate with others. Messages require unanimous approval from thread participants, and you can earn tokens for quality contributions. The interface is familiar, the mechanics are simple to grasp, and the benefits are clear. You can start participating immediately without understanding the deeper layers.
 
@@ -34,6 +34,7 @@ At greater depths (Level 4), we discover quantum stability patterns. Each thread
 At the deepest level (Level 5), Choir reveals itself as a quantum harmonic oscillator system. Messages exist as wave packets until unanimous approval collapses them into thread coherence. Non-refundable stakes create quantum coupling. Value flows through the system like energy through coupled oscillators. The entire platform becomes a space where meaning and value emerge through natural frequency selection and phase-locked self-organization.
 
 Each level contains and transcends the previous ones:
+
 - Surface functionality enables core mechanics
 - Core mechanics enable value creation
 - Value creation enables quantum effects
@@ -53,17 +54,17 @@ Solana_lib
 # Choir Solana Program Core
 
 VERSION solana_program:
-  invariants: {
-    "Thread ownership integrity",
-    "Token conservation",
-    "State transition atomicity"
-  }
-  assumptions: {
-    "PDA derivation security",
-    "Transaction ordering",
-    "Clock reliability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Thread ownership integrity",
+"Token conservation",
+"State transition atomicity"
+}
+assumptions: {
+"PDA derivation security",
+"Transaction ordering",
+"Clock reliability"
+}
+docs_version: "0.2.0"
 
 ## Core Program Structure
 
@@ -72,149 +73,157 @@ The Choir program implements thread ownership, message approval, and token mecha
 ## Thread Initialization
 
 TYPE InitializeThread = {
-  creator: Signer,
-  thread: Account<Thread>,
-  system_program: Program<System>,
-  token_program: Program<Token>
+creator: Signer,
+thread: Account<Thread>,
+system_program: Program<System>,
+token_program: Program<Token>
 }
 
 SEQUENCE initialize_thread:
-  1. Parameter Validation
-     - thread_id.len() <= 32
-     - thread_id is unique
-     - PDA derivation is valid
 
-  2. State Initialization
-     - timestamps = (now(), now())
-     - co_authors = [creator]
-     - token_balance = 0
-     - messages = []
-     - pending_specs = []
+1. Parameter Validation
 
-  3. State Verification
-     - all fields initialized
-     - co_author present
-     - timestamps valid
+   - thread_id.len() <= 32
+   - thread_id is unique
+   - PDA derivation is valid
+
+2. State Initialization
+
+   - timestamps = (now(), now())
+   - co_authors = [creator]
+   - token_balance = 0
+   - messages = []
+   - pending_specs = []
+
+3. State Verification
+   - all fields initialized
+   - co_author present
+   - timestamps valid
 
 PROPERTY post_initialization:
-  thread.co_authors.len() == 1 AND
-  thread.token_balance == 0 AND
-  thread.messages.is_empty()
+thread.co_authors.len() == 1 AND
+thread.token_balance == 0 AND
+thread.messages.is_empty()
 
 ## Message Submission
 
 TYPE SubmitMessage = {
-  author: Signer,
-  thread: Account<Thread>,
-  token_program: Program<Token>
+author: Signer,
+thread: Account<Thread>,
+token_program: Program<Token>
 }
 
 SEQUENCE submit_message:
-  1. Authorization
-     - author in thread.co_authors
-     - thread not full
-     - valid content hash
 
-  2. Message Creation
-     - struct with content hash
-     - current timestamp
-     - empty approvals
+1. Authorization
 
-  3. Thread Update
-     - append message
-     - increment count
-     - update timestamp
+   - author in thread.co_authors
+   - thread not full
+   - valid content hash
+
+2. Message Creation
+
+   - struct with content hash
+   - current timestamp
+   - empty approvals
+
+3. Thread Update
+   - append message
+   - increment count
+   - update timestamp
 
 PROPERTY post_submission:
-  thread.message_count == old_count + 1 AND
-  thread.messages.last().author == author.key()
+thread.message_count == old_count + 1 AND
+thread.messages.last().author == author.key()
 
 ## Approval Processing
 
 TYPE ProcessApproval = {
-  co_author: Signer,
-  thread: Account<Thread>
+co_author: Signer,
+thread: Account<Thread>
 }
 
 SEQUENCE process_approval:
-  1. Authority Check
-     - co_author in thread.co_authors
-     - no duplicate votes
-     - valid message/spec index
 
-  2. Approval Recording
-     - create approval record
-     - add to approval set
-     - update timestamp
+1. Authority Check
 
-  3. Consensus Check
-     - count approvals
-     - check against co_author count
-     - process if complete
+   - co_author in thread.co_authors
+   - no duplicate votes
+   - valid message/spec index
+
+2. Approval Recording
+
+   - create approval record
+   - add to approval set
+   - update timestamp
+
+3. Consensus Check
+   - count approvals
+   - check against co_author count
+   - process if complete
 
 PROPERTY post_approval:
-  message.approvals.contains(co_author) AND
-  thread.updated_at > old_updated_at
+message.approvals.contains(co_author) AND
+thread.updated_at > old_updated_at
 
 ## Value Flow Properties
 
 TYPE ValueTransition =
-  | Approve: stake -> thread
-  | Deny: stake -> deniers
-  | Mixed: excess -> treasury
+| Approve: stake -> thread
+| Deny: stake -> deniers
+| Mixed: excess -> treasury
 
 PROPERTY value_conservation:
-  FORALL transition IN ValueTransition:
-    sum(input_tokens) == sum(output_tokens)
+FORALL transition IN ValueTransition:
+sum(input_tokens) == sum(output_tokens)
 
 ## Security Properties
 
-1. **Thread Integrity**   ```
-   PROPERTY thread_integrity:
-     FORALL thread IN threads:
-       thread.co_authors.non_empty() AND
-       thread.messages.all_valid() AND
-       thread.token_balance >= 0   ```
+1. **Thread Integrity** `PROPERTY thread_integrity:
+FORALL thread IN threads:
+  thread.co_authors.non_empty() AND
+  thread.messages.all_valid() AND
+  thread.token_balance >= 0  `
 
-2. **Approval Integrity**   ```
-   PROPERTY approval_integrity:
-     FORALL approval IN approvals:
-       approval.co_author IN thread.co_authors AND
-       approval.timestamp <= now() AND
-       no_duplicates(thread.approvals)   ```
+2. **Approval Integrity** `PROPERTY approval_integrity:
+FORALL approval IN approvals:
+  approval.co_author IN thread.co_authors AND
+  approval.timestamp <= now() AND
+  no_duplicates(thread.approvals)  `
 
-3. **State Transitions**   ```
-   PROPERTY state_transition:
-     FORALL old_state new_state:
-       valid_transition(old_state, new_state) AND
-       preserves_invariants(new_state) AND
-       maintains_history(old_state, new_state)   ```
+3. **State Transitions** `PROPERTY state_transition:
+FORALL old_state new_state:
+  valid_transition(old_state, new_state) AND
+  preserves_invariants(new_state) AND
+  maintains_history(old_state, new_state)  `
 
 ## Error Handling
 
 TYPE ChoirError =
-  | NotCoAuthor
-  | InsufficientStake
-  | InvalidApproval
-  | ThreadOperationFailed
-  | TokenOperationFailed
+| NotCoAuthor
+| InsufficientStake
+| InvalidApproval
+| ThreadOperationFailed
+| TokenOperationFailed
 
 FUNCTION handle_error(error: ChoirError) -> Result<()>:
-  log_error(error)
-  revert_state()
-  emit_event(error)
-  RETURN Err(error)
+log_error(error)
+revert_state()
+emit_event(error)
+RETURN Err(error)
 
 ## Implementation Notes
 
 The program maintains several critical invariants:
 
 1. Thread Ownership
+
    - Co-author set is never empty
    - Only co-authors can approve messages
    - PDA derivation ensures unique threads
 
 2. Token Conservation
+
    - All token movements are atomic
    - Stakes are properly tracked
    - Distribution preserves total supply
@@ -235,17 +244,17 @@ Solana_message
 # Message Account Management
 
 VERSION message_system:
-  invariants: {
-    "Message immutability post-approval",
-    "Content hash integrity",
-    "Approval state consistency"
-  }
-  assumptions: {
-    "Account size limits",
-    "PDA derivation security",
-    "Rent exemption"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Message immutability post-approval",
+"Content hash integrity",
+"Approval state consistency"
+}
+assumptions: {
+"Account size limits",
+"PDA derivation security",
+"Rent exemption"
+}
+docs_version: "0.2.0"
 
 ## Message Account Structure
 
@@ -478,129 +487,139 @@ Solana_settlement
 # Token Settlement and Distribution
 
 VERSION settlement_system:
-  invariants: {
-    "Token conservation",
-    "Distribution atomicity",
-    "Settlement finality"
-  }
-  assumptions: {
-    "Token account availability",
-    "Transaction ordering",
-    "Escrow security"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Token conservation",
+"Distribution atomicity",
+"Settlement finality"
+}
+assumptions: {
+"Token account availability",
+"Transaction ordering",
+"Escrow security"
+}
+docs_version: "0.2.0"
 
 ## Core Settlement Types
 
 TYPE Settlement = {
-  thread: Thread,
-  stake: TokenAmount,
-  participants: Set<PublicKey>,
-  outcome: SettlementOutcome,
-  metadata: SettlementMetadata
+thread: Thread,
+stake: TokenAmount,
+participants: Set<PublicKey>,
+outcome: SettlementOutcome,
+metadata: SettlementMetadata
 }
 
 TYPE SettlementOutcome =
-  | Unanimous: stake -> thread_balance
-  | Denied: stake -> denier_accounts
-  | Mixed: stake -> treasury
-  | Expired: stake -> treasury
-  | Divest: thread_balance/n -> co_author
+| Unanimous: stake -> thread_balance
+| Denied: stake -> denier_accounts
+| Mixed: stake -> treasury
+| Expired: stake -> treasury
+| Divest: thread_balance/n -> co_author
 
 TYPE SettlementMetadata = {
-  timestamp: i64,
-  transaction_id: Hash,
-  settlement_type: SettlementType,
-  participants: Set<PublicKey>
+timestamp: i64,
+transaction_id: Hash,
+settlement_type: SettlementType,
+participants: Set<PublicKey>
 }
 
 ## Settlement Operations
 
 SEQUENCE process_settlement:
-  1. Validation
-     - Verify token accounts
-     - Check balances
-     - Validate authorities
-     - Verify preconditions
 
-  2. Settlement Execution
-     - Lock source accounts
-     - Calculate distributions
-     - Process transfers
-     - Update state
+1. Validation
 
-  3. Verification
-     - Check token conservation
-     - Verify final balances
-     - Validate state updates
-     - Emit events
+   - Verify token accounts
+   - Check balances
+   - Validate authorities
+   - Verify preconditions
+
+2. Settlement Execution
+
+   - Lock source accounts
+   - Calculate distributions
+   - Process transfers
+   - Update state
+
+3. Verification
+   - Check token conservation
+   - Verify final balances
+   - Validate state updates
+   - Emit events
 
 PROPERTY settlement_atomicity:
-  FORALL s IN settlements:
-    s.complete OR s.reverted
+FORALL s IN settlements:
+s.complete OR s.reverted
 
 ## Distribution Logic
 
 SEQUENCE calculate_distribution:
-  1. Outcome Analysis
-     - Determine settlement type
-     - Count participants
-     - Calculate shares
-     - Verify totals
 
-  2. Account Preparation
-     - Verify recipient accounts
-     - Check account ownership
-     - Validate permissions
-     - Reserve balances
+1. Outcome Analysis
 
-  3. Transfer Execution
-     - Process in order
-     - Update balances
-     - Record transfers
-     - Emit events
+   - Determine settlement type
+   - Count participants
+   - Calculate shares
+   - Verify totals
+
+2. Account Preparation
+
+   - Verify recipient accounts
+   - Check account ownership
+   - Validate permissions
+   - Reserve balances
+
+3. Transfer Execution
+   - Process in order
+   - Update balances
+   - Record transfers
+   - Emit events
 
 PROPERTY distribution_fairness:
-  FORALL share IN distribution:
-    share == total_amount / participant_count
+FORALL share IN distribution:
+share == total_amount / participant_count
 
 ## Token Account Management
 
 TYPE TokenAccounts = {
-  thread: Account<TokenAccount>,
-  escrow: Account<TokenAccount>,
-  treasury: Account<TokenAccount>,
-  participant_accounts: Map<PublicKey, Account<TokenAccount>>
+thread: Account<TokenAccount>,
+escrow: Account<TokenAccount>,
+treasury: Account<TokenAccount>,
+participant_accounts: Map<PublicKey, Account<TokenAccount>>
 }
 
 SEQUENCE manage_accounts:
-  1. Account Validation
-     - Verify ownership
-     - Check authorities
-     - Validate balances
-     - Verify PDAs
 
-  2. Balance Management
-     - Lock amounts
-     - Process transfers
-     - Update balances
-     - Release locks
+1. Account Validation
 
-  3. State Synchronization
-     - Update thread state
-     - Record settlements
-     - Emit events
-     - Verify consistency
+   - Verify ownership
+   - Check authorities
+   - Validate balances
+   - Verify PDAs
+
+2. Balance Management
+
+   - Lock amounts
+   - Process transfers
+   - Update balances
+   - Release locks
+
+3. State Synchronization
+   - Update thread state
+   - Record settlements
+   - Emit events
+   - Verify consistency
 
 PROPERTY account_integrity:
-  FORALL account IN token_accounts:
-    valid_owner(account) AND
-    valid_authority(account) AND
-    valid_balance(account)
+FORALL account IN token_accounts:
+valid_owner(account) AND
+valid_authority(account) AND
+valid_balance(account)
 
 ## Settlement Flows
 
 1. **Unanimous Approval**
+
    ```
    SEQUENCE settle_unanimous:
      1. Verify unanimous consent
@@ -610,6 +629,7 @@ PROPERTY account_integrity:
    ```
 
 2. **Denial Settlement**
+
    ```
    SEQUENCE settle_denial:
      1. Calculate denier shares
@@ -619,6 +639,7 @@ PROPERTY account_integrity:
    ```
 
 3. **Mixed Outcome**
+
    ```
    SEQUENCE settle_mixed:
      1. Calculate treasury portion
@@ -639,6 +660,7 @@ PROPERTY account_integrity:
 ## Security Properties
 
 1. **Conservation**
+
    ```
    PROPERTY token_conservation:
      FORALL settlement IN settlements:
@@ -648,6 +670,7 @@ PROPERTY account_integrity:
    ```
 
 2. **Authority**
+
    ```
    PROPERTY settlement_authority:
      FORALL transfer IN transfers:
@@ -669,29 +692,31 @@ PROPERTY account_integrity:
 ## Error Handling
 
 TYPE SettlementError =
-  | InsufficientBalance
-  | InvalidAccount
-  | UnauthorizedTransfer
-  | SettlementFailed
-  | AccountMismatch
+| InsufficientBalance
+| InvalidAccount
+| UnauthorizedTransfer
+| SettlementFailed
+| AccountMismatch
 
 FUNCTION handle_settlement_error(error: SettlementError) -> Result<()>:
-  revert_transfers()
-  unlock_accounts()
-  emit_error_event(error)
-  RETURN Err(error)
+revert_transfers()
+unlock_accounts()
+emit_error_event(error)
+RETURN Err(error)
 
 ## Implementation Notes
 
 The settlement system maintains several critical properties:
 
 1. Token Safety
+
    - All transfers are atomic
    - Balances are always conserved
    - Accounts are properly validated
    - Authorities are strictly checked
 
 2. Settlement Integrity
+
    - Outcomes are deterministic
    - Distributions are fair
    - State is consistent
@@ -714,17 +739,17 @@ Solana_thread
 # Thread Account Management
 
 VERSION thread_system:
-  invariants: {
-    "Thread account data integrity",
-    "Co-author set non-empty",
-    "Token balance consistency"
-  }
-  assumptions: {
-    "PDA derivation security",
-    "Account size limits",
-    "Rent exemption"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Thread account data integrity",
+"Co-author set non-empty",
+"Token balance consistency"
+}
+assumptions: {
+"PDA derivation security",
+"Account size limits",
+"Rent exemption"
+}
+docs_version: "0.2.0"
 
 ## Thread Account Structure
 
@@ -917,32 +942,32 @@ Solana_thread_fuzzer
 # Thread Fuzzing Specification
 
 VERSION fuzzer_system:
-  invariants: {
-    "State space coverage",
-    "Transition validity",
-    "Property preservation"
-  }
-  assumptions: {
-    "Trident framework",
-    "Random generation",
-    "State reachability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"State space coverage",
+"Transition validity",
+"Property preservation"
+}
+assumptions: {
+"Trident framework",
+"Random generation",
+"State reachability"
+}
+docs_version: "0.2.0"
 
 ## Core Fuzzing Types
 
 TYPE ThreadFuzzer = {
-  accounts: FuzzAccounts,
-  instructions: Vec<FuzzInstruction>,
-  properties: Vec<Property>,
-  state_tracker: StateTracker
+accounts: FuzzAccounts,
+instructions: Vec<FuzzInstruction>,
+properties: Vec<Property>,
+state_tracker: StateTracker
 }
 
 TYPE FuzzAccounts = {
-  thread: AccountsStorage<PdaStore>,
-  co_authors: AccountsStorage<KeypairStore>,
-  tokens: AccountsStorage<TokenStore>,
-  specs: AccountsStorage<SpecStore>
+thread: AccountsStorage<PdaStore>,
+co_authors: AccountsStorage<KeypairStore>,
+tokens: AccountsStorage<TokenStore>,
+specs: AccountsStorage<SpecStore>
 }
 
 ## Instruction Generation
@@ -973,7 +998,7 @@ pub struct FuzzInstruction {
 
 ## Property Testing
 
-```rust
+````rust
 PROPERTY thread_invariants:
   1. State Properties
      ```rust
@@ -1008,28 +1033,31 @@ PROPERTY thread_invariants:
            no_token_creation(ops)
      }
      ```
-```
+````
 
 ## State Space Exploration
 
 SEQUENCE explore_state_space:
-  1. State Generation
-     - Random valid states
-     - Edge case states
-     - Invalid states
-     - Transition states
 
-  2. Operation Sequences
-     - Valid operation chains
-     - Invalid operation mixes
-     - Concurrent operations
-     - Interleaved sequences
+1. State Generation
 
-  3. Coverage Tracking
-     - State coverage maps
-     - Transition coverage
-     - Property verification
-     - Error discovery
+   - Random valid states
+   - Edge case states
+   - Invalid states
+   - Transition states
+
+2. Operation Sequences
+
+   - Valid operation chains
+   - Invalid operation mixes
+   - Concurrent operations
+   - Interleaved sequences
+
+3. Coverage Tracking
+   - State coverage maps
+   - Transition coverage
+   - Property verification
+   - Error discovery
 
 ## Mutation Strategies
 
@@ -1073,6 +1101,7 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
 ## Coverage Requirements
 
 1. **State Coverage**
+
    ```rust
    PROPERTY state_coverage:
      FORALL state IN reachable_states:
@@ -1081,6 +1110,7 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
    ```
 
 2. **Transition Coverage**
+
    ```rust
    PROPERTY transition_coverage:
      FORALL t IN valid_transitions:
@@ -1101,12 +1131,14 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
 The fuzzing system maintains several critical aspects:
 
 1. Generation Strategy
+
    - Smart account generation
    - Valid state construction
    - Meaningful mutations
    - Targeted exploration
 
 2. Coverage Optimization
+
    - State space mapping
    - Transition tracking
    - Property verification
@@ -1129,40 +1161,42 @@ Solana_thread_test
 # Thread Test Specification
 
 VERSION thread_test_system:
-  invariants: {
-    "Test coverage completeness",
-    "State invariant verification",
-    "Error condition handling"
-  }
-  assumptions: {
-    "Bankrun test environment",
-    "Deterministic execution",
-    "State isolation"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Test coverage completeness",
+"State invariant verification",
+"Error condition handling"
+}
+assumptions: {
+"Bankrun test environment",
+"Deterministic execution",
+"State isolation"
+}
+docs_version: "0.2.0"
 
 ## Core Test Structure
 
 TYPE ThreadTestContext = {
-  program: Program,
-  authority: Keypair,
-  thread_pda: PublicKey,
-  token_accounts: TokenAccounts,
-  test_state: TestState
+program: Program,
+authority: Keypair,
+thread_pda: PublicKey,
+token_accounts: TokenAccounts,
+test_state: TestState
 }
 
 SEQUENCE test_setup:
-  1. Environment Initialization
-     - Create test program
-     - Generate test keypairs
-     - Setup token accounts
-     - Initialize test state
 
-  2. Thread Creation
-     - Derive thread PDA
-     - Allocate space
-     - Initialize state
-     - Verify creation
+1. Environment Initialization
+
+   - Create test program
+   - Generate test keypairs
+   - Setup token accounts
+   - Initialize test state
+
+2. Thread Creation
+   - Derive thread PDA
+   - Allocate space
+   - Initialize state
+   - Verify creation
 
 ## State Invariant Tests
 
@@ -1238,6 +1272,7 @@ PROPERTY thread_properties:
 ## Test Scenarios
 
 1. **Thread Lifecycle**
+
    ```rust
    #[tokio::test]
    async fn test_thread_lifecycle() {
@@ -1265,6 +1300,7 @@ PROPERTY thread_properties:
    ```
 
 2. **Edge Cases**
+
    ```rust
    #[tokio::test]
    async fn test_edge_cases() {
@@ -1331,12 +1367,14 @@ SEQUENCE inject_errors:
 ## Test Coverage Requirements
 
 1. **State Coverage**
+
    - All valid states reachable
    - All transitions tested
    - All invariants verified
    - All errors handled
 
 2. **Operation Coverage**
+
    - All instructions tested
    - All parameters validated
    - All outcomes verified
@@ -1359,70 +1397,74 @@ Solana_validation
 # Cross-Cutting Validation Rules
 
 VERSION validation_system:
-  invariants: {
-    "Input sanitization completeness",
-    "State validation coverage",
-    "Security check atomicity"
-  }
-  assumptions: {
-    "Validation order independence",
-    "Error propagation clarity",
-    "Check composability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Input sanitization completeness",
+"State validation coverage",
+"Security check atomicity"
+}
+assumptions: {
+"Validation order independence",
+"Error propagation clarity",
+"Check composability"
+}
+docs_version: "0.2.0"
 
 ## Core Validation Types
 
 TYPE ValidationContext = {
-  signer: PublicKey,
-  thread: Thread,
-  clock: Clock,
-  validation_type: ValidationType
+signer: PublicKey,
+thread: Thread,
+clock: Clock,
+validation_type: ValidationType
 }
 
 TYPE ValidationType =
-  | ThreadOperation
-  | MessageOperation
-  | TokenOperation
-  | StateTransition
+| ThreadOperation
+| MessageOperation
+| TokenOperation
+| StateTransition
 
 TYPE ValidationResult = {
-  success: bool,
-  error: Option<ValidationError>,
-  metadata: ValidationMetadata
+success: bool,
+error: Option<ValidationError>,
+metadata: ValidationMetadata
 }
 
 ## Validation Rules
 
 SEQUENCE validate_operation:
-  1. Context Validation
-     - Verify signer authority
-     - Check thread state
-     - Validate timestamps
-     - Verify preconditions
 
-  2. Input Validation
-     - Sanitize parameters
-     - Check bounds
-     - Verify formats
-     - Validate relationships
+1. Context Validation
 
-  3. State Validation
-     - Check invariants
-     - Verify transitions
-     - Validate consistency
-     - Check conservation laws
+   - Verify signer authority
+   - Check thread state
+   - Validate timestamps
+   - Verify preconditions
+
+2. Input Validation
+
+   - Sanitize parameters
+   - Check bounds
+   - Verify formats
+   - Validate relationships
+
+3. State Validation
+   - Check invariants
+   - Verify transitions
+   - Validate consistency
+   - Check conservation laws
 
 PROPERTY validation_completeness:
-  FORALL op IN operations:
-    validate_operation(op) COVERS ALL
-      security_properties(op) AND
-      state_invariants(op) AND
-      value_conservation(op)
+FORALL op IN operations:
+validate_operation(op) COVERS ALL
+security_properties(op) AND
+state_invariants(op) AND
+value_conservation(op)
 
 ## Security Checks
 
 1. **Authority Validation**
+
    ```
    FUNCTION validate_authority(ctx: ValidationContext) -> Result<()>:
      MATCH ctx.validation_type:
@@ -1437,6 +1479,7 @@ PROPERTY validation_completeness:
    ```
 
 2. **State Validation**
+
    ```
    FUNCTION validate_state(ctx: ValidationContext) -> Result<()>:
      VERIFY:
@@ -1460,17 +1503,18 @@ PROPERTY validation_completeness:
 TYPE Validator<T> = Context -> T -> Result<()>
 
 FUNCTION compose_validators<T>(
-  validators: Vec<Validator<T>>
+validators: Vec<Validator<T>>
 ) -> Validator<T>:
-  RETURN |ctx, input| {
-    FOR validator IN validators:
-      validator(ctx, input)?
-    Ok(())
-  }
+RETURN |ctx, input| {
+FOR validator IN validators:
+validator(ctx, input)?
+Ok(())
+}
 
 ## Common Validators
 
 1. **Thread Validators**
+
    ```
    SEQUENCE thread_validators:
      validate_thread_id
@@ -1481,6 +1525,7 @@ FUNCTION compose_validators<T>(
    ```
 
 2. **Message Validators**
+
    ```
    SEQUENCE message_validators:
      validate_content_hash
@@ -1502,20 +1547,21 @@ FUNCTION compose_validators<T>(
 ## Error Handling
 
 TYPE ValidationError =
-  | InvalidAuthority
-  | InvalidState
-  | InvalidInput
-  | InvalidTransition
-  | ConservationViolation
+| InvalidAuthority
+| InvalidState
+| InvalidInput
+| InvalidTransition
+| ConservationViolation
 
 FUNCTION handle_validation_error(error: ValidationError) -> Result<()>:
-  log_validation_failure(error)
-  emit_validation_event(error)
-  RETURN Err(error)
+log_validation_failure(error)
+emit_validation_event(error)
+RETURN Err(error)
 
 ## Validation Properties
 
 1. **Completeness**
+
    ```
    PROPERTY validation_coverage:
      FORALL op IN operations:
@@ -1524,6 +1570,7 @@ FUNCTION handle_validation_error(error: ValidationError) -> Result<()>:
    ```
 
 2. **Independence**
+
    ```
    PROPERTY validator_independence:
      FORALL v1 v2 IN validators:
@@ -1545,12 +1592,14 @@ FUNCTION handle_validation_error(error: ValidationError) -> Result<()>:
 The validation system maintains several critical properties:
 
 1. Validation Coverage
+
    - All operations are validated
    - All inputs are sanitized
    - All states are verified
    - All transitions are checked
 
 2. Error Clarity
+
    - Validation errors are specific
    - Error context is preserved
    - Recovery paths are clear
@@ -1573,43 +1622,43 @@ Frontend_AIResponse
 # AIResponse Component Specification
 
 VERSION ai_response_system:
-  invariants: {
-    "Step sequence integrity",
-    "Source coherence",
-    "Markdown rendering fidelity"
-  }
-  assumptions: {
-    "Step completeness",
-    "Source availability",
-    "Markdown safety"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Step sequence integrity",
+"Source coherence",
+"Markdown rendering fidelity"
+}
+assumptions: {
+"Step completeness",
+"Source availability",
+"Markdown safety"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE AIResponseState = {
-  // Message State
-  message: {
-    content: string,
-    steps: Array<Step>,
-    sources: Array<Source>,
-    status: ResponseStatus
-  },
+// Message State
+message: {
+content: string,
+steps: Array<Step>,
+sources: Array<Source>,
+status: ResponseStatus
+},
 
-  // Display State
-  display: {
-    activeStep: StepId,
-    expandedSources: Set<SourceId>,
-    renderState: RenderState,
-    error: Option<Error>
-  },
+// Display State
+display: {
+activeStep: StepId,
+expandedSources: Set<SourceId>,
+renderState: RenderState,
+error: Option<Error>
+},
 
-  // Animation State
-  animation: {
-    stepTransitions: Map<StepId, AnimationState>,
-    contentFade: AnimationState,
-    sourceReveal: AnimationState
-  }
+// Animation State
+animation: {
+stepTransitions: Map<StepId, AnimationState>,
+contentFade: AnimationState,
+sourceReveal: AnimationState
+}
 }
 
 ## Step Management
@@ -1828,7 +1877,6 @@ PROPERTY response_invariants:
 ```
 
 
-
 ==
 Frontend_ChoirChat
 ==
@@ -1837,56 +1885,57 @@ Frontend_ChoirChat
 # ChoirChat Component Specification
 
 VERSION choir_chat_system:
-  invariants: {
-    "State coherence",
-    "Message ordering",
-    "Thread integrity"
-  }
-  assumptions: {
-    "WebSocket availability",
-    "Wallet connectivity",
-    "Thread persistence"
-  }
-  implementation: "0.1.0"
+invariants: {
+"State coherence",
+"Message ordering",
+"Thread integrity"
+}
+assumptions: {
+"WebSocket availability",
+"Wallet connectivity",
+"Thread persistence"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE ChoirChatState = {
-  // Thread State
-  threads: {
-    all: Map<ThreadId, Thread>,
-    selected: Option<ThreadId>,
-    creating: boolean,
-    error: Option<string>
-  },
+// Thread State
+threads: {
+all: Map<ThreadId, Thread>,
+selected: Option<ThreadId>,
+creating: boolean,
+error: Option<string>
+},
 
-  // Message State
-  messages: {
-    history: Array<Message>,
-    pending: Option<Message>,
-    streaming: boolean,
-    input: string
-  },
+// Message State
+messages: {
+history: Array<Message>,
+pending: Option<Message>,
+streaming: boolean,
+input: string
+},
 
-  // Connection State
-  connection: {
-    websocket: Option<WebSocket>,
-    user: Option<User>,
-    status: ConnectionStatus,
-    retryCount: number
-  },
+// Connection State
+connection: {
+websocket: Option<WebSocket>,
+user: Option<User>,
+status: ConnectionStatus,
+retryCount: number
+},
 
-  // UI State
-  display: {
-    panelVisible: boolean,
-    sortOption: SortOption,
-    sources: Array<Source>
-  }
+// UI State
+display: {
+panelVisible: boolean,
+sortOption: SortOption,
+sources: Array<Source>
+}
 }
 
 ## State Transitions
 
 1. **Thread Management**
+
    ```
    SEQUENCE thread_operations:
      create_thread : UserId → Result<Thread>
@@ -1896,6 +1945,7 @@ TYPE ChoirChatState = {
    ```
 
 2. **Message Handling**
+
    ```
    SEQUENCE message_operations:
      submit_message : (ThreadId, string) → Result<Message>
@@ -1916,6 +1966,7 @@ TYPE ChoirChatState = {
 ## Effect Handlers
 
 1. **WebSocket Effects**
+
    ```
    TYPE WebSocketEffect =
      | Connect(config: WebSocketConfig)
@@ -1931,6 +1982,7 @@ TYPE ChoirChatState = {
    ```
 
 2. **Thread Effects**
+
    ```
    TYPE ThreadEffect =
      | Create(name: string)
@@ -1948,6 +2000,7 @@ TYPE ChoirChatState = {
 ## Error Recovery
 
 1. **Connection Recovery**
+
    ```
    SEQUENCE handle_connection_error:
      1. log_error(error)
@@ -2044,6 +2097,7 @@ PROPERTY state_invariants:
 ## Performance Optimizations
 
 1. **Message Batching**
+
    ```
    SEQUENCE batch_messages:
      collect_pending(timeout)
@@ -2072,17 +2126,17 @@ Frontend_ChoirChat_UI
 # ChoirChat UI Patterns
 
 VERSION choir_ui_system:
-  invariants: {
-    "Visual hierarchy",
-    "Interaction consistency",
-    "State reflection"
-  }
-  assumptions: {
-    "Responsive design",
-    "Mobile compatibility",
-    "Theme consistency"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Visual hierarchy",
+"Interaction consistency",
+"State reflection"
+}
+assumptions: {
+"Responsive design",
+"Mobile compatibility",
+"Theme consistency"
+}
+docs_version: "0.2.0"
 
 ## Layout Structure
 
@@ -2101,6 +2155,7 @@ TYPE LayoutStructure = {
 ## Visual Hierarchy
 
 1. **Thread List**
+
    ```
    SEQUENCE thread_display:
      1. Header ("Chats")
@@ -2112,6 +2167,7 @@ TYPE LayoutStructure = {
    ```
 
 2. **Chat Area**
+
    ```
    SEQUENCE chat_layout:
      1. Message History (scrollable)
@@ -2135,6 +2191,7 @@ TYPE LayoutStructure = {
 ## Interaction Patterns
 
 1. **Message Input**
+
    ```
    SEQUENCE input_interaction:
      1. Focus → Show active state
@@ -2147,6 +2204,7 @@ TYPE LayoutStructure = {
    ```
 
 2. **Thread Selection**
+
    ```
    SEQUENCE thread_interaction:
      1. Click → Highlight thread
@@ -2173,6 +2231,7 @@ TYPE LayoutStructure = {
 ## State Reflection
 
 1. **Loading States**
+
    ```
    TYPE LoadingIndicator =
      | ThreadCreation: "Creating..."
@@ -2182,6 +2241,7 @@ TYPE LayoutStructure = {
    ```
 
 2. **Error States**
+
    ```
    TYPE ErrorDisplay =
      | Connection: "Banner with retry"
@@ -2201,6 +2261,7 @@ TYPE LayoutStructure = {
 ## Responsive Behavior
 
 1. **Breakpoint Patterns**
+
    ```
    TYPE ResponsiveLayout =
      | Desktop: "Three-column layout"
@@ -2226,6 +2287,7 @@ TYPE LayoutStructure = {
 ## Animation Patterns
 
 1. **Transitions**
+
    ```
    TYPE AnimationPattern =
      | PanelToggle: "slide transform"
@@ -2247,6 +2309,7 @@ TYPE LayoutStructure = {
 ## Theme Integration
 
 1. **Color Patterns**
+
    ```
    TYPE ColorScheme = {
      primary: "cyan-500",
@@ -2270,6 +2333,7 @@ TYPE LayoutStructure = {
 ## Accessibility Patterns
 
 1. **Keyboard Navigation**
+
    ```
    SEQUENCE keyboard_support:
      Tab: Navigate interactive elements
@@ -2299,42 +2363,42 @@ Frontend_ChorusPanel
 # ChorusPanel Component Specification
 
 VERSION chorus_panel_system:
-  invariants: {
-    "Step coherence",
-    "Source ordering",
-    "State verification"
-  }
-  assumptions: {
-    "Step sequence validity",
-    "Source availability",
-    "Sort stability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Step coherence",
+"Source ordering",
+"State verification"
+}
+assumptions: {
+"Step sequence validity",
+"Source availability",
+"Sort stability"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE ChorusPanelState = {
-  // Step State
-  steps: {
-    current: Step,
-    sequence: Array<Step>,
-    display: Map<Step, DisplayState>
-  },
+// Step State
+steps: {
+current: Step,
+sequence: Array<Step>,
+display: Map<Step, DisplayState>
+},
 
-  // Source State
-  sources: {
-    items: Array<Source>,
-    sortOption: SortOption,
-    sortOrder: SortOrder,
-    filters: Set<Filter>
-  },
+// Source State
+sources: {
+items: Array<Source>,
+sortOption: SortOption,
+sortOrder: SortOrder,
+filters: Set<Filter>
+},
 
-  // Display State
-  view: {
-    expanded: Set<StepId>,
-    activeTab: TabOption,
-    scrollPosition: number
-  }
+// Display State
+view: {
+expanded: Set<StepId>,
+activeTab: TabOption,
+scrollPosition: number
+}
 }
 
 ## Step Display Normalization
@@ -2514,35 +2578,35 @@ Frontend_UserInput
 # UserInput Component Specification
 
 VERSION user_input_system:
-  invariants: {
-    "Message immutability",
-    "Display consistency",
-    "Accessibility compliance"
-  }
-  assumptions: {
-    "Content sanitization",
-    "Theme consistency",
-    "Responsive layout"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Message immutability",
+"Display consistency",
+"Accessibility compliance"
+}
+assumptions: {
+"Content sanitization",
+"Theme consistency",
+"Responsive layout"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE UserInputState = {
-  // Message State
-  message: {
-    content: string,
-    timestamp: DateTime,
-    author: Author,
-    id: MessageId
-  },
+// Message State
+message: {
+content: string,
+timestamp: DateTime,
+author: Author,
+id: MessageId
+},
 
-  // Display State
-  display: {
-    theme: ThemeVariant,
-    layout: LayoutPosition,
-    animation: AnimationState
-  }
+// Display State
+display: {
+theme: ThemeVariant,
+layout: LayoutPosition,
+animation: AnimationState
+}
 }
 
 ## Display Properties
@@ -2712,6 +2776,7 @@ PROPERTY message_invariants:
 This specification provides a complete model for the UserInput component, focusing on clean message display, accessibility, and performance. The implementation should maintain these patterns while providing a consistent user experience.
 
 Key aspects:
+
 1. Clean content processing
 2. Strong accessibility support
 3. Smooth animations
@@ -2719,6 +2784,7 @@ Key aspects:
 5. Performance optimization
 
 Would you like me to:
+
 1. Add more detail to any section?
 2. Include additional patterns?
 3. Expand on specific features?
@@ -2734,17 +2800,17 @@ Backend_Chorus
 # Crystallized Chorus Loop
 
 VERSION chorus_system:
-  invariants: {
-    "Pure function transformation",
-    "State isolation",
-    "Error correction capability"
-  }
-  assumptions: {
-    "AI response stability",
-    "State transition atomicity",
-    "Message ordering"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Pure function transformation",
+"State isolation",
+"Error correction capability"
+}
+assumptions: {
+"AI response stability",
+"State transition atomicity",
+"Message ordering"
+}
+docs_version: "0.2.0"
 
 ## Core Types
 
@@ -2856,17 +2922,17 @@ Backend_Database
 # Crystallized Database Layer
 
 VERSION database_system:
-  invariants: {
-    "Vector space integrity",
-    "State consistency",
-    "Recovery capability"
-  }
-  assumptions: {
-    "Qdrant availability",
-    "Vector stability",
-    "Collection coherence"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Vector space integrity",
+"State consistency",
+"Recovery capability"
+}
+assumptions: {
+"Qdrant availability",
+"Vector stability",
+"Collection coherence"
+}
+docs_version: "0.2.0"
 
 ## Core Types
 
@@ -3009,17 +3075,17 @@ Backend_Main
 # Crystallized WebSocket Server
 
 VERSION websocket_system:
-  invariants: {
-    "Connection state integrity",
-    "Message ordering",
-    "Error isolation"
-  }
-  assumptions: {
-    "Network reliability",
-    "State synchronization",
-    "Client behavior"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Connection state integrity",
+"Message ordering",
+"Error isolation"
+}
+assumptions: {
+"Network reliability",
+"State synchronization",
+"Client behavior"
+}
+docs_version: "0.2.0"
 
 ## Core Types
 
@@ -3143,12 +3209,14 @@ async def websocket_endpoint(websocket: WebSocket):
 ```
 
 This crystallization:
+
 1. Separates pure message handling from effects
 2. Makes connection state explicit
 3. Adds systematic error handling
 4. Provides clear protocol structure
 
 Would you like me to:
+
 1. Add more detailed message type definitions
 2. Expand the error correction patterns
 3. Move to another component
@@ -3174,7 +3242,7 @@ assumptions: {
 "Validation completeness",
 "State coherence"
 }
-implementation: "0.1.0"
+docs_version: "0.2.0"
 
 ## Core Types
 
@@ -3645,17 +3713,17 @@ Implementation_Dependencies
 # Core Implementation Components
 
 VERSION implementation_map:
-  invariants: {
-    "Component isolation",
-    "Interface stability",
-    "Protocol compatibility"
-  }
-  assumptions: {
-    "Technology stack fixed",
-    "API versioning",
-    "Deployment model"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Component isolation",
+"Interface stability",
+"Protocol compatibility"
+}
+assumptions: {
+"Technology stack fixed",
+"API versioning",
+"Deployment model"
+}
+docs_version: "0.2.0"
 
 ## 1. Solana Program Structure
 
@@ -3797,38 +3865,45 @@ graph TD
 ## Interface Contracts
 
 1. **Solana Program Interface**
+
    ```typescript
    interface ProgramInterface {
-     createThread(creator: PublicKey): Promise<ThreadId>
-     submitMessage(thread: ThreadId, content: string): Promise<Hash>
-     processApproval(thread: ThreadId, hash: Hash, decision: boolean): Promise<void>
-     divest(thread: ThreadId): Promise<TokenAmount>
+     createThread(creator: PublicKey): Promise<ThreadId>;
+     submitMessage(thread: ThreadId, content: string): Promise<Hash>;
+     processApproval(
+       thread: ThreadId,
+       hash: Hash,
+       decision: boolean
+     ): Promise<void>;
+     divest(thread: ThreadId): Promise<TokenAmount>;
    }
    ```
 
 2. **Backend API Interface**
+
    ```typescript
    interface APIInterface {
-     getThread(id: ThreadId): Promise<ThreadState>
-     submitMessage(content: string, threadId: ThreadId): Promise<Hash>
-     getMessages(threadId: ThreadId): Promise<Message[]>
-     searchContent(query: string): Promise<SearchResult[]>
+     getThread(id: ThreadId): Promise<ThreadState>;
+     submitMessage(content: string, threadId: ThreadId): Promise<Hash>;
+     getMessages(threadId: ThreadId): Promise<Message[]>;
+     searchContent(query: string): Promise<SearchResult[]>;
    }
    ```
 
 3. **WebSocket Interface**
    ```typescript
    interface WebSocketInterface {
-     connect(): Promise<void>
-     subscribe(threadId: ThreadId): Promise<void>
-     sendMessage(message: WebSocketMessage): Promise<void>
-     onMessage(handler: (message: WebSocketMessage) => void): void
+     connect(): Promise<void>;
+     subscribe(threadId: ThreadId): Promise<void>;
+     sendMessage(message: WebSocketMessage): Promise<void>;
+     onMessage(handler: (message: WebSocketMessage) => void): void;
    }
    ```
 
 ## Deployment Requirements
 
 1. **Infrastructure**
+
    ```yaml
    services:
      solana:
@@ -3848,11 +3923,11 @@ graph TD
 2. **Environment Configuration**
    ```typescript
    interface Config {
-     SOLANA_RPC_URL: string
-     PROGRAM_ID: PublicKey
-     QDRANT_URL: string
-     AI_API_KEY: string
-     WS_ENDPOINT: string
+     SOLANA_RPC_URL: string;
+     PROGRAM_ID: PublicKey;
+     QDRANT_URL: string;
+     AI_API_KEY: string;
+     WS_ENDPOINT: string;
    }
    ```
 
@@ -3865,117 +3940,124 @@ Theory_Implementation_Bridge
 # Theory-Implementation Harmonic Bridge
 
 VERSION harmonic_bridge:
-  invariants: {
-    "Theory-practice resonance",
-    "Implementation coherence",
-    "Documentation harmony"
-  }
-  assumptions: {
-    "Theory harmonics stable",
-    "Implementation oscillating",
-    "Bridge resonance maintained"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Theory-practice resonance",
+"Implementation coherence",
+"Documentation harmony"
+}
+assumptions: {
+"Theory harmonics stable",
+"Implementation oscillating",
+"Bridge resonance maintained"
+}
+docs_version: "0.2.0"
 
 ## Layer 1: Harmonic Model
 
 THEORY ResonantSpace<T>:
-  cavity: OscillatorPoint<T>
-  coupling: ResonantBundle<T>
-  field: HarmonicField<T>
+cavity: OscillatorPoint<T>
+coupling: ResonantBundle<T>
+field: HarmonicField<T>
 
 THEORY Evolution<T>:
-  initiate: T → ResonantSpace<T>
-  resonate: ResonantSpace<T> → ResonantSpace<T>
-  crystallize: ResonantSpace<T> → T
+initiate: T → ResonantSpace<T>
+resonate: ResonantSpace<T> → ResonantSpace<T>
+crystallize: ResonantSpace<T> → T
 
 ## Layer 2: Implementation Oscillators
 
 TYPE Thread = {
-  id: string,
-  oscillators: string[],    // co-authors as coupled oscillators
-  resonance: Message[],     // messages as wave patterns
-  phase: "resonant" | "decoherent"  // active/locked status
+id: string,
+oscillators: string[], // co-authors as coupled oscillators
+resonance: Message[], // messages as wave patterns
+phase: "resonant" | "decoherent" // active/locked status
 }
 
 TYPE Message = {
-  id: string,
-  waveform: string,         // content as wave packet
-  source: string,           // author as oscillator
-  coupling: string[],       // approvals as phase coupling
-  state: "superposed" | "collapsed" | "dispersed"
+id: string,
+waveform: string, // content as wave packet
+source: string, // author as oscillator
+coupling: string[], // approvals as phase coupling
+state: "superposed" | "collapsed" | "dispersed"
 }
 
 FUNCTION create_resonator(initiator: string) -> Thread:
-  RETURN {
-    id: generate_id(),
-    oscillators: [initiator],
-    resonance: [],
-    phase: "resonant"
-  }
+RETURN {
+id: generate_id(),
+oscillators: [initiator],
+resonance: [],
+phase: "resonant"
+}
 
 FUNCTION add_wave(thread: Thread, waveform: string, source: string) -> Thread:
-  wave = {
-    id: generate_id(),
-    waveform: waveform,
-    source: source,
-    coupling: [],
-    state: "superposed"
-  }
-  RETURN {
-    ...thread,
-    resonance: [...thread.resonance, wave]
-  }
+wave = {
+id: generate_id(),
+waveform: waveform,
+source: source,
+coupling: [],
+state: "superposed"
+}
+RETURN {
+...thread,
+resonance: [...thread.resonance, wave]
+}
 
 FUNCTION phase_lock(thread: Thread, waveId: string, oscillator: string) -> Thread:
-  wave = find_wave(thread, waveId)
-  coupled = add_coupling(wave, oscillator)
-  IF all_phase_locked(coupled, thread.oscillators):
-    crystallize_wave(coupled)
-  RETURN update_thread_resonance(thread, coupled)
+wave = find_wave(thread, waveId)
+coupled = add_coupling(wave, oscillator)
+IF all_phase_locked(coupled, thread.oscillators):
+crystallize_wave(coupled)
+RETURN update_thread_resonance(thread, coupled)
 
 ## Layer 3: Bridge Harmonics
 
 MAPPING TheoryToImplementation:
-  Theory                     Implementation
-  ----------------------------------------
-  OscillatorPoint<T>     →   Message
-  ResonantBundle<T>      →   Coupling[]
-  HarmonicField<T>       →   Token Balance
+Theory Implementation
 
-  ResonantSpace          →   Thread
-  Evolution             →   Wave Processing
-  Crystallization       →   Approval Process
+---
+
+OscillatorPoint<T> → Message
+ResonantBundle<T> → Coupling[]
+HarmonicField<T> → Token Balance
+
+ResonantSpace → Thread
+Evolution → Wave Processing
+Crystallization → Approval Process
 
 MAPPING OperationsToImplementation:
-  Theory                     Implementation
-  ----------------------------------------
-  initiate_resonance     →   create_resonator
-  add_oscillation        →   add_wave
-  achieve_phase_lock     →   phase_lock
-  measure_amplitude      →   calculate_tokens
+Theory Implementation
+
+---
+
+initiate_resonance → create_resonator
+add_oscillation → add_wave
+achieve_phase_lock → phase_lock
+measure_amplitude → calculate_tokens
 
 MAPPING PropertiesToConstraints:
-  Theory                     Implementation
-  ----------------------------------------
-  Resonant continuity    →   Wave ordering
-  Phase coherence        →   Coupling consistency
-  Energy conservation    →   Token conservation
+Theory Implementation
+
+---
+
+Resonant continuity → Wave ordering
+Phase coherence → Coupling consistency
+Energy conservation → Token conservation
 
 ## Usage Example
 
 SEQUENCE wave_flow:
-  // Implementation
-  thread = create_resonator(author)
-  thread = add_wave(thread, content, author)
-  thread = phase_lock(thread, waveId, approver)
+// Implementation
+thread = create_resonator(author)
+thread = add_wave(thread, content, author)
+thread = phase_lock(thread, waveId, approver)
 
-  // Maps to Theory
-  state = initiate_resonance(initial)
-  state = add_oscillation(state, content)
-  result = achieve_phase_lock(state, measurement)
+// Maps to Theory
+state = initiate_resonance(initial)
+state = add_oscillation(state, content)
+result = achieve_phase_lock(state, measurement)
 
 Through this harmonic bridge, we maintain:
+
 1. Clean, resonant implementation
 2. Rigorous wave mechanics
 3. Clear mapping between theory and practice
@@ -5330,102 +5412,106 @@ Error_Correction_Layers
 # Error Correction Through Layer Parallelism
 
 VERSION correction_system:
-  invariants: {
-    "Layer independence",
-    "Cross-verification",
-    "Recovery capability"
-  }
-  assumptions: {
-    "Layer accessibility",
-    "Documentation currency",
-    "Implementation stability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Layer independence",
+"Cross-verification",
+"Recovery capability"
+}
+assumptions: {
+"Layer accessibility",
+"Documentation currency",
+"Implementation stability"
+}
+docs_version: "0.2.0"
 
 ## Layer Structure
 
 1. **Theoretical Layer**
    THEORY ThreadState<T>:
-     space: StateSpace<T>
-     evolution: StateEvolution<T>
-     invariants: Set<Property>
+   space: StateSpace<T>
+   evolution: StateEvolution<T>
+   invariants: Set<Property>
 
 2. **Implementation Layer**
    TYPE Thread = {
-     id: string,
-     messages: Message[],
-     state: ThreadState
+   id: string,
+   messages: Message[],
+   state: ThreadState
    }
 
 3. **Bridge Layer**
    MAPPING ThreadMapping:
-     Theory → Implementation → Verification
+   Theory → Implementation → Verification
 
 ## Error Detection
 
 FUNCTION detect_inconsistency():
-  theoretical = verify_theory_properties()
-  practical = verify_implementation_state()
-  mapping = verify_bridge_consistency()
+theoretical = verify_theory_properties()
+practical = verify_implementation_state()
+mapping = verify_bridge_consistency()
 
-  RETURN {
-    theory_violations: theoretical.violations,
-    implementation_errors: practical.errors,
-    mapping_inconsistencies: mapping.gaps
-  }
+RETURN {
+theory_violations: theoretical.violations,
+implementation_errors: practical.errors,
+mapping_inconsistencies: mapping.gaps
+}
 
 ## Error Correction
 
 SEQUENCE correct_error:
-  1. Identify Layer
-     ```
-     error = detect_layer(inconsistency)
-     MATCH error:
-       TheoryViolation → consult_theory_docs
-       ImplementationBug → check_implementation
-       MappingGap → review_bridge_docs
-     ```
 
-  2. Cross-Reference
-     ```
-     theoretical = get_theory_requirement(error)
-     practical = get_implementation_state(error)
-     mapping = get_bridge_mapping(error)
-     ```
+1. Identify Layer
 
-  3. Resolve
-     ```
-     IF theoretical.valid AND practical.invalid:
-       correct_implementation()
-     IF theoretical.invalid AND practical.valid:
-       review_theory()
-     IF mapping.inconsistent:
-       update_bridge()
-     ```
+   ```
+   error = detect_layer(inconsistency)
+   MATCH error:
+     TheoryViolation → consult_theory_docs
+     ImplementationBug → check_implementation
+     MappingGap → review_bridge_docs
+   ```
+
+2. Cross-Reference
+
+   ```
+   theoretical = get_theory_requirement(error)
+   practical = get_implementation_state(error)
+   mapping = get_bridge_mapping(error)
+   ```
+
+3. Resolve
+   ```
+   IF theoretical.valid AND practical.invalid:
+     correct_implementation()
+   IF theoretical.invalid AND practical.valid:
+     review_theory()
+   IF mapping.inconsistent:
+     update_bridge()
+   ```
 
 ## Recovery Patterns
 
 1. **Theory Recovery**
    SEQUENCE recover_theory:
-     check_invariants()
-     verify_properties()
-     restore_consistency()
+   check_invariants()
+   verify_properties()
+   restore_consistency()
 
 2. **Implementation Recovery**
    SEQUENCE recover_implementation:
-     rollback_state()
-     replay_valid_operations()
-     verify_state()
+   rollback_state()
+   replay_valid_operations()
+   verify_state()
 
 3. **Bridge Recovery**
    SEQUENCE recover_bridge:
-     identify_mapping_gaps()
-     update_documentation()
-     verify_consistency()
+   identify_mapping_gaps()
+   update_documentation()
+   verify_consistency()
 
 ## Verification Methods
 
 1. **Theory Verification**
+
    ```
    VERIFY theory_properties:
      state_consistency
@@ -5434,6 +5520,7 @@ SEQUENCE correct_error:
    ```
 
 2. **Implementation Verification**
+
    ```
    VERIFY implementation_state:
      data_integrity
@@ -5452,30 +5539,32 @@ SEQUENCE correct_error:
 ## Application Example
 
 SEQUENCE message_processing:
-  // Theory Layer
-  theoretical_state = prepare_state(message)
-  theoretical_valid = verify_theory(theoretical_state)
+// Theory Layer
+theoretical_state = prepare_state(message)
+theoretical_valid = verify_theory(theoretical_state)
 
-  // Implementation Layer
-  practical_state = process_message(message)
-  practical_valid = verify_implementation(practical_state)
+// Implementation Layer
+practical_state = process_message(message)
+practical_valid = verify_implementation(practical_state)
 
-  // Bridge Layer
-  mapping_valid = verify_mapping(theoretical_state, practical_state)
+// Bridge Layer
+mapping_valid = verify_mapping(theoretical_state, practical_state)
 
-  IF theoretical_valid AND practical_valid AND mapping_valid:
-    commit_state()
-  ELSE:
-    trigger_correction(theoretical_valid, practical_valid, mapping_valid)
+IF theoretical_valid AND practical_valid AND mapping_valid:
+commit_state()
+ELSE:
+trigger_correction(theoretical_valid, practical_valid, mapping_valid)
 
 ## Benefits
 
 1. **Error Detection**
+
    - Multiple validation layers
    - Cross-layer verification
    - Inconsistency identification
 
 2. **Error Correction**
+
    - Layer-specific recovery
    - Cross-layer validation
    - Documented recovery paths
@@ -5648,201 +5737,218 @@ Reward_Service
 # Reward Service Design
 
 VERSION reward_system:
-  invariants: {
-    "Semantic value calculation",
-    "Token distribution fairness",
-    "Citation tracking integrity"
-  }
-  assumptions: {
-    "Hot wallet security",
-    "Semantic embedding stability",
-    "Batch processing efficiency"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Semantic value calculation",
+"Token distribution fairness",
+"Citation tracking integrity"
+}
+assumptions: {
+"Hot wallet security",
+"Semantic embedding stability",
+"Batch processing efficiency"
+}
+docs_version: "0.2.0"
 
 ## Core Service Types
 
 TYPE RewardService = {
-  hot_wallet: HotWallet,
-  embeddings: EmbeddingService,
-  semantic_cache: Map<Hash, Vector>,
-  batch_queue: Queue<RewardEvent>,
-  distribution_log: Log<Distribution>
+hot_wallet: HotWallet,
+embeddings: EmbeddingService,
+semantic_cache: Map<Hash, Vector>,
+batch_queue: Queue<RewardEvent>,
+distribution_log: Log<Distribution>
 }
 
 TYPE RewardEvent =
-  | NewMessage(message_id: str, content: str)
-  | Citation(source_id: str, target_id: str)
-  | ThreadValue(thread_id: str, value_delta: f64)
+| NewMessage(message_id: str, content: str)
+| Citation(source_id: str, target_id: str)
+| ThreadValue(thread_id: str, value_delta: f64)
 
 ## Semantic Value Calculation
 
 SEQUENCE calculate_semantic_value:
-  1. Content Analysis
-     - Generate embedding
-     - Calculate semantic distance
-     - Measure uniqueness
-     - Factor thread context
 
-  2. Value Computation
-     - Base reward = f(semantic_distance)
-     - Quality multiplier = f(thread_value)
-     - Citation bonus = f(source_value)
-     - Final reward = base * multiplier + bonus
+1. Content Analysis
 
-  3. Verification
-     - Validate calculations
-     - Check bounds
-     - Record metrics
-     - Log decision
+   - Generate embedding
+   - Calculate semantic distance
+   - Measure uniqueness
+   - Factor thread context
+
+2. Value Computation
+
+   - Base reward = f(semantic_distance)
+   - Quality multiplier = f(thread_value)
+   - Citation bonus = f(source_value)
+   - Final reward = base \* multiplier + bonus
+
+3. Verification
+   - Validate calculations
+   - Check bounds
+   - Record metrics
+   - Log decision
 
 PROPERTY value_fairness:
-  FORALL m1 m2 IN messages:
-    semantic_distance(m1, m2) > threshold IMPLIES
-      abs(reward(m1) - reward(m2)) < epsilon
+FORALL m1 m2 IN messages:
+semantic_distance(m1, m2) > threshold IMPLIES
+abs(reward(m1) - reward(m2)) < epsilon
 
 ## Batch Processing
 
 SEQUENCE process_reward_batch:
-  1. Batch Collection
-     - Aggregate events
-     - Group by type
-     - Sort by priority
-     - Validate batch
 
-  2. Value Calculation
-     - Process semantic values
-     - Calculate rewards
-     - Apply modifiers
-     - Verify totals
+1. Batch Collection
 
-  3. Distribution
-     - Prepare transactions
-     - Execute batch
-     - Verify success
-     - Update state
+   - Aggregate events
+   - Group by type
+   - Sort by priority
+   - Validate batch
+
+2. Value Calculation
+
+   - Process semantic values
+   - Calculate rewards
+   - Apply modifiers
+   - Verify totals
+
+3. Distribution
+   - Prepare transactions
+   - Execute batch
+   - Verify success
+   - Update state
 
 PROPERTY batch_integrity:
-  FORALL batch IN batches:
-    sum(batch.rewards) == sum(batch.distributions) AND
-    batch.complete OR batch.reverted
+FORALL batch IN batches:
+sum(batch.rewards) == sum(batch.distributions) AND
+batch.complete OR batch.reverted
 
 ## Hot Wallet Security
 
 TYPE HotWallet = {
-  authority: Keypair,
-  balance: TokenAmount,
-  nonce: u64,
-  security_config: SecurityConfig
+authority: Keypair,
+balance: TokenAmount,
+nonce: u64,
+security_config: SecurityConfig
 }
 
 SEQUENCE secure_distribution:
-  1. Authorization
-     - Verify service identity
-     - Check permissions
-     - Validate request
-     - Log attempt
 
-  2. Transaction Preparation
-     - Build instruction set
-     - Calculate fees
-     - Verify balance
-     - Sign transaction
+1. Authorization
 
-  3. Execution
-     - Submit transaction
-     - Monitor status
-     - Handle response
-     - Update records
+   - Verify service identity
+   - Check permissions
+   - Validate request
+   - Log attempt
+
+2. Transaction Preparation
+
+   - Build instruction set
+   - Calculate fees
+   - Verify balance
+   - Sign transaction
+
+3. Execution
+   - Submit transaction
+   - Monitor status
+   - Handle response
+   - Update records
 
 PROPERTY wallet_security:
-  wallet.balance >= minimum_reserve AND
-  wallet.nonce.monotonic_increasing AND
-  wallet.logs.complete
+wallet.balance >= minimum_reserve AND
+wallet.nonce.monotonic_increasing AND
+wallet.logs.complete
 
 ## Integration with Chorus Loop
 
 SEQUENCE reward_integration:
-  1. Message Processing
-     ```python
-     async def process_message_reward(message: Message):
-       embedding = await get_embedding(message.content)
-       value = calculate_semantic_value(embedding)
-       reward = compute_reward(value)
-       await queue_distribution(message.author, reward)
-     ```
 
-  2. Citation Processing
-     ```python
-     async def process_citation_reward(citation: Citation):
-       source_value = get_thread_value(citation.source_id)
-       citation_reward = compute_citation_reward(source_value)
-       await queue_distribution(citation.source_thread, citation_reward)
-     ```
+1. Message Processing
 
-  3. Thread Value Update
-     ```python
-     async def update_thread_value(thread_id: str):
-       messages = await get_thread_messages(thread_id)
-       semantic_value = calculate_thread_semantic_value(messages)
-       await update_thread_metrics(thread_id, semantic_value)
-     ```
+   ```python
+   async def process_message_reward(message: Message):
+     embedding = await get_embedding(message.content)
+     value = calculate_semantic_value(embedding)
+     reward = compute_reward(value)
+     await queue_distribution(message.author, reward)
+   ```
+
+2. Citation Processing
+
+   ```python
+   async def process_citation_reward(citation: Citation):
+     source_value = get_thread_value(citation.source_id)
+     citation_reward = compute_citation_reward(source_value)
+     await queue_distribution(citation.source_thread, citation_reward)
+   ```
+
+3. Thread Value Update
+   ```python
+   async def update_thread_value(thread_id: str):
+     messages = await get_thread_messages(thread_id)
+     semantic_value = calculate_thread_semantic_value(messages)
+     await update_thread_metrics(thread_id, semantic_value)
+   ```
 
 ## Error Handling
 
 TYPE RewardError =
-  | SemanticCalculationError
-  | InsufficientBalance
-  | DistributionFailure
-  | BatchProcessingError
-  | WalletSecurityError
+| SemanticCalculationError
+| InsufficientBalance
+| DistributionFailure
+| BatchProcessingError
+| WalletSecurityError
 
 FUNCTION handle_reward_error(error: RewardError) -> Result<()>:
-  log_error(error)
-  revert_batch()
-  notify_monitoring()
-  trigger_recovery()
-  RETURN Err(error)
+log_error(error)
+revert_batch()
+notify_monitoring()
+trigger_recovery()
+RETURN Err(error)
 
 ## Monitoring and Analytics
 
 TYPE RewardMetrics = {
-  semantic_distances: Distribution,
-  reward_amounts: Distribution,
-  batch_sizes: Distribution,
-  processing_times: Distribution
+semantic_distances: Distribution,
+reward_amounts: Distribution,
+batch_sizes: Distribution,
+processing_times: Distribution
 }
 
 SEQUENCE monitor_rewards:
-  1. Track Distributions
-     - Record amounts
-     - Monitor patterns
-     - Detect anomalies
-     - Generate reports
 
-  2. Performance Metrics
-     - Measure latency
-     - Track throughput
-     - Monitor errors
-     - Analyze trends
+1. Track Distributions
 
-  3. Security Monitoring
-     - Watch transactions
-     - Verify signatures
-     - Check balances
-     - Alert on issues
+   - Record amounts
+   - Monitor patterns
+   - Detect anomalies
+   - Generate reports
+
+2. Performance Metrics
+
+   - Measure latency
+   - Track throughput
+   - Monitor errors
+   - Analyze trends
+
+3. Security Monitoring
+   - Watch transactions
+   - Verify signatures
+   - Check balances
+   - Alert on issues
 
 ## Implementation Notes
 
 The reward service maintains several critical properties:
 
 1. Value Calculation
+
    - Semantic distance is primary factor
    - Quality multipliers are bounded
    - Citations increase value
    - Rewards are fair and predictable
 
 2. Distribution Safety
+
    - Hot wallet is secured
    - Batches are atomic
    - Failures are handled
@@ -5865,17 +5971,17 @@ Reward_Summary
 # Rewards Summary
 
 VERSION rewards_system:
-  invariants: {
-    "Energy conservation",
-    "Incentive alignment",
-    "Sustainable token flow"
-  }
-  assumptions: {
-    "Fixed token supply",
-    "Thermodynamic principles",
-    "Adaptive distribution"
-  }
-  implementation: "1.0.0"
+invariants: {
+"Energy conservation",
+"Incentive alignment",
+"Sustainable token flow"
+}
+assumptions: {
+"Fixed token supply",
+"Thermodynamic principles",
+"Adaptive distribution"
+}
+docs_version: "0.2.0"
 
 ## Overview
 

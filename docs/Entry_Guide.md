@@ -1,17 +1,17 @@
 # How to Read Choir Documentation
 
 VERSION guide_system:
-  invariants: {
-    "Navigation clarity",
-    "Learning progression",
-    "Access patterns"
-  }
-  assumptions: {
-    "Reader backgrounds",
-    "Documentation stability",
-    "Learning goals"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Navigation clarity",
+"Learning progression",
+"Access patterns"
+}
+assumptions: {
+"Reader backgrounds",
+"Documentation stability",
+"Learning goals"
+}
+docs_version: "0.2.0"
 
 ## Understanding the Documentation Space
 
@@ -32,15 +32,19 @@ Visual Understanding - Diagrams and visualizations that bridge formal models wit
 ## Navigation Approaches
 
 ### For System Architects
+
 Begin with ConceptualBridges.md to understand how different aspects of the system support each other. Then explore StateAlgebra.md and SecurityModel.md to grasp the formal foundations. Use DensityAnalysis.md to understand where to find detailed specifications versus high-level guidance.
 
 ### For Developers
+
 Start with ImplementationStrategy.md for practical patterns, referring to APIPatterns.md for specific interfaces. Use Diagrams.md to visualize flows and relationships. The MessageLifecycle.md document connects theory to practice.
 
 ### For Security Auditors
+
 Begin with SecurityModel.md and CoreInvariants.md to understand security properties. Use StateAlgebra.md to verify formal guarantees. Reference EconomicModel.md to understand incentive structures.
 
 ### For Product Managers
+
 Start with the 1-pager.md for mission and vision, then explore ChoirComprehensive.md for system overview. Use Q&A.md to understand common concerns and their resolutions.
 
 ## Working with Documentation Density
@@ -50,6 +54,7 @@ Some areas of documentation are intentionally dense, particularly around core sy
 ## Documentation Evolution
 
 The documentation grows and evolves in several ways:
+
 - Formal models become more precise
 - Implementation guides incorporate new patterns
 - Visual documentation expands to new areas
@@ -60,18 +65,21 @@ Understanding this evolution helps you anticipate where to find new information 
 ## Best Practices
 
 ### Reading Strategy
+
 - Start with relevant high-level documents
 - Follow conceptual bridges to related areas
 - Use diagrams to verify understanding
 - Refer to formal models when precision is needed
 
 ### Contributing
+
 - Maintain consistent versioning
 - Respect existing density patterns
 - Strengthen conceptual bridges
 - Preserve formal properties
 
 ### Asking Questions
+
 - Reference specific documents
 - Identify density mismatches
 - Suggest missing bridges
@@ -80,6 +88,7 @@ Understanding this evolution helps you anticipate where to find new information 
 ## Meta-Documentation
 
 Several documents help navigate the documentation itself:
+
 - DocumentNetwork.md maps relationships
 - DensityAnalysis.md reveals information structure
 - ConceptualBridges.md connects ideas
@@ -90,6 +99,7 @@ Use these meta-documents to find the most effective path through the documentati
 ## Future Directions
 
 The documentation will continue to evolve with:
+
 - Stronger conceptual bridges
 - Clearer density gradients
 - More visual aids

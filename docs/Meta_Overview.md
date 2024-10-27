@@ -1,17 +1,17 @@
 # Choir Documentation Guide
 
 VERSION meta_system:
-  invariants: {
-    "Documentation completeness",
-    "Cross-reference accuracy",
-    "Pattern emergence"
-  }
-  assumptions: {
-    "Documentation evolution",
-    "Insight accumulation",
-    "Understanding paths"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Documentation completeness",
+"Cross-reference accuracy",
+"Pattern emergence"
+}
+assumptions: {
+"Documentation evolution",
+"Insight accumulation",
+"Understanding paths"
+}
+docs_version: "0.2.0"
 
 ## Overview
 

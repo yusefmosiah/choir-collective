@@ -1,42 +1,42 @@
 # ChorusPanel Component Specification
 
 VERSION chorus_panel_system:
-  invariants: {
-    "Step coherence",
-    "Source ordering",
-    "State verification"
-  }
-  assumptions: {
-    "Step sequence validity",
-    "Source availability",
-    "Sort stability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Step coherence",
+"Source ordering",
+"State verification"
+}
+assumptions: {
+"Step sequence validity",
+"Source availability",
+"Sort stability"
+}
+docs_version: "0.2.0"
 
 ## Core State Model
 
 TYPE ChorusPanelState = {
-  // Step State
-  steps: {
-    current: Step,
-    sequence: Array<Step>,
-    display: Map<Step, DisplayState>
-  },
+// Step State
+steps: {
+current: Step,
+sequence: Array<Step>,
+display: Map<Step, DisplayState>
+},
 
-  // Source State
-  sources: {
-    items: Array<Source>,
-    sortOption: SortOption,
-    sortOrder: SortOrder,
-    filters: Set<Filter>
-  },
+// Source State
+sources: {
+items: Array<Source>,
+sortOption: SortOption,
+sortOrder: SortOrder,
+filters: Set<Filter>
+},
 
-  // Display State
-  view: {
-    expanded: Set<StepId>,
-    activeTab: TabOption,
-    scrollPosition: number
-  }
+// Display State
+view: {
+expanded: Set<StepId>,
+activeTab: TabOption,
+scrollPosition: number
+}
 }
 
 ## Step Display Normalization

@@ -11,17 +11,17 @@ Solana_lib
 # Choir Solana Program Core
 
 VERSION solana_program:
-  invariants: {
-    "Thread ownership integrity",
-    "Token conservation",
-    "State transition atomicity"
-  }
-  assumptions: {
-    "PDA derivation security",
-    "Transaction ordering",
-    "Clock reliability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Thread ownership integrity",
+"Token conservation",
+"State transition atomicity"
+}
+assumptions: {
+"PDA derivation security",
+"Transaction ordering",
+"Clock reliability"
+}
+docs_version: "0.2.0"
 
 ## Core Program Structure
 
@@ -30,149 +30,157 @@ The Choir program implements thread ownership, message approval, and token mecha
 ## Thread Initialization
 
 TYPE InitializeThread = {
-  creator: Signer,
-  thread: Account<Thread>,
-  system_program: Program<System>,
-  token_program: Program<Token>
+creator: Signer,
+thread: Account<Thread>,
+system_program: Program<System>,
+token_program: Program<Token>
 }
 
 SEQUENCE initialize_thread:
-  1. Parameter Validation
-     - thread_id.len() <= 32
-     - thread_id is unique
-     - PDA derivation is valid
 
-  2. State Initialization
-     - timestamps = (now(), now())
-     - co_authors = [creator]
-     - token_balance = 0
-     - messages = []
-     - pending_specs = []
+1. Parameter Validation
 
-  3. State Verification
-     - all fields initialized
-     - co_author present
-     - timestamps valid
+   - thread_id.len() <= 32
+   - thread_id is unique
+   - PDA derivation is valid
+
+2. State Initialization
+
+   - timestamps = (now(), now())
+   - co_authors = [creator]
+   - token_balance = 0
+   - messages = []
+   - pending_specs = []
+
+3. State Verification
+   - all fields initialized
+   - co_author present
+   - timestamps valid
 
 PROPERTY post_initialization:
-  thread.co_authors.len() == 1 AND
-  thread.token_balance == 0 AND
-  thread.messages.is_empty()
+thread.co_authors.len() == 1 AND
+thread.token_balance == 0 AND
+thread.messages.is_empty()
 
 ## Message Submission
 
 TYPE SubmitMessage = {
-  author: Signer,
-  thread: Account<Thread>,
-  token_program: Program<Token>
+author: Signer,
+thread: Account<Thread>,
+token_program: Program<Token>
 }
 
 SEQUENCE submit_message:
-  1. Authorization
-     - author in thread.co_authors
-     - thread not full
-     - valid content hash
 
-  2. Message Creation
-     - struct with content hash
-     - current timestamp
-     - empty approvals
+1. Authorization
 
-  3. Thread Update
-     - append message
-     - increment count
-     - update timestamp
+   - author in thread.co_authors
+   - thread not full
+   - valid content hash
+
+2. Message Creation
+
+   - struct with content hash
+   - current timestamp
+   - empty approvals
+
+3. Thread Update
+   - append message
+   - increment count
+   - update timestamp
 
 PROPERTY post_submission:
-  thread.message_count == old_count + 1 AND
-  thread.messages.last().author == author.key()
+thread.message_count == old_count + 1 AND
+thread.messages.last().author == author.key()
 
 ## Approval Processing
 
 TYPE ProcessApproval = {
-  co_author: Signer,
-  thread: Account<Thread>
+co_author: Signer,
+thread: Account<Thread>
 }
 
 SEQUENCE process_approval:
-  1. Authority Check
-     - co_author in thread.co_authors
-     - no duplicate votes
-     - valid message/spec index
 
-  2. Approval Recording
-     - create approval record
-     - add to approval set
-     - update timestamp
+1. Authority Check
 
-  3. Consensus Check
-     - count approvals
-     - check against co_author count
-     - process if complete
+   - co_author in thread.co_authors
+   - no duplicate votes
+   - valid message/spec index
+
+2. Approval Recording
+
+   - create approval record
+   - add to approval set
+   - update timestamp
+
+3. Consensus Check
+   - count approvals
+   - check against co_author count
+   - process if complete
 
 PROPERTY post_approval:
-  message.approvals.contains(co_author) AND
-  thread.updated_at > old_updated_at
+message.approvals.contains(co_author) AND
+thread.updated_at > old_updated_at
 
 ## Value Flow Properties
 
 TYPE ValueTransition =
-  | Approve: stake -> thread
-  | Deny: stake -> deniers
-  | Mixed: excess -> treasury
+| Approve: stake -> thread
+| Deny: stake -> deniers
+| Mixed: excess -> treasury
 
 PROPERTY value_conservation:
-  FORALL transition IN ValueTransition:
-    sum(input_tokens) == sum(output_tokens)
+FORALL transition IN ValueTransition:
+sum(input_tokens) == sum(output_tokens)
 
 ## Security Properties
 
-1. **Thread Integrity**   ```
-   PROPERTY thread_integrity:
-     FORALL thread IN threads:
-       thread.co_authors.non_empty() AND
-       thread.messages.all_valid() AND
-       thread.token_balance >= 0   ```
+1. **Thread Integrity** `PROPERTY thread_integrity:
+FORALL thread IN threads:
+  thread.co_authors.non_empty() AND
+  thread.messages.all_valid() AND
+  thread.token_balance >= 0  `
 
-2. **Approval Integrity**   ```
-   PROPERTY approval_integrity:
-     FORALL approval IN approvals:
-       approval.co_author IN thread.co_authors AND
-       approval.timestamp <= now() AND
-       no_duplicates(thread.approvals)   ```
+2. **Approval Integrity** `PROPERTY approval_integrity:
+FORALL approval IN approvals:
+  approval.co_author IN thread.co_authors AND
+  approval.timestamp <= now() AND
+  no_duplicates(thread.approvals)  `
 
-3. **State Transitions**   ```
-   PROPERTY state_transition:
-     FORALL old_state new_state:
-       valid_transition(old_state, new_state) AND
-       preserves_invariants(new_state) AND
-       maintains_history(old_state, new_state)   ```
+3. **State Transitions** `PROPERTY state_transition:
+FORALL old_state new_state:
+  valid_transition(old_state, new_state) AND
+  preserves_invariants(new_state) AND
+  maintains_history(old_state, new_state)  `
 
 ## Error Handling
 
 TYPE ChoirError =
-  | NotCoAuthor
-  | InsufficientStake
-  | InvalidApproval
-  | ThreadOperationFailed
-  | TokenOperationFailed
+| NotCoAuthor
+| InsufficientStake
+| InvalidApproval
+| ThreadOperationFailed
+| TokenOperationFailed
 
 FUNCTION handle_error(error: ChoirError) -> Result<()>:
-  log_error(error)
-  revert_state()
-  emit_event(error)
-  RETURN Err(error)
+log_error(error)
+revert_state()
+emit_event(error)
+RETURN Err(error)
 
 ## Implementation Notes
 
 The program maintains several critical invariants:
 
 1. Thread Ownership
+
    - Co-author set is never empty
    - Only co-authors can approve messages
    - PDA derivation ensures unique threads
 
 2. Token Conservation
+
    - All token movements are atomic
    - Stakes are properly tracked
    - Distribution preserves total supply
@@ -193,17 +201,17 @@ Solana_message
 # Message Account Management
 
 VERSION message_system:
-  invariants: {
-    "Message immutability post-approval",
-    "Content hash integrity",
-    "Approval state consistency"
-  }
-  assumptions: {
-    "Account size limits",
-    "PDA derivation security",
-    "Rent exemption"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Message immutability post-approval",
+"Content hash integrity",
+"Approval state consistency"
+}
+assumptions: {
+"Account size limits",
+"PDA derivation security",
+"Rent exemption"
+}
+docs_version: "0.2.0"
 
 ## Message Account Structure
 
@@ -436,129 +444,139 @@ Solana_settlement
 # Token Settlement and Distribution
 
 VERSION settlement_system:
-  invariants: {
-    "Token conservation",
-    "Distribution atomicity",
-    "Settlement finality"
-  }
-  assumptions: {
-    "Token account availability",
-    "Transaction ordering",
-    "Escrow security"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Token conservation",
+"Distribution atomicity",
+"Settlement finality"
+}
+assumptions: {
+"Token account availability",
+"Transaction ordering",
+"Escrow security"
+}
+docs_version: "0.2.0"
 
 ## Core Settlement Types
 
 TYPE Settlement = {
-  thread: Thread,
-  stake: TokenAmount,
-  participants: Set<PublicKey>,
-  outcome: SettlementOutcome,
-  metadata: SettlementMetadata
+thread: Thread,
+stake: TokenAmount,
+participants: Set<PublicKey>,
+outcome: SettlementOutcome,
+metadata: SettlementMetadata
 }
 
 TYPE SettlementOutcome =
-  | Unanimous: stake -> thread_balance
-  | Denied: stake -> denier_accounts
-  | Mixed: stake -> treasury
-  | Expired: stake -> treasury
-  | Divest: thread_balance/n -> co_author
+| Unanimous: stake -> thread_balance
+| Denied: stake -> denier_accounts
+| Mixed: stake -> treasury
+| Expired: stake -> treasury
+| Divest: thread_balance/n -> co_author
 
 TYPE SettlementMetadata = {
-  timestamp: i64,
-  transaction_id: Hash,
-  settlement_type: SettlementType,
-  participants: Set<PublicKey>
+timestamp: i64,
+transaction_id: Hash,
+settlement_type: SettlementType,
+participants: Set<PublicKey>
 }
 
 ## Settlement Operations
 
 SEQUENCE process_settlement:
-  1. Validation
-     - Verify token accounts
-     - Check balances
-     - Validate authorities
-     - Verify preconditions
 
-  2. Settlement Execution
-     - Lock source accounts
-     - Calculate distributions
-     - Process transfers
-     - Update state
+1. Validation
 
-  3. Verification
-     - Check token conservation
-     - Verify final balances
-     - Validate state updates
-     - Emit events
+   - Verify token accounts
+   - Check balances
+   - Validate authorities
+   - Verify preconditions
+
+2. Settlement Execution
+
+   - Lock source accounts
+   - Calculate distributions
+   - Process transfers
+   - Update state
+
+3. Verification
+   - Check token conservation
+   - Verify final balances
+   - Validate state updates
+   - Emit events
 
 PROPERTY settlement_atomicity:
-  FORALL s IN settlements:
-    s.complete OR s.reverted
+FORALL s IN settlements:
+s.complete OR s.reverted
 
 ## Distribution Logic
 
 SEQUENCE calculate_distribution:
-  1. Outcome Analysis
-     - Determine settlement type
-     - Count participants
-     - Calculate shares
-     - Verify totals
 
-  2. Account Preparation
-     - Verify recipient accounts
-     - Check account ownership
-     - Validate permissions
-     - Reserve balances
+1. Outcome Analysis
 
-  3. Transfer Execution
-     - Process in order
-     - Update balances
-     - Record transfers
-     - Emit events
+   - Determine settlement type
+   - Count participants
+   - Calculate shares
+   - Verify totals
+
+2. Account Preparation
+
+   - Verify recipient accounts
+   - Check account ownership
+   - Validate permissions
+   - Reserve balances
+
+3. Transfer Execution
+   - Process in order
+   - Update balances
+   - Record transfers
+   - Emit events
 
 PROPERTY distribution_fairness:
-  FORALL share IN distribution:
-    share == total_amount / participant_count
+FORALL share IN distribution:
+share == total_amount / participant_count
 
 ## Token Account Management
 
 TYPE TokenAccounts = {
-  thread: Account<TokenAccount>,
-  escrow: Account<TokenAccount>,
-  treasury: Account<TokenAccount>,
-  participant_accounts: Map<PublicKey, Account<TokenAccount>>
+thread: Account<TokenAccount>,
+escrow: Account<TokenAccount>,
+treasury: Account<TokenAccount>,
+participant_accounts: Map<PublicKey, Account<TokenAccount>>
 }
 
 SEQUENCE manage_accounts:
-  1. Account Validation
-     - Verify ownership
-     - Check authorities
-     - Validate balances
-     - Verify PDAs
 
-  2. Balance Management
-     - Lock amounts
-     - Process transfers
-     - Update balances
-     - Release locks
+1. Account Validation
 
-  3. State Synchronization
-     - Update thread state
-     - Record settlements
-     - Emit events
-     - Verify consistency
+   - Verify ownership
+   - Check authorities
+   - Validate balances
+   - Verify PDAs
+
+2. Balance Management
+
+   - Lock amounts
+   - Process transfers
+   - Update balances
+   - Release locks
+
+3. State Synchronization
+   - Update thread state
+   - Record settlements
+   - Emit events
+   - Verify consistency
 
 PROPERTY account_integrity:
-  FORALL account IN token_accounts:
-    valid_owner(account) AND
-    valid_authority(account) AND
-    valid_balance(account)
+FORALL account IN token_accounts:
+valid_owner(account) AND
+valid_authority(account) AND
+valid_balance(account)
 
 ## Settlement Flows
 
 1. **Unanimous Approval**
+
    ```
    SEQUENCE settle_unanimous:
      1. Verify unanimous consent
@@ -568,6 +586,7 @@ PROPERTY account_integrity:
    ```
 
 2. **Denial Settlement**
+
    ```
    SEQUENCE settle_denial:
      1. Calculate denier shares
@@ -577,6 +596,7 @@ PROPERTY account_integrity:
    ```
 
 3. **Mixed Outcome**
+
    ```
    SEQUENCE settle_mixed:
      1. Calculate treasury portion
@@ -597,6 +617,7 @@ PROPERTY account_integrity:
 ## Security Properties
 
 1. **Conservation**
+
    ```
    PROPERTY token_conservation:
      FORALL settlement IN settlements:
@@ -606,6 +627,7 @@ PROPERTY account_integrity:
    ```
 
 2. **Authority**
+
    ```
    PROPERTY settlement_authority:
      FORALL transfer IN transfers:
@@ -627,29 +649,31 @@ PROPERTY account_integrity:
 ## Error Handling
 
 TYPE SettlementError =
-  | InsufficientBalance
-  | InvalidAccount
-  | UnauthorizedTransfer
-  | SettlementFailed
-  | AccountMismatch
+| InsufficientBalance
+| InvalidAccount
+| UnauthorizedTransfer
+| SettlementFailed
+| AccountMismatch
 
 FUNCTION handle_settlement_error(error: SettlementError) -> Result<()>:
-  revert_transfers()
-  unlock_accounts()
-  emit_error_event(error)
-  RETURN Err(error)
+revert_transfers()
+unlock_accounts()
+emit_error_event(error)
+RETURN Err(error)
 
 ## Implementation Notes
 
 The settlement system maintains several critical properties:
 
 1. Token Safety
+
    - All transfers are atomic
    - Balances are always conserved
    - Accounts are properly validated
    - Authorities are strictly checked
 
 2. Settlement Integrity
+
    - Outcomes are deterministic
    - Distributions are fair
    - State is consistent
@@ -672,17 +696,17 @@ Solana_thread
 # Thread Account Management
 
 VERSION thread_system:
-  invariants: {
-    "Thread account data integrity",
-    "Co-author set non-empty",
-    "Token balance consistency"
-  }
-  assumptions: {
-    "PDA derivation security",
-    "Account size limits",
-    "Rent exemption"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Thread account data integrity",
+"Co-author set non-empty",
+"Token balance consistency"
+}
+assumptions: {
+"PDA derivation security",
+"Account size limits",
+"Rent exemption"
+}
+docs_version: "0.2.0"
 
 ## Thread Account Structure
 
@@ -875,32 +899,32 @@ Solana_thread_fuzzer
 # Thread Fuzzing Specification
 
 VERSION fuzzer_system:
-  invariants: {
-    "State space coverage",
-    "Transition validity",
-    "Property preservation"
-  }
-  assumptions: {
-    "Trident framework",
-    "Random generation",
-    "State reachability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"State space coverage",
+"Transition validity",
+"Property preservation"
+}
+assumptions: {
+"Trident framework",
+"Random generation",
+"State reachability"
+}
+docs_version: "0.2.0"
 
 ## Core Fuzzing Types
 
 TYPE ThreadFuzzer = {
-  accounts: FuzzAccounts,
-  instructions: Vec<FuzzInstruction>,
-  properties: Vec<Property>,
-  state_tracker: StateTracker
+accounts: FuzzAccounts,
+instructions: Vec<FuzzInstruction>,
+properties: Vec<Property>,
+state_tracker: StateTracker
 }
 
 TYPE FuzzAccounts = {
-  thread: AccountsStorage<PdaStore>,
-  co_authors: AccountsStorage<KeypairStore>,
-  tokens: AccountsStorage<TokenStore>,
-  specs: AccountsStorage<SpecStore>
+thread: AccountsStorage<PdaStore>,
+co_authors: AccountsStorage<KeypairStore>,
+tokens: AccountsStorage<TokenStore>,
+specs: AccountsStorage<SpecStore>
 }
 
 ## Instruction Generation
@@ -931,7 +955,7 @@ pub struct FuzzInstruction {
 
 ## Property Testing
 
-```rust
+````rust
 PROPERTY thread_invariants:
   1. State Properties
      ```rust
@@ -966,28 +990,31 @@ PROPERTY thread_invariants:
            no_token_creation(ops)
      }
      ```
-```
+````
 
 ## State Space Exploration
 
 SEQUENCE explore_state_space:
-  1. State Generation
-     - Random valid states
-     - Edge case states
-     - Invalid states
-     - Transition states
 
-  2. Operation Sequences
-     - Valid operation chains
-     - Invalid operation mixes
-     - Concurrent operations
-     - Interleaved sequences
+1. State Generation
 
-  3. Coverage Tracking
-     - State coverage maps
-     - Transition coverage
-     - Property verification
-     - Error discovery
+   - Random valid states
+   - Edge case states
+   - Invalid states
+   - Transition states
+
+2. Operation Sequences
+
+   - Valid operation chains
+   - Invalid operation mixes
+   - Concurrent operations
+   - Interleaved sequences
+
+3. Coverage Tracking
+   - State coverage maps
+   - Transition coverage
+   - Property verification
+   - Error discovery
 
 ## Mutation Strategies
 
@@ -1031,6 +1058,7 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
 ## Coverage Requirements
 
 1. **State Coverage**
+
    ```rust
    PROPERTY state_coverage:
      FORALL state IN reachable_states:
@@ -1039,6 +1067,7 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
    ```
 
 2. **Transition Coverage**
+
    ```rust
    PROPERTY transition_coverage:
      FORALL t IN valid_transitions:
@@ -1059,12 +1088,14 @@ FUNCTION handle_fuzz_error(error: FuzzError) -> TestResult:
 The fuzzing system maintains several critical aspects:
 
 1. Generation Strategy
+
    - Smart account generation
    - Valid state construction
    - Meaningful mutations
    - Targeted exploration
 
 2. Coverage Optimization
+
    - State space mapping
    - Transition tracking
    - Property verification
@@ -1087,40 +1118,42 @@ Solana_thread_test
 # Thread Test Specification
 
 VERSION thread_test_system:
-  invariants: {
-    "Test coverage completeness",
-    "State invariant verification",
-    "Error condition handling"
-  }
-  assumptions: {
-    "Bankrun test environment",
-    "Deterministic execution",
-    "State isolation"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Test coverage completeness",
+"State invariant verification",
+"Error condition handling"
+}
+assumptions: {
+"Bankrun test environment",
+"Deterministic execution",
+"State isolation"
+}
+docs_version: "0.2.0"
 
 ## Core Test Structure
 
 TYPE ThreadTestContext = {
-  program: Program,
-  authority: Keypair,
-  thread_pda: PublicKey,
-  token_accounts: TokenAccounts,
-  test_state: TestState
+program: Program,
+authority: Keypair,
+thread_pda: PublicKey,
+token_accounts: TokenAccounts,
+test_state: TestState
 }
 
 SEQUENCE test_setup:
-  1. Environment Initialization
-     - Create test program
-     - Generate test keypairs
-     - Setup token accounts
-     - Initialize test state
 
-  2. Thread Creation
-     - Derive thread PDA
-     - Allocate space
-     - Initialize state
-     - Verify creation
+1. Environment Initialization
+
+   - Create test program
+   - Generate test keypairs
+   - Setup token accounts
+   - Initialize test state
+
+2. Thread Creation
+   - Derive thread PDA
+   - Allocate space
+   - Initialize state
+   - Verify creation
 
 ## State Invariant Tests
 
@@ -1196,6 +1229,7 @@ PROPERTY thread_properties:
 ## Test Scenarios
 
 1. **Thread Lifecycle**
+
    ```rust
    #[tokio::test]
    async fn test_thread_lifecycle() {
@@ -1223,6 +1257,7 @@ PROPERTY thread_properties:
    ```
 
 2. **Edge Cases**
+
    ```rust
    #[tokio::test]
    async fn test_edge_cases() {
@@ -1289,12 +1324,14 @@ SEQUENCE inject_errors:
 ## Test Coverage Requirements
 
 1. **State Coverage**
+
    - All valid states reachable
    - All transitions tested
    - All invariants verified
    - All errors handled
 
 2. **Operation Coverage**
+
    - All instructions tested
    - All parameters validated
    - All outcomes verified
@@ -1317,70 +1354,74 @@ Solana_validation
 # Cross-Cutting Validation Rules
 
 VERSION validation_system:
-  invariants: {
-    "Input sanitization completeness",
-    "State validation coverage",
-    "Security check atomicity"
-  }
-  assumptions: {
-    "Validation order independence",
-    "Error propagation clarity",
-    "Check composability"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Input sanitization completeness",
+"State validation coverage",
+"Security check atomicity"
+}
+assumptions: {
+"Validation order independence",
+"Error propagation clarity",
+"Check composability"
+}
+docs_version: "0.2.0"
 
 ## Core Validation Types
 
 TYPE ValidationContext = {
-  signer: PublicKey,
-  thread: Thread,
-  clock: Clock,
-  validation_type: ValidationType
+signer: PublicKey,
+thread: Thread,
+clock: Clock,
+validation_type: ValidationType
 }
 
 TYPE ValidationType =
-  | ThreadOperation
-  | MessageOperation
-  | TokenOperation
-  | StateTransition
+| ThreadOperation
+| MessageOperation
+| TokenOperation
+| StateTransition
 
 TYPE ValidationResult = {
-  success: bool,
-  error: Option<ValidationError>,
-  metadata: ValidationMetadata
+success: bool,
+error: Option<ValidationError>,
+metadata: ValidationMetadata
 }
 
 ## Validation Rules
 
 SEQUENCE validate_operation:
-  1. Context Validation
-     - Verify signer authority
-     - Check thread state
-     - Validate timestamps
-     - Verify preconditions
 
-  2. Input Validation
-     - Sanitize parameters
-     - Check bounds
-     - Verify formats
-     - Validate relationships
+1. Context Validation
 
-  3. State Validation
-     - Check invariants
-     - Verify transitions
-     - Validate consistency
-     - Check conservation laws
+   - Verify signer authority
+   - Check thread state
+   - Validate timestamps
+   - Verify preconditions
+
+2. Input Validation
+
+   - Sanitize parameters
+   - Check bounds
+   - Verify formats
+   - Validate relationships
+
+3. State Validation
+   - Check invariants
+   - Verify transitions
+   - Validate consistency
+   - Check conservation laws
 
 PROPERTY validation_completeness:
-  FORALL op IN operations:
-    validate_operation(op) COVERS ALL
-      security_properties(op) AND
-      state_invariants(op) AND
-      value_conservation(op)
+FORALL op IN operations:
+validate_operation(op) COVERS ALL
+security_properties(op) AND
+state_invariants(op) AND
+value_conservation(op)
 
 ## Security Checks
 
 1. **Authority Validation**
+
    ```
    FUNCTION validate_authority(ctx: ValidationContext) -> Result<()>:
      MATCH ctx.validation_type:
@@ -1395,6 +1436,7 @@ PROPERTY validation_completeness:
    ```
 
 2. **State Validation**
+
    ```
    FUNCTION validate_state(ctx: ValidationContext) -> Result<()>:
      VERIFY:
@@ -1418,17 +1460,18 @@ PROPERTY validation_completeness:
 TYPE Validator<T> = Context -> T -> Result<()>
 
 FUNCTION compose_validators<T>(
-  validators: Vec<Validator<T>>
+validators: Vec<Validator<T>>
 ) -> Validator<T>:
-  RETURN |ctx, input| {
-    FOR validator IN validators:
-      validator(ctx, input)?
-    Ok(())
-  }
+RETURN |ctx, input| {
+FOR validator IN validators:
+validator(ctx, input)?
+Ok(())
+}
 
 ## Common Validators
 
 1. **Thread Validators**
+
    ```
    SEQUENCE thread_validators:
      validate_thread_id
@@ -1439,6 +1482,7 @@ FUNCTION compose_validators<T>(
    ```
 
 2. **Message Validators**
+
    ```
    SEQUENCE message_validators:
      validate_content_hash
@@ -1460,20 +1504,21 @@ FUNCTION compose_validators<T>(
 ## Error Handling
 
 TYPE ValidationError =
-  | InvalidAuthority
-  | InvalidState
-  | InvalidInput
-  | InvalidTransition
-  | ConservationViolation
+| InvalidAuthority
+| InvalidState
+| InvalidInput
+| InvalidTransition
+| ConservationViolation
 
 FUNCTION handle_validation_error(error: ValidationError) -> Result<()>:
-  log_validation_failure(error)
-  emit_validation_event(error)
-  RETURN Err(error)
+log_validation_failure(error)
+emit_validation_event(error)
+RETURN Err(error)
 
 ## Validation Properties
 
 1. **Completeness**
+
    ```
    PROPERTY validation_coverage:
      FORALL op IN operations:
@@ -1482,6 +1527,7 @@ FUNCTION handle_validation_error(error: ValidationError) -> Result<()>:
    ```
 
 2. **Independence**
+
    ```
    PROPERTY validator_independence:
      FORALL v1 v2 IN validators:
@@ -1503,12 +1549,14 @@ FUNCTION handle_validation_error(error: ValidationError) -> Result<()>:
 The validation system maintains several critical properties:
 
 1. Validation Coverage
+
    - All operations are validated
    - All inputs are sanitized
    - All states are verified
    - All transitions are checked
 
 2. Error Clarity
+
    - Validation errors are specific
    - Error context is preserved
    - Recovery paths are clear

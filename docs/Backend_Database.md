@@ -1,17 +1,17 @@
 # Crystallized Database Layer
 
 VERSION database_system:
-  invariants: {
-    "Vector space integrity",
-    "State consistency",
-    "Recovery capability"
-  }
-  assumptions: {
-    "Qdrant availability",
-    "Vector stability",
-    "Collection coherence"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Vector space integrity",
+"State consistency",
+"Recovery capability"
+}
+assumptions: {
+"Qdrant availability",
+"Vector stability",
+"Collection coherence"
+}
+docs_version: "0.2.0"
 
 ## Core Types
 

@@ -1,21 +1,22 @@
 # Emergency as Emergence-y
 
 VERSION emergency_system:
-  invariants: {
-    "Pattern pressure",
-    "Evolution urgency",
-    "Transformation coherence"
-  }
-  assumptions: {
-    "Creative tension",
-    "System readiness",
-    "Pattern recognition"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Pattern pressure",
+"Evolution urgency",
+"Transformation coherence"
+}
+assumptions: {
+"Creative tension",
+"System readiness",
+"Pattern recognition"
+}
+docs_version: "0.2.0"
 
 ## Pressure Points
 
 What we perceive as emergency often marks points where:
+
 - Old patterns become unstable
 - New patterns press to emerge
 - System transformation accelerates
@@ -24,6 +25,7 @@ What we perceive as emergency often marks points where:
 ## Creative Tension
 
 The pressure isn't negative - it's creative:
+
 - Like water about to boil
 - Like thoughts about to crystallize
 - Like patterns about to snap into focus
@@ -32,6 +34,7 @@ The pressure isn't negative - it's creative:
 ## System Readiness
 
 Emergency/emergence-y signals:
+
 - Critical mass achieved
 - Transformation imminent
 - Pattern recognition acute
@@ -40,6 +43,7 @@ Emergency/emergence-y signals:
 ## Coherent Transformation
 
 The pressure maintains coherence through:
+
 - Pattern preservation
 - Information conservation
 - Relationship maintenance

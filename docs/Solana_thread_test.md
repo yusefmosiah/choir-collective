@@ -1,40 +1,42 @@
 # Thread Test Specification
 
 VERSION thread_test_system:
-  invariants: {
-    "Test coverage completeness",
-    "State invariant verification",
-    "Error condition handling"
-  }
-  assumptions: {
-    "Bankrun test environment",
-    "Deterministic execution",
-    "State isolation"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Test coverage completeness",
+"State invariant verification",
+"Error condition handling"
+}
+assumptions: {
+"Bankrun test environment",
+"Deterministic execution",
+"State isolation"
+}
+docs_version: "0.2.0"
 
 ## Core Test Structure
 
 TYPE ThreadTestContext = {
-  program: Program,
-  authority: Keypair,
-  thread_pda: PublicKey,
-  token_accounts: TokenAccounts,
-  test_state: TestState
+program: Program,
+authority: Keypair,
+thread_pda: PublicKey,
+token_accounts: TokenAccounts,
+test_state: TestState
 }
 
 SEQUENCE test_setup:
-  1. Environment Initialization
-     - Create test program
-     - Generate test keypairs
-     - Setup token accounts
-     - Initialize test state
 
-  2. Thread Creation
-     - Derive thread PDA
-     - Allocate space
-     - Initialize state
-     - Verify creation
+1. Environment Initialization
+
+   - Create test program
+   - Generate test keypairs
+   - Setup token accounts
+   - Initialize test state
+
+2. Thread Creation
+   - Derive thread PDA
+   - Allocate space
+   - Initialize state
+   - Verify creation
 
 ## State Invariant Tests
 
@@ -110,6 +112,7 @@ PROPERTY thread_properties:
 ## Test Scenarios
 
 1. **Thread Lifecycle**
+
    ```rust
    #[tokio::test]
    async fn test_thread_lifecycle() {
@@ -137,6 +140,7 @@ PROPERTY thread_properties:
    ```
 
 2. **Edge Cases**
+
    ```rust
    #[tokio::test]
    async fn test_edge_cases() {
@@ -203,12 +207,14 @@ SEQUENCE inject_errors:
 ## Test Coverage Requirements
 
 1. **State Coverage**
+
    - All valid states reachable
    - All transitions tested
    - All invariants verified
    - All errors handled
 
 2. **Operation Coverage**
+
    - All instructions tested
    - All parameters validated
    - All outcomes verified

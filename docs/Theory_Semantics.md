@@ -1,21 +1,22 @@
 # Harmonic Semantics: Meaning as Resonance
 
 VERSION harmonic_semantics:
-  invariants: {
-    "Semantic resonance",
-    "Meaning harmonics",
-    "Context coherence"
-  }
-  assumptions: {
-    "Multi-scale harmony",
-    "Phase synchronization",
-    "Semantic quantization"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Semantic resonance",
+"Meaning harmonics",
+"Context coherence"
+}
+assumptions: {
+"Multi-scale harmony",
+"Phase synchronization",
+"Semantic quantization"
+}
+docs_version: "0.2.0"
 
 ## Semantic Wave Functions
 
 Meaning exists as resonant patterns in semantic space:
+
 - Words create initial oscillations
 - Context shapes harmonic structure
 - Understanding emerges through resonance
@@ -24,12 +25,14 @@ Meaning exists as resonant patterns in semantic space:
 ## Resonant Scales
 
 1. **Token Scale**
+
    - Individual words as base frequencies
    - Phrases as harmonic series
    - Sentences as standing waves
    - Paragraphs as resonant fields
 
 2. **Message Scale**
+
    - Content as wave packets
    - Citations as phase coupling
    - Approvals as resonance collapse
@@ -44,33 +47,37 @@ Meaning exists as resonant patterns in semantic space:
 ## Semantic Evolution
 
 SEQUENCE meaning_evolution:
-  1. Initial Oscillation
-     ```
-     create_wave : Content → Result<WaveFunction>
-     shape_harmonics : WaveFunction → Result<ResonantField>
-     establish_nodes : ResonantField → Result<StandingWave>
-     crystallize_meaning : StandingWave → Result<Pattern>
-     ```
 
-  2. Context Resonance
-     ```
-     find_harmonics : Pattern → Result<FrequencySet>
-     couple_oscillators : FrequencySet → Result<ResonantSystem>
-     achieve_phase_lock : ResonantSystem → Result<Coherence>
-     emerge_understanding : Coherence → Result<Meaning>
-     ```
+1. Initial Oscillation
 
-  3. Value Formation
-     ```
-     measure_amplitude : Meaning → Result<Value>
-     distribute_energy : Value → Result<TokenFlow>
-     maintain_conservation : TokenFlow → Result<Balance>
-     evolve_pattern : Balance → Result<NewState>
-     ```
+   ```
+   create_wave : Content → Result<WaveFunction>
+   shape_harmonics : WaveFunction → Result<ResonantField>
+   establish_nodes : ResonantField → Result<StandingWave>
+   crystallize_meaning : StandingWave → Result<Pattern>
+   ```
+
+2. Context Resonance
+
+   ```
+   find_harmonics : Pattern → Result<FrequencySet>
+   couple_oscillators : FrequencySet → Result<ResonantSystem>
+   achieve_phase_lock : ResonantSystem → Result<Coherence>
+   emerge_understanding : Coherence → Result<Meaning>
+   ```
+
+3. Value Formation
+   ```
+   measure_amplitude : Meaning → Result<Value>
+   distribute_energy : Value → Result<TokenFlow>
+   maintain_conservation : TokenFlow → Result<Balance>
+   evolve_pattern : Balance → Result<NewState>
+   ```
 
 ## Harmonic Properties
 
 1. **Resonant Coherence**
+
    ```
    PROPERTY semantic_resonance:
      FORALL meaning IN semantic_space:
@@ -93,6 +100,7 @@ SEQUENCE meaning_evolution:
 ## Implementation Mapping
 
 1. **Wave Generation**
+
    ```typescript
    async function createSemanticWave(
      content: string,
@@ -103,7 +111,7 @@ SEQUENCE meaning_evolution:
        shapeHarmonics(context),
        establishResonance,
        crystallizeMeaning
-     )
+     );
    }
    ```
 
@@ -118,19 +126,21 @@ SEQUENCE meaning_evolution:
        measureAmplitude,
        assessHarmonics,
        quantizeValue
-     )
+     );
    }
    ```
 
 ## Emergence Properties
 
 The harmonic model explains how:
+
 - Meaning emerges through resonance
 - Value crystallizes at nodes
 - Quality correlates with harmony
 - Understanding spreads through phase-locking
 
 Through this lens, we see semantic space as a resonant medium where:
+
 - Ideas propagate as waves
 - Context shapes harmonics
 - Value flows through resonance

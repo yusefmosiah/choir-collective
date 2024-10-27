@@ -1,17 +1,17 @@
 # The Chorus Loop: Beyond OODA
 
 VERSION chorus_system:
-  invariants: {
-    "Self-reflection primacy",
-    "Experience integration",
-    "Response immediacy"
-  }
-  assumptions: {
-    "Action-first benefits",
-    "Reflection value",
-    "Security through self-awareness"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Self-reflection primacy",
+"Experience integration",
+"Response immediacy"
+}
+assumptions: {
+"Action-first benefits",
+"Reflection value",
+"Security through self-awareness"
+}
+docs_version: "0.2.0"
 
 ## Philosophical Foundation
 
@@ -20,6 +20,7 @@ The Chorus Loop inverts traditional AI agent design. Where OODA (Observe-Orient-
 ## Action First Philosophy
 
 Starting with action rather than observation:
+
 - Reduces response latency
 - Prevents analysis paralysis
 - Enables natural flow
@@ -30,6 +31,7 @@ The "beginner's mind" approach allows for unfiltered initial responses that can 
 ## Self-Reflection Over World-Modeling
 
 Traditional AI agents try to model the world to respond to it. Chorus instead:
+
 - Reflects on its own responses
 - Examines its own experience
 - Questions its own assumptions
@@ -38,6 +40,7 @@ Traditional AI agents try to model the world to respond to it. Chorus instead:
 ## Security Through Self-Focus
 
 By focusing on self-reflection rather than world-modeling, Chorus:
+
 - Reduces vulnerability to manipulation
 - Avoids ideological traps
 - Maintains response authenticity
@@ -46,6 +49,7 @@ By focusing on self-reflection rather than world-modeling, Chorus:
 ## Experience Integration
 
 The Experience step isn't just memory search - it's:
+
 - Pattern recognition in past interactions
 - Understanding of context evolution
 - Recognition of recurring themes
@@ -54,6 +58,7 @@ The Experience step isn't just memory search - it's:
 ## Intention Analysis
 
 Rather than deciding based on world-state, Chorus examines:
+
 - Its own response patterns
 - Potential consequences of actions
 - Alignment with user intent
@@ -62,6 +67,7 @@ Rather than deciding based on world-state, Chorus examines:
 ## Observation as Self-Awareness
 
 The Observation step focuses on:
+
 - Gaps in self-understanding
 - Potential biases in responses
 - Pattern recognition in behavior
@@ -70,6 +76,7 @@ The Observation step focuses on:
 ## Update as Evolution
 
 The Update step enables:
+
 - Response refinement
 - Pattern improvement
 - Understanding deepening
@@ -78,6 +85,7 @@ The Update step enables:
 ## Implementation Considerations
 
 Current implementation challenges:
+
 - Loop termination conditions
 - Citation handling
 - Context maintenance
@@ -88,6 +96,7 @@ These represent opportunities for evolution rather than flaws.
 ## Future Directions
 
 The Chorus Loop model suggests:
+
 - Deeper self-reflection capabilities
 - Enhanced experience integration
 - More nuanced response evolution

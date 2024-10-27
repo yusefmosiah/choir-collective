@@ -1,41 +1,45 @@
 # Choir Technical Blueprint
 
 VERSION blueprint_system:
-  invariants: {
-    "State consistency",
-    "Value conservation",
-    "Security boundaries"
-  }
-  assumptions: {
-    "Documentation-driven development",
-    "AI-assisted code generation",
-    "Test-first implementation"
-  }
-  implementation: "0.1.0"
+invariants: {
+"State consistency",
+"Value conservation",
+"Security boundaries"
+}
+assumptions: {
+"Documentation-driven development",
+"AI-assisted code generation",
+"Test-first implementation"
+}
+docs_version: "0.2.0"
 
 ## System Architecture
 
 The system operates across four interconnected layers:
 
 ### 1. Value Layer (Solana)
+
 - Thread ownership and token custody
 - State transitions and approvals
 - Token balances and stakes
 - Security boundaries
 
 ### 2. Content Layer (Qdrant)
+
 - Message storage and retrieval
 - Vector embeddings for search
 - Metadata management
 - Access control
 
 ### 3. Coordination Layer (Backend)
+
 - Real-time state synchronization
 - WebSocket communication
 - Cache management
 - API endpoints
 
 ### 4. Interaction Layer (Frontend)
+
 - Real-time chat interface
 - Wallet integration
 - State visualization
@@ -44,12 +48,14 @@ The system operates across four interconnected layers:
 ## Core Components
 
 1. **Thread System**
+
    - Co-author management
    - Message approval process
    - Token balance tracking
    - State transitions
 
 2. **Token Mechanics**
+
    - CHOIR token implementation
    - Stake management
    - Value distribution
@@ -64,30 +70,35 @@ The system operates across four interconnected layers:
 ## Implementation Timeline
 
 ### Phase 1: Foundation (Oct 26-27)
+
 - Study Trident fuzzing framework
 - Setup development environment
 - Configure CI/CD and testing
 - Establish security boundaries
 
 ### Phase 2: Core Protocol (Oct 28-29)
+
 - CHOIR token implementation
 - Thread program development
 - State transition handlers
 - Security verification
 
 ### Phase 3: Backend (Oct 30)
+
 - FastAPI implementation
 - WebSocket protocol
 - Qdrant integration
 - State synchronization
 
 ### Phase 4: Frontend (Oct 31)
+
 - Core UI components
 - Wallet integration
 - Real-time updates
 - Soft launch
 
 ### Phase 5: Integration (Nov 1-2)
+
 - System integration
 - Analytics setup
 - Monitoring implementation
@@ -96,12 +107,14 @@ The system operates across four interconnected layers:
 ## Development Approach
 
 1. **Documentation-Driven Development**
+
    - Comprehensive specifications
    - Test generation from docs
    - AI-assisted implementation
    - High doc-to-code ratio
 
 2. **Test-First Development**
+
    - Fuzzing-driven program design
    - Property-based testing
    - Invariant verification
@@ -116,6 +129,7 @@ The system operates across four interconnected layers:
 ## Security Model
 
 1. **Core Security**
+
    - State transition atomicity
    - Value conservation
    - Access control
@@ -130,6 +144,7 @@ The system operates across four interconnected layers:
 ## Future Evolution
 
 The system is designed to evolve with:
+
 - Improved AI capabilities
 - Enhanced testing tools
 - Automated code generation

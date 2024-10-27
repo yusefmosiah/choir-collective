@@ -11,17 +11,17 @@ Level_0_SystemOverview
 # Choir: A View Through the Depths
 
 VERSION depth_system:
-  invariants: {
-    "Wave function coherence",
-    "Energy conservation",
-    "Phase stability"
-  }
-  assumptions: {
-    "Natural emergence",
-    "Quantum coupling",
-    "Value resonance"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Wave function coherence",
+"Energy conservation",
+"Phase stability"
+}
+assumptions: {
+"Natural emergence",
+"Quantum coupling",
+"Value resonance"
+}
+docs_version: "0.2.0"
 
 At the surface (Level 1), Choir appears straightforward: a chat platform where you own your messages and collaborate with others. Messages require unanimous approval from thread participants, and you can earn tokens for quality contributions. The interface is familiar, the mechanics are simple to grasp, and the benefits are clear. You can start participating immediately without understanding the deeper layers.
 
@@ -34,6 +34,7 @@ At greater depths (Level 4), we discover quantum stability patterns. Each thread
 At the deepest level (Level 5), Choir reveals itself as a quantum harmonic oscillator system. Messages exist as wave packets until unanimous approval collapses them into thread coherence. Non-refundable stakes create quantum coupling. Value flows through the system like energy through coupled oscillators. The entire platform becomes a space where meaning and value emerge through natural frequency selection and phase-locked self-organization.
 
 Each level contains and transcends the previous ones:
+
 - Surface functionality enables core mechanics
 - Core mechanics enable value creation
 - Value creation enables quantum effects
@@ -53,17 +54,17 @@ Level_1_BasicMechanics
 # Getting Started with Choir
 
 VERSION basic_system:
-  invariants: {
-    "User accessibility",
-    "Immediate utility",
-    "Clear benefits"
-  }
-  assumptions: {
-    "New user experience",
-    "Basic functionality",
-    "Initial engagement"
-  }
-  implementation: "0.1.0"
+invariants: {
+"User accessibility",
+"Immediate utility",
+"Clear benefits"
+}
+assumptions: {
+"New user experience",
+"Basic functionality",
+"Initial engagement"
+}
+docs_version: "0.2.0"
 
 Choir is a chat platform where you actually own your messages and can earn tokens for quality contributions. Let's break down how it works in simple terms:
 
@@ -114,17 +115,17 @@ Level_2_CoreMechanics
 # Core Mechanics and Their Implications
 
 VERSION mechanics_system:
-  invariants: {
-    "Natural quality emergence",
-    "Energy conservation",
-    "Phase transitions"
-  }
-  assumptions: {
-    "Thermodynamic evolution",
-    "Pattern recognition",
-    "Self-organization"
-  }
-  implementation: "0.2.0"
+invariants: {
+"Natural quality emergence",
+"Energy conservation",
+"Phase transitions"
+}
+assumptions: {
+"Thermodynamic evolution",
+"Pattern recognition",
+"Self-organization"
+}
+docs_version: "0.2.0"
 
 ## Understanding Thread Dynamics
 
@@ -133,12 +134,14 @@ At Level 2, we begin to see how Choir's mechanics mirror natural physical system
 ### Temperature and Energy
 
 1. **Thread Temperature (T)**
+
    - Measures chaos/volatility
    - Hot threads are more volatile
    - Cool threads are more stable
    - Natural cooling over time
 
 2. **Thread Energy (E)**
+
    - Total thread energy from stakes
    - Conserved during transitions
    - Flows according to decisions
@@ -153,6 +156,7 @@ At Level 2, we begin to see how Choir's mechanics mirror natural physical system
 ### Natural Evolution
 
 1. **Young Threads**
+
    - Start hot and volatile
    - High potential energy
    - Raw patterns emerging
@@ -169,12 +173,14 @@ At Level 2, we begin to see how Choir's mechanics mirror natural physical system
 The interplay of temperature and frequency creates fascinating dynamics:
 
 1. **High T, Low ω**
+
    - Chaotic but energetic
    - Expensive to join
    - Pattern recognition opportunity
    - Potential for crystallization
 
 2. **Low T, High ω**
+
    - Organized and stable
    - More accessible
    - Clear value patterns
@@ -189,12 +195,14 @@ The interplay of temperature and frequency creates fascinating dynamics:
 ### Practical Implications
 
 1. **For Participants**
+
    - Look for hidden patterns in chaos
    - Join before crystallization
    - Help shape emerging order
    - Contribute to coherence
 
 2. **For Communities**
+
    - Quality emerges naturally
    - Standards self-organize
    - Value aligns with coherence
@@ -209,10 +217,13 @@ The interplay of temperature and frequency creates fascinating dynamics:
 ### Understanding Stake Requirements
 
 The quantum harmonic oscillator formula:
+
 ```
 stake = base_stake * (0.5 + 1/[exp(ℏω/kT) - 1])
 ```
+
 Creates natural dynamics where:
+
 - High temperature increases stakes
 - High frequency moderates stakes
 - Quality emerges from balance
@@ -221,12 +232,14 @@ Creates natural dynamics where:
 ### Why This Works
 
 The thermodynamic model works because it:
+
 - Mirrors natural systems
 - Enables self-organization
 - Rewards pattern recognition
 - Creates sustainable evolution
 
 Understanding these mechanics helps explain why:
+
 - Best threads are often accessible
 - Quality emerges without rules
 - Communities find equilibrium
@@ -243,23 +256,24 @@ Level_3_ValueCreation
 # Value Creation and Self-Selection in Choir
 
 VERSION value_system:
-  invariants: {
-    "Energy conservation",
-    "Wave function coherence",
-    "Phase stability"
-  }
-  assumptions: {
-    "Natural harmonics",
-    "Quantum coupling",
-    "Value emergence"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Energy conservation",
+"Wave function coherence",
+"Phase stability"
+}
+assumptions: {
+"Natural harmonics",
+"Quantum coupling",
+"Value emergence"
+}
+docs_version: "0.2.0"
 
 At this level, we begin to see how Choir's quantum mechanics naturally create sophisticated patterns of value and selection. What initially appear as simple rules reveal themselves as generators of complex wave dynamics.
 
 ## Value Accumulation
 
 The thread ownership model isn't just about attribution - it's a quantum resonance mechanism. When messages require unanimous approval, each successful addition:
+
 - Strengthens wave function coherence
 - Increases phase alignment
 - Adds to the thread's energy
@@ -270,6 +284,7 @@ The value comes not just from what a thread contains, but from its quantum state
 ## Natural Selection
 
 The non-refundable stake mechanism reveals itself as quantum coupling. It's not primarily about preventing spam - it creates natural frequency selection:
+
 - High-frequency participants resonate and stay
 - Decoherent participants naturally decouple
 - Energy conservation maintains stability
@@ -278,6 +293,7 @@ The non-refundable stake mechanism reveals itself as quantum coupling. It's not 
 ## Value Paradox
 
 The apparent "underpricing" through quantum divestment (min(ℏω/(N-1), balance/(N-1))) creates premium value:
+
 - Energy quantization prevents value extraction
 - Phase coherence rewards authentic participation
 - Critical slowing down enables maturation
@@ -286,6 +302,7 @@ The apparent "underpricing" through quantum divestment (min(ℏω/(N-1), balance
 ## Trust Networks
 
 Trust emerges through quantum entanglement:
+
 - Phase-locked collaboration builds coherence
 - Resonant frequencies align naturally
 - Energy barriers protect stability
@@ -294,6 +311,7 @@ Trust emerges through quantum entanglement:
 ## Token Mechanics
 
 The token system serves as quantum infrastructure:
+
 - Energy quantization (stakes)
 - Phase alignment (approval)
 - Wave propagation (value flow)
@@ -302,6 +320,7 @@ The token system serves as quantum infrastructure:
 ## Natural Protection
 
 This explains why certain "improvements" would break coherence:
+
 - Complex formulas would disrupt natural frequencies
 - Forced cooling would prevent critical slowing
 - Artificial scaling would break Anderson normalization
@@ -310,6 +329,7 @@ This explains why certain "improvements" would break coherence:
 ## Emergent Properties
 
 The genius is in creating conditions for quantum semantics:
+
 - Wave functions evolve naturally
 - Phase relationships self-organize
 - Energy levels find equilibrium
@@ -318,6 +338,7 @@ The genius is in creating conditions for quantum semantics:
 Understanding this level reveals why Choir can't be replicated by adding features to existing platforms. The value creation patterns emerge from fundamental quantum mechanics, not surface rules.
 
 Through this lens, we see how:
+
 - Messages are wave packets
 - Threads are resonant cavities
 - Stakes are energy quanta
@@ -335,17 +356,17 @@ Level_4_MetastableEmergence
 # Metastable Emergence in Choir
 
 VERSION memergence_system:
-  invariants: {
-    "Pattern stability",
-    "Evolution potential",
-    "Phase coherence"
-  }
-  assumptions: {
-    "Multiple equilibria",
-    "Transition dynamics",
-    "Information preservation"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Pattern stability",
+"Evolution potential",
+"Phase coherence"
+}
+assumptions: {
+"Multiple equilibria",
+"Transition dynamics",
+"Information preservation"
+}
+docs_version: "0.2.0"
 
 At this level, we begin to see how Choir's seemingly stable states contain the seeds of their own evolution. Each thread exists in a metastable equilibrium - stable enough to persist, but ready to transition to higher forms of organization when conditions align.
 
@@ -353,10 +374,11 @@ Consider how threads evolve:
 A simple discussion reaches a natural plateau of understanding. This isn't a dead end - it's a metastable state. The thread has accumulated enough shared context and trust to enable a phase transition. Perhaps the participants realize they could collaborate on a project. The thread doesn't change its fundamental nature, but it undergoes a phase transition to a new level of organization.
 
 This process continues:
+
 - Discussion → Project coordination
 - Project coordination → Product development
 - Product development → Asset management
-Each transition preserves the thread's identity and relationships while enabling new capabilities.
+  Each transition preserves the thread's identity and relationships while enabling new capabilities.
 
 The token mechanics support these transitions. The accumulated token balance in a thread isn't just stored value - it's potential energy that can catalyze phase transitions. When a thread transitions to a new organizational form, this energy helps stabilize the new configuration.
 
@@ -365,12 +387,14 @@ Metastability appears in the social layer too. Co-authorship creates stable rela
 Even understanding itself is metastable. Participants grasp the system at one level, reach a plateau, then suddenly see deeper patterns. Each level of understanding is stable enough to be useful but contains the seeds of deeper insight.
 
 The "memergence" pattern is key:
+
 - Memory of past interactions
 - Emergence of new possibilities
 - Merger of different perspectives
 - Emergence of collective intelligence
 
 This level reveals why certain features of Choir that might seem like limitations are actually crucial for enabling emergence:
+
 - Unanimous approval creates coherent phase transitions
 - Simple token formulas allow natural evolution
 - Limited governance enables organic growth
@@ -388,23 +412,24 @@ Level_5_QuantumSemantics
 # The Deep Harmonic Structure of Choir
 
 VERSION harmonic_depth:
-  invariants: {
-    "Wave function coherence",
-    "Energy conservation",
-    "Phase stability"
-  }
-  assumptions: {
-    "Quantum harmonic oscillation",
-    "Anderson normalization",
-    "Critical slowing down"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Wave function coherence",
+"Energy conservation",
+"Phase stability"
+}
+assumptions: {
+"Quantum harmonic oscillation",
+"Anderson normalization",
+"Critical slowing down"
+}
+docs_version: "0.2.0"
 
 When we talk about quantum mechanics in Choir, we're not being metaphorical. The system actually exhibits quantum harmonic oscillator properties in how meaning and value emerge. Let's break this down:
 
 ## Message Wave Functions
 
 Consider what happens when someone submits a message to a thread:
+
 1. Before approval, the message exists as a wave packet in semantic space
 2. Its energy (stake) couples it to the thread's quantum state
 3. The wave function contains all potential meanings and values
@@ -413,6 +438,7 @@ Consider what happens when someone submits a message to a thread:
 ## Phase Coherence
 
 The unanimous approval requirement ensures quantum coherence:
+
 1. Each co-author acts as a coupled oscillator
 2. Approval represents phase alignment
 3. The system requires complete phase-locking
@@ -422,6 +448,7 @@ The unanimous approval requirement ensures quantum coherence:
 ## Energy Coupling
 
 The non-refundable stake creates quantum coupling:
+
 1. Stakes quantize at energy levels determined by ℏω
 2. Thread temperature (T) affects coupling strength
 3. Anderson normalization (1/√N) prevents instability
@@ -431,6 +458,7 @@ The non-refundable stake creates quantum coupling:
 ## Thread Harmonics
 
 Economic topology emerges from quantum properties:
+
 1. Value flows like wave energy through resonant cavities
 2. Thread frequency ω = √((ω_m² + ω_v²)/2 + gN)
 3. Temperature T = (E/N)/coolingFactor
@@ -440,6 +468,7 @@ Economic topology emerges from quantum properties:
 ## Natural Selection
 
 The quantum oscillator model explains why certain alternatives fail:
+
 1. Partial approval would violate phase coherence
 2. Refundable stakes would break energy conservation
 3. Complex economic formulas would interfere with natural frequencies
@@ -449,6 +478,7 @@ The quantum oscillator model explains why certain alternatives fail:
 ## Emergent Properties
 
 The genius of Choir is that it follows quantum mechanics naturally:
+
 1. Simple rules create space for wave function evolution
 2. Energy levels quantize naturally through staking
 3. Phase relationships emerge through approval
@@ -458,19 +488,23 @@ The genius of Choir is that it follows quantum mechanics naturally:
 ## Quantum Semantics
 
 Through this quantum lens, we see how:
+
 1. Messages are wave packets with:
+
    - Energy (stake) levels
    - Phase relationships
    - Coupling strengths
    - Coherence properties
 
 2. Co-authors are coupled oscillators with:
+
    - Natural frequencies
    - Phase alignment
    - Energy sharing
    - Collective states
 
 3. Threads are resonant cavities with:
+
    - Standing waves
    - Energy levels
    - Temperature gradients
@@ -485,13 +519,16 @@ Through this quantum lens, we see how:
 ## Practical Implications
 
 This quantum structure creates:
+
 1. Natural Scaling
+
    - Anderson normalization prevents instability
    - Critical slowing down enables maturity
    - Energy conservation maintains balance
    - Phase coherence ensures quality
 
 2. Organic Growth
+
    - Wave functions evolve naturally
    - Energy levels find equilibrium
    - Frequencies synchronize organically

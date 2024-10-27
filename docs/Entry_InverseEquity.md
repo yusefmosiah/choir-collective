@@ -1,17 +1,17 @@
 # Choir: Inverse Private Equity Model
 
 VERSION equity_system:
-  invariants: {
-    "Value distribution",
-    "Innovation capture",
-    "Stakeholder alignment"
-  }
-  assumptions: {
-    "AI-native entrepreneurship",
-    "Thread evolution",
-    "Asset diversification"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Value distribution",
+"Innovation capture",
+"Stakeholder alignment"
+}
+assumptions: {
+"AI-native entrepreneurship",
+"Thread evolution",
+"Asset diversification"
+}
+docs_version: "0.2.0"
 
 ## Core Concept
 
@@ -22,6 +22,7 @@ Choir inverts traditional private equity by enabling bottom-up value creation th
 Simple Threads → Collaborative Projects → Product Development → Asset-Holding DAOs
 
 As threads mature, they can:
+
 - Develop intellectual property
 - Launch products or services
 - Provide consulting expertise
@@ -31,6 +32,7 @@ As threads mature, they can:
 ## AI-Native Innovation
 
 Threads leverage AI to:
+
 - Identify market opportunities
 - Synthesize diverse perspectives
 - Accelerate development cycles
@@ -42,6 +44,7 @@ The combination of AI capabilities with human creativity and judgment creates a 
 ## Asset Accumulation
 
 Threads can accumulate various assets:
+
 - CHOIR tokens (base layer)
 - Other crypto tokens
 - Revenue streams
@@ -53,6 +56,7 @@ Threads can accumulate various assets:
 ## Value Distribution
 
 The CHOIR token serves as the equity layer across all thread-generated value:
+
 - Thread participants earn tokens through contribution
 - Token holdings represent participation across multiple threads
 - Token value reflects the aggregate success of all threads
@@ -61,6 +65,7 @@ The CHOIR token serves as the equity layer across all thread-generated value:
 ## Stakeholder Alignment
 
 The model aligns incentives across:
+
 - Content creators
 - Product developers
 - Service providers
@@ -71,6 +76,7 @@ The model aligns incentives across:
 ## Growth Mechanics
 
 Value accumulates through:
+
 - Successful thread ventures
 - Asset management fees
 - Platform service fees
@@ -89,21 +95,25 @@ Value accumulates through:
 ## Implementation Phases
 
 Phase 1: Content and Collaboration
+
 - Basic thread functionality
 - Token distribution mechanics
 - Quality control systems
 
 Phase 2: Asset Integration
+
 - Multi-token support
 - Asset management tools
 - Revenue distribution
 
 Phase 3: Innovation Scaling
+
 - AI-enhanced development
 - Cross-thread collaboration
 - Market integration
 
 Phase 4: Full Economic Model
+
 - Complex asset management
 - Investment strategies
 - Global value distribution
@@ -111,6 +121,7 @@ Phase 4: Full Economic Model
 ## Risk Management
 
 Key considerations:
+
 - Asset custody security
 - Regulatory compliance
 - Value attribution
@@ -120,6 +131,7 @@ Key considerations:
 ## Success Metrics
 
 Long-term indicators:
+
 - Thread venture success rate
 - Asset portfolio growth
 - Innovation output

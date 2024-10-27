@@ -1,26 +1,27 @@
 # Choir State Management
 
 VERSION state_system:
-  invariants: {
-    "Dual-state separation",
-    "Hash-based verification",
-    "State synchronization"
-  }
-  assumptions: {
-    "State distribution model",
-    "Sync patterns",
-    "Cache strategies"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Dual-state separation",
+"Hash-based verification",
+"State synchronization"
+}
+assumptions: {
+"State distribution model",
+"Sync patterns",
+"Cache strategies"
+}
+docs_version: "0.2.0"
 
 ## State Distribution
 
 ASSUMPTION state_boundaries:
-  "Clean separation between Solana and Qdrant"
-  "May introduce additional state layers"
-  "Must maintain clear ownership"
+"Clean separation between Solana and Qdrant"
+"May introduce additional state layers"
+"Must maintain clear ownership"
 
 1. **Solana State**
+
    - Thread ownership (co-authors)
    - Token balances
    - Content hashes
@@ -35,11 +36,12 @@ ASSUMPTION state_boundaries:
 ## State Flow
 
 ASSUMPTION state_updates:
-  "Two-phase state updates"
-  "May batch related changes"
-  "Must maintain consistency"
+"Two-phase state updates"
+"May batch related changes"
+"Must maintain consistency"
 
 1. **Message Creation**
+
    ```
    SEQUENCE create_message:
      1. Store content in Qdrant
@@ -60,11 +62,12 @@ ASSUMPTION state_updates:
 ## State Synchronization
 
 ASSUMPTION sync_patterns:
-  "Hash-based verification"
-  "May introduce merkle proofs"
-  "Must detect inconsistencies"
+"Hash-based verification"
+"May introduce merkle proofs"
+"Must detect inconsistencies"
 
 1. **Verification**
+
    ```
    FUNCTION verify_state(thread_id: ThreadId) -> Bool:
      solana = get_solana_state(thread_id)
@@ -86,11 +89,12 @@ ASSUMPTION sync_patterns:
 ## Cache Management
 
 ASSUMPTION cache_strategy:
-  "Multi-layer caching"
-  "May adjust cache durations"
-  "Must maintain consistency"
+"Multi-layer caching"
+"May adjust cache durations"
+"Must maintain consistency"
 
 1. **Cache Layers**
+
    - Frontend: UI state, user data
    - Backend: Thread state, search results
    - Qdrant: Vector cache
@@ -108,11 +112,12 @@ ASSUMPTION cache_strategy:
 ## Error Handling
 
 ASSUMPTION error_recovery:
-  "Graceful degradation"
-  "May add redundancy"
-  "Must maintain service"
+"Graceful degradation"
+"May add redundancy"
+"Must maintain service"
 
 1. **Error Types**
+
    ```
    TYPE StateError =
      | InconsistentState
@@ -134,11 +139,12 @@ ASSUMPTION error_recovery:
 ## Performance Optimization
 
 ASSUMPTION performance_patterns:
-  "Optimistic updates"
-  "May batch operations"
-  "Must maintain consistency"
+"Optimistic updates"
+"May batch operations"
+"Must maintain consistency"
 
 1. **Batching**
+
    ```
    FUNCTION batch_updates(updates: List<Update>):
      group = group_by_thread(updates)
@@ -157,6 +163,7 @@ ASSUMPTION performance_patterns:
 ## Monitoring
 
 1. **Health Metrics**
+
    - State sync latency
    - Cache hit rates
    - Inconsistency counts

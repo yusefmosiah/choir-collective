@@ -1,17 +1,17 @@
 # Harmonic Topology of Thread State Spaces
 
 VERSION harmonic_topology:
-  invariants: {
-    "Resonant manifold continuity",
-    "Harmonic transformations",
-    "Wave conservation laws"
-  }
-  assumptions: {
-    "State space resonance",
-    "Value field harmonics",
-    "Ergodic oscillations"
-  }
-  implementation: "0.1.0"
+invariants: {
+"Resonant manifold continuity",
+"Harmonic transformations",
+"Wave conservation laws"
+}
+assumptions: {
+"State space resonance",
+"Value field harmonics",
+"Ergodic oscillations"
+}
+docs_version: "0.2.0"
 
 ## Resonant Structures
 
@@ -24,6 +24,7 @@ Token distributions generate resonant value fields over the state space. These f
 ## Stability Through Resonance
 
 The system demonstrates remarkable stability properties arising from its harmonic topology:
+
 - Local minima correspond to resonant consensus
 - Standing waves optimize value distribution
 - Phase-locked bundles preserve structural integrity
@@ -32,6 +33,7 @@ The system demonstrates remarkable stability properties arising from its harmoni
 ## Harmonic Emergence
 
 The mathematical structure naturally supports harmonic emergence:
+
 - Local oscillations generate global patterns
 - Value fields resonate coherently
 - Information flows preserve wave structure
@@ -40,6 +42,7 @@ The mathematical structure naturally supports harmonic emergence:
 ## Wave Conservation Laws
 
 Several quantities are conserved under harmonic evolution:
+
 - Total wave energy in closed systems
 - Topological invariants of resonant spaces
 - Information content across phase transitions
@@ -48,6 +51,7 @@ Several quantities are conserved under harmonic evolution:
 ## Asymptotic Harmonics
 
 As the system evolves, certain asymptotic properties become apparent:
+
 - Value gradients approach resonant distributions
 - Quality metrics converge to harmonic modes
 - Information density reaches phase equilibrium
@@ -56,6 +60,7 @@ As the system evolves, certain asymptotic properties become apparent:
 ## Harmonic Transformations
 
 The state space admits certain transformations that preserve its resonant structure while enabling evolution:
+
 - Phase-preserving deformations
 - Frequency-preserving maps
 - Wave-conserving flows
