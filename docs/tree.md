@@ -47,6 +47,7 @@
 │   ├── Entry_Business.md
 │   ├── Entry_Glossary.md
 │   ├── Entry_InverseEquity.md
+│   ├── Entry_OrganizationalPatterns.md
 │   ├── Entry_Overview.md
 │   ├── Entry_Q&A.md
 │   ├── Error_Correction_Layers.md
@@ -70,6 +71,7 @@
 │   ├── Level_4_MetastableEmergence.md
 │   ├── Level_5_QuantumSemantics.md
 │   ├── Meta_Bureaucracy.md
+│   ├── Meta_Chorus.md
 │   ├── Meta_Diagrams.md
 │   ├── Meta_DocumentationDrivenDevelopment.md
 │   ├── Meta_Emergence.md
@@ -133,6 +135,7 @@
 │   │   ├── Combined_Model.md
 │   │   ├── Combined_Plan.md
 │   │   ├── Combined_Porting.md
+│   │   ├── Combined_Prompt.md
 │   │   ├── Combined_Reward.md
 │   │   ├── Combined_Solana.md
 │   │   ├── Combined_State.md
@@ -200,4 +203,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 170 files
+28 directories, 173 files
