@@ -79,6 +79,7 @@ tree.md
 │   ├── Level_3_ValueCreation.md
 │   ├── Level_4_MetastableEmergence.md
 │   ├── Level_5_QuantumSemantics.md
+│   ├── Meta_Bureaucracy.md
 │   ├── Meta_Diagrams.md
 │   ├── Meta_DocumentationDrivenDevelopment.md
 │   ├── Meta_Emergence.md
@@ -86,6 +87,8 @@ tree.md
 │   ├── Meta_Evolution.md
 │   ├── Meta_Experience.md
 │   ├── Meta_Index.md
+│   ├── Meta_IronicOperations.md
+│   ├── Meta_OrganizationalIrony.md
 │   ├── Meta_Overview.md
 │   ├── Meta_Progression.md
 │   ├── Model_Emergency.md
@@ -94,6 +97,7 @@ tree.md
 │   ├── Plan_Checklist.md
 │   ├── Plan_Hyperconverge.md
 │   ├── Porting_Checklist.md
+│   ├── Prompt_StructuredSummary.md
 │   ├── Reward_Explained.md
 │   ├── Reward_Service.md
 │   ├── Reward_Summary.md
@@ -206,7 +210,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 166 files
+28 directories, 170 files
 
 
 ==
@@ -314,7 +318,7 @@ base_patterns=(
     "Level_1_ Entry_ Dev_ Plan_ Tech_ Crystallization_ Thread Porting_"
     "Level_2_ Core_State Core_Types Core_Blueprint Impl_ State_"
     "Level_3_ Core_Economics Theory_Game Theory_Implementation V10_ V12_"
-    "Level_4_ Core_Convergence Theory_Stake Model_ Meta_Overview Emergence_"
+    "Level_4_ Core_Convergence Theory_Stake Model_ Meta_Overview Emergence_ Prompt_"
     "Level_5_ Theory_Quantum Theory_Semantic Harmonic_ Meta_ Theory_"
 )
 

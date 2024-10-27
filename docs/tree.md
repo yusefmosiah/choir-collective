@@ -69,6 +69,7 @@
 │   ├── Level_3_ValueCreation.md
 │   ├── Level_4_MetastableEmergence.md
 │   ├── Level_5_QuantumSemantics.md
+│   ├── Meta_Bureaucracy.md
 │   ├── Meta_Diagrams.md
 │   ├── Meta_DocumentationDrivenDevelopment.md
 │   ├── Meta_Emergence.md
@@ -76,6 +77,8 @@
 │   ├── Meta_Evolution.md
 │   ├── Meta_Experience.md
 │   ├── Meta_Index.md
+│   ├── Meta_IronicOperations.md
+│   ├── Meta_OrganizationalIrony.md
 │   ├── Meta_Overview.md
 │   ├── Meta_Progression.md
 │   ├── Model_Emergency.md
@@ -84,6 +87,7 @@
 │   ├── Plan_Checklist.md
 │   ├── Plan_Hyperconverge.md
 │   ├── Porting_Checklist.md
+│   ├── Prompt_StructuredSummary.md
 │   ├── Reward_Explained.md
 │   ├── Reward_Service.md
 │   ├── Reward_Summary.md
@@ -196,4 +200,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 166 files
+28 directories, 170 files

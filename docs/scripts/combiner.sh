@@ -98,7 +98,7 @@ base_patterns=(
     "Level_1_ Entry_ Dev_ Plan_ Tech_ Crystallization_ Thread Porting_"
     "Level_2_ Core_State Core_Types Core_Blueprint Impl_ State_"
     "Level_3_ Core_Economics Theory_Game Theory_Implementation V10_ V12_"
-    "Level_4_ Core_Convergence Theory_Stake Model_ Meta_Overview Emergence_"
+    "Level_4_ Core_Convergence Theory_Stake Model_ Meta_Overview Emergence_ Prompt_"
     "Level_5_ Theory_Quantum Theory_Semantic Harmonic_ Meta_ Theory_"
 )
 
