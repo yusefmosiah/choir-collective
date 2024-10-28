@@ -54,7 +54,7 @@
 ## 4. Backend Deployment
 
 ### 4.1 Render Service Setup
-- [ ] Create new Web Service for backend:
+- [x] Create new Web Service for backend:
   1. Go to Render Dashboard
   2. Click "New +" and select "Web Service"
   3. Connect to GitHub repo
@@ -66,26 +66,26 @@
      - Instance Type: Start with "Starter" plan
      - Auto-Deploy: Disable  # We'll use GitHub Actions instead
 
-- [ ] Get Deploy Hook URL for backend:
+- [x] Get Deploy Hook URL for backend:
   1. Go to service settings
   2. Find "Deploy Hook" section
   3. Copy the deploy hook URL
   4. Add as GitHub secret: `RENDER_DEPLOY_HOOK_URL_BACKEND`
 
 ### 4.2 Environment Variables
-- [ ] Add environment variables in Render:
+- [x] Add environment variables in Render:
   ```
   PORT=8000
   ```
 
 ### 4.3 Update Frontend Configuration
-- [ ] Update frontend environment in Render:
+- [x] Update frontend environment in Render:
   ```
   NEXT_PUBLIC_API_URL=https://choir-collective-api.onrender.com
   ```
 
 ### 4.4 CORS Configuration
-- [ ] Update CORS in main.py to allow frontend domain:
+- [x] Update CORS in main.py to allow frontend domain:
   ```python
   app.add_middleware(
       CORSMiddleware,
@@ -136,3 +136,27 @@
   1. Go to service settings
   2. Set health check path to "/health"
   3. Configure check interval and timeout
+
+### 4.2 Environment Variables
+- [ ] Verify environment variables in Render:
+  1. Frontend service:
+     ```
+     NEXT_PUBLIC_API_URL=https://choir-collective-api.onrender.com
+     ```
+  2. Backend service:
+     ```
+     PORT=8000
+     ```
+
+### 4.3 Verify Deployment
+- [ ] Check backend health endpoint directly: https://choir-collective-api.onrender.com/health
+- [ ] Check backend logs in Render dashboard for any errors
+- [ ] Verify frontend environment variables are set correctly
+- [ ] Test CORS by checking browser console during API calls
+
+## 7. Additional Tasks
+- [ ] Update documentation to reflect changes
+- [ ] Review and update testing infrastructure
+- [ ] Verify integration with Solana program
+- [ ] Test end-to-end message flow
+- [ ] Verify state synchronization

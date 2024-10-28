@@ -6,8 +6,12 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 export default function Page() {
   const handleClick = async () => {
     try {
+      console.log('Calling API at:', API_URL)  // Add logging
       const response = await fetch(`${API_URL}/api/log-click`, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
       const data = await response.json()
       console.log('Response:', data)
