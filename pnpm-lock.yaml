@@ -126,6 +126,9 @@ importers:
       ts-mocha:
         specifier: ^10.0.0
         version: 10.0.0(mocha@10.7.3)
+      whatwg-fetch:
+        specifier: ^3.6.2
+        version: 3.6.20
 
 packages:
 
