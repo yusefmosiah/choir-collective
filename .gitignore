@@ -27,6 +27,8 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
+**/.env
 
 # vercel
 .vercel
@@ -37,4 +39,13 @@ next-env.d.ts
 tmp
 
 # old api
-/old-api
+old-api
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
