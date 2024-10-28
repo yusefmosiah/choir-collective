@@ -29,13 +29,4 @@ bind_address = "127.0.0.1"
 ledger = ".anchor/test-ledger"
 rpc_port = 8899
 commitment = "processed"
-
-[workspace]
-types = "target/types"
-members = ["programs/*"]
-
-[workspace.dependencies]
-anchor-lang = "0.30.1"
-
-[build]
-target-dir = "target"
+# Removed reset flag to reuse validator state between test runs

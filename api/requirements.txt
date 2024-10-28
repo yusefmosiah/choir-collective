@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+gunicorn
+python-dotenv
+litellm
+openai
+qdrant-client
+pydantic
+pydantic-settings
+tiktoken==0.8.0
+tokenizers==0.15.2
+

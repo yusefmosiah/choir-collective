@@ -40,7 +40,7 @@ Porting_Checklist
   4. Find "Auto-Deploy" section
   5. Disable auto-deploy
 
-- [ ] Test CI/CD Pipeline:
+- [x] Test CI/CD Pipeline:
   1. Make a small change to the codebase
   2. Push to main branch
   3. Verify GitHub Actions workflow runs
@@ -48,7 +48,7 @@ Porting_Checklist
   5. Check application updates successfully
 
 ## 2. Testing Infrastructure
-- [ ] Use already set-up testing framework
+- [x] Use already set-up testing framework
 - [ ] Configure test data
 - [ ] Add test fixtures
 - [ ] Setup test coverage reporting
@@ -62,13 +62,51 @@ Porting_Checklist
 - [x] Verify all pages working
 
 ## 4. Backend Deployment
-- [ ] setup python, venv, requirements
-- [ ] setup python testing with ci/cd
-- [ ] Create Dockerfile for Python backend
-- [ ] Setup Render service for backend
-- [ ] Configure environment variables
-- [ ] Setup database connections
-- [ ] Configure WebSocket endpoints
+
+### 4.1 Render Service Setup
+- [ ] Create new Web Service for backend:
+  1. Go to Render Dashboard
+  2. Click "New +" and select "Web Service"
+  3. Connect to GitHub repo
+  4. Configure service:
+     - Name: `choir-collective-api`
+     - Root Directory: `api`
+     - Environment: `Docker`
+     - Region: Choose nearest
+     - Instance Type: Start with "Starter" plan
+     - Auto-Deploy: Enable
+
+### 4.2 Environment Variables
+- [ ] Add environment variables in Render:
+  ```
+  PORT=8000
+  ```
+
+### 4.3 Update Frontend Configuration
+- [ ] Update frontend environment in Render:
+  ```
+  NEXT_PUBLIC_API_URL=https://choir-collective-api.onrender.com
+  ```
+
+### 4.4 CORS Configuration
+- [ ] Update CORS in main.py to allow frontend domain:
+  ```python
+  app.add_middleware(
+      CORSMiddleware,
+      allow_origins=[
+          "https://choir-collective.onrender.com",
+          "http://localhost:3000"  # For local development
+      ],
+      allow_credentials=True,
+      allow_methods=["*"],
+      allow_headers=["*"],
+  )
+  ```
+
+### 4.5 Verify Deployment
+- [ ] Check backend health endpoint: https://choir-collective-api.onrender.com/health
+- [ ] Test button click from frontend
+- [ ] Verify logs in Render dashboard
 
 ## 5. Integration
 - [ ] Connect frontend to new backend
@@ -83,3 +121,22 @@ Porting_Checklist
 - [ ] Add performance monitoring
 - [ ] Setup alerts
 - [ ] Add health checks
+
+### 6.1 Backend Monitoring
+- [ ] Add logging configuration:
+  ```python
+  import logging
+  logging.basicConfig(level=logging.INFO)
+  ```
+
+- [ ] Setup health check endpoint:
+  ```python
+  @app.get("/health")
+  async def health_check():
+      return {"status": "healthy"}
+  ```
+
+- [ ] Configure Render health checks:
+  1. Go to service settings
+  2. Set health check path to "/health"
+  3. Configure check interval and timeout

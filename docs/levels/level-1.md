@@ -33,6 +33,13 @@ tree.md
 │   ├── tests
 │   │   └── basic.spec.ts
 │   └── tsconfig.json
+├── api
+│   ├── Dockerfile
+│   ├── __pycache__
+│   │   └── main.cpython-311.pyc
+│   ├── main.py
+│   └── requirements.txt
+├── docker-compose.yml
 ├── docs
 │   ├── Backend_Chorus.md
 │   ├── Backend_Database.md
@@ -171,6 +178,16 @@ tree.md
 ├── jest.setup.js
 ├── next-env.d.ts
 ├── next.config.mjs
+├── old-api
+│   └── api
+│       ├── __init__.py
+│       ├── chorus.py
+│       ├── config.py
+│       ├── database.py
+│       ├── main.py
+│       ├── models.py
+│       ├── requirements.txt
+│       └── utils.py
 ├── package.json
 ├── pnpm-lock.yaml
 ├── postcss.config.mjs
@@ -222,7 +239,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-30 directories, 180 files
+34 directories, 193 files
 
 
 ==
