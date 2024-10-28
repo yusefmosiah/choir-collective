@@ -94,6 +94,7 @@ tree.md
 │   ├── Meta_OrganizationalIrony.md
 │   ├── Meta_Overview.md
 │   ├── Meta_Progression.md
+│   ├── Meta_ValueEvolution.md
 │   ├── Model_Emergency.md
 │   ├── Model_Metastability.md
 │   ├── Model_Recursion.md
@@ -214,7 +215,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 174 files
+28 directories, 175 files
 
 
 ==

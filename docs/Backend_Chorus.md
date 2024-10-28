@@ -40,6 +40,11 @@ TYPE Effect =
 ```python
 # Core transformation functions
 FUNCTION transform_state(state: ChorusState, input: Input) -> StepResult:
+    # Instead of content being a liability, it becomes:
+    # - Collectively owned (thread value)
+    # - Naturally protected (quantum state)
+    # - Value generating (prior rewards)
+    # - Identity preserving (co-authorship)
     MATCH state.current_step:
         StepEnum.ACTION -> run_action(state, input)
         StepEnum.EXPERIENCE -> run_experience(state, input)
