@@ -15,8 +15,8 @@ COPY package.json pnpm-lock.yaml ./
 COPY next.config.mjs tsconfig.json .npmrc ./
 COPY postcss.config.mjs tailwind.config.ts ./
 
-# Install ALL dependencies (including dev dependencies)
-RUN pnpm install --frozen-lockfile
+# Install dependencies without frozen lockfile since we moved deps
+RUN pnpm install --no-frozen-lockfile
 
 # Copy source files
 COPY src ./src
