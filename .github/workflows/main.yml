@@ -27,12 +27,31 @@ jobs:
       - name: Build
         run: pnpm build
 
-    # no linting for now
-    #   - name: Lint
-    #     run: pnpm lint
-
       - name: Test
         run: pnpm test
+
+  backend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        working-directory: ./api
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Test backend
+        working-directory: ./api
+        run: |
+          pip install pytest pytest-asyncio
+          pytest
 
   anchor:
     runs-on: ubuntu-latest
@@ -70,12 +89,18 @@ jobs:
         run: pnpm run test:anchor
 
   deploy:
-    needs: [frontend-build, anchor]
+    needs: [frontend-build, backend-build, anchor]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Render
+      - name: Deploy Frontend to Render
         env:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"
+
+      - name: Deploy Backend to Render
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL_BACKEND }}
         run: |
           curl "$deploy_url"

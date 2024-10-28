@@ -2635,7 +2635,13 @@ Porting_Checklist
      - Environment: `Docker`
      - Region: Choose nearest
      - Instance Type: Start with "Starter" plan
-     - Auto-Deploy: Enable
+     - Auto-Deploy: Disable  # We'll use GitHub Actions instead
+
+- [ ] Get Deploy Hook URL for backend:
+  1. Go to service settings
+  2. Find "Deploy Hook" section
+  3. Copy the deploy hook URL
+  4. Add as GitHub secret: `RENDER_DEPLOY_HOOK_URL_BACKEND`
 
 ### 4.2 Environment Variables
 - [ ] Add environment variables in Render:

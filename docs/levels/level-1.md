@@ -38,7 +38,9 @@ tree.md
 │   ├── __pycache__
 │   │   └── main.cpython-311.pyc
 │   ├── main.py
-│   └── requirements.txt
+│   ├── requirements.txt
+│   └── tests
+│       └── test_main.py
 ├── docker-compose.yml
 ├── docs
 │   ├── Backend_Chorus.md
@@ -239,7 +241,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-34 directories, 193 files
+35 directories, 194 files
 
 
 ==
