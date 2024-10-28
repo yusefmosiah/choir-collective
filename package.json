@@ -12,9 +12,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
+    "test": "jest ",
+    "test:py": "cd api && source venv/bin/activate && python -m pytest",
     "test:watch": "jest --watch",
-    "test:anchor": "cd anchor && anchor test"
+    "test:anchor": "cd anchor && anchor test",
+    "test:pynext": "concurrently \"cd api && source venv/bin/activate && python -m pytest\" \"pnpm run test\"",
+    "test:all": "concurrently \"pnpm run test:anchor\" \"pnpm run test\" \"cd api && source venv/bin/activate && python -m pytest\""
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.30.1",

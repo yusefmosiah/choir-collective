@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-basic = "6z68wfurCMYkZG51s1Et9BJEd9nJGUusjHXNt4dGbNNF"
+basic = "BTZP9trae9yh7Pugqy3Dy688B63SjqUpXMo4MLtbQqiA"  # Updated to match deployed program ID
 
 [registry]
 url = "https://api.apr.dev"
@@ -26,7 +26,7 @@ upgradeable = false
 [test.validator]
 url = "http://127.0.0.1:8899"
 bind_address = "127.0.0.1"
-ledger = ".anchor/test-ledger"
+ledger = "test-ledger"  # Simplified ledger path
 rpc_port = 8899
-commitment = "processed"
-# Removed reset flag to reuse validator state between test runs
+commitment = "processed"  # Changed from confirmed
+reset = true  # Added reset flag

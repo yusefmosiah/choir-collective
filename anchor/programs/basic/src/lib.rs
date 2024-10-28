@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("6z68wfurCMYkZG51s1Et9BJEd9nJGUusjHXNt4dGbNNF");
+declare_id!("BTZP9trae9yh7Pugqy3Dy688B63SjqUpXMo4MLtbQqiA");  // Updated to match deployed program ID
 
 #[program]
 pub mod basic {

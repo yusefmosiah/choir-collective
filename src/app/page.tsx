@@ -17,9 +17,13 @@ export default function Page() {
       const data = await response.json();
       console.log("Response data:", data);
     } catch (error) {
+      // Type guard to check if error is an Error object
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      const errorStack = error instanceof Error ? error.stack : undefined;
+
       console.error("Detailed error:", {
-        message: error.message,
-        stack: error.stack,
+        message: errorMessage,
+        stack: errorStack,
         url: `${API_URL}/api/log-click`,
       });
     }
