@@ -33,14 +33,12 @@ app.add_middleware(
 
 @app.post("/api/log-click")
 async def log_click():
-    logger.info("Button clicked!")
-    return {"status": "success", "message": "Click logged"}
+    return {"message": "Click logged successfully"}
 
 @app.get("/health")
 async def health_check():
     logger.info("Health check called")
     return {"status": "healthy"}
-
 # Add a root endpoint to help with debugging
 @app.get("/")
 async def root():
