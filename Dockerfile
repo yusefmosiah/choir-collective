@@ -16,17 +16,8 @@ RUN pnpm install --frozen-lockfile
 # Copy necessary files
 COPY . .
 
-# Set NODE_ENV to production for the build
-ENV NODE_ENV=production
-
-# Build the application
-RUN pnpm run build
-
-# Clean up dev dependencies
-RUN pnpm prune --prod
-
-# Use the PORT environment variable
-EXPOSE ${PORT:-10000}
-
-# Run the application using the PORT environment variable
-CMD ["sh", "-c", "PORT=${PORT:-10000} pnpm start"]
+# Copy environment variables from secrets in production
+CMD if [ -f /etc/secrets/.env ]; then cp /etc/secrets/.env .env; fi && \
+    pnpm run build && \
+    pnpm prune --prod && \
+    pnpm start
