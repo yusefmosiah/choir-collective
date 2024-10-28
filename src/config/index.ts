@@ -8,8 +8,14 @@ interface Config {
 }
 
 export function getConfig(): Config {
-  // Use environment variable with fallback for local development
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  // Hardcode the production URL, with fallback for local development
+  const apiUrl = typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    ? 'http://localhost:8000'
+    : 'https://choir-collective-api.onrender.com';
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('API URL:', apiUrl);
+  }
 
   return {
     api: {

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const { api: { url: apiUrl } } = getConfig();
   const [buildEnv, setBuildEnv] = useState<string>('');
+  const [clientLoadTime] = useState(new Date().toISOString()); // Capture initial load time
 
   // Fetch environment info from an API route
   useEffect(() => {
@@ -58,7 +59,7 @@ export default function Page() {
             {JSON.stringify({
               NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
               NODE_ENV: process.env.NODE_ENV,
-              BUILD_TIME: new Date().toISOString(),
+              CLIENT_LOAD_TIME: clientLoadTime,
               API_URL_FROM_CONFIG: apiUrl
             }, null, 2)}
           </pre>
