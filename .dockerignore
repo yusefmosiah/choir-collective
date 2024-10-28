@@ -1,0 +1,47 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+.next
+out
+build
+
+# Version control
+.git
+.gitignore
+
+# Environment
+.env*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode
+.idea
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+
+# Backend files (not needed for frontend)
+api
+old-api
+venv
+__pycache__
+*.pyc
+
+# Misc
+README.md
+*.md

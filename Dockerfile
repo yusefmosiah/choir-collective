@@ -1,5 +1,4 @@
 # Use the official Node.js image.
-# https://hub.docker.com/_/node
 FROM node:18-alpine
 
 # Install pnpm
@@ -8,20 +7,28 @@ RUN npm install -g pnpm
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and pnpm-lock.yaml
+# Copy only package files first
 COPY package.json pnpm-lock.yaml ./
 
-# Install dependencies
-RUN pnpm install
+# Install dependencies with specific flags for space efficiency
+RUN pnpm install --frozen-lockfile --prefer-offline
 
-# Copy the rest of the application code
-COPY . .
+# Copy only necessary files
+COPY next.config.mjs .
+COPY tsconfig.json .
+COPY src ./src
+COPY public ./public
+COPY postcss.config.mjs .
+COPY tailwind.config.ts .
+COPY anchor ./anchor
 
-# Build the application (if needed)
+# Build the application
 RUN pnpm run build
 
-# Expose the ports the app runs on
-EXPOSE 80 8080
+# Remove development dependencies
+RUN pnpm prune --prod
+
+EXPOSE 3000
 
 # Run the application
 CMD ["pnpm", "start"]
