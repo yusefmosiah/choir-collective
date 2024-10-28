@@ -11,22 +11,13 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies with specific flags for space efficiency
-RUN pnpm install --frozen-lockfile --prefer-offline
+RUN pnpm install --frozen-lockfile --prod
 
-# Copy only necessary files
-COPY next.config.mjs .
-COPY tsconfig.json .
-COPY src ./src
-COPY public ./public
-COPY postcss.config.mjs .
-COPY tailwind.config.ts .
-COPY anchor ./anchor
+# Copy necessary files
+COPY . . 
 
 # Build the application
 RUN pnpm run build
-
-# Remove development dependencies
-RUN pnpm prune --prod
 
 EXPOSE 3000
 

@@ -27,11 +27,11 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@/*": [
+        "src/*"
+      ],
       "@project/anchor": [
         "anchor/src"
-      ],
-      "@/*": [
-        "./src/*"
       ]
     }
   },

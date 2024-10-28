@@ -5,10 +5,11 @@ python-dotenv
 litellm
 openai
 qdrant-client
-pydantic
-pydantic-settings
+pydantic<3.0.0
+pydantic-settings<3.0.0
 tiktoken==0.8.0
 tokenizers==0.15.2
+PyYAML>=5.4.1
 # Testing dependencies
 pytest==8.0.0
 pytest-asyncio==0.23.5

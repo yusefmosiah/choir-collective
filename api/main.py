@@ -33,7 +33,7 @@ app.add_middleware(
 
 @app.post("/api/log-click")
 async def log_click():
-    return {"message": "Click logged successfully"}
+    return {"status": "success", "message": "Click logged"}
 
 @app.get("/health")
 async def health_check():

@@ -1,11 +1,11 @@
 # Dependencies
 node_modules
-.pnpm-store
 
 # Build outputs
 .next
 out
 build
+dist
 
 # Version control
 .git
@@ -17,10 +17,6 @@ build
 .env.development.local
 .env.test.local
 .env.production.local
-
-# IDE
-.vscode
-.idea
 
 # Logs
 *.log
@@ -34,14 +30,11 @@ Thumbs.db
 
 # Testing
 coverage
-
-# Backend files (not needed for frontend)
-api
-old-api
-venv
-__pycache__
-*.pyc
+test
+__tests__
 
 # Misc
 README.md
 *.md
+.github
+docs
