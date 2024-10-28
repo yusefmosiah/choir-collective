@@ -36,10 +36,14 @@ tree.md
 ├── api
 │   ├── Dockerfile
 │   ├── __pycache__
+│   │   ├── conftest.cpython-311-pytest-8.3.3.pyc
 │   │   └── main.cpython-311.pyc
 │   ├── main.py
+│   ├── pyproject.toml
 │   ├── requirements.txt
 │   └── tests
+│       ├── __pycache__
+│       │   └── test_main.cpython-311-pytest-8.3.3.pyc
 │       └── test_main.py
 ├── docker-compose.yml
 ├── docs
@@ -241,7 +245,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-35 directories, 194 files
+36 directories, 197 files
 
 
 ==
