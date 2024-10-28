@@ -82,7 +82,6 @@ tree.md
 │   ├── Level_5_QuantumSemantics.md
 │   ├── Meta_Bureaucracy.md
 │   ├── Meta_Chorus.md
-│   ├── Meta_CryptoPatterns.md
 │   ├── Meta_Diagrams.md
 │   ├── Meta_DocumentationDrivenDevelopment.md
 │   ├── Meta_Emergence.md
@@ -216,7 +215,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 176 files
+28 directories, 175 files
 
 
 ==
