@@ -1,34 +1,42 @@
-'use client'
-import DashboardFeature from '@/components/dashboard/dashboard-feature'
+"use client";
+import DashboardFeature from "@/components/dashboard/dashboard-feature";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export default function Page() {
   const handleClick = async () => {
     try {
-      console.log('Calling API at:', API_URL)  // Add logging
+      console.log("Attempting to call API at:", API_URL);
       const response = await fetch(`${API_URL}/api/log-click`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-      })
-      const data = await response.json()
-      console.log('Response:', data)
+      });
+      console.log("Response status:", response.status);
+      const data = await response.json();
+      console.log("Response data:", data);
     } catch (error) {
-      console.error('Error:', error)
+      console.error("Detailed error:", {
+        message: error.message,
+        stack: error.stack,
+        url: `${API_URL}/api/log-click`,
+      });
     }
-  }
+  };
 
   return (
     <div>
       <DashboardFeature />
-      <button
-        onClick={handleClick}
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-      >
-        Test Backend
-      </button>
+      <div className="flex flex-col items-center gap-2">
+        <button
+          onClick={handleClick}
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+        >
+          Test Backend
+        </button>
+        <div className="text-sm text-gray-600">API URL: {API_URL}</div>
+      </div>
     </div>
-  )
+  );
 }
