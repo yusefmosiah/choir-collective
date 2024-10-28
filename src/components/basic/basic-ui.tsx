@@ -3,16 +3,25 @@
 import { useBasicProgram } from './basic-data-access'
 
 export function BasicCreate() {
-  const { greet } = useBasicProgram();
+  const { initialize, createMessage } = useBasicProgram();
 
   return (
-    <button
-      className="btn btn-xs lg:btn-md btn-primary"
-      onClick={() => greet.mutateAsync()}
-      disabled={greet.isPending}
-    >
-      Run program{greet.isPending && '...'}
-    </button>
+    <div className="flex flex-col gap-4">
+      <button
+        className="btn btn-xs lg:btn-md btn-primary"
+        onClick={() => initialize.mutateAsync()}
+        disabled={initialize.isPending}
+      >
+        Initialize{initialize.isPending && '...'}
+      </button>
+      <button
+        className="btn btn-xs lg:btn-md btn-primary"
+        onClick={() => createMessage.mutateAsync('Hello, Solana!')}
+        disabled={createMessage.isPending}
+      >
+        Create Message{createMessage.isPending && '...'}
+      </button>
+    </div>
   );
 }
 
