@@ -13,6 +13,7 @@ ENV NODE_OPTIONS="--max_old_space_size=450"
 # Copy package files first
 COPY package.json pnpm-lock.yaml ./
 COPY next.config.mjs tsconfig.json .npmrc ./
+COPY postcss.config.mjs tailwind.config.ts ./
 
 # Install production dependencies only
 RUN pnpm install --prod --frozen-lockfile
