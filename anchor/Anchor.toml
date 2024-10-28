@@ -16,14 +16,17 @@ cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
-test = "../node_modules/.bin/jest --preset ts-jest"
+test = "../node_modules/.bin/ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
 
 [test]
-startup_wait = 5000
+startup_wait = 20000
 shutdown_wait = 2000
 upgradeable = false
 
 [test.validator]
+url = "http://127.0.0.1:8899"
 bind_address = "127.0.0.1"
 ledger = ".anchor/test-ledger"
 rpc_port = 8899
+commitment = "processed"
+# Removed reset flag to reuse validator state between test runs

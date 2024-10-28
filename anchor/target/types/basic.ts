@@ -14,19 +14,87 @@ export type Basic = {
   },
   "instructions": [
     {
-      "name": "greet",
+      "name": "createMessage",
       "discriminator": [
-        203,
-        194,
-        3,
-        150,
-        228,
-        58,
-        181,
-        62
+        234,
+        159,
+        7,
+        241,
+        215,
+        17,
+        188,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "message",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "author",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "content",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
       ],
       "accounts": [],
       "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "message",
+      "discriminator": [
+        110,
+        151,
+        23,
+        110,
+        198,
+        6,
+        125,
+        181
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "message",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "author",
+            "type": "pubkey"
+          },
+          {
+            "name": "content",
+            "type": "string"
+          }
+        ]
+      }
     }
   ]
 };

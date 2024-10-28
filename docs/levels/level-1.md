@@ -167,6 +167,8 @@ tree.md
 │   │   ├── combiner.sh
 │   │   └── update_tree.sh
 │   └── tree.md
+├── jest.config.js
+├── jest.setup.js
 ├── next-env.d.ts
 ├── next.config.mjs
 ├── package.json
@@ -176,6 +178,8 @@ tree.md
 │   └── logo.png
 ├── src
 │   ├── app
+│   │   ├── __tests__
+│   │   │   └── page.test.tsx
 │   │   ├── account
 │   │   │   ├── [address]
 │   │   │   │   └── page.tsx
@@ -192,30 +196,33 @@ tree.md
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
 │   │   └── react-query-provider.tsx
-│   └── components
-│       ├── account
-│       │   ├── account-data-access.tsx
-│       │   ├── account-detail-feature.tsx
-│       │   ├── account-list-feature.tsx
-│       │   └── account-ui.tsx
-│       ├── basic
-│       │   ├── basic-data-access.tsx
-│       │   ├── basic-feature.tsx
-│       │   └── basic-ui.tsx
-│       ├── cluster
-│       │   ├── cluster-data-access.tsx
-│       │   ├── cluster-feature.tsx
-│       │   └── cluster-ui.tsx
-│       ├── dashboard
-│       │   └── dashboard-feature.tsx
-│       ├── solana
-│       │   └── solana-provider.tsx
-│       └── ui
-│           └── ui-layout.tsx
+│   ├── components
+│   │   ├── account
+│   │   │   ├── account-data-access.tsx
+│   │   │   ├── account-detail-feature.tsx
+│   │   │   ├── account-list-feature.tsx
+│   │   │   └── account-ui.tsx
+│   │   ├── basic
+│   │   │   ├── basic-data-access.tsx
+│   │   │   ├── basic-feature.tsx
+│   │   │   └── basic-ui.tsx
+│   │   ├── cluster
+│   │   │   ├── cluster-data-access.tsx
+│   │   │   ├── cluster-feature.tsx
+│   │   │   └── cluster-ui.tsx
+│   │   ├── dashboard
+│   │   │   └── dashboard-feature.tsx
+│   │   ├── solana
+│   │   │   └── solana-provider.tsx
+│   │   └── ui
+│   │       └── ui-layout.tsx
+│   ├── test-utils.tsx
+│   └── types
+│       └── jest.d.ts
 ├── tailwind.config.ts
 └── tsconfig.json
 
-28 directories, 175 files
+30 directories, 180 files
 
 
 ==
