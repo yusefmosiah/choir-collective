@@ -15,8 +15,8 @@ COPY package.json pnpm-lock.yaml ./
 COPY next.config.mjs tsconfig.json .npmrc ./
 COPY postcss.config.mjs tailwind.config.ts ./
 
-# Install production dependencies only
-RUN pnpm install --prod --frozen-lockfile
+# Install ALL dependencies (including dev dependencies)
+RUN pnpm install --frozen-lockfile
 
 # Copy source files
 COPY src ./src
@@ -26,6 +26,8 @@ COPY anchor ./anchor
 # Build with production optimization
 RUN pnpm run build
 
-# Copy environment variables from secrets in production and start
-CMD if [ -f /etc/secrets/.env ]; then cp /etc/secrets/.env .env; fi && \
-    PORT=${PORT:-10000} pnpm start
+# Clean up dev dependencies after build
+RUN pnpm prune --prod
+
+# Run the application
+CMD PORT=${PORT:-10000} pnpm start
