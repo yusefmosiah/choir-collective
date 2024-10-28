@@ -662,6 +662,13 @@ The Chorus Loop isn't just a process - it's a fundamental rethinking of how orga
 
 
 ==
+Meta_CryptoPatterns
+==
+
+
+
+
+==
 Meta_Diagrams
 ==
 

@@ -18,14 +18,14 @@ Porting_Checklist
 - [x] Configure deployment triggers
 
 ### 1.1 Render Deploy Hook Setup
-- [ ] Get Deploy Hook URL:
+- [x] Get Deploy Hook URL:
   1. Go to Render Dashboard
   2. Select the `choir-collective` service
   3. Go to "Settings" tab
   4. Find "Deploy Hook" section
   5. Copy the deploy hook URL
 
-- [ ] Add GitHub Secret:
+- [x] Add GitHub Secret:
   1. Go to GitHub repo settings
   2. Click "Secrets and variables > Actions"
   3. Click "New repository secret"
@@ -33,7 +33,7 @@ Porting_Checklist
   5. Value: Paste the deploy hook URL
   6. Click "Add secret"
 
-- [ ] Disable Render Auto-Deploy:
+- [x] Disable Render Auto-Deploy:
   1. Go to Render Dashboard
   2. Select the `choir-collective` service
   3. Go to "Settings" tab
