@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
-    ],
-    "types": [
-      "jest",
-      "@testing-library/jest-dom"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -25,13 +22,12 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "@project/anchor": [
-        "anchor/src"
+        "./anchor/src"
       ]
     }
   },
@@ -39,7 +35,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/types/jest.d.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [
