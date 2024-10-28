@@ -10,7 +10,10 @@ const nextConfig = {
   },
   experimental: {
     esmExternals: true,
-  }
+  },
+  swcMinify: true,
+  compress: true,
+  productionBrowserSourceMaps: false
 };
 
 export default nextConfig;

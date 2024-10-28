@@ -7,17 +7,21 @@ RUN npm install -g pnpm
 # Set the working directory
 WORKDIR /app
 
+# Set NODE_OPTIONS to limit memory usage during build
+ENV NODE_OPTIONS="--max_old_space_size=450"
+
 # Copy only package files first
 COPY package.json pnpm-lock.yaml ./
 
-# Install ALL dependencies (including devDependencies)
-RUN pnpm install --frozen-lockfile
+# Install production dependencies only
+RUN pnpm install --prod --frozen-lockfile
 
 # Copy necessary files
 COPY . .
 
-# Copy environment variables from secrets in production
+# Build with production optimization
+RUN pnpm run build
+
+# Copy environment variables from secrets in production and start
 CMD if [ -f /etc/secrets/.env ]; then cp /etc/secrets/.env .env; fi && \
-    PORT=${PORT:-10000} pnpm run build && \
-    pnpm prune --prod && \
     PORT=${PORT:-10000} pnpm start
