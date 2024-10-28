@@ -44,6 +44,9 @@ importers:
       daisyui:
         specifier: 4.12.13
         version: 4.12.13(postcss@8.4.47)
+      jotai:
+        specifier: ^2.7.1
+        version: 2.10.1(@types/react@18.3.12)(react@18.2.0)
       next:
         specifier: 14.2.5
         version: 14.2.5(@babel/core@7.25.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -2185,6 +2188,18 @@ packages:
 
   joi@17.13.3:
     resolution: {integrity: sha512-otDA4ldcIx+ZXsKHWmp0YizCweVRZG96J10b0FevjfuncLO1oX59THoAmHkNubYJ+9gWsYsp5k8v4ib6oDv1fA==}
+
+  jotai@2.10.1:
+    resolution: {integrity: sha512-4FycO+BOTl2auLyF2Chvi6KTDqdsdDDtpaL/WHQMs8f3KS1E3loiUShQzAzFA/sMU5cJ0hz/RT1xum9YbG/zaA==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=17.0.0'
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
 
   js-base64@3.7.7:
     resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
@@ -5971,6 +5986,11 @@ snapshots:
       '@sideway/address': 4.1.5
       '@sideway/formula': 3.0.1
       '@sideway/pinpoint': 2.0.0
+
+  jotai@2.10.1(@types/react@18.3.12)(react@18.2.0):
+    optionalDependencies:
+      '@types/react': 18.3.12
+      react: 18.2.0
 
   js-base64@3.7.7: {}
 
