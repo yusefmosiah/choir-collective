@@ -16,7 +16,7 @@ COPY package.json pnpm-lock.yaml ./
 COPY next.config.mjs tsconfig.json .npmrc ./
 COPY postcss.config.mjs tailwind.config.ts ./
 
-# Install production dependencies only for the build
+# Install production dependencies only
 RUN pnpm install --prod --frozen-lockfile
 
 # Copy source files

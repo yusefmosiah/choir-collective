@@ -249,6 +249,8 @@ tree.md
 │   │   │   └── page.tsx
 │   │   ├── api
 │   │   │   ├── config
+│   │   │   ├── env-info
+│   │   │   │   └── route.ts
 │   │   │   └── hello
 │   │   │       └── route.ts
 │   │   ├── basic
@@ -338,7 +340,7 @@ tree.md
 │   └── vote-account-keypair.json
 └── tsconfig.json
 
-52 directories, 274 files
+53 directories, 275 files
 
 
 ==

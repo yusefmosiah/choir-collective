@@ -1,9 +1,19 @@
 "use client";
 import DashboardFeature from "@/components/dashboard/dashboard-feature";
 import { getConfig } from "@/config";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const { api: { url: apiUrl } } = getConfig();
+  const [buildEnv, setBuildEnv] = useState<string>('');
+
+  // Fetch environment info from an API route
+  useEffect(() => {
+    fetch('/api/env-info')
+      .then(res => res.json())
+      .then(data => setBuildEnv(JSON.stringify(data, null, 2)))
+      .catch(err => console.error('Error fetching env info:', err));
+  }, []);
 
   const handleClick = async () => {
     try {
@@ -29,9 +39,6 @@ export default function Page() {
     }
   };
 
-  // Get all environment variables
-  const allEnvVars = { ...process.env };
-
   return (
     <div>
       <DashboardFeature />
@@ -46,15 +53,20 @@ export default function Page() {
 
         {/* Debug section */}
         <div className="mt-8 p-4 bg-gray-100 rounded-lg w-full max-w-2xl">
-          <h3 className="font-bold mb-2">All Environment Variables:</h3>
+          <h3 className="font-bold mb-2">Client Environment:</h3>
           <pre className="whitespace-pre-wrap break-words text-xs">
-            {JSON.stringify(allEnvVars, null, 2)}
+            {JSON.stringify({
+              NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+              NODE_ENV: process.env.NODE_ENV,
+              BUILD_TIME: new Date().toISOString(),
+              API_URL_FROM_CONFIG: apiUrl
+            }, null, 2)}
           </pre>
-          <div className="mt-4">
-            <p className="font-semibold">NODE_ENV: {process.env.NODE_ENV}</p>
-            <p className="font-semibold">Build Time: {new Date().toISOString()}</p>
-            <p className="font-semibold">API URL from config: {apiUrl}</p>
-          </div>
+
+          <h3 className="font-bold mt-4 mb-2">Server Environment:</h3>
+          <pre className="whitespace-pre-wrap break-words text-xs">
+            {buildEnv}
+          </pre>
         </div>
       </div>
     </div>

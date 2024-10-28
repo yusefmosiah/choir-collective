@@ -11,10 +11,6 @@ export function getConfig(): Config {
   // Use environment variable with fallback for local development
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
-  if (process.env.NODE_ENV === 'development') {
-    console.log('API URL:', apiUrl);
-  }
-
   return {
     api: {
       url: apiUrl,
