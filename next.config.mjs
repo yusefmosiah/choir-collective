@@ -1,12 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
+    // Existing aliases
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@project/anchor': './anchor/src'  // Changed from '/anchor/src/index.ts'
-    }
-    return config
+      '@project/anchor': './anchor/src'
+    };
+
+    // Add explicit module directories
+    config.resolve.modules = [
+      'node_modules',
+      'src',
+      ...config.resolve.modules || []
+    ];
+
+    return config;
+  },
+  experimental: {
+    // Enable module resolution features
+    esmExternals: true,
   }
 };
 

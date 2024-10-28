@@ -10,14 +10,20 @@ WORKDIR /app
 # Copy only package files first
 COPY package.json pnpm-lock.yaml ./
 
-# Install dependencies with specific flags for space efficiency
-RUN pnpm install --frozen-lockfile --prod
+# Install ALL dependencies (including devDependencies)
+RUN pnpm install --frozen-lockfile
 
 # Copy necessary files
-COPY . . 
+COPY . .
+
+# Set NODE_ENV to production for the build
+ENV NODE_ENV=production
 
 # Build the application
 RUN pnpm run build
+
+# Clean up dev dependencies
+RUN pnpm prune --prod
 
 EXPOSE 3000
 
