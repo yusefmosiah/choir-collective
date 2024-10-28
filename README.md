@@ -92,3 +92,19 @@ Build the web app
 ```shell
 pnpm build
 ```
+
+## Environment Variables
+
+The application uses the following environment variables:
+
+```bash
+# API URL (required in production)
+NEXT_PUBLIC_API_URL=https://your-api-url.com
+
+# Solana Program ID (required in production)
+NEXT_PUBLIC_PROGRAM_ID=your-program-id
+```
+
+These variables should be set in:
+- `.env.local` for local development
+- Environment variables section in Render dashboard for production

@@ -26,6 +26,7 @@
 │   │   │   ├── run
 │   │   │   └── snapshot
 │   │   ├── admin.rpc
+│   │   ├── faucet-keypair 2.json
 │   │   ├── faucet-keypair.json
 │   │   ├── genesis.bin
 │   │   ├── genesis.tar.bz2
@@ -49,6 +50,7 @@
 │   │   ├── stake-account-keypair.json
 │   │   ├── test-ledger-log.txt
 │   │   ├── tower-1_9-H39rbSSbVh4TtPvvvv8Y23QP6MUn9imXivmoZrEYaFnz.bin
+│   │   ├── validator 2.log -> validator-1730133441172.log
 │   │   ├── validator-1730140083865.log
 │   │   ├── validator-keypair.json
 │   │   ├── validator.log -> validator-1730140083865.log
@@ -232,6 +234,8 @@
 │   │   │   │   └── page.tsx
 │   │   │   └── page.tsx
 │   │   ├── api
+│   │   │   ├── config
+│   │   │   │   └── route.ts
 │   │   │   └── hello
 │   │   │       └── route.ts
 │   │   ├── basic
@@ -263,6 +267,8 @@
 │   │   │   └── solana-provider.tsx
 │   │   └── ui
 │   │       └── ui-layout.tsx
+│   ├── config
+│   │   └── index.ts
 │   ├── test-utils.tsx
 │   └── types
 │       └── jest.d.ts
@@ -272,11 +278,15 @@
 │   │   ├── run
 │   │   └── snapshot
 │   ├── admin.rpc
+│   ├── faucet-keypair 2.json
 │   ├── faucet-keypair.json
 │   ├── genesis.bin
+│   ├── genesis.bin 2.failed
 │   ├── genesis.bin.failed
 │   ├── genesis.tar.bz2
+│   ├── genesis.tar.bz2 2.failed
 │   ├── genesis.tar.bz2.failed
+│   ├── ledger 2.lock
 │   ├── ledger.lock
 │   ├── rocksdb
 │   │   ├── 000056.sst
@@ -294,6 +304,8 @@
 │   │   ├── MANIFEST-000063
 │   │   ├── OPTIONS-000069
 │   │   └── OPTIONS-000071
+│   ├── rocksdb 2
+│   ├── rocksdb 2.failed
 │   ├── rocksdb.failed
 │   │   ├── 000004.log
 │   │   ├── CURRENT
@@ -305,6 +317,7 @@
 │   │   └── OPTIONS-000055
 │   ├── stake-account-keypair.json
 │   ├── tower-1_9-5d2jEey55Dp3uzLKQgBemdpAjnfHnq96S8V6Ncr55tF4.bin
+│   ├── validator 2.log -> validator-1730134419000.log
 │   ├── validator-1730134472827.log
 │   ├── validator-1730134658729.log
 │   ├── validator-keypair.json
@@ -312,4 +325,4 @@
 │   └── vote-account-keypair.json
 └── tsconfig.json
 
-47 directories, 263 files
+51 directories, 272 files

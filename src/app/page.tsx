@@ -1,16 +1,15 @@
 "use client";
 import DashboardFeature from "@/components/dashboard/dashboard-feature";
 import { useEffect, useState } from "react";
-
-// Default to localhost during build, but will be overridden at runtime
-const DEFAULT_API_URL = "http://localhost:8000";
+import { getConfig } from "@/config";
 
 export default function Page() {
-  const [apiUrl, setApiUrl] = useState(DEFAULT_API_URL);
+  const [apiUrl, setApiUrl] = useState('');
 
   useEffect(() => {
-    // Update API URL at runtime with environment variable if available
-    setApiUrl(process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_URL);
+    getConfig().then(config => {
+      setApiUrl(config.api.url);
+    });
   }, []);
 
   const handleClick = async () => {
