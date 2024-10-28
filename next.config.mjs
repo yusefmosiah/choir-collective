@@ -2,9 +2,18 @@
 const nextConfig = {
   reactStrictMode: true,
   webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@project/anchor': './anchor/src'
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        '@': '/app/src',
+        '@project/anchor': '/app/anchor/src'
+      },
+      modules: [
+        '/app/node_modules',
+        '/app/src',
+        ...(config.resolve.modules || [])
+      ]
     };
     return config;
   },
