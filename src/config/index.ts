@@ -7,11 +7,17 @@ interface Config {
   };
 }
 
-// Simple synchronous config that uses environment variables
 export function getConfig(): Config {
+  // Use environment variable with fallback for local development
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('API URL:', apiUrl);
+  }
+
   return {
     api: {
-      url: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+      url: apiUrl,
     },
     solana: {
       programId: process.env.NEXT_PUBLIC_PROGRAM_ID || '11111111111111111111111111111111',
