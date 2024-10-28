@@ -18,6 +18,6 @@ COPY . .
 
 # Copy environment variables from secrets in production
 CMD if [ -f /etc/secrets/.env ]; then cp /etc/secrets/.env .env; fi && \
-    pnpm run build && \
+    PORT=${PORT:-10000} pnpm run build && \
     pnpm prune --prod && \
-    pnpm start
+    PORT=${PORT:-10000} pnpm start

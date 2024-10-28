@@ -235,7 +235,6 @@
 │   │   │   └── page.tsx
 │   │   ├── api
 │   │   │   ├── config
-│   │   │   │   └── route.ts
 │   │   │   └── hello
 │   │   │       └── route.ts
 │   │   ├── basic
@@ -325,4 +324,4 @@
 │   └── vote-account-keypair.json
 └── tsconfig.json
 
-51 directories, 272 files
+51 directories, 271 files

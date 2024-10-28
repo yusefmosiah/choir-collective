@@ -1,16 +1,11 @@
 "use client";
 import DashboardFeature from "@/components/dashboard/dashboard-feature";
-import { useEffect, useState } from "react";
 import { getConfig } from "@/config";
 
 export default function Page() {
-  const [apiUrl, setApiUrl] = useState('');
-
-  useEffect(() => {
-    getConfig().then(config => {
-      setApiUrl(config.api.url);
-    });
-  }, []);
+  const {
+    api: { url: apiUrl },
+  } = getConfig();
 
   const handleClick = async () => {
     try {
@@ -25,7 +20,8 @@ export default function Page() {
       const data = await response.json();
       console.log("Response data:", data);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error occurred";
       const errorStack = error instanceof Error ? error.stack : undefined;
 
       console.error("Detailed error:", {
