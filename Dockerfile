@@ -25,7 +25,8 @@ RUN pnpm run build
 # Clean up dev dependencies
 RUN pnpm prune --prod
 
-EXPOSE 3000
+# Use the PORT environment variable
+EXPOSE ${PORT:-10000}
 
-# Run the application
-CMD ["pnpm", "start"]
+# Run the application using the PORT environment variable
+CMD ["sh", "-c", "PORT=${PORT:-10000} pnpm start"]

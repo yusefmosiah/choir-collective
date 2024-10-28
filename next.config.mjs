@@ -20,6 +20,11 @@ const nextConfig = {
   experimental: {
     // Enable module resolution features
     esmExternals: true,
+  },
+  // Add this section for port configuration
+  server: {
+    port: parseInt(process.env.PORT || '3000', 10),
+    host: '0.0.0.0',
   }
 };
 

@@ -22,7 +22,16 @@ async function loadConfig(): Promise<Config> {
   if (typeof window !== 'undefined') {
     try {
       const response = await fetch('/api/config');
+      if (!response.ok) {
+        throw new Error(`Config endpoint returned ${response.status}`);
+      }
       const data = await response.json();
+
+      // Log the received configuration in development
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Loaded config:', data);
+      }
+
       return {
         api: {
           url: data.apiUrl || defaults.api.url,
