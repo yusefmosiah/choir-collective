@@ -11,6 +11,8 @@
 │   ├── Cargo.toml
 │   ├── migrations
 │   │   └── deploy.ts
+│   ├── package.json
+│   ├── pnpm-lock.yaml
 │   ├── programs
 │   │   └── basic
 │   │       ├── Cargo.toml
@@ -326,4 +328,4 @@
 │   └── vote-account-keypair.json
 └── tsconfig.json
 
-52 directories, 272 files
+52 directories, 274 files

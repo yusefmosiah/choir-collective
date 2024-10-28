@@ -1,5 +1,4 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
     "types": ["mocha", "chai"],
     "typeRoots": [
@@ -10,9 +9,9 @@
     "module": "commonjs",
     "target": "es6",
     "esModuleInterop": true,
-    "strict": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node"
+    "skipLibCheck": true
   },
-  "include": ["tests/**/*"]
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["node_modules"]
 }

@@ -1,0 +1,12 @@
+{
+  "name": "choir-anchor",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@types/chai": "^4.3.12",
+    "@types/mocha": "^10.0.6",
+    "chai": "^4.3.10",
+    "mocha": "^10.3.0",
+    "typescript": "^5.4.2"
+  }
+}
