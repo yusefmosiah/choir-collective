@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-basic = "BTZP9trae9yh7Pugqy3Dy688B63SjqUpXMo4MLtbQqiA"  # Updated to match deployed program ID
+basic = "BTZP9trae9yh7Pugqy3Dy688B63SjqUpXMo4MLtbQqiA"
 
 [registry]
 url = "https://api.apr.dev"
@@ -16,7 +16,7 @@ cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
-test = "../node_modules/.bin/ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+test = "pnpm exec ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
 
 [test]
 startup_wait = 20000
@@ -26,7 +26,7 @@ upgradeable = false
 [test.validator]
 url = "http://127.0.0.1:8899"
 bind_address = "127.0.0.1"
-ledger = "test-ledger"  # Simplified ledger path
+ledger = "test-ledger"
 rpc_port = 8899
-commitment = "processed"  # Changed from confirmed
-reset = true  # Added reset flag
+commitment = "processed"
+reset = true

@@ -39,20 +39,21 @@
 │   │   │   ├── 000059.sst
 │   │   │   ├── 000060.sst
 │   │   │   ├── 000061.sst
+│   │   │   ├── 000062.log
 │   │   │   ├── CURRENT
 │   │   │   ├── IDENTITY
 │   │   │   ├── LOCK
 │   │   │   ├── LOG
-│   │   │   ├── LOG.old.1730162495021090
+│   │   │   ├── LOG.old.1730235246365507
 │   │   │   ├── MANIFEST-000063
 │   │   │   ├── OPTIONS-000069
 │   │   │   └── OPTIONS-000071
 │   │   ├── stake-account-keypair.json
 │   │   ├── test-ledger-log.txt
-│   │   ├── tower-1_9-AB359YHNRzjuDEVLAud86c8Dy86kyH3p67JBBXTQMm75.bin
-│   │   ├── validator-1730162494770.log
+│   │   ├── tower-1_9-6PvKseNJdTZ6VHz8ArDBiQLbEi3fbBf3T5J8PkMebmPz.bin
+│   │   ├── validator-1730235246106.log
 │   │   ├── validator-keypair.json
-│   │   ├── validator.log -> validator-1730162494770.log
+│   │   ├── validator.log -> validator-1730235246106.log
 │   │   └── vote-account-keypair.json
 │   ├── tests
 │   │   └── basic.spec.ts
@@ -66,13 +67,16 @@
 │   ├── __pycache__
 │   │   ├── conftest.cpython-311-pytest-8.3.3.pyc
 │   │   ├── main.cpython-311.pyc
-│   │   └── main.cpython-313.pyc
+│   │   ├── main.cpython-313.pyc
+│   │   └── websocket.cpython-313.pyc
 │   ├── main.py
 │   ├── pyproject.toml
 │   ├── requirements.txt
 │   └── tests
 │       ├── __pycache__
-│       │   └── test_main.cpython-311-pytest-8.3.3.pyc
+│       │   ├── test_main.cpython-311-pytest-8.3.3.pyc
+│       │   ├── test_main.cpython-313-pytest-8.0.0.pyc
+│       │   └── test_websocket.cpython-313-pytest-8.0.0.pyc
 │       └── test_main.py
 ├── build
 │   └── config.gypi
@@ -148,6 +152,8 @@
 │   ├── Model_Metastability.md
 │   ├── Model_Recursion.md
 │   ├── Plan_Checklist.md
+│   ├── Plan_FrontendArchitecture.md
+│   ├── Plan_FrontendChecklist.md
 │   ├── Plan_Hyperconverge.md
 │   ├── Plan_Restructure.md
 │   ├── Porting_Checklist.md
@@ -287,4 +293,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-47 directories, 238 files
+47 directories, 244 files
