@@ -1,4 +1,4 @@
-from typing import Tuple, List
+from typing import Tuple, List, Optional, Dict, Any
 from .models import (
     ConnectionState,
     ClientMessage,
@@ -16,6 +16,11 @@ from .models import (
 from .database import DatabaseClient
 from .utils import chat_completion, get_embedding, structured_chat_completion
 from .config import Config
+import uuid
+from datetime import datetime, UTC
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ChorusCycle:
     def __init__(self, database: DatabaseClient, config: Config):
@@ -62,10 +67,30 @@ class ChorusCycle:
         new_state = state.copy(deep=True)
 
         step_function = getattr(self, f"run_{state.current_step.value}")
-        response = await step_function(input, state.messages)
-        effects.append(Effect(type="chorus_response", payload={"step": state.current_step.value, "content": response}))
+        response, priors = await step_function(input, state.messages, state.priors)
 
-        if state.current_step != StepEnum.YIELD:
+        # Update state with response and priors
+        new_state.current_response = response
+        if priors is not None:
+            new_state.priors = priors
+
+        effects.append(Effect(
+            type="chorus_response",
+            payload={
+                "step": state.current_step.value,
+                "content": response,
+                "priors": state.priors if state.priors else []
+            }
+        ))
+
+        # Special handling for UPDATE step
+        if state.current_step == StepEnum.UPDATE:
+            if isinstance(response, dict) and response.get("loop"):
+                new_state.current_step = StepEnum.ACTION  # Loop back to start
+            else:
+                new_state.current_step = StepEnum.YIELD  # Move to final step
+        elif state.current_step != StepEnum.YIELD:
+            # Normal progression for other steps
             new_state.current_step = StepEnum(list(StepEnum)[list(StepEnum).index(state.current_step) + 1].value)
 
         return new_state, effects
@@ -92,18 +117,21 @@ class ChorusCycle:
             return response.proposed_response
         return "Error generating initial response"
 
-    async def run_experience(self, input: str, messages: List[Message]) -> str:
+    async def run_experience(self, input: str, messages: List[Message], priors: Optional[List[Dict[str, Any]]] = None) -> Tuple[str, List[Dict[str, Any]]]:
         experience_prompt = """
         This is step 2 of the Chorus Loop, Experience: Search your memory for relevant context that could help refine the response from step 1.
         Return your response containing your refined response.
         """
         embedding = await get_embedding(input, self.config.EMBEDDING_MODEL)
-        sources = await self.database.search_similar(
+        retrieved_priors = await self.database.search_similar(
             self.config.MESSAGES_COLLECTION,
             embedding,
             self.config.SEARCH_LIMIT
         )
-        context = "\n".join([f"Source {i+1}: {source['content']}" for i, source in enumerate(sources)])
+
+        # Format priors for context
+        context = "\n".join([f"Source {i+1}: {prior['content']}" for i, prior in enumerate(retrieved_priors)])
+
         messages = [
             {"role": "system", "content": experience_prompt},
             {"role": "user", "content": f"Sources:\n{context}\n\nUser query: {input}"}
@@ -113,10 +141,11 @@ class ChorusCycle:
             self.config,
             response_format=ExperienceResponse
         )
+
         if result["status"] == "success":
             response = result["content"]
-            return response.synthesis
-        return "Error processing experience step"
+            return response.synthesis, retrieved_priors
+        return "Error processing experience step", []
 
     async def run_intention(self, input: str, messages: List[Message]) -> str:
         intention_prompt = """
@@ -154,6 +183,12 @@ class ChorusCycle:
         )
         if result["status"] == "success":
             response = result["content"]
+            # Commit the observation to the database
+            await self._commit_message(
+                role="assistant",
+                content=response.context_analysis,
+                step=StepEnum.OBSERVATION.value
+            )
             return response.context_analysis
         return "Error making observations"
 
@@ -161,7 +196,10 @@ class ChorusCycle:
         update_prompt = """
         This is step 5 of the Chorus Loop, Update: Based on your observations,
         decide whether to proceed with your current plan or loop back for further refinement.
-        If you believe your response is ready, return "RETURN". If you need another iteration, return "LOOP".
+        You must make a binary choice:
+        - Return loop: true if you need another iteration through the cycle
+        - Return loop: false if you're ready to yield the final response
+        Explain your reasoning for this decision.
         """
         messages = [
             {"role": "system", "content": update_prompt},
@@ -174,8 +212,13 @@ class ChorusCycle:
         )
         if result["status"] == "success":
             response = result["content"]
-            return response.understanding_delta
-        return "Error updating understanding"
+            return {
+                "loop": response.loop,
+                "reasoning": response.reasoning,
+                "insights": response.key_insights,
+                "confidence": response.confidence
+            }
+        return {"loop": False, "reasoning": "Error in update step"}
 
     async def run_yield(self, input: str, messages: List[Message]) -> str:
         yield_prompt = """
@@ -201,3 +244,23 @@ class ChorusCycle:
         new_state = state.copy(deep=True)
         new_state.error_state = {"message": str(error)}
         return new_state, f"An error occurred: {str(error)}"
+
+    async def _commit_message(self, role: str, content: str, step: str, embedding: Optional[List[float]] = None):
+        """Record a message in the database with the given role, content, and step."""
+        if embedding is None:
+            embedding = await get_embedding(content, self.config.EMBEDDING_MODEL)
+
+        if not embedding:
+            logger.error("Failed to generate embedding for the message.")
+            return
+
+        message = Message(
+            id=str(uuid.uuid4()),
+            thread_id=self.state.thread_id,
+            role=role,
+            content=content,
+            created_at=datetime.now(UTC).isoformat(),
+            vector=embedding,
+            step=step
+        )
+        await self.database.save_message(message)

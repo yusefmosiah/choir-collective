@@ -89,6 +89,8 @@ class ChorusState(BaseModel):
     current_step: StepEnum
     thread_id: str
     error_state: Optional[Dict[str, Any]]
+    priors: Optional[List[Dict[str, Any]]] = None  # Track priors from experience step
+    current_response: Optional[Dict[str, Any]] = None  # Track current step's response
 
 class User(BaseModel):
     id: str
@@ -101,16 +103,26 @@ class ActionResponse(BaseModel):
     proposed_response: str
     confidence: float
 
+class Prior(BaseModel):
+    id: str
+    content: str
+    thread_id: str
+    similarity: float
+    created_at: str
+    role: str
+    token_value: int = 0
+
 class ExperienceResponse(BaseModel):
-    relevant_experiences: List[str]
     synthesis: str
     confidence: float
+    all_priors: List[Prior]  # Store all 80 priors
 
 class IntentionResponse(BaseModel):
     explicit_intent: str
     implicit_intent: str
     confidence: float
-    key_drivers: List[str]
+    selected_priors: List[Prior]  # The most relevant priors selected from all_priors
+    selection_reasoning: str  # Why these priors were selected
 
 class ObservationResponse(BaseModel):
     patterns: List[str]
@@ -119,13 +131,13 @@ class ObservationResponse(BaseModel):
     confidence: float
 
 class UpdateResponse(BaseModel):
-    understanding_delta: str
-    key_insights: List[str]
-    next_steps: List[str]
+    loop: bool  # True to continue cycle, False to proceed to yield
+    reasoning: str
     confidence: float
+    key_insights: List[str]
 
 class YieldResponse(BaseModel):
     final_response: str
     reasoning: str
     confidence: float
-    sources_used: Optional[List[str]] = None
+    priors_used: Optional[List[str]] = None
