@@ -1,6 +1,6 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from .chorus_cycle import ChorusCycle
-from .models import ConnectionState, ClientMessage, ServerMessage, Effect
+from .models import ConnectionState, ClientMessage, ServerMessage
 from .database import DatabaseClient
 from .config import Config
 

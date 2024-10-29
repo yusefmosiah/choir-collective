@@ -1,7 +1,7 @@
 from qdrant_client import QdrantClient, models
 from qdrant_client.http.exceptions import ApiException, UnexpectedResponse
 from typing import List, Dict, Any, Optional
-from datetime import datetime
+from datetime import datetime, UTC
 import uuid
 from .config import Config
 from .utils import logger
@@ -44,7 +44,7 @@ class DatabaseClient:
         user = User(
             id=user_id,
             public_key=public_key,
-            created_at=datetime.utcnow().isoformat(),
+            created_at=datetime.now(UTC).isoformat(),
             chat_threads=[]
         )
         try:
@@ -107,8 +107,8 @@ class DatabaseClient:
             messages=[],
             token_balance=0,
             status="active",
-            created_at=datetime.utcnow(),
-            updated_at=datetime.utcnow(),
+            created_at=datetime.now(UTC),
+            updated_at=datetime.now(UTC),
             version=1
         )
         try:
@@ -160,7 +160,7 @@ class DatabaseClient:
             thread = await self.get_thread(message.thread_id)
             if thread:
                 thread.messages.append(message.id)
-                thread.updated_at = datetime.utcnow()
+                thread.updated_at = datetime.now(UTC)
                 thread.version += 1
                 self.client.upsert(
                     collection_name=self.config.CHAT_THREADS_COLLECTION,
