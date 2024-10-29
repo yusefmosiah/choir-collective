@@ -28,9 +28,13 @@
 │   │   │   ├── run
 │   │   │   └── snapshot
 │   │   ├── admin.rpc
+│   │   ├── faucet-keypair 3.json
 │   │   ├── faucet-keypair.json
+│   │   ├── genesis 2.bin
+│   │   ├── genesis 2.tar.bz2
 │   │   ├── genesis.bin
 │   │   ├── genesis.tar.bz2
+│   │   ├── ledger 2.lock
 │   │   ├── ledger.lock
 │   │   ├── rocksdb
 │   │   │   ├── 000056.sst
@@ -48,12 +52,18 @@
 │   │   │   ├── MANIFEST-000063
 │   │   │   ├── OPTIONS-000069
 │   │   │   └── OPTIONS-000071
+│   │   ├── rocksdb 2
+│   │   ├── stake-account-keypair 2.json
 │   │   ├── stake-account-keypair.json
+│   │   ├── test-ledger-log 2.txt
 │   │   ├── test-ledger-log.txt
 │   │   ├── tower-1_9-AB359YHNRzjuDEVLAud86c8Dy86kyH3p67JBBXTQMm75.bin
+│   │   ├── validator 3.log -> validator-1730140083865.log
 │   │   ├── validator-1730162494770.log
+│   │   ├── validator-keypair 2.json
 │   │   ├── validator-keypair.json
 │   │   ├── validator.log -> validator-1730162494770.log
+│   │   ├── vote-account-keypair 2.json
 │   │   └── vote-account-keypair.json
 │   ├── tests
 │   │   └── basic.spec.ts
@@ -198,6 +208,7 @@
 │   │   ├── Combined_Plan.md
 │   │   ├── Combined_Porting.md
 │   │   ├── Combined_Prompt.md
+│   │   ├── Combined_Report.md
 │   │   ├── Combined_Reward.md
 │   │   ├── Combined_Solana.md
 │   │   ├── Combined_State.md
@@ -336,4 +347,4 @@
 │   └── vote-account-keypair.json
 └── tsconfig.json
 
-55 directories, 279 files
+56 directories, 289 files
