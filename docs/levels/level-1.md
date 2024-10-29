@@ -38,13 +38,9 @@ tree.md
 │   │   │   ├── run
 │   │   │   └── snapshot
 │   │   ├── admin.rpc
-│   │   ├── faucet-keypair 3.json
 │   │   ├── faucet-keypair.json
-│   │   ├── genesis 2.bin
-│   │   ├── genesis 2.tar.bz2
 │   │   ├── genesis.bin
 │   │   ├── genesis.tar.bz2
-│   │   ├── ledger 2.lock
 │   │   ├── ledger.lock
 │   │   ├── rocksdb
 │   │   │   ├── 000056.sst
@@ -53,7 +49,6 @@ tree.md
 │   │   │   ├── 000059.sst
 │   │   │   ├── 000060.sst
 │   │   │   ├── 000061.sst
-│   │   │   ├── 000062.log
 │   │   │   ├── CURRENT
 │   │   │   ├── IDENTITY
 │   │   │   ├── LOCK
@@ -62,18 +57,12 @@ tree.md
 │   │   │   ├── MANIFEST-000063
 │   │   │   ├── OPTIONS-000069
 │   │   │   └── OPTIONS-000071
-│   │   ├── rocksdb 2
-│   │   ├── stake-account-keypair 2.json
 │   │   ├── stake-account-keypair.json
-│   │   ├── test-ledger-log 2.txt
 │   │   ├── test-ledger-log.txt
 │   │   ├── tower-1_9-AB359YHNRzjuDEVLAud86c8Dy86kyH3p67JBBXTQMm75.bin
-│   │   ├── validator 3.log -> validator-1730140083865.log
 │   │   ├── validator-1730162494770.log
-│   │   ├── validator-keypair 2.json
 │   │   ├── validator-keypair.json
 │   │   ├── validator.log -> validator-1730162494770.log
-│   │   ├── vote-account-keypair 2.json
 │   │   └── vote-account-keypair.json
 │   ├── tests
 │   │   └── basic.spec.ts
@@ -305,59 +294,9 @@ tree.md
 │   └── types
 │       └── jest.d.ts
 ├── tailwind.config.ts
-├── test-ledger
-│   ├── accounts
-│   │   ├── run
-│   │   └── snapshot
-│   ├── admin.rpc
-│   ├── faucet-keypair 2.json
-│   ├── faucet-keypair.json
-│   ├── genesis.bin
-│   ├── genesis.bin 2.failed
-│   ├── genesis.bin.failed
-│   ├── genesis.tar.bz2
-│   ├── genesis.tar.bz2 2.failed
-│   ├── genesis.tar.bz2.failed
-│   ├── ledger 2.lock
-│   ├── ledger.lock
-│   ├── rocksdb
-│   │   ├── 000056.sst
-│   │   ├── 000057.sst
-│   │   ├── 000058.sst
-│   │   ├── 000059.sst
-│   │   ├── 000060.sst
-│   │   ├── 000061.sst
-│   │   ├── 000062.log
-│   │   ├── CURRENT
-│   │   ├── IDENTITY
-│   │   ├── LOCK
-│   │   ├── LOG
-│   │   ├── LOG.old.1730134659519617
-│   │   ├── MANIFEST-000063
-│   │   ├── OPTIONS-000069
-│   │   └── OPTIONS-000071
-│   ├── rocksdb 2
-│   ├── rocksdb 2.failed
-│   ├── rocksdb.failed
-│   │   ├── 000004.log
-│   │   ├── CURRENT
-│   │   ├── IDENTITY
-│   │   ├── LOCK
-│   │   ├── LOG
-│   │   ├── MANIFEST-000005
-│   │   ├── OPTIONS-000053
-│   │   └── OPTIONS-000055
-│   ├── stake-account-keypair.json
-│   ├── tower-1_9-5d2jEey55Dp3uzLKQgBemdpAjnfHnq96S8V6Ncr55tF4.bin
-│   ├── validator 2.log -> validator-1730134419000.log
-│   ├── validator-1730134472827.log
-│   ├── validator-1730134658729.log
-│   ├── validator-keypair.json
-│   ├── validator.log -> validator-1730134658729.log
-│   └── vote-account-keypair.json
 └── tsconfig.json
 
-56 directories, 289 files
+47 directories, 237 files
 
 
 ==

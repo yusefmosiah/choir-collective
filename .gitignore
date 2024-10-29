@@ -6,12 +6,6 @@ node_modules
 .pnp.js
 .yarn/install-state.gz
 
-# testing
-/coverage
-src/test-utils.tsx
-**/*.test.ts
-**/*.test.tsx
-
 # next.js
 /.next/
 /out/
@@ -61,3 +55,7 @@ __pycache__/
 .Python
 venv/
 ENV/
+
+#test-ledger
+test-ledger/**
+anchor/test-ledger/**
