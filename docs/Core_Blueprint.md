@@ -75,36 +75,31 @@ The system operates across four interconnected layers:
 
 ## Implementation Timeline
 
-### Phase 1: Foundation (Oct 26-27)
+### Phase 1: Foundation (Oct 26-28)
+- Development environment setup
+- Initial Render deployment
+- Testing infrastructure
+- Security boundaries
 
-- Study Trident fuzzing framework
-- Setup development environment
-- Configure CI/CD and testing
-- Establish security boundaries
+### Phase 2: Chorus Loop (Oct 29)
+- Chat interface implementation
+- WebSocket communication
+- Prior citation rendering
+- Thread state management
 
-### Phase 2: Core Protocol (Oct 28-29)
-
+### Phase 3: Rewards (Oct 30)
 - CHOIR token implementation
-- Thread program development
-- State transition handlers
-- Security verification
+- New message reward system
+- Prior citation rewards
+- Treasury management
 
-### Phase 3: Backend (Oct 30)
-
-- FastAPI implementation
-- WebSocket protocol
-- Qdrant integration
-- State synchronization
-
-### Phase 4: Frontend (Oct 31)
-
-- Core UI components
-- Wallet integration
-- Real-time updates
-- Soft launch
+### Phase 4: Thread Program (Oct 31)
+- Thread PDA structure
+- Co-author management
+- Message approval flow
+- Token distribution
 
 ### Phase 5: Integration (Nov 1-2)
-
 - System integration
 - Analytics setup
 - Monitoring implementation

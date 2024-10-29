@@ -145,56 +145,64 @@ FUNCTION handle_response_error(error: AIResponseError): Recovery {
 }
 ```
 
-## Component Structure
+## Mobile-First Component Structure
 
 ```typescript
 COMPONENT AIResponse(props: AIResponseProps):
-  // State management
-  state = use_response_state<AIResponseState>()
-  steps = use_step_management(props.steps)
-  sources = use_source_integration(props.sources)
+  // State & Gestures
+  const [state, dispatch] = useResponseState()
+  const bottomSheetGestures = useBottomSheetGestures({
+    onDrag: handleSheetDrag,
+    onSnap: handleSheetSnap,
+    snapPoints: ["50vh", "85vh", "0vh"]
+  })
 
-  // Content processing
-  processed_content = useMemo(() =>
-    pipe(
-      validate_content,
-      render_markdown,
-      enhance_interactivity,
-      add_error_boundaries
-    )(props.message.content)
-  , [props.message.content])
+  // Mobile-optimized render
+  return (
+    <div className={styles.response.container}>
+      {/* Main Response Content */}
+      <div className={styles.response.content}>
+        <div className={styles.response.header}>AI</div>
+        <div className={styles.response.body}>
+          {processedContent}
+        </div>
+      </div>
 
-  // Step transitions
-  handle_step_change = (step: StepId) => {
-    validate_transition(state.activeStep, step)
-    animate_transition(state.activeStep, step)
-    update_active_step(step)
-    load_step_content(step)
-  }
-
-  // Render structure
-  RETURN (
-    <ResponseContainer>
-      <Header>AI</Header>
-      <Content>{processed_content}</Content>
-      <StepNavigation
-        steps={steps}
-        active={state.display.activeStep}
-        onChange={handle_step_change}
-      />
-      <StepContent>
-        {render_active_step(state.display.activeStep)}
-        {state.display.activeStep === 'experience' && (
-          <SourceList
-            sources={sources}
-            expanded={state.display.expandedSources}
+      {/* Step Navigation Tabs */}
+      <div className={styles.tabs.container}>
+        {STEPS.map(step => (
+          <Tab
+            key={step.id}
+            active={state.display.activeStep === step.id}
+            icon={step.icon}
+            label={step.label}
+            onClick={() => handleStepChange(step.id)}
           />
-        )}
-      </StepContent>
-      {state.display.error && (
-        <ErrorDisplay error={state.display.error} />
+        ))}
+      </div>
+
+      {/* Bottom Sheet for Step Details */}
+      <BottomSheet
+        isOpen={state.display.bottomSheetOpen}
+        height={state.display.sheetHeight}
+        {...bottomSheetGestures}
+      >
+        <StepContent
+          step={state.display.activeStep}
+          sources={state.sources}
+          onCitationClick={handleCitationClick}
+        />
+      </BottomSheet>
+
+      {/* Citation Preview */}
+      {state.display.citationPreview && (
+        <CitationPreview
+          citation={state.display.citationPreview}
+          onExpand={handleExpandCitation}
+          onDismiss={() => dispatch({ type: "CLEAR_PREVIEW" })}
+        />
       )}
-    </ResponseContainer>
+    </div>
   )
 ```
 

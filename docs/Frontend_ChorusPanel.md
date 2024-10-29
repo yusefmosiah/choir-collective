@@ -23,19 +23,28 @@ sequence: Array<Step>,
 display: Map<Step, DisplayState>
 },
 
+// Bottom Sheet State
+sheet: {
+isOpen: boolean,
+height: "collapsed" | "expanded",
+dragStartY: number,
+animation: AnimationState
+},
+
 // Source State
 sources: {
 items: Array<Source>,
 sortOption: SortOption,
 sortOrder: SortOrder,
-filters: Set<Filter>
+filters: Set<Filter>,
+preview: Option<Source>
 },
 
-// Display State
-view: {
-expanded: Set<StepId>,
+// Mobile UI State
+ui: {
 activeTab: TabOption,
-scrollPosition: number
+safeAreaInsets: EdgeInsets,
+scrollLock: boolean
 }
 }
 
@@ -203,6 +212,38 @@ SEQUENCE optimize_panel:
   3. Debounce sort changes
   4. Cache step renders
   5. Lazy load content
+```
+
+## Mobile Interactions
+
+```typescript
+TYPE MobileGestures = {
+  // Bottom sheet gestures
+  sheet: {
+    drag: {
+      threshold: 50,
+      animation: "spring(1, 0.9, 0)",
+      snapPoints: ["50vh", "85vh", "0vh"]
+    },
+    dismiss: {
+      velocity: 500,
+      distance: "25vh"
+    }
+  },
+
+  // Source preview
+  preview: {
+    press: {
+      delay: 200,
+      feedback: "opacity",
+      haptics: true
+    },
+    expand: {
+      animation: "slide-up",
+      duration: 300
+    }
+  }
+}
 ```
 
 This specification provides a complete model for the ChorusPanel component, with normalized step display, state verification, and clear interaction patterns. The implementation should maintain these patterns while providing smooth visualization of the Chorus process.

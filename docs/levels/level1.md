@@ -1804,58 +1804,34 @@ docs_version: "0.2.1"
 
 ## Schedule
 
-### Saturday Oct 26
-
+### Saturday-Monday Oct 26-28
 - [x] Initial deployment to Render
-- [ ] Document testing patterns and strategies
-- [ ] Setup test infrastructure
+- [ ] Development environment setup
+- [ ] Testing infrastructure
+- [ ] Security boundaries
 
-### Sunday Oct 27
+### Tuesday Oct 29 (Chorus Loop)
+- [ ] Chat interface
+  - [ ] WebSocket implementation
+  - [ ] Real-time message flow
+  - [ ] Prior citation rendering
+  - [ ] Thread state management
 
-- [ ] Full environment setup
-  - [ ] Next.js configuration
-  - [ ] FastAPI setup
-  - [ ] Solana development chain
-  - [ ] Environment secrets
-  - [ ] CI/CD pipeline
-  - [ ] Testing infrastructure
-
-### Monday Oct 28
-
-- [ ] CHOIR SPL Token
+### Wednesday Oct 30 (Rewards)
+- [ ] CHOIR token
   - [ ] Token specification
-  - [ ] Mint authority setup
-  - [ ] Supply management
-  - [ ] Treasury account
-- [ ] Begin Solana program development
-  - [ ] Account structures
-  - [ ] Basic instruction handlers
+  - [ ] New message rewards
+  - [ ] Prior citation rewards
+  - [ ] Treasury management
 
-### Tuesday Oct 29
+### Thursday Oct 31 (Thread Program)
+- [ ] Thread implementation
+  - [ ] PDA structure
+  - [ ] Co-author management
+  - [ ] Message/spec approval
+  - [ ] Token distribution
 
-- [ ] Complete Solana program
-  - [ ] State management
-  - [ ] Security checks
-  - [ ] Comprehensive testing
-
-### Wednesday Oct 30
-
-- [ ] Backend development
-  - [ ] FastAPI implementation
-  - [ ] WebSocket protocol
-  - [ ] Qdrant integration
-  - [ ] State synchronization
-
-### Thursday Oct 31
-
-- [ ] Frontend development
-  - [ ] Core UI components
-  - [ ] Wallet integration
-  - [ ] Real-time updates
-  - [ ] Soft launch
-
-### Friday Nov 1 - Saturday Nov 2
-
+### Friday-Saturday Nov 1-2
 - [ ] System integration
 - [ ] Analytics setup
 - [ ] Monitoring implementation
@@ -1994,29 +1970,32 @@ docs_version: "0.2.1"
 
 ## Development Timeline
 
-### Phase 1: Foundation (Oct 26-27)
+### Phase 1: Foundation (Oct 26-28)
+- Development environment setup
+- Initial deployment
+- Testing infrastructure
+- Core patterns
 
-- Document testing patterns
-- Setup development environment
-- Configure testing framework
-- Document core patterns
+### Phase 2: Core Features (Oct 29-31)
+- Chorus Loop (Oct 29)
+  - Chat interface
+  - WebSocket protocol
+  - Prior citations
+  - Thread state
 
-### Phase 2: Core Protocol (Oct 28-29)
+- Rewards System (Oct 30)
+  - Token mechanics
+  - Message rewards
+  - Citation rewards
+  - Treasury flow
 
-- CHOIR token implementation
-- Thread program development
-- Security verification
-- Comprehensive testing
+- Thread Program (Oct 31)
+  - PDA architecture
+  - Co-author logic
+  - Approval flow
+  - Token custody
 
-### Phase 3: Integration (Oct 30-31)
-
-- Backend implementation
-- Frontend development
-- State synchronization
-- Soft launch
-
-### Phase 4: Refinement (Nov 1-2)
-
+### Phase 3: Integration (Nov 1-2)
 - System integration
 - Performance optimization
 - Analytics setup

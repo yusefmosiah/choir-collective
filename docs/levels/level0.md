@@ -2580,56 +2580,64 @@ FUNCTION handle_response_error(error: AIResponseError): Recovery {
 }
 ```
 
-## Component Structure
+## Mobile-First Component Structure
 
 ```typescript
 COMPONENT AIResponse(props: AIResponseProps):
-  // State management
-  state = use_response_state<AIResponseState>()
-  steps = use_step_management(props.steps)
-  sources = use_source_integration(props.sources)
+  // State & Gestures
+  const [state, dispatch] = useResponseState()
+  const bottomSheetGestures = useBottomSheetGestures({
+    onDrag: handleSheetDrag,
+    onSnap: handleSheetSnap,
+    snapPoints: ["50vh", "85vh", "0vh"]
+  })
 
-  // Content processing
-  processed_content = useMemo(() =>
-    pipe(
-      validate_content,
-      render_markdown,
-      enhance_interactivity,
-      add_error_boundaries
-    )(props.message.content)
-  , [props.message.content])
+  // Mobile-optimized render
+  return (
+    <div className={styles.response.container}>
+      {/* Main Response Content */}
+      <div className={styles.response.content}>
+        <div className={styles.response.header}>AI</div>
+        <div className={styles.response.body}>
+          {processedContent}
+        </div>
+      </div>
 
-  // Step transitions
-  handle_step_change = (step: StepId) => {
-    validate_transition(state.activeStep, step)
-    animate_transition(state.activeStep, step)
-    update_active_step(step)
-    load_step_content(step)
-  }
-
-  // Render structure
-  RETURN (
-    <ResponseContainer>
-      <Header>AI</Header>
-      <Content>{processed_content}</Content>
-      <StepNavigation
-        steps={steps}
-        active={state.display.activeStep}
-        onChange={handle_step_change}
-      />
-      <StepContent>
-        {render_active_step(state.display.activeStep)}
-        {state.display.activeStep === 'experience' && (
-          <SourceList
-            sources={sources}
-            expanded={state.display.expandedSources}
+      {/* Step Navigation Tabs */}
+      <div className={styles.tabs.container}>
+        {STEPS.map(step => (
+          <Tab
+            key={step.id}
+            active={state.display.activeStep === step.id}
+            icon={step.icon}
+            label={step.label}
+            onClick={() => handleStepChange(step.id)}
           />
-        )}
-      </StepContent>
-      {state.display.error && (
-        <ErrorDisplay error={state.display.error} />
+        ))}
+      </div>
+
+      {/* Bottom Sheet for Step Details */}
+      <BottomSheet
+        isOpen={state.display.bottomSheetOpen}
+        height={state.display.sheetHeight}
+        {...bottomSheetGestures}
+      >
+        <StepContent
+          step={state.display.activeStep}
+          sources={state.sources}
+          onCitationClick={handleCitationClick}
+        />
+      </BottomSheet>
+
+      {/* Citation Preview */}
+      {state.display.citationPreview && (
+        <CitationPreview
+          citation={state.display.citationPreview}
+          onExpand={handleExpandCitation}
+          onDismiss={() => dispatch({ type: "CLEAR_PREVIEW" })}
+        />
       )}
-    </ResponseContainer>
+    </div>
   )
 ```
 
@@ -2937,17 +2945,18 @@ Frontend_ChoirChat_UI
 ==
 
 
-# ChoirChat UI Patterns
+# ChoirChat UI Specification
 
 VERSION choir_ui_system:
 invariants: {
 "Visual hierarchy",
 "Interaction consistency",
-"State reflection"
+"State reflection",
+"Responsive adaptation"
 }
 assumptions: {
-"Responsive design",
-"Mobile compatibility",
+"Mobile-first design",
+"Desktop enhancement",
 "Theme consistency"
 }
 docs_version: "0.2.1"
@@ -2956,217 +2965,506 @@ docs_version: "0.2.1"
 
 ```typescript
 TYPE LayoutStructure = {
-  container: "flex flex-col h-[calc(100vh-5rem)]",
-  main_area: "flex overflow-hidden flex-1",
-  components: {
-    thread_list: "w-1/4 bg-gray-800",
-    chat_area: "flex-1 flex flex-col",
-    chorus_panel: "w-1/4 bg-gray-800"
+  // Base container (mobile-first)
+  container: {
+    default: "flex flex-col h-screen bg-gray-900",
+    withPanel: "h-[calc(100vh-env(safe-area-inset-bottom))]", // iOS safe area
+    desktop: "flex h-screen bg-gray-900" // Side-by-side on desktop
+  },
+
+  // Message thread view
+  messageThread: {
+    container: "flex-1 flex flex-col overflow-hidden",
+    header: "px-4 py-3 border-b border-gray-800 flex items-center",
+    content: "flex-1 overflow-y-auto",
+    input: "border-t border-gray-800 p-4 pb-safe", // iOS safe area padding
+    desktop: {
+      container: "flex-1 flex flex-col",
+      sidePanel: "w-80 border-l border-gray-800" // Desktop side panel
+    }
+  },
+
+  // Response visualization
+  responseView: {
+    // Mobile: Bottom sheet with tabs
+    mobile: {
+      tabs: {
+        container: "border-t border-gray-800 bg-gray-900",
+        scroll: "flex overflow-x-auto hide-scrollbar",
+        tab: {
+          base: "px-4 py-2 whitespace-nowrap",
+          active: "border-b-2 border-cyan-500 text-cyan-500",
+          inactive: "text-gray-400"
+        }
+      },
+      sheet: {
+        overlay: "fixed inset-0 bg-black/50 z-40",
+        container: {
+          base: "fixed inset-x-0 bottom-0 z-50 bg-gray-900 rounded-t-xl",
+          expanded: "h-[85vh]",
+          collapsed: "h-[50vh]"
+        },
+        handle: "w-12 h-1 bg-gray-600 rounded-full mx-auto my-3",
+        content: "px-4 overflow-y-auto h-full pb-safe"
+      }
+    },
+    // Desktop: Side panel with fixed tabs
+    desktop: {
+      container: "w-80 border-l border-gray-800 flex flex-col",
+      tabs: {
+        container: "flex border-b border-gray-800",
+        tab: {
+          base: "flex-1 px-4 py-2 text-center",
+          active: "bg-gray-800 text-cyan-500",
+          inactive: "text-gray-400 hover:bg-gray-800/50"
+        }
+      },
+      content: "flex-1 overflow-y-auto p-4"
+    }
   }
 }
 ```
 
-## Visual Hierarchy
+## Step Visualization
 
-1. **Thread List**
+```typescript
+TYPE StepDisplay = {
+  // Common step styling
+  step: {
+    action: {
+      icon: "→",
+      label: "Action",
+      color: "cyan-500"
+    },
+    experience: {
+      icon: "○",
+      label: "Experience",
+      color: "blue-500"
+    },
+    intention: {
+      icon: "◇",
+      label: "Intention",
+      color: "purple-500"
+    },
+    observation: {
+      icon: "□",
+      label: "Observation",
+      color: "green-500"
+    },
+    update: {
+      icon: "△",
+      label: "Update",
+      color: "yellow-500"
+    }
+  },
 
-   ```
-   SEQUENCE thread_display:
-     1. Header ("Chats")
-     2. New Chat Button (Primary CTA)
-     3. Error Message (if present)
-     4. Thread List (scrollable)
-        - Selected thread highlighted
-        - Hover states for interaction
-   ```
+  // Content display variants
+  content: {
+    mobile: {
+      container: "space-y-4 px-4",
+      header: "text-sm font-medium text-gray-400",
+      body: "prose dark:prose-invert"
+    },
+    desktop: {
+      container: "space-y-6",
+      header: "text-base font-medium text-gray-300",
+      body: "prose dark:prose-invert max-w-none"
+    }
+  }
+}
+```
 
-2. **Chat Area**
+## Citation Display
 
-   ```
-   SEQUENCE chat_layout:
-     1. Message History (scrollable)
-        - User messages (right-aligned)
-        - AI responses (left-aligned)
-        - Step indicators
-     2. Input Area (fixed bottom)
-        - Expandable textarea
-        - Send button
-   ```
+```typescript
+TYPE CitationDisplay = {
+  // Inline citation styling
+  inline: {
+    marker: "text-blue-500 hover:underline cursor-pointer",
+    icon: "text-blue-400 text-sm ml-1"
+  },
 
-3. **Chorus Panel**
-   ```
-   SEQUENCE panel_structure:
-     1. Step Navigation
-     2. Content Display
-     3. Source List (when relevant)
-     4. Sort Controls
-   ```
+  // Mobile preview & modal
+  mobile: {
+    preview: {
+      container: "fixed bottom-16 inset-x-4 bg-gray-800 rounded-lg p-4 shadow-xl",
+      enter: "animate-slide-up",
+      exit: "animate-slide-down"
+    },
+    modal: {
+      overlay: "fixed inset-0 bg-black/50 z-50",
+      container: "fixed inset-x-0 bottom-0 bg-gray-900 rounded-t-xl z-50",
+      handle: "w-12 h-1 bg-gray-600 rounded-full mx-auto my-3",
+      content: "px-4 pb-safe overflow-y-auto"
+    }
+  },
+
+  // Desktop side panel
+  desktop: {
+    container: "border-l border-gray-800 w-80",
+    header: "p-4 border-b border-gray-800",
+    content: "p-4 prose dark:prose-invert",
+    footer: "p-4 border-t border-gray-800"
+  }
+}
+```
 
 ## Interaction Patterns
 
-1. **Message Input**
+```typescript
+TYPE Interactions = {
+  // Mobile gestures
+  mobile: {
+    bottomSheet: {
+      drag: {
+        threshold: 50,
+        animation: "spring(1, 0.9, 0)",
+        snapPoints: ["50vh", "85vh", "0vh"]
+      },
+      dismiss: {
+        velocity: 500,
+        distance: "25vh"
+      }
+    },
+    tabs: {
+      swipe: {
+        threshold: 30,
+        animation: "ease-out",
+        resistance: 0.2
+      }
+    }
+  },
 
-   ```
-   SEQUENCE input_interaction:
-     1. Focus → Show active state
-     2. Type → Auto-resize
-     3. Submit →
-        - Disable input
-        - Show loading state
-        - Enable on completion
-     4. Error → Show inline error
-   ```
+  // Desktop interactions
+  desktop: {
+    panel: {
+      resize: {
+        handle: "w-1 hover:bg-gray-700 cursor-col-resize",
+        min: 320,
+        max: 480
+      },
+      collapse: {
+        button: "absolute -left-3 top-1/2 transform -translate-y-1/2",
+        animation: "slide-x"
+      }
+    }
+  },
 
-2. **Thread Selection**
+  // Common transitions
+  transitions: {
+    content: {
+      enter: "animate-fade-in",
+      exit: "animate-fade-out",
+      duration: 200
+    },
+    tab: {
+      switch: "transition-all duration-200"
+    }
+  }
+}
+```
 
-   ```
-   SEQUENCE thread_interaction:
-     1. Click → Highlight thread
-     2. Load → Show loading state
-     3. Complete →
-        - Update messages
-        - Scroll to bottom
-        - Focus input
-     4. Error → Show error state
-   ```
+## Navigation Structure
 
-3. **Panel Visibility**
-   ```
-   SEQUENCE panel_responsive:
-     Desktop:
-       Always visible
-       Fixed width
-     Mobile:
-       Toggle button (fixed position)
-       Slide animation
-       Overlay mode
-   ```
+```typescript
+TYPE Navigation = {
+  // Mobile navigation
+  mobile: {
+    menu: {
+      button: "fixed left-4 top-4 z-30 rounded-full bg-gray-800 p-2",
+      drawer: {
+        enter: "slide-in-from-left",
+        exit: "slide-out-to-left",
+        container: "fixed inset-y-0 left-0 w-80 bg-gray-900 z-40"
+      }
+    },
+    actions: {
+      container: "fixed bottom-4 right-4 z-30 flex flex-col gap-2",
+      button: "rounded-full bg-gray-800 p-3 shadow-lg"
+    }
+  },
 
-## State Reflection
+  // Desktop navigation
+  desktop: {
+    sidebar: {
+      container: "w-64 border-r border-gray-800",
+      header: "p-4 border-b border-gray-800",
+      content: "overflow-y-auto"
+    },
+    toolbar: {
+      container: "h-12 border-b border-gray-800",
+      actions: "flex items-center px-4 gap-4"
+    }
+  }
+}
+```
 
-1. **Loading States**
+## Responsive Adaptations
 
-   ```
-   TYPE LoadingIndicator =
-     | ThreadCreation: "Creating..."
-     | MessageSending: "Disabled input + animation"
-     | ThreadLoading: "Loading skeleton"
-     | ConnectionRetry: "Reconnecting..."
-   ```
+```typescript
+TYPE ResponsiveUI = {
+  // Core breakpoints
+  breakpoints: {
+    sm: "640px",   // Mobile breakpoint
+    lg: "1024px"   // Desktop breakpoint
+  },
 
-2. **Error States**
+  // Feature adaptations
+  features: {
+    steps: {
+      mobile: "bottom-sheet with tabs",
+      desktop: "side-panel fixed"
+    },
+    citations: {
+      mobile: "modal with preview",
+      desktop: "side-panel"
+    },
+    navigation: {
+      mobile: "floating buttons + drawer",
+      desktop: "persistent sidebar"
+    }
+  }
+}
+```
 
-   ```
-   TYPE ErrorDisplay =
-     | Connection: "Banner with retry"
-     | ThreadError: "Inline with action"
-     | MessageError: "Toast notification"
-     | ValidationError: "Field-level feedback"
-   ```
+This comprehensive UI specification provides:
+- Mobile-first design with bottom sheets and gestures
+- Enhanced desktop experience with side panels
+- Smooth transitions between viewports
+- Consistent visual hierarchy
+- Natural interactions on all devices
+- Accessibility across platforms
 
-3. **Success States**
-   ```
-   TYPE SuccessIndicator =
-     | MessageSent: "Checkmark animation"
-     | ThreadCreated: "Auto-select"
-     | ActionComplete: "Brief feedback"
-   ```
 
-## Responsive Behavior
+==
+Frontend_ChoirChat_update
+==
 
-1. **Breakpoint Patterns**
 
-   ```
-   TYPE ResponsiveLayout =
-     | Desktop: "Three-column layout"
-     | Tablet: "Two-column with panel toggle"
-     | Mobile: "Single-column with navigation"
-   ```
+# ChoirChat Component with Mobile-First Design
 
-2. **Component Adaptation**
-   ```
-   SEQUENCE responsive_adaptation:
-     Desktop:
-       Full feature set
-       Side-by-side panels
-     Tablet:
-       Collapsible panels
-       Touch-optimized
-     Mobile:
-       Stack layout
-       Bottom navigation
-       Floating action buttons
-   ```
+VERSION choir_chat_system:
+invariants: {
+"State coherence",
+"Message ordering",
+"Thread integrity",
+"Mobile optimization"
+}
+assumptions: {
+"WebSocket availability",
+"Gesture support",
+"Bottom sheet interactions"
+}
+docs_version: "0.2.1"
 
-## Animation Patterns
+## Core State Model
 
-1. **Transitions**
+```typescript
+TYPE ChoirChatState = {
+  // Thread State
+  threads: {
+    all: Map<ThreadId, Thread>,
+    selected: Option<ThreadId>,
+    creating: boolean,
+    error: Option<string>
+  },
 
-   ```
-   TYPE AnimationPattern =
-     | PanelToggle: "slide transform"
-     | MessageAppear: "fade-in"
-     | LoadingState: "pulse"
-     | ErrorShake: "horizontal shake"
-   ```
+  // Message State
+  messages: {
+    history: Array<Message>,
+    pending: Option<Message>,
+    streaming: boolean,
+    input: string
+  },
 
-2. **Timing**
-   ```
-   CONST animation_timing = {
-     instant: "0ms",
-     quick: "150ms",
-     normal: "300ms",
-     smooth: "500ms"
-   }
-   ```
+  // Chorus Loop State
+  chorus: {
+    activeStep: StepEnum,
+    bottomSheet: {
+      isOpen: boolean,
+      height: "collapsed" | "expanded",
+      dragStartY: number
+    },
+    steps: {
+      action: StepData,
+      experience: StepData,
+      intention: StepData,
+      observation: StepData,
+      update: StepData
+    }
+  },
 
-## Theme Integration
+  // Mobile UI State
+  ui: {
+    menuOpen: boolean,
+    activeTab: TabId,
+    bottomSheetOpen: boolean,
+    citationPreview: Option<Citation>,
+    safeAreaInsets: EdgeInsets
+  }
+}
+```
 
-1. **Color Patterns**
+## Component Structure
 
-   ```
-   TYPE ColorScheme = {
-     primary: "cyan-500",
-     surface: "gray-800/900",
-     text: "white",
-     accent: "teal-700",
-     error: "red-500"
-   }
-   ```
+```typescript
+COMPONENT ChoirChat():
+  // State & Gestures
+  const [state, dispatch] = useChoirState()
+  const bottomSheetGestures = useBottomSheetGestures({
+    onDrag: handleSheetDrag,
+    onSnap: handleSheetSnap,
+    snapPoints: ["50vh", "85vh", "0vh"]
+  })
 
-2. **Typography**
-   ```
-   TYPE Typography = {
-     heading: "text-xl font-semibold",
-     body: "text-sm",
-     input: "text-base",
-     button: "font-semibold"
-   }
-   ```
+  // Mobile Layout
+  return (
+    <div className={styles.container.default}>
+      {/* Thread List Menu */}
+      <MobileMenu
+        isOpen={state.ui.menuOpen}
+        threads={state.threads.all}
+        onSelect={handleThreadSelect}
+      />
 
-## Accessibility Patterns
+      {/* Main Chat Area */}
+      <div className={styles.messageThread.container}>
+        <Header />
+        <MessageList messages={state.messages.history} />
+        <ResponseTabs
+          activeTab={state.ui.activeTab}
+          onTabChange={handleTabChange}
+        />
+        <MessageInput />
+      </div>
 
-1. **Keyboard Navigation**
+      {/* Bottom Sheet for Step Content */}
+      <BottomSheet
+        isOpen={state.ui.bottomSheetOpen}
+        height={state.chorus.bottomSheet.height}
+        {...bottomSheetGestures}
+      >
+        <StepContent
+          step={state.chorus.steps[state.ui.activeTab]}
+          onCitationClick={handleCitationClick}
+        />
+      </BottomSheet>
 
-   ```
-   SEQUENCE keyboard_support:
-     Tab: Navigate interactive elements
-     Enter: Select/Submit
-     Escape: Close/Cancel
-     Arrow Keys: Navigate lists
-   ```
+      {/* Citation Preview */}
+      {state.ui.citationPreview && (
+        <CitationPreview
+          citation={state.ui.citationPreview}
+          onExpand={handleExpandCitation}
+          onDismiss={() => dispatch({ type: "CLEAR_CITATION_PREVIEW" })}
+        />
+      )}
+    </div>
+  )
+```
 
-2. **Screen Reader Support**
-   ```
-   TYPE AriaAttributes = {
-     thread_list: "navigation",
-     messages: "log",
-     input: "textbox",
-     status: "status"
-   }
-   ```
+## Mobile Interaction Handlers
 
-These UI patterns provide a consistent, accessible, and responsive user experience while maintaining the quantum semantic properties of the underlying system.
+```typescript
+// Bottom Sheet Gestures
+FUNCTION handleSheetDrag(event: DragEvent):
+  const newHeight = calculateDraggedHeight(event)
+  dispatch({ type: "UPDATE_SHEET_HEIGHT", height: newHeight })
+
+FUNCTION handleSheetSnap(point: string):
+  dispatch({ type: "SNAP_SHEET_TO", point })
+
+// Tab Navigation
+FUNCTION handleTabChange(tab: TabId):
+  dispatch({ type: "SET_ACTIVE_TAB", tab })
+  if (!state.ui.bottomSheetOpen) {
+    dispatch({ type: "OPEN_BOTTOM_SHEET" })
+  }
+
+// Citation Handling
+FUNCTION handleCitationClick(citation: Citation):
+  if (window.innerWidth < 640) {
+    dispatch({ type: "SHOW_CITATION_PREVIEW", citation })
+  } else {
+    dispatch({ type: "EXPAND_CITATION", citation })
+  }
+```
+
+## Mobile-Optimized Components
+
+```typescript
+// Response Tabs Component
+COMPONENT ResponseTabs({ activeTab, onTabChange }):
+  return (
+    <div className={styles.responseTabs.container}>
+      <div className={styles.responseTabs.tabs}>
+        {STEPS.map(step => (
+          <Tab
+            key={step.id}
+            active={activeTab === step.id}
+            icon={step.icon}
+            label={step.label}
+            onClick={() => onTabChange(step.id)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+
+// Bottom Sheet Component
+COMPONENT BottomSheet({ children, isOpen, height, ...gestures }):
+  return (
+    <>
+      {isOpen && <div className={styles.bottomSheet.overlay} />}
+      <div
+        className={styles.bottomSheet.container[height]}
+        {...gestures}
+      >
+        <div className={styles.bottomSheet.handle} />
+        <div className={styles.bottomSheet.content}>
+          {children}
+        </div>
+      </div>
+    </>
+  )
+```
+
+## Mobile State Updates
+
+```typescript
+TYPE MobileAction =
+  | { type: "OPEN_BOTTOM_SHEET" }
+  | { type: "CLOSE_BOTTOM_SHEET" }
+  | { type: "UPDATE_SHEET_HEIGHT", height: string }
+  | { type: "SNAP_SHEET_TO", point: string }
+  | { type: "SET_ACTIVE_TAB", tab: TabId }
+  | { type: "SHOW_CITATION_PREVIEW", citation: Citation }
+  | { type: "CLEAR_CITATION_PREVIEW" }
+  | { type: "TOGGLE_MENU" }
+
+FUNCTION mobileReducer(state: State, action: MobileAction): State {
+  switch (action.type) {
+    case "OPEN_BOTTOM_SHEET":
+      return { ...state, ui: { ...state.ui, bottomSheetOpen: true }}
+    case "UPDATE_SHEET_HEIGHT":
+      return {
+        ...state,
+        chorus: {
+          ...state.chorus,
+          bottomSheet: { ...state.chorus.bottomSheet, height: action.height }
+        }
+      }
+    // ... handle other mobile actions
+  }
+}
+```
+
+This mobile-first component structure provides:
+- Smooth bottom sheet interactions
+- Natural tab navigation
+- Optimized citation handling
+- iOS safe area support
+- Responsive adaptations
+- Clean state management
 
 
 ==
@@ -3199,19 +3497,28 @@ sequence: Array<Step>,
 display: Map<Step, DisplayState>
 },
 
+// Bottom Sheet State
+sheet: {
+isOpen: boolean,
+height: "collapsed" | "expanded",
+dragStartY: number,
+animation: AnimationState
+},
+
 // Source State
 sources: {
 items: Array<Source>,
 sortOption: SortOption,
 sortOrder: SortOrder,
-filters: Set<Filter>
+filters: Set<Filter>,
+preview: Option<Source>
 },
 
-// Display State
-view: {
-expanded: Set<StepId>,
+// Mobile UI State
+ui: {
 activeTab: TabOption,
-scrollPosition: number
+safeAreaInsets: EdgeInsets,
+scrollLock: boolean
 }
 }
 
@@ -3381,6 +3688,38 @@ SEQUENCE optimize_panel:
   5. Lazy load content
 ```
 
+## Mobile Interactions
+
+```typescript
+TYPE MobileGestures = {
+  // Bottom sheet gestures
+  sheet: {
+    drag: {
+      threshold: 50,
+      animation: "spring(1, 0.9, 0)",
+      snapPoints: ["50vh", "85vh", "0vh"]
+    },
+    dismiss: {
+      velocity: 500,
+      distance: "25vh"
+    }
+  },
+
+  // Source preview
+  preview: {
+    press: {
+      delay: 200,
+      feedback: "opacity",
+      haptics: true
+    },
+    expand: {
+      animation: "slide-up",
+      duration: 300
+    }
+  }
+}
+```
+
 This specification provides a complete model for the ChorusPanel component, with normalized step display, state verification, and clear interaction patterns. The implementation should maintain these patterns while providing smooth visualization of the Chorus process.
 
 
@@ -3447,35 +3786,44 @@ TYPE DisplayConfig = {
 }
 ```
 
-## Component Structure
+## Mobile-First Component Structure
 
 ```typescript
 COMPONENT UserInput(props: UserInputProps):
-  // Props validation
-  REQUIRE valid_message(props.content)
-  REQUIRE valid_author(props.author)
+  // Mobile input state
+  const [state, dispatch] = useInputState()
+  const inputRef = useRef<HTMLTextAreaElement>(null)
+  const safeAreaInsets = useSafeAreaInsets()
 
-  // Content processing
-  processed_content = useMemo(() =>
-    pipe(
-      sanitize_content,
-      apply_markdown,
-      wrap_mentions,
-      format_links
-    )(props.content)
-  , [props.content])
+  // Auto-resize textarea
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = 'auto'
+      inputRef.current.style.height = `${inputRef.current.scrollHeight}px`
+    }
+  }, [state.message.content])
 
-  // Render structure
-  RETURN (
-    <MessageContainer config={DisplayConfig.container}>
-      <Header config={DisplayConfig.header}>
-        User
-      </Header>
-      <Content
-        config={DisplayConfig.content}
-        content={processed_content}
+  return (
+    <div
+      className={styles.input.container}
+      style={{ paddingBottom: safeAreaInsets.bottom }}
+    >
+      <textarea
+        ref={inputRef}
+        value={state.message.content}
+        onChange={e => dispatch({ type: "UPDATE_CONTENT", content: e.target.value })}
+        className={styles.input.textarea}
+        placeholder="Type your message..."
+        rows={1}
       />
-    </MessageContainer>
+      <button
+        onClick={handleSubmit}
+        className={styles.input.button}
+        disabled={!state.message.content.trim()}
+      >
+        Send
+      </button>
+    </div>
   )
 ```
 

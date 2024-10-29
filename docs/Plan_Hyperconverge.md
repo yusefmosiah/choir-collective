@@ -103,29 +103,32 @@ docs_version: "0.2.1"
 
 ## Development Timeline
 
-### Phase 1: Foundation (Oct 26-27)
+### Phase 1: Foundation (Oct 26-28)
+- Development environment setup
+- Initial deployment
+- Testing infrastructure
+- Core patterns
 
-- Document testing patterns
-- Setup development environment
-- Configure testing framework
-- Document core patterns
+### Phase 2: Core Features (Oct 29-31)
+- Chorus Loop (Oct 29)
+  - Chat interface
+  - WebSocket protocol
+  - Prior citations
+  - Thread state
 
-### Phase 2: Core Protocol (Oct 28-29)
+- Rewards System (Oct 30)
+  - Token mechanics
+  - Message rewards
+  - Citation rewards
+  - Treasury flow
 
-- CHOIR token implementation
-- Thread program development
-- Security verification
-- Comprehensive testing
+- Thread Program (Oct 31)
+  - PDA architecture
+  - Co-author logic
+  - Approval flow
+  - Token custody
 
-### Phase 3: Integration (Oct 30-31)
-
-- Backend implementation
-- Frontend development
-- State synchronization
-- Soft launch
-
-### Phase 4: Refinement (Nov 1-2)
-
+### Phase 3: Integration (Nov 1-2)
 - System integration
 - Performance optimization
 - Analytics setup

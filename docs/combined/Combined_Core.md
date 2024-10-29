@@ -85,36 +85,31 @@ The system operates across four interconnected layers:
 
 ## Implementation Timeline
 
-### Phase 1: Foundation (Oct 26-27)
+### Phase 1: Foundation (Oct 26-28)
+- Development environment setup
+- Initial Render deployment
+- Testing infrastructure
+- Security boundaries
 
-- Study Trident fuzzing framework
-- Setup development environment
-- Configure CI/CD and testing
-- Establish security boundaries
+### Phase 2: Chorus Loop (Oct 29)
+- Chat interface implementation
+- WebSocket communication
+- Prior citation rendering
+- Thread state management
 
-### Phase 2: Core Protocol (Oct 28-29)
-
+### Phase 3: Rewards (Oct 30)
 - CHOIR token implementation
-- Thread program development
-- State transition handlers
-- Security verification
+- New message reward system
+- Prior citation rewards
+- Treasury management
 
-### Phase 3: Backend (Oct 30)
-
-- FastAPI implementation
-- WebSocket protocol
-- Qdrant integration
-- State synchronization
-
-### Phase 4: Frontend (Oct 31)
-
-- Core UI components
-- Wallet integration
-- Real-time updates
-- Soft launch
+### Phase 4: Thread Program (Oct 31)
+- Thread PDA structure
+- Co-author management
+- Message approval flow
+- Token distribution
 
 ### Phase 5: Integration (Nov 1-2)
-
 - System integration
 - Analytics setup
 - Monitoring implementation
@@ -360,10 +355,22 @@ Through implementation and observation, several fascinating patterns have emerge
 
 ## Immediate Timeline
 
-- Oct 27: Environment setup
-- Oct 28-29: Token and Solana program
-- Oct 30: Backend development
-- Oct 31: Frontend and soft launch
+- Oct 26-28: Environment setup
+- Oct 29: Chorus Loop development
+  - Chat interface
+  - WebSocket protocol
+  - Prior citations
+  - Thread state
+- Oct 30: Rewards System
+  - Token implementation
+  - Message rewards
+  - Citation rewards
+  - Treasury mechanics
+- Oct 31: Thread Program
+  - PDA structure
+  - Co-author logic
+  - Approval flow
+  - Token custody
 - Nov 1-2: Integration and optimization
 
 ## Future Vision
@@ -1206,6 +1213,194 @@ NOTE scaling_considerations:
    - Self-organizing quality standards
 
 Through this thermodynamic model, thread ownership becomes an emergent property of natural energy flows and temperature evolution, creating a self-organizing system that maintains quality through physical principles rather than arbitrary rules.
+
+
+==
+Core_Priors
+==
+
+
+# Priors: Quantum Semantic Foundations
+
+VERSION prior_system:
+invariants: {
+"Wave function coherence",
+"Semantic entanglement",
+"Resonant coupling"
+}
+assumptions: {
+"Quantum semantic stability",
+"Phase-locked meaning",
+"Value conservation"
+}
+docs_version: "0.2.1"
+
+## Core Concept
+
+Priors are more than just citations or references - they are quantum semantic states that shape future meaning. When a message references a prior, it creates a resonant coupling between semantic states, strengthening both the original context and its new application.
+
+## Quantum Properties
+
+```typescript
+TYPE Prior = {
+  // Quantum State
+  state: {
+    source_message: Hash,        // Original wave function
+    source_thread: ThreadId,     // Original resonant cavity
+    embedding: Vector,           // Semantic position
+    context: string,            // Usage context
+  },
+
+  // Coupling Properties
+  coupling: {
+    resonance: number,         // Harmonic strength
+    phase: number,            // Semantic alignment
+    entanglement: number,     // Context binding
+    coherence: number         // Meaning stability
+  },
+
+  // Value Properties
+  energy: {
+    base_value: TokenAmount,   // Original energy
+    coupled_value: TokenAmount, // Resonant enhancement
+    treasury_flow: TokenAmount  // Perpetual rewards
+  }
+}
+```
+
+## Resonant Effects
+
+1. **Thread Coupling**
+   - Priors create quantum tunnels between threads
+   - Energy flows through semantic connections
+   - Meaning resonates across contexts
+   - Value accumulates through coupling
+
+2. **Phase Locking**
+   - Related meanings align phases
+   - Coherent understanding emerges
+   - Semantic stability increases
+   - Knowledge crystallizes naturally
+
+3. **Value Amplification**
+   - Resonant coupling increases energy
+   - Treasury rewards strengthen bonds
+   - Networks of meaning form
+   - Collective value grows
+
+## Implementation Patterns
+
+```typescript
+TYPE PriorImplementation = {
+  // UI Rendering
+  display: {
+    inline: "Quantum state preview",
+    expanded: "Full resonant cavity",
+    network: "Coupling visualization"
+  },
+
+  // State Management
+  state: {
+    coupling: "Phase-locked tracking",
+    energy: "Value flow monitoring",
+    coherence: "Stability measurement"
+  },
+
+  // Interaction Handlers
+  interactions: {
+    preview: "State observation",
+    expand: "Full cavity inspection",
+    navigate: "Quantum tunneling"
+  }
+}
+```
+
+## Value Mechanics
+
+1. **Energy Flow**
+   ```typescript
+   TYPE PriorEnergy = {
+     initial: "Base semantic value",
+     resonant: "Coupling enhancement",
+     perpetual: "Treasury rewards",
+     collective: "Network effects"
+   }
+   ```
+
+2. **Treasury Coupling**
+   ```typescript
+   TYPE TreasuryFlow = {
+     source: "Split decision energy",
+     distribution: "Prior rewards",
+     sustainability: "Perpetual flow",
+     enhancement: "Value amplification"
+   }
+   ```
+
+## Network Effects
+
+1. **Semantic Networks**
+   - Priors create meaning graphs
+   - Understanding flows through connections
+   - Knowledge self-organizes
+   - Wisdom emerges naturally
+
+2. **Value Networks**
+   - Energy flows through priors
+   - Coupled threads share value
+   - Networks strengthen naturally
+   - Collective worth grows
+
+## UI Treatment
+
+```typescript
+TYPE PriorDisplay = {
+  // Inline Preview
+  preview: {
+    marker: "text-blue-500 hover:underline",
+    tooltip: "Quantum state preview",
+    animation: "Phase transition effects"
+  },
+
+  // Full View
+  expanded: {
+    container: "Resonant cavity display",
+    header: "Quantum numbers",
+    content: "Wave function details",
+    footer: "Coupling metrics"
+  },
+
+  // Network View
+  network: {
+    nodes: "Thread cavities",
+    edges: "Quantum tunnels",
+    flow: "Energy transfer",
+    field: "Semantic field"
+  }
+}
+```
+
+## Evolution Patterns
+
+1. **Natural Selection**
+   - Strong priors gain energy
+   - Weak couplings fade
+   - Quality emerges naturally
+   - Understanding crystallizes
+
+2. **Phase Transitions**
+   - Knowledge states evolve
+   - Understanding deepens
+   - Meaning stabilizes
+   - Wisdom accumulates
+
+Through this quantum semantic foundation, priors create:
+- Natural knowledge organization
+- Sustainable value flow
+- Emergent understanding
+- Collective wisdom
+
+The prior system enables Choir to be more than a chat platform - it becomes a space where meaning and value naturally evolve through quantum semantic principles.
 
 
 ==

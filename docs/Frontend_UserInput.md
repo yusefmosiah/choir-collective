@@ -56,35 +56,44 @@ TYPE DisplayConfig = {
 }
 ```
 
-## Component Structure
+## Mobile-First Component Structure
 
 ```typescript
 COMPONENT UserInput(props: UserInputProps):
-  // Props validation
-  REQUIRE valid_message(props.content)
-  REQUIRE valid_author(props.author)
+  // Mobile input state
+  const [state, dispatch] = useInputState()
+  const inputRef = useRef<HTMLTextAreaElement>(null)
+  const safeAreaInsets = useSafeAreaInsets()
 
-  // Content processing
-  processed_content = useMemo(() =>
-    pipe(
-      sanitize_content,
-      apply_markdown,
-      wrap_mentions,
-      format_links
-    )(props.content)
-  , [props.content])
+  // Auto-resize textarea
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = 'auto'
+      inputRef.current.style.height = `${inputRef.current.scrollHeight}px`
+    }
+  }, [state.message.content])
 
-  // Render structure
-  RETURN (
-    <MessageContainer config={DisplayConfig.container}>
-      <Header config={DisplayConfig.header}>
-        User
-      </Header>
-      <Content
-        config={DisplayConfig.content}
-        content={processed_content}
+  return (
+    <div
+      className={styles.input.container}
+      style={{ paddingBottom: safeAreaInsets.bottom }}
+    >
+      <textarea
+        ref={inputRef}
+        value={state.message.content}
+        onChange={e => dispatch({ type: "UPDATE_CONTENT", content: e.target.value })}
+        className={styles.input.textarea}
+        placeholder="Type your message..."
+        rows={1}
       />
-    </MessageContainer>
+      <button
+        onClick={handleSubmit}
+        className={styles.input.button}
+        disabled={!state.message.content.trim()}
+      >
+        Send
+      </button>
+    </div>
   )
 ```
 

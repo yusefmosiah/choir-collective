@@ -164,10 +164,22 @@ Through implementation and observation, several fascinating patterns have emerge
 
 ## Immediate Timeline
 
-- Oct 27: Environment setup
-- Oct 28-29: Token and Solana program
-- Oct 30: Backend development
-- Oct 31: Frontend and soft launch
+- Oct 26-28: Environment setup
+- Oct 29: Chorus Loop development
+  - Chat interface
+  - WebSocket protocol
+  - Prior citations
+  - Thread state
+- Oct 30: Rewards System
+  - Token implementation
+  - Message rewards
+  - Citation rewards
+  - Treasury mechanics
+- Oct 31: Thread Program
+  - PDA structure
+  - Co-author logic
+  - Approval flow
+  - Token custody
 - Nov 1-2: Integration and optimization
 
 ## Future Vision
