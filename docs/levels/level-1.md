@@ -79,15 +79,21 @@ tree.md
 │   │   ├── main.cpython-311.pyc
 │   │   ├── main.cpython-313.pyc
 │   │   └── websocket.cpython-313.pyc
+│   ├── chorus_cycle.py
+│   ├── config.py
+│   ├── database.py
 │   ├── main.py
+│   ├── models.py
 │   ├── pyproject.toml
 │   ├── requirements.txt
-│   └── tests
-│       ├── __pycache__
-│       │   ├── test_main.cpython-311-pytest-8.3.3.pyc
-│       │   ├── test_main.cpython-313-pytest-8.0.0.pyc
-│       │   └── test_websocket.cpython-313-pytest-8.0.0.pyc
-│       └── test_main.py
+│   ├── tests
+│   │   ├── __pycache__
+│   │   │   ├── test_main.cpython-311-pytest-8.3.3.pyc
+│   │   │   ├── test_main.cpython-313-pytest-8.0.0.pyc
+│   │   │   └── test_websocket.cpython-313-pytest-8.0.0.pyc
+│   │   └── test_main.py
+│   ├── utils.py
+│   └── websocket_handler.py
 ├── build
 │   └── config.gypi
 ├── docker-compose.yml
@@ -276,6 +282,17 @@ tree.md
 │   │   ├── page.tsx
 │   │   └── react-query-provider.tsx
 │   ├── components
+│   │   ├── ChoirChat
+│   │   │   ├── ChoirChat.tsx
+│   │   │   └── MessageFlow.tsx
+│   │   ├── ChorusPanel
+│   │   │   └── ChorusPanel.tsx
+│   │   ├── PriorPanel
+│   │   │   └── PriorPanel.tsx
+│   │   ├── ThreadList
+│   │   │   └── ThreadList.tsx
+│   │   ├── UserInput
+│   │   │   └── UserInput.tsx
 │   │   ├── account
 │   │   │   ├── account-data-access.tsx
 │   │   │   ├── account-detail-feature.tsx
@@ -297,13 +314,19 @@ tree.md
 │   │       └── ui-layout.tsx
 │   ├── config
 │   │   └── index.ts
+│   ├── hooks
+│   │   ├── useChorusCycle.ts
+│   │   ├── useThread.ts
+│   │   └── useWebSocket.ts
+│   ├── mocks
+│   │   └── mockWebSocket.ts
 │   ├── test-utils.tsx
 │   └── types
 │       └── jest.d.ts
 ├── tailwind.config.ts
 └── tsconfig.json
 
-47 directories, 244 files
+54 directories, 260 files
 
 
 ==

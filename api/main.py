@@ -1,46 +1,25 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import logging
-
-# Configure logging with more detail
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from .websocket_handler import router as websocket_router
 
 app = FastAPI()
 
-# Log all requests middleware
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    logger.info(f"Incoming request: {request.method} {request.url}")
-    response = await call_next(request)
-    logger.info(f"Outgoing response: {response.status_code}")
-    return response
-
-# Configure CORS - update with your actual frontend URL
+# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://choir-collective.onrender.com",
-        "http://localhost:3000",
-    ],
+    allow_origins=["*"],  # Adjust this in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-@app.post("/api/log-click")
-async def log_click():
-    return {"status": "success", "message": "Click logged"}
+# Include WebSocket router
+app.include_router(websocket_router)
 
-@app.get("/health")
-async def health_check():
-    logger.info("Health check called")
-    return {"status": "healthy"}
-# Add a root endpoint to help with debugging
 @app.get("/")
 async def root():
-    logger.info("Root endpoint called")
-    return {"message": "API is running"}
+    return {"message": "Choir Collective API"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

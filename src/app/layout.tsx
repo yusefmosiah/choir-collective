@@ -17,12 +17,14 @@ const links: { label: string; path: string }[] = [
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className="h-full">
+      <body className="h-full">
         <ReactQueryProvider>
           <ClusterProvider>
             <SolanaProvider>
-              <UiLayout links={links}>{children}</UiLayout>
+              <UiLayout links={links}>
+                {children}
+              </UiLayout>
             </SolanaProvider>
           </ClusterProvider>
         </ReactQueryProvider>
