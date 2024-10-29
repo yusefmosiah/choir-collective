@@ -149,6 +149,7 @@
 │   ├── Model_Recursion.md
 │   ├── Plan_Checklist.md
 │   ├── Plan_Hyperconverge.md
+│   ├── Plan_Restructure.md
 │   ├── Porting_Checklist.md
 │   ├── Prompt_StructuredSummary.md
 │   ├── Report_2024-10-28.md
@@ -286,4 +287,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-47 directories, 237 files
+47 directories, 238 files
