@@ -162,6 +162,7 @@ tree.md
 │   ├── Plan_Hyperconverge.md
 │   ├── Porting_Checklist.md
 │   ├── Prompt_StructuredSummary.md
+│   ├── Report_2024-10-28.md
 │   ├── Reward_Explained.md
 │   ├── Reward_Service.md
 │   ├── Reward_Summary.md
@@ -345,7 +346,7 @@ tree.md
 │   └── vote-account-keypair.json
 └── tsconfig.json
 
-55 directories, 278 files
+55 directories, 279 files
 
 
 ==
@@ -450,7 +451,7 @@ all_docs=$(find docs -maxdepth 1 -name "*.md" ! -name "tree.md")
 # Base patterns that define the core structure of each level
 base_patterns=(
     "Level_0_ tree.md scripts/ Solana_ Frontend_ Backend_ Deploy_ Implementation_ Data_ Error_ Reward_"
-    "Level_1_ Entry_ Dev_ Plan_ Tech_ Crystallization_ Thread Porting_"
+    "Level_1_ Entry_ Dev_ Plan_ Tech_ Crystallization_ Thread Porting_ Report_"
     "Level_2_ Core_State Core_Types Core_Blueprint Impl_ State_"
     "Level_3_ Core_Economics Theory_Game Theory_Implementation V10_ V12_"
     "Level_4_ Core_Convergence Theory_Stake Model_ Meta_Overview Emergence_ Prompt_ Core_Priors"
