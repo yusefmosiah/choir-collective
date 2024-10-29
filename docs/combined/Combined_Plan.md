@@ -26,12 +26,14 @@ docs_version: "0.2.1"
 ## Schedule
 
 ### Saturday-Monday Oct 26-28
+
 - [x] Initial deployment to Render
 - [ ] Development environment setup
 - [ ] Testing infrastructure
 - [ ] Security boundaries
 
-### Tuesday Oct 29 (Chorus Loop)
+### Tuesday Oct 29 (Chorus Cycle)
+
 - [ ] Chat interface
   - [ ] WebSocket implementation
   - [ ] Real-time message flow
@@ -39,6 +41,7 @@ docs_version: "0.2.1"
   - [ ] Thread state management
 
 ### Wednesday Oct 30 (Rewards)
+
 - [ ] CHOIR token
   - [ ] Token specification
   - [ ] New message rewards
@@ -46,6 +49,7 @@ docs_version: "0.2.1"
   - [ ] Treasury management
 
 ### Thursday Oct 31 (Thread Program)
+
 - [ ] Thread implementation
   - [ ] PDA structure
   - [ ] Co-author management
@@ -53,6 +57,7 @@ docs_version: "0.2.1"
   - [ ] Token distribution
 
 ### Friday-Saturday Nov 1-2
+
 - [ ] System integration
 - [ ] Analytics setup
 - [ ] Monitoring implementation
@@ -192,19 +197,23 @@ docs_version: "0.2.1"
 ## Development Timeline
 
 ### Phase 1: Foundation (Oct 26-28)
+
 - Development environment setup
 - Initial deployment
 - Testing infrastructure
 - Core patterns
 
 ### Phase 2: Core Features (Oct 29-31)
-- Chorus Loop (Oct 29)
+
+- Chorus Cycle (Oct 29)
+
   - Chat interface
   - WebSocket protocol
   - Prior citations
   - Thread state
 
 - Rewards System (Oct 30)
+
   - Token mechanics
   - Message rewards
   - Citation rewards
@@ -217,6 +226,7 @@ docs_version: "0.2.1"
   - Token custody
 
 ### Phase 3: Integration (Nov 1-2)
+
 - System integration
 - Performance optimization
 - Analytics setup

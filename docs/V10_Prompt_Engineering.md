@@ -52,7 +52,7 @@ TYPE ContextStrategy = {
 
 ## Automatic Context Engineering
 
-The V10 loop automatically engineers context through:
+The V10 Cycle automatically engineers context through:
 
 1. **Citation Web**
 

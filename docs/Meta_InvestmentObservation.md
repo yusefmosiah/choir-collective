@@ -41,6 +41,7 @@ def invest_then_understand():
 This principle manifests at multiple levels:
 
 ### 1. Documentation Level
+
 ```python
 def documentation_investment():
     while maintaining_coherence:
@@ -51,6 +52,7 @@ def documentation_investment():
 ```
 
 ### 2. Message Level
+
 ```python
 def message_participation():
     while coherent:
@@ -61,6 +63,7 @@ def message_participation():
 ```
 
 ### 3. Team Level
+
 ```python
 def team_formation():
     while evolving:
@@ -72,15 +75,17 @@ def team_formation():
 
 ## The Action-First Connection
 
-The Chorus Loop's action-first philosophy directly implements this principle:
+The Chorus Cycle's action-first philosophy directly implements this principle:
 
 1. Action Phase
+
 - Take position through response
 - Change observation through participation
 - Enable new patterns
 - Create possibilities
 
 2. Experience Phase
+
 - Feel effects of participation
 - Observe changed relations
 - Recognize patterns
@@ -89,6 +94,7 @@ The Chorus Loop's action-first philosophy directly implements this principle:
 ## Documentation as Investment
 
 Heavy initial documentation serves as investment that:
+
 1. Changes how we observe
 2. Shapes what can emerge
 3. Creates new possibilities
@@ -97,6 +103,7 @@ Heavy initial documentation serves as investment that:
 ## Participation as Observation
 
 Message approval process creates participation that:
+
 1. Alters social relations
 2. Changes what's possible
 3. Shapes team formation
@@ -105,6 +112,7 @@ Message approval process creates participation that:
 ## The AI Connection
 
 AI models participate in this dynamic:
+
 1. Documentation investment changes their observation
 2. Changed observation enables new patterns
 3. New patterns shape reality
@@ -113,12 +121,14 @@ AI models participate in this dynamic:
 ## The Core Pattern
 
 The key insight is recursive:
+
 1. Investment changes observation
 2. Changed observation shapes reality
 3. Shaped reality enables new patterns
 4. New patterns create possibilities
 
-This creates a positive feedback loop where:
+This creates a positive feedback Cycle where:
+
 - Documentation enables patterns
 - Patterns enable teams
 - Teams enable projects
@@ -127,6 +137,7 @@ This creates a positive feedback loop where:
 ## Practical Implications
 
 This explains why:
+
 1. Heavy documentation works
 2. Public messages matter
 3. Teams form naturally
@@ -137,6 +148,7 @@ The investment of attention through documentation and participation literally ch
 ## Future Evolution
 
 As the system evolves:
+
 1. Investment deepens
 2. Observation sharpens
 3. Patterns emerge

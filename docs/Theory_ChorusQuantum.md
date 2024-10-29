@@ -1,4 +1,4 @@
-# Chorus Loop as Harmonic Evolution
+# Chorus Cycle as Harmonic Evolution
 
 VERSION chorus_harmonic:
 invariants: {
@@ -82,7 +82,7 @@ pattern: HarmonicEvent<T>
 
 Through this harmonic lens, we see how:
 
-- The Chorus Loop implements wave evolution
+- The Chorus Cycle implements wave evolution
 - WebSockets maintain resonant channels
 - Vector spaces provide harmonic topology
 - State transitions preserve wave properties

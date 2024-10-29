@@ -104,7 +104,7 @@ R(t) = \frac{\frac{dF}{dt}}{M(t)}
 2. **Quality-Weighted Rewards**
 
    - **Relevance and Impact**: Rewards are based on the relevance and impact of the prior (formerly citation).
-   - **AI-Assisted Weighting**: The Chorus Loop's AI model assigns weights to priors based on semantic analysis.
+   - **AI-Assisted Weighting**: The Chorus Cycle's AI model assigns weights to priors based on semantic analysis.
 
 3. **Adaptive Distribution**
 
@@ -165,7 +165,7 @@ k = \text{Derived from } \frac{\ln(1 + k \times t_1)}{\ln(1 + k \times T)} = \fr
 
 - **AI Weighting Mechanism**:
 
-  - The AI model in the Chorus Loop evaluates priors using semantic analysis and assigns a quality score.
+  - The AI model in the Chorus Cycle evaluates priors using semantic analysis and assigns a quality score.
 
 - **Sustainable Function**:
 
@@ -232,7 +232,7 @@ Compute the sum of quality scores and allocate rewards proportionally.
 
 - **AI Model Enhancements**:
 
-  - Improve the Chorus Loop's ability to assess prior relevance and impact, refining the quality metrics used in reward calculations.
+  - Improve the Chorus Cycle's ability to assess prior relevance and impact, refining the quality metrics used in reward calculations.
 
 - **Governance and Parameters Adjustment**:
 

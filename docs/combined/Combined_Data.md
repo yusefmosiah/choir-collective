@@ -16,7 +16,8 @@ Choir represents a new category of data engine that combines technical infrastru
 
 ## Core Data Flywheels
 
-### Content Generation Loops
+### Content Generation Cycles
+
 ```typescript
 TYPE ContentFlows = {
   ugc: "User prompts and messages",
@@ -27,12 +28,15 @@ TYPE ContentFlows = {
 ```
 
 ### Value Capture Mechanisms
+
 1. **Direct Revenue**
+
    - Recurring membership fees
    - Token price appreciation
    - Equity value in Choir Inc
 
 2. **Token Economics**
+
    - Community governance
    - Token-based incentives
    - Asset creation through posting
@@ -47,7 +51,9 @@ TYPE ContentFlows = {
 ## The Tech-Arts Intersection
 
 ### Data Quality
+
 1. **Message Approval Mechanism**
+
    - Creates high-quality dataset
    - Enables reinforcement learning
    - Supports AI self-play
@@ -60,6 +66,7 @@ TYPE ContentFlows = {
    - Value attribution
 
 ### Emergent Properties
+
 ```typescript
 TYPE EmergentValue = {
   community: "Self-organizing curation",
@@ -72,12 +79,14 @@ TYPE EmergentValue = {
 ## V10 vs V12 Philosophy
 
 ### Intentional Design
+
 - Optimize for community value
 - Balance growth with governance
 - Enable emergence without dominance
 - Preserve human agency
 
 ### Data Engine Characteristics
+
 ```typescript
 TYPE V10Engine = {
   power: "Strong but not monopolistic",
@@ -90,12 +99,14 @@ TYPE V10Engine = {
 ## Multiple Value Threads
 
 1. **Technical Value**
+
    - High-quality training data
    - Novel AI architectures
    - Emergent computation
    - Distributed systems
 
 2. **Cultural Value**
+
    - Collaborative knowledge
    - Artistic expression
    - Humanistic values
@@ -110,12 +121,14 @@ TYPE V10Engine = {
 ## The Synthesis
 
 Choir represents a new synthesis where:
+
 - Technical infrastructure enables cultural production
 - Economic incentives align with humanistic values
 - Data quality emerges from community interaction
 - Value flows to genuine contribution
 
 This creates a unique position at the intersection of:
+
 - Technology and humanities
 - Individual and collective
 - Creation and curation
@@ -123,11 +136,12 @@ This creates a unique position at the intersection of:
 
 ## Conclusion
 
-The V10 data engine model represents a new way of thinking about technology platforms - one that prioritizes community value creation while maintaining technical excellence. By focusing on the intersection of technology and arts, Choir creates multiple reinforcing loops of data and value creation, without sacrificing human agency or cultural values to pure optimization.
+The V10 data engine model represents a new way of thinking about technology platforms - one that prioritizes community value creation while maintaining technical excellence. By focusing on the intersection of technology and arts, Choir creates multiple reinforcing Cycles of data and value creation, without sacrificing human agency or cultural values to pure optimization.
 
 ## V10 vs V12: Power and Responsibility
 
 ### The Limited Liability Analogy
+
 ```typescript
 TYPE CorporateEvolution = {
   partnership: {
@@ -160,6 +174,7 @@ TYPE CorporateEvolution = {
 ```
 
 ### V10 Philosophy
+
 ```typescript
 TYPE V10Principles = {
   power_balance: {
@@ -184,19 +199,23 @@ TYPE V10Principles = {
 ```
 
 ### Why V10 Makes Sense
+
 1. **Sustainable Power**
+
 - Data engines are inherently powerful
 - Power requires responsibility
 - Community trust enables growth
 - Balanced approach more durable
 
 2. **Better Outcomes**
+
 - More authentic engagement
 - Higher quality data
 - Stronger community
 - Sustainable innovation
 
 3. **Long-term Value**
+
 - Avoid decline patterns
 - Build genuine trust
 - Enable true innovation
@@ -205,6 +224,7 @@ TYPE V10Principles = {
 ## V12 Self-Sabotage Patterns
 
 ### Twitter's Missed Potential
+
 ```typescript
 TYPE TwitterParadox = {
   advantages: {
@@ -224,6 +244,7 @@ TYPE TwitterParadox = {
 ```
 
 ### Google's Trust Erosion
+
 ```typescript
 TYPE GooglePattern = {
   product_lifecycle: {
@@ -249,6 +270,7 @@ TYPE GooglePattern = {
 ```
 
 ### V10 Alternative
+
 ```typescript
 TYPE V10Advantage = {
   trust_building: {
@@ -309,6 +331,7 @@ TYPE V12Warning = {
 ```
 
 ### The Expert's View
+
 - V12s are more dangerous than they appear
 - Power comes with inherent consumption drive
 - Value capture can become value extraction
@@ -317,6 +340,7 @@ TYPE V12Warning = {
 ## Collective Intelligence Properties
 
 ### Solid State Learning
+
 ```typescript
 TYPE LearningState = {
   mechanical: {
@@ -335,6 +359,7 @@ TYPE LearningState = {
 ```
 
 ### Collective Dynamics
+
 ```typescript
 TYPE CollectiveProperties = {
   emergence: {
@@ -353,13 +378,16 @@ TYPE CollectiveProperties = {
 ```
 
 ### Intelligence Amplification
+
 1. **Individual Level**
+
    - Personal insights enhanced
    - Learning accelerated
    - Understanding deepened
    - Contributions valued
 
 2. **Group Level**
+
    - Collective wisdom emerges
    - Quality naturally selected
    - Trust networks form
@@ -372,6 +400,7 @@ TYPE CollectiveProperties = {
    - Understanding deepens
 
 ### V10 as Living System
+
 ```typescript
 TYPE V10Intelligence = {
   learning: "Continuous through interaction",

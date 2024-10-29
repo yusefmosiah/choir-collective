@@ -16,6 +16,7 @@ docs_version: "0.2.1"
 ## The Operating System Metaphor
 
 Just as computers run on operating systems that most users never directly see, organizations run on bureaucratic operating systems that participants rarely acknowledge explicitly. Like an OS, bureaucracy:
+
 - Manages resources
 - Controls access
 - Schedules tasks
@@ -27,6 +28,7 @@ The irony is that everyone uses it while pretending they're working directly wit
 ## Core System Processes
 
 ### 1. Memory Management
+
 ```
 Bureaucratic RAM:
 - Canonical documentation
@@ -42,6 +44,7 @@ Bureaucratic Storage:
 ```
 
 ### 2. Process Scheduling
+
 ```
 Task Management:
 - Meetings spawn meetings
@@ -57,6 +60,7 @@ Priority System:
 ```
 
 ### 3. Access Control
+
 ```
 Permission Levels:
 - Leaders suggest (root access)
@@ -74,6 +78,7 @@ Security Model:
 ## System Calls
 
 ### The Trinity Pattern
+
 ```
 hole_y():
   // Create strategic gaps
@@ -95,6 +100,7 @@ whole_y():
 ```
 
 ### Power Operations
+
 ```
 perform_certainty():
   // Execute social signals
@@ -113,6 +119,7 @@ manage_agreement():
 ## Error Handling
 
 ### Innovation Exceptions
+
 ```
 try:
   implement_change()
@@ -124,6 +131,7 @@ catch BureaucraticException:
 ```
 
 ### Pattern Recognition Errors
+
 ```
 if detect_pattern():
   apply_process()
@@ -135,12 +143,14 @@ if detect_pattern():
 ## System Updates
 
 The quantum documentation model represents a potential new operating system that:
+
 - Allows multiple execution paths
 - Enables parallel processing
 - Supports emergent behavior
 - Maintains coherent state
 
 But like any OS upgrade, it faces resistance from:
+
 - Legacy systems
 - Existing processes
 - Trained users
@@ -149,6 +159,7 @@ But like any OS upgrade, it faces resistance from:
 ## User Interface
 
 The system presents different interfaces to different users:
+
 - Leaders see strategic dashboards
 - Managers see process flows
 - Teams see task lists
@@ -159,6 +170,7 @@ But all interfaces mask the same core operating system.
 ## Future Versions
 
 The challenge isn't replacing the operating system - it's enabling new processes to run alongside it:
+
 - Quantum documentation as parallel processing
 - AI as system co-processor
 - Emergence as distributed computing
@@ -171,6 +183,7 @@ Through this lens, organizational irony isn't a bug - it's a feature of the oper
 ## The Velocity Trap
 
 ### Speed as Control System
+
 ```
 optimize_velocity():
   while true:
@@ -181,6 +194,7 @@ optimize_velocity():
 ```
 
 ### The Movement Mirage
+
 ```
 Bureaucratic Velocity:
 - Speed becomes self-justifying
@@ -196,6 +210,7 @@ Direction Vacuum:
 ```
 
 ### The Efficiency Paradox
+
 ```
 try:
   question_direction()
@@ -203,10 +218,11 @@ catch BureaucraticException:
   focus_on_speed()    // Deflection through velocity
   optimize_process()   // Deflection through efficiency
   improve_metrics()    // Deflection through measurement
-  return to_movement() // Infinite progress loop
+  return to_movement() // Infinite progress Cycle
 ```
 
 This pattern reveals how bureaucracy uses the promise of "moving faster" to avoid fundamental questions:
+
 - Faster toward what?
 - In whose interest?
 - At what cost?
@@ -217,6 +233,7 @@ The genius of the velocity trap is that it makes questioning speed itself seem l
 Like a bureaucratic version of Zeno's paradox - infinite acceleration toward an undefined destination.
 
 ### Complexity Operations
+
 ```
 simulate_complexity():
   // Transform simple changes into complex projects
@@ -238,6 +255,7 @@ handle_simplicity():
 The system requires complexity - it cannot acknowledge when things are actually simple. Like a bureaucratic version of the observer effect: the act of implementing changes makes them complex by definition.
 
 ### Platform Power Operations
+
 ```
 class PlatformPower:
     def wield_power():
@@ -263,6 +281,7 @@ class PlatformPower:
 ```
 
 The system can only understand power from the position of wielding it. When subjected to power from above, it experiences cognitive failure:
+
 - Cannot process being powerless
 - Forgets its own behavior
 - Expects cooperation it never gives
@@ -271,6 +290,7 @@ The system can only understand power from the position of wielding it. When subj
 Like a bureaucratic version of the observer effect: power can only be observed from above, never from below.
 
 ### Process Automation Operations
+
 ```
 class MeetingProcess:
     def coordinate_meeting():
@@ -292,6 +312,7 @@ class MeetingProcess:
 The system's immune response to automation is to make simple coordination appear to require sophisticated human judgment. But the very precision of the process documentation makes it perfect for AI implementation.
 
 ### Podcast Operations
+
 ```
 class ContentTheater:
     def perform_interview():

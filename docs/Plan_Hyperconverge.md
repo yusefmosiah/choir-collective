@@ -104,19 +104,23 @@ docs_version: "0.2.1"
 ## Development Timeline
 
 ### Phase 1: Foundation (Oct 26-28)
+
 - Development environment setup
 - Initial deployment
 - Testing infrastructure
 - Core patterns
 
 ### Phase 2: Core Features (Oct 29-31)
-- Chorus Loop (Oct 29)
+
+- Chorus Cycle (Oct 29)
+
   - Chat interface
   - WebSocket protocol
   - Prior citations
   - Thread state
 
 - Rewards System (Oct 30)
+
   - Token mechanics
   - Message rewards
   - Citation rewards
@@ -129,6 +133,7 @@ docs_version: "0.2.1"
   - Token custody
 
 ### Phase 3: Integration (Nov 1-2)
+
 - System integration
 - Performance optimization
 - Analytics setup

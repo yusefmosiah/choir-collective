@@ -165,7 +165,7 @@ Through implementation and observation, several fascinating patterns have emerge
 ## Immediate Timeline
 
 - Oct 26-28: Environment setup
-- Oct 29: Chorus Loop development
+- Oct 29: Chorus Cycle development
   - Chat interface
   - WebSocket protocol
   - Prior citations

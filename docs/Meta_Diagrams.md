@@ -3,11 +3,11 @@
 ## System Architecture
 
 graph TD
-    subgraph Solana
-        S1[Thread PDAs]
-        S2[Token Accounts]
-        S3[Approval State]
-    end
+subgraph Solana
+S1[Thread PDAs]
+S2[Token Accounts]
+S3[Approval State]
+end
 
     subgraph Qdrant
         Q1[Message Content]
@@ -19,7 +19,7 @@ graph TD
         B1[FastAPI]
         B2[WebSocket]
         B3[Cache]
-        B4[Chorus Loop]
+        B4[Chorus Cycle]
     end
 
     subgraph Frontend
@@ -38,11 +38,11 @@ graph TD
 ## State Flow
 
 sequenceDiagram
-    participant User
-    participant Frontend
-    participant Backend
-    participant Solana
-    participant Qdrant
+participant User
+participant Frontend
+participant Backend
+participant Solana
+participant Qdrant
 
     User->>Frontend: Submit Message
     Frontend->>Backend: Send Content
@@ -56,9 +56,9 @@ sequenceDiagram
 ## Token Flow
 
 graph LR
-    subgraph Submission
-        A[User] -->|Stake| B[Escrow]
-    end
+subgraph Submission
+A[User] -->|Stake| B[Escrow]
+end
 
     subgraph Approval
         B -->|Approve| C[Thread]
@@ -73,43 +73,43 @@ graph LR
 ## Message Lifecycle
 
 stateDiagram-v2
-    [*] --> Draft
-    Draft --> Submitted
-    Submitted --> Pending
-    Pending --> Published: All Approve
-    Pending --> Rejected: Any Deny
-    Pending --> Expired: Timeout
-    Published --> [*]
-    Rejected --> [*]
-    Expired --> [*]
+[*] --> Draft
+Draft --> Submitted
+Submitted --> Pending
+Pending --> Published: All Approve
+Pending --> Rejected: Any Deny
+Pending --> Expired: Timeout
+Published --> [*]
+Rejected --> [*]
+Expired --> [*]
 
 ## Thread Ownership
 
 graph TD
-    A[Thread] -->|owns| B[Token Balance]
-    A -->|has| C[Co-authors]
-    A -->|contains| D[Messages]
-    C -->|approve| E[Specs]
-    E -->|becomes| C
-    C -->|divest from| A
+A[Thread] -->|owns| B[Token Balance]
+A -->|has| C[Co-authors]
+A -->|contains| D[Messages]
+C -->|approve| E[Specs]
+E -->|becomes| C
+C -->|divest from| A
 
 ## Privacy Model
 
 graph TD
-    A[Content] -->|Public| B[Searchable + Visible]
-    A -->|Premium| C[Not Searchable + Visible]
-    A -->|ThreadOnly| D[Not Searchable + Co-authors Only]
-    B --> E[AI Summary]
-    C --> E
-    D --> E
+A[Content] -->|Public| B[Searchable + Visible]
+A -->|Premium| C[Not Searchable + Visible]
+A -->|ThreadOnly| D[Not Searchable + Co-authors Only]
+B --> E[AI Summary]
+C --> E
+D --> E
 
 ## State Synchronization
 
 sequenceDiagram
-    participant Solana
-    participant Backend
-    participant Qdrant
-    participant Frontend
+participant Solana
+participant Backend
+participant Qdrant
+participant Frontend
 
     Solana->>Backend: State Change
     Backend->>Backend: Validate

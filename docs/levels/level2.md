@@ -625,30 +625,35 @@ The system operates across four interconnected layers:
 ## Implementation Timeline
 
 ### Phase 1: Foundation (Oct 26-28)
+
 - Development environment setup
 - Initial Render deployment
 - Testing infrastructure
 - Security boundaries
 
-### Phase 2: Chorus Loop (Oct 29)
+### Phase 2: Chorus Cycle (Oct 29)
+
 - Chat interface implementation
 - WebSocket communication
 - Prior citation rendering
 - Thread state management
 
 ### Phase 3: Rewards (Oct 30)
+
 - CHOIR token implementation
 - New message reward system
 - Prior citation rewards
 - Treasury management
 
 ### Phase 4: Thread Program (Oct 31)
+
 - Thread PDA structure
 - Co-author management
 - Message approval flow
 - Token distribution
 
 ### Phase 5: Integration (Nov 1-2)
+
 - System integration
 - Analytics setup
 - Monitoring implementation
@@ -705,12 +710,14 @@ Through this architecture, Choir creates a foundation for collaborative content 
 ## Testing Strategy
 
 1. **Core Testing**
+
    - Property-based testing
    - State transition verification
    - Security invariant checks
    - Integration testing
 
 2. **Security Focus**
+
    - Attack surface analysis
    - Access control verification
    - Value conservation checks
@@ -966,11 +973,11 @@ paths:
 
 
 ==
-Impl_ChorusLoop
+Impl_ChorusCycle
 ==
 
 
-# The Chorus Loop: Beyond OODA
+# The Chorus Cycle: Beyond OODA
 
 VERSION chorus_system:
 invariants: {
@@ -987,7 +994,7 @@ docs_version: "0.2.1"
 
 ## Philosophical Foundation
 
-The Chorus Loop inverts traditional AI agent design. Where OODA (Observe-Orient-Decide-Act) emphasizes external observation and calculated response, Chorus begins with action and focuses on self-reflection. This isn't just an implementation detail - it's a fundamental shift in how AI agents engage with the world.
+The Chorus Cycle inverts traditional AI agent design. Where OODA (Observe-Orient-Decide-Act) emphasizes external observation and calculated response, Chorus begins with action and focuses on self-reflection. This isn't just an implementation detail - it's a fundamental shift in how AI agents engage with the world.
 
 ## Action First Philosophy
 
@@ -1057,7 +1064,7 @@ The Update step enables:
 ## Mobile-First Implementation
 
 ```typescript
-TYPE MobileChorusLoop = {
+TYPE MobileChorusCycle = {
   // Step processing with mobile UI feedback
   processStep: (step: Step) => {
     startStepAnimation(step)
@@ -1087,13 +1094,15 @@ TYPE MobileChorusLoop = {
 
 Current implementation challenges:
 
-1. **Loop Termination**
+1. **Cycle Termination**
+
    - Natural completion detection
    - Quality threshold determination
    - Response coherence verification
    - State finalization
 
 2. **Prior Integration**
+
    ```typescript
    TYPE PriorHandling = {
      // Finding relevant priors
@@ -1125,7 +1134,7 @@ These represent opportunities for evolution rather than flaws.
 
 ## Future Directions
 
-The Chorus Loop model suggests:
+The Chorus Cycle model suggests:
 
 - Deeper self-reflection capabilities
 - Enhanced experience integration
@@ -1136,11 +1145,11 @@ Through this approach, we create AI agents that are more secure, more responsive
 
 
 ==
-Impl_ChorusLoop_update
+Impl_ChorusCycle_update
 ==
 
 
-# The Chorus Loop: Beyond OODA
+# The Chorus Cycle: Beyond OODA
 
 VERSION chorus_system:
 invariants: {
@@ -1157,11 +1166,12 @@ docs_version: "0.2.1"
 
 ## Core Philosophy
 
-The Chorus Loop inverts traditional AI agent design. Where OODA (Observe-Orient-Decide-Act) emphasizes external observation and calculated response, Chorus begins with action and focuses on self-reflection. This isn't just an implementation detail - it's a fundamental shift in how AI agents engage with the world.
+The Chorus Cycle inverts traditional AI agent design. Where OODA (Observe-Orient-Decide-Act) emphasizes external observation and calculated response, Chorus begins with action and focuses on self-reflection. This isn't just an implementation detail - it's a fundamental shift in how AI agents engage with the world.
 
 ## Action First Philosophy
 
 Starting with action rather than observation:
+
 - Reduces response latency
 - Prevents analysis paralysis
 - Enables natural flow
@@ -1170,7 +1180,7 @@ Starting with action rather than observation:
 ## Implementation Structure
 
 ```typescript
-TYPE ChorusLoop = {
+TYPE ChorusCycle = {
   action: {
     initial_response: string,
     confidence: number,
@@ -2650,7 +2660,7 @@ Through implementation and observation, several fascinating patterns have emerge
 ## Immediate Timeline
 
 - Oct 26-28: Environment setup
-- Oct 29: Chorus Loop development
+- Oct 29: Chorus Cycle development
   - Chat interface
   - WebSocket protocol
   - Prior citations

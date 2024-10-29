@@ -1,6 +1,6 @@
-# The V10 Loop: Solid State Continuous Learning
+# The Chorus Cycle: Solid State Continuous Learning
 
-VERSION v10_loop_system:
+VERSION chorus_cycle_system:
 invariants: {
 "Continuous learning integrity",
 "Citation-based memory",
@@ -17,7 +17,7 @@ docs_version: "0.2.1"
 
 Traditional AI models, including advanced ones like ChatGPT, exhibit a form of "mechanical" intelligence - they are trained, frozen, and gradually degrade as their world model diverges from reality. This is analogous to mechanical storage (like hard drives) vs solid state memory.
 
-The V10 loop (formerly Chorus) represents a fundamental breakthrough: the first solid state continuously learning collective intelligence. By combining vector storage, citation-aware AI, and self-documenting observation, it creates a system that actually improves through use.
+The Chorus Cycle (formerly Chorus) represents a fundamental breakthrough: the first solid state continuously learning collective intelligence. By combining vector storage, citation-aware AI, and self-documenting observation, it creates a system that actually improves through use.
 
 ## Mechanical vs Solid State Intelligence
 
@@ -38,9 +38,9 @@ TYPE IntelligenceState = {
 }
 ```
 
-## The V10 Loop Difference
+## The Chorus Cycle Difference
 
-Traditional models "hallucinate" - they generate content that seems valid but isn't, because their static training diverges from current reality. The V10 loop transforms this limitation into a strength:
+Traditional models "hallucinate" - they generate content that seems valid but isn't, because their static training diverges from current reality. The Chorus Cycle transforms this limitation into a strength:
 
 1. **Citation Awareness**
 
@@ -89,7 +89,7 @@ TYPE LearningFlow = {
 
 ## Value Creation Through Being Wrong
 
-The V10 loop's genius is recognizing that being wrong is essential to intelligence:
+The Chorus Cycle's genius is recognizing that being wrong is essential to intelligence:
 
 1. **Productive Mistakes**
 
@@ -147,7 +147,7 @@ The V10 loop's genius is recognizing that being wrong is essential to intelligen
 
 ## Quantum Properties
 
-The V10 loop exhibits quantum-like behavior:
+The Chorus Cycle exhibits quantum-like behavior:
 
 1. **Superposition**
 
@@ -171,7 +171,7 @@ The V10 loop exhibits quantum-like behavior:
 
 ## Future Implications
 
-The V10 loop suggests a new direction for AI:
+The Chorus Cycle suggests a new direction for AI:
 
 - Beyond static training to continuous learning
 - Beyond mechanical to solid state intelligence

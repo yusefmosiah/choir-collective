@@ -246,11 +246,11 @@ paths:
 
 
 ==
-Impl_ChorusLoop
+Impl_ChorusCycle
 ==
 
 
-# The Chorus Loop: Beyond OODA
+# The Chorus Cycle: Beyond OODA
 
 VERSION chorus_system:
 invariants: {
@@ -267,7 +267,7 @@ docs_version: "0.2.1"
 
 ## Philosophical Foundation
 
-The Chorus Loop inverts traditional AI agent design. Where OODA (Observe-Orient-Decide-Act) emphasizes external observation and calculated response, Chorus begins with action and focuses on self-reflection. This isn't just an implementation detail - it's a fundamental shift in how AI agents engage with the world.
+The Chorus Cycle inverts traditional AI agent design. Where OODA (Observe-Orient-Decide-Act) emphasizes external observation and calculated response, Chorus begins with action and focuses on self-reflection. This isn't just an implementation detail - it's a fundamental shift in how AI agents engage with the world.
 
 ## Action First Philosophy
 
@@ -337,7 +337,7 @@ The Update step enables:
 ## Mobile-First Implementation
 
 ```typescript
-TYPE MobileChorusLoop = {
+TYPE MobileChorusCycle = {
   // Step processing with mobile UI feedback
   processStep: (step: Step) => {
     startStepAnimation(step)
@@ -367,13 +367,15 @@ TYPE MobileChorusLoop = {
 
 Current implementation challenges:
 
-1. **Loop Termination**
+1. **Cycle Termination**
+
    - Natural completion detection
    - Quality threshold determination
    - Response coherence verification
    - State finalization
 
 2. **Prior Integration**
+
    ```typescript
    TYPE PriorHandling = {
      // Finding relevant priors
@@ -405,7 +407,7 @@ These represent opportunities for evolution rather than flaws.
 
 ## Future Directions
 
-The Chorus Loop model suggests:
+The Chorus Cycle model suggests:
 
 - Deeper self-reflection capabilities
 - Enhanced experience integration
@@ -416,11 +418,11 @@ Through this approach, we create AI agents that are more secure, more responsive
 
 
 ==
-Impl_ChorusLoop_update
+Impl_ChorusCycle_update
 ==
 
 
-# The Chorus Loop: Beyond OODA
+# The Chorus Cycle: Beyond OODA
 
 VERSION chorus_system:
 invariants: {
@@ -437,11 +439,12 @@ docs_version: "0.2.1"
 
 ## Core Philosophy
 
-The Chorus Loop inverts traditional AI agent design. Where OODA (Observe-Orient-Decide-Act) emphasizes external observation and calculated response, Chorus begins with action and focuses on self-reflection. This isn't just an implementation detail - it's a fundamental shift in how AI agents engage with the world.
+The Chorus Cycle inverts traditional AI agent design. Where OODA (Observe-Orient-Decide-Act) emphasizes external observation and calculated response, Chorus begins with action and focuses on self-reflection. This isn't just an implementation detail - it's a fundamental shift in how AI agents engage with the world.
 
 ## Action First Philosophy
 
 Starting with action rather than observation:
+
 - Reduces response latency
 - Prevents analysis paralysis
 - Enables natural flow
@@ -450,7 +453,7 @@ Starting with action rather than observation:
 ## Implementation Structure
 
 ```typescript
-TYPE ChorusLoop = {
+TYPE ChorusCycle = {
   action: {
     initial_response: string,
     confidence: number,

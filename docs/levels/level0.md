@@ -3277,7 +3277,7 @@ TYPE ChoirChatState = {
     input: string
   },
 
-  // Chorus Loop State
+  // Chorus Cycle State
   chorus: {
     activeStep: StepEnum,
     bottomSheet: {
@@ -3459,6 +3459,7 @@ FUNCTION mobileReducer(state: State, action: MobileAction): State {
 ```
 
 This mobile-first component structure provides:
+
 - Smooth bottom sheet interactions
 - Natural tab navigation
 - Optimized citation handling
@@ -3941,7 +3942,7 @@ Backend_Chorus
 ==
 
 
-# Crystallized Chorus Loop
+# Crystallized Chorus Cycle
 
 VERSION chorus_system:
 invariants: {
@@ -4033,7 +4034,7 @@ FUNCTION apply_error_correction(state: ChorusState, error: Error) -> ChorusState
 ```python
 class Chorus:
     """
-    Implements the pure functional Chorus loop with side effects handled
+    Implements the pure functional Chorus Cycle with side effects handled
     at the boundaries.
     """
     def run(self, user_prompt: str, websocket: WebSocket,
@@ -4886,7 +4887,7 @@ program/
 ```python
 api/
 ├── main.py                 # FastAPI application setup
-├── chorus.py               # Core Chorus loop implementation
+├── chorus.py               # Core Chorus Cycle implementation
 ├── database.py            # Qdrant integration
 ├── websocket.py           # WebSocket protocol
 ├── models/
@@ -5079,7 +5080,8 @@ Choir represents a new category of data engine that combines technical infrastru
 
 ## Core Data Flywheels
 
-### Content Generation Loops
+### Content Generation Cycles
+
 ```typescript
 TYPE ContentFlows = {
   ugc: "User prompts and messages",
@@ -5090,12 +5092,15 @@ TYPE ContentFlows = {
 ```
 
 ### Value Capture Mechanisms
+
 1. **Direct Revenue**
+
    - Recurring membership fees
    - Token price appreciation
    - Equity value in Choir Inc
 
 2. **Token Economics**
+
    - Community governance
    - Token-based incentives
    - Asset creation through posting
@@ -5110,7 +5115,9 @@ TYPE ContentFlows = {
 ## The Tech-Arts Intersection
 
 ### Data Quality
+
 1. **Message Approval Mechanism**
+
    - Creates high-quality dataset
    - Enables reinforcement learning
    - Supports AI self-play
@@ -5123,6 +5130,7 @@ TYPE ContentFlows = {
    - Value attribution
 
 ### Emergent Properties
+
 ```typescript
 TYPE EmergentValue = {
   community: "Self-organizing curation",
@@ -5135,12 +5143,14 @@ TYPE EmergentValue = {
 ## V10 vs V12 Philosophy
 
 ### Intentional Design
+
 - Optimize for community value
 - Balance growth with governance
 - Enable emergence without dominance
 - Preserve human agency
 
 ### Data Engine Characteristics
+
 ```typescript
 TYPE V10Engine = {
   power: "Strong but not monopolistic",
@@ -5153,12 +5163,14 @@ TYPE V10Engine = {
 ## Multiple Value Threads
 
 1. **Technical Value**
+
    - High-quality training data
    - Novel AI architectures
    - Emergent computation
    - Distributed systems
 
 2. **Cultural Value**
+
    - Collaborative knowledge
    - Artistic expression
    - Humanistic values
@@ -5173,12 +5185,14 @@ TYPE V10Engine = {
 ## The Synthesis
 
 Choir represents a new synthesis where:
+
 - Technical infrastructure enables cultural production
 - Economic incentives align with humanistic values
 - Data quality emerges from community interaction
 - Value flows to genuine contribution
 
 This creates a unique position at the intersection of:
+
 - Technology and humanities
 - Individual and collective
 - Creation and curation
@@ -5186,11 +5200,12 @@ This creates a unique position at the intersection of:
 
 ## Conclusion
 
-The V10 data engine model represents a new way of thinking about technology platforms - one that prioritizes community value creation while maintaining technical excellence. By focusing on the intersection of technology and arts, Choir creates multiple reinforcing loops of data and value creation, without sacrificing human agency or cultural values to pure optimization.
+The V10 data engine model represents a new way of thinking about technology platforms - one that prioritizes community value creation while maintaining technical excellence. By focusing on the intersection of technology and arts, Choir creates multiple reinforcing Cycles of data and value creation, without sacrificing human agency or cultural values to pure optimization.
 
 ## V10 vs V12: Power and Responsibility
 
 ### The Limited Liability Analogy
+
 ```typescript
 TYPE CorporateEvolution = {
   partnership: {
@@ -5223,6 +5238,7 @@ TYPE CorporateEvolution = {
 ```
 
 ### V10 Philosophy
+
 ```typescript
 TYPE V10Principles = {
   power_balance: {
@@ -5247,19 +5263,23 @@ TYPE V10Principles = {
 ```
 
 ### Why V10 Makes Sense
+
 1. **Sustainable Power**
+
 - Data engines are inherently powerful
 - Power requires responsibility
 - Community trust enables growth
 - Balanced approach more durable
 
 2. **Better Outcomes**
+
 - More authentic engagement
 - Higher quality data
 - Stronger community
 - Sustainable innovation
 
 3. **Long-term Value**
+
 - Avoid decline patterns
 - Build genuine trust
 - Enable true innovation
@@ -5268,6 +5288,7 @@ TYPE V10Principles = {
 ## V12 Self-Sabotage Patterns
 
 ### Twitter's Missed Potential
+
 ```typescript
 TYPE TwitterParadox = {
   advantages: {
@@ -5287,6 +5308,7 @@ TYPE TwitterParadox = {
 ```
 
 ### Google's Trust Erosion
+
 ```typescript
 TYPE GooglePattern = {
   product_lifecycle: {
@@ -5312,6 +5334,7 @@ TYPE GooglePattern = {
 ```
 
 ### V10 Alternative
+
 ```typescript
 TYPE V10Advantage = {
   trust_building: {
@@ -5372,6 +5395,7 @@ TYPE V12Warning = {
 ```
 
 ### The Expert's View
+
 - V12s are more dangerous than they appear
 - Power comes with inherent consumption drive
 - Value capture can become value extraction
@@ -5380,6 +5404,7 @@ TYPE V12Warning = {
 ## Collective Intelligence Properties
 
 ### Solid State Learning
+
 ```typescript
 TYPE LearningState = {
   mechanical: {
@@ -5398,6 +5423,7 @@ TYPE LearningState = {
 ```
 
 ### Collective Dynamics
+
 ```typescript
 TYPE CollectiveProperties = {
   emergence: {
@@ -5416,13 +5442,16 @@ TYPE CollectiveProperties = {
 ```
 
 ### Intelligence Amplification
+
 1. **Individual Level**
+
    - Personal insights enhanced
    - Learning accelerated
    - Understanding deepened
    - Contributions valued
 
 2. **Group Level**
+
    - Collective wisdom emerges
    - Quality naturally selected
    - Trust networks form
@@ -5435,6 +5464,7 @@ TYPE CollectiveProperties = {
    - Understanding deepens
 
 ### V10 as Living System
+
 ```typescript
 TYPE V10Intelligence = {
   learning: "Continuous through interaction",
@@ -5459,6 +5489,7 @@ V12 data engines represent platforms that have achieved multiple, reinforcing da
 ## Global V12 Engines
 
 ### American Tech
+
 ```typescript
 TYPE USDataEngines = {
   apple: {
@@ -5509,6 +5540,7 @@ TYPE USDataEngines = {
 ```
 
 ### Chinese Tech
+
 ```typescript
 TYPE ChinaDataEngines = {
   tencent: {
@@ -5548,6 +5580,7 @@ TYPE ChinaDataEngines = {
 ```
 
 ### Other Global Players
+
 ```typescript
 TYPE GlobalDataEngines = {
   samsung: {
@@ -5589,12 +5622,14 @@ TYPE GlobalDataEngines = {
 ## Key Characteristics
 
 ### Multiple Flywheels
+
 - Each reinforces others
 - Cross-domain data capture
 - Ecosystem lock-in
 - Network effect multiplication
 
 ### Value Extraction
+
 ```typescript
 TYPE V12Extraction = {
   data: "Comprehensive capture",
@@ -5605,6 +5640,7 @@ TYPE V12Extraction = {
 ```
 
 ### Growth Pattern
+
 - Aggressive expansion
 - Strategic acquisition
 - Vertical integration
@@ -5613,6 +5649,7 @@ TYPE V12Extraction = {
 ## Emerging V12 Candidates
 
 ### AI Infrastructure
+
 - OpenAI + Microsoft
 - DeepMind + Google
 - Anthropic + Amazon
@@ -5621,6 +5658,7 @@ TYPE V12Extraction = {
 - Character.AI
 
 ### Enterprise AI
+
 - Databricks
 - Snowflake
 - MongoDB
@@ -5628,6 +5666,7 @@ TYPE V12Extraction = {
 - UiPath
 
 ### Web3/Crypto
+
 - Binance
 - Coinbase
 - Polygon
@@ -5635,6 +5674,7 @@ TYPE V12Extraction = {
 - Alchemy
 
 ### Regional Powers
+
 - Sea Limited (SE Asia)
 - Mercado Libre (Latin America)
 - Yandex (Russia)
@@ -5645,6 +5685,7 @@ TYPE V12Extraction = {
 - Gojek (Indonesia)
 
 ## Enterprise Data Engines
+
 ```typescript
 TYPE EnterpriseDataEngines = {
   salesforce: {
@@ -5684,6 +5725,7 @@ TYPE EnterpriseDataEngines = {
 ```
 
 ## Financial Data Engines
+
 ```typescript
 TYPE FinanceDataEngines = {
   visa: {
@@ -5723,6 +5765,7 @@ TYPE FinanceDataEngines = {
 ```
 
 ## Hard Tech Data Engines
+
 ```typescript
 TYPE HardTechEngines = {
   xiaomi: {
@@ -5845,18 +5888,21 @@ TYPE MetaDataEngines = {
 ### Key Differentiators
 
 1. **Pattern Recognition at Scale**
+
 - Operate across multiple domains
 - Identify universal principles
 - Create reusable knowledge
 - Build meta-frameworks
 
 2. **Knowledge Integration**
+
 - Connect disparate fields
 - Synthesize new insights
 - Create higher-order patterns
 - Enable cross-pollination
 
 3. **Value Creation Mechanisms**
+
 - Transform tacit to explicit knowledge
 - Create reusable playbooks
 - Build meta-level tools
@@ -5887,6 +5933,7 @@ TYPE DataEngineValue = {
 ### Example Evaluations
 
 1. **Meta (Facebook)**
+
 ```typescript
 TYPE SocialGraphEngine = {
   events: {
@@ -5908,6 +5955,7 @@ TYPE SocialGraphEngine = {
 ```
 
 2. **Visa/Mastercard**
+
 ```typescript
 TYPE PaymentEngine = {
   events: {
@@ -5933,6 +5981,7 @@ TYPE PaymentEngine = {
 ### V12 Qualification
 
 This heuristic helps explain what makes a V12 data engine:
+
 - Massive event capture across multiple domains
 - Extremely high value per event
 - Strong network effects multiplying value
@@ -5940,9 +5989,10 @@ This heuristic helps explain what makes a V12 data engine:
 
 ## Conclusion
 
-V12 data engines represent the pinnacle of data flywheel power, achieving dominance through multiple, reinforcing loops of data capture and value extraction. While their efficiency is unmatched, their monopolistic tendencies raise important questions about market power and social impact.
+V12 data engines represent the pinnacle of data flywheel power, achieving dominance through multiple, reinforcing Cycles of data capture and value extraction. While their efficiency is unmatched, their monopolistic tendencies raise important questions about market power and social impact.
 
 ### Hidden V12 Powers
+
 ```typescript
 TYPE HiddenDataEngines = {
   wolfram: {
@@ -5973,12 +6023,14 @@ TYPE HiddenDataEngines = {
 What makes these unique:
 
 1. **Wolfram's Engine**
+
 - Bridges symbolic and neural computation
 - Integrates across knowledge domains
 - Creates computational language
 - Powers both research and applications
 
 2. **Vista's Engine**
+
 - Operates across enterprise software companies
 - Accumulates operational excellence patterns
 - Cross-pollinates best practices
@@ -5989,6 +6041,7 @@ Both demonstrate how data engines can operate at meta-levels, creating value thr
 ## Data Engine Parameters
 
 ### Quantitative Dimensions
+
 ```typescript
 TYPE DataEngineMetrics = {
   volume: {
@@ -6019,6 +6072,7 @@ TYPE DataEngineMetrics = {
 ```
 
 ### Qualitative Factors
+
 ```typescript
 TYPE QualityMetrics = {
   signal_quality: {
@@ -6043,6 +6097,7 @@ TYPE QualityMetrics = {
 ```
 
 ### OpenAI vs Anthropic Case Study
+
 ```typescript
 TYPE AILabComparison = {
   openai: {
@@ -6075,19 +6130,23 @@ TYPE AILabComparison = {
 ```
 
 ### Long-term Value Creation
+
 1. **Consumer Scale Benefits**
+
 - Network effect amplification
 - Cultural relevance/mindshare
 - Platform standardization
 - Ecosystem attraction
 
 2. **Professional Quality Benefits**
+
 - Higher value per interaction
 - Deeper technical insights
 - Stronger moat building
 - Better monetization
 
 The ideal may be capturing both:
+
 - Consumer scale for breadth
 - Professional depth for value
 - Developer ecosystem for leverage
@@ -6096,6 +6155,7 @@ The ideal may be capturing both:
 ## Institutional Data Engines
 
 ### Intelligence & Government
+
 ```typescript
 TYPE IntelligenceEngines = {
   five_eyes: {
@@ -6120,6 +6180,7 @@ TYPE IntelligenceEngines = {
 ```
 
 ### Banking & Financial
+
 ```typescript
 TYPE BankingEngines = {
   jpmorgan: {
@@ -6144,6 +6205,7 @@ TYPE BankingEngines = {
 ```
 
 ### Consulting
+
 ```typescript
 TYPE ConsultingEngines = {
   mckinsey: {
@@ -6168,6 +6230,7 @@ TYPE ConsultingEngines = {
 ```
 
 These institutional engines often have:
+
 - Unique legal/regulatory positions
 - Multi-generational relationships
 - Cross-domain pattern recognition
@@ -6176,6 +6239,7 @@ These institutional engines often have:
 ## Data Engines vs Other Tech Models
 
 ### Value Creation Models
+
 ```typescript
 TYPE TechValueModels = {
   data_engine: {
@@ -6208,18 +6272,21 @@ TYPE TechValueModels = {
 ### Key Differentiators
 
 1. **Data Engine Characteristics**
+
 - Value compounds with usage
 - Network effects strengthen over time
 - Data creates unique insights
 - Flywheel gets stronger with scale
 
 2. **Non-Data Engine Tech**
+
 - Value tied to specific innovations
 - Growth through traditional channels
 - Moats from IP or brand
 - Linear or cyclical growth patterns
 
 3. **Hybrid Models**
+
 - Some tech companies evolve into data engines
 - Others remain product/service focused
 - Key is whether data creates compound value
@@ -6232,6 +6299,7 @@ This explains why not all successful tech companies are data engines, and why da
 ### Case Studies in Platform Evolution
 
 1. **Wikipedia**
+
 ```typescript
 TYPE WikipediaEvolution = {
   data_engine_era: {
@@ -6264,6 +6332,7 @@ TYPE WikipediaEvolution = {
 ```
 
 2. **Social Networks**
+
 ```typescript
 TYPE SocialDecline = {
   facebook: {
@@ -6311,24 +6380,28 @@ TYPE SocialDecline = {
 ### Common Decline Patterns
 
 1. **Metric Divergence**
+
 - Quantitative metrics remain strong
 - Qualitative experience degrades
 - User behavior becomes less authentic
 - Platform feels more institutional
 
 2. **Content Evolution**
+
 - Professional > Personal
 - Commercial > Authentic
 - Algorithmic > Organic
 - Controversy > Quality
 
 3. **Community Changes**
+
 - Passionate users leave
 - Casual consumption increases
 - Authentic interaction decreases
 - Institutional actors dominate
 
 4. **Trust Dynamics**
+
 - Platform optimization reduces quality
 - User behavior becomes strategic
 - Editorial control feels heavy-handed
@@ -6339,6 +6412,7 @@ This pattern suggests successful data engines may contain seeds of their own dec
 ## Search and Discovery Dynamics
 
 ### SEO Power Laws
+
 ```typescript
 TYPE SearchDynamics = {
   data_engine_dominance: {
@@ -6357,6 +6431,7 @@ TYPE SearchDynamics = {
 ```
 
 ### Quality Decline Patterns
+
 ```typescript
 TYPE QualityErosion = {
   eternal_september: {
@@ -6381,6 +6456,7 @@ TYPE QualityErosion = {
 ```
 
 ### Google's Evolution
+
 ```typescript
 TYPE GoogleSearch = {
   past: {
@@ -6861,7 +6937,7 @@ wallet.balance >= minimum_reserve AND
 wallet.nonce.monotonic_increasing AND
 wallet.logs.complete
 
-## Integration with Chorus Loop
+## Integration with Chorus Cycle
 
 SEQUENCE reward_integration:
 
@@ -7084,7 +7160,7 @@ R(t) = \frac{\frac{dF}{dt}}{M(t)}
 2. **Quality-Weighted Rewards**
 
    - **Relevance and Impact**: Rewards are based on the relevance and impact of the prior (formerly citation).
-   - **AI-Assisted Weighting**: The Chorus Loop's AI model assigns weights to priors based on semantic analysis.
+   - **AI-Assisted Weighting**: The Chorus Cycle's AI model assigns weights to priors based on semantic analysis.
 
 3. **Adaptive Distribution**
 
@@ -7145,7 +7221,7 @@ k = \text{Derived from } \frac{\ln(1 + k \times t_1)}{\ln(1 + k \times T)} = \fr
 
 - **AI Weighting Mechanism**:
 
-  - The AI model in the Chorus Loop evaluates priors using semantic analysis and assigns a quality score.
+  - The AI model in the Chorus Cycle evaluates priors using semantic analysis and assigns a quality score.
 
 - **Sustainable Function**:
 
@@ -7212,7 +7288,7 @@ Compute the sum of quality scores and allocate rewards proportionally.
 
 - **AI Model Enhancements**:
 
-  - Improve the Chorus Loop's ability to assess prior relevance and impact, refining the quality metrics used in reward calculations.
+  - Improve the Chorus Cycle's ability to assess prior relevance and impact, refining the quality metrics used in reward calculations.
 
 - **Governance and Parameters Adjustment**:
 

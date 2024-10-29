@@ -852,7 +852,7 @@ TYPE ChoirChatState = {
     input: string
   },
 
-  // Chorus Loop State
+  // Chorus Cycle State
   chorus: {
     activeStep: StepEnum,
     bottomSheet: {
@@ -1034,6 +1034,7 @@ FUNCTION mobileReducer(state: State, action: MobileAction): State {
 ```
 
 This mobile-first component structure provides:
+
 - Smooth bottom sheet interactions
 - Natural tab navigation
 - Optimized citation handling

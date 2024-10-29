@@ -8,7 +8,7 @@ Backend_Chorus
 ==
 
 
-# Crystallized Chorus Loop
+# Crystallized Chorus Cycle
 
 VERSION chorus_system:
 invariants: {
@@ -100,7 +100,7 @@ FUNCTION apply_error_correction(state: ChorusState, error: Error) -> ChorusState
 ```python
 class Chorus:
     """
-    Implements the pure functional Chorus loop with side effects handled
+    Implements the pure functional Chorus Cycle with side effects handled
     at the boundaries.
     """
     def run(self, user_prompt: str, websocket: WebSocket,

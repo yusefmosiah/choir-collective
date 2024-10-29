@@ -86,30 +86,35 @@ The system operates across four interconnected layers:
 ## Implementation Timeline
 
 ### Phase 1: Foundation (Oct 26-28)
+
 - Development environment setup
 - Initial Render deployment
 - Testing infrastructure
 - Security boundaries
 
-### Phase 2: Chorus Loop (Oct 29)
+### Phase 2: Chorus Cycle (Oct 29)
+
 - Chat interface implementation
 - WebSocket communication
 - Prior citation rendering
 - Thread state management
 
 ### Phase 3: Rewards (Oct 30)
+
 - CHOIR token implementation
 - New message reward system
 - Prior citation rewards
 - Treasury management
 
 ### Phase 4: Thread Program (Oct 31)
+
 - Thread PDA structure
 - Co-author management
 - Message approval flow
 - Token distribution
 
 ### Phase 5: Integration (Nov 1-2)
+
 - System integration
 - Analytics setup
 - Monitoring implementation
@@ -166,12 +171,14 @@ Through this architecture, Choir creates a foundation for collaborative content 
 ## Testing Strategy
 
 1. **Core Testing**
+
    - Property-based testing
    - State transition verification
    - Security invariant checks
    - Integration testing
 
 2. **Security Focus**
+
    - Attack surface analysis
    - Access control verification
    - Value conservation checks
@@ -356,7 +363,7 @@ Through implementation and observation, several fascinating patterns have emerge
 ## Immediate Timeline
 
 - Oct 26-28: Environment setup
-- Oct 29: Chorus Loop development
+- Oct 29: Chorus Cycle development
   - Chat interface
   - WebSocket protocol
   - Prior citations

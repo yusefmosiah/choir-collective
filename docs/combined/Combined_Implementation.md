@@ -50,7 +50,7 @@ program/
 ```python
 api/
 ├── main.py                 # FastAPI application setup
-├── chorus.py               # Core Chorus loop implementation
+├── chorus.py               # Core Chorus Cycle implementation
 ├── database.py            # Qdrant integration
 ├── websocket.py           # WebSocket protocol
 ├── models/

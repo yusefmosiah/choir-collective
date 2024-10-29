@@ -122,7 +122,7 @@ wallet.balance >= minimum_reserve AND
 wallet.nonce.monotonic_increasing AND
 wallet.logs.complete
 
-## Integration with Chorus Loop
+## Integration with Chorus Cycle
 
 SEQUENCE reward_integration:
 

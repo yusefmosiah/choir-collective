@@ -67,6 +67,10 @@ tree.md
 │   │   └── vote-account-keypair.json
 │   ├── tests
 │   │   └── basic.spec.ts
+│   ├── trident-tests
+│   │   └── fuzz_tests
+│   │       └── fuzz_0
+│   │           └── test_fuzz.rs
 │   └── tsconfig.json
 ├── api
 │   ├── Dockerfile
@@ -121,8 +125,8 @@ tree.md
 │   ├── Frontend_UserInput.md
 │   ├── Harmonic_Theory.md
 │   ├── Impl_API.md
-│   ├── Impl_ChorusLoop.md
-│   ├── Impl_ChorusLoop_update.md
+│   ├── Impl_ChorusCycle.md
+│   ├── Impl_ChorusCycle_update.md
 │   ├── Impl_Messages.md
 │   ├── Impl_Messages_update.md
 │   ├── Impl_Privacy.md
@@ -177,16 +181,47 @@ tree.md
 │   ├── State_Boundaries.md
 │   ├── Tech_Arts_Intersection.md
 │   ├── Theory_ChorusQuantum.md
+│   ├── Theory_Chorus_Cycle.md
 │   ├── Theory_HarmonicBondingCurve.md
 │   ├── Theory_HarmonicMetastability.md
 │   ├── Theory_HarmonicOscillator.md
 │   ├── Theory_SemanticsExplained.md
 │   ├── Theory_ThreadDynamics.md
-│   ├── V10_Loop_Theory.md
 │   ├── V10_Prompt_Engineering.md
 │   ├── V12_Data_Engines.md
 │   ├── combined
+│   │   ├── Combined_Backend.md
+│   │   ├── Combined_Core.md
+│   │   ├── Combined_Data.md
+│   │   ├── Combined_Deploy.md
+│   │   ├── Combined_Dev.md
+│   │   ├── Combined_Entry.md
+│   │   ├── Combined_Error.md
+│   │   ├── Combined_Frontend.md
+│   │   ├── Combined_Harmonic.md
+│   │   ├── Combined_Impl.md
+│   │   ├── Combined_Implementation.md
+│   │   ├── Combined_Level.md
+│   │   ├── Combined_Meta.md
+│   │   ├── Combined_Model.md
+│   │   ├── Combined_Plan.md
+│   │   ├── Combined_Porting.md
+│   │   ├── Combined_Prompt.md
+│   │   ├── Combined_Reward.md
+│   │   ├── Combined_Solana.md
+│   │   ├── Combined_State.md
+│   │   ├── Combined_Tech.md
+│   │   ├── Combined_Theory.md
+│   │   ├── Combined_V10.md
+│   │   └── Combined_V12.md
 │   ├── levels
+│   │   ├── level-1.md
+│   │   ├── level0.md
+│   │   ├── level1.md
+│   │   ├── level2.md
+│   │   ├── level3.md
+│   │   ├── level4.md
+│   │   └── level5.md
 │   ├── scripts
 │   │   ├── combiner.sh
 │   │   └── update_tree.sh
@@ -310,7 +345,7 @@ tree.md
 │   └── vote-account-keypair.json
 └── tsconfig.json
 
-52 directories, 246 files
+55 directories, 278 files
 
 
 ==
@@ -418,7 +453,7 @@ base_patterns=(
     "Level_1_ Entry_ Dev_ Plan_ Tech_ Crystallization_ Thread Porting_"
     "Level_2_ Core_State Core_Types Core_Blueprint Impl_ State_"
     "Level_3_ Core_Economics Theory_Game Theory_Implementation V10_ V12_"
-    "Level_4_ Core_Convergence Theory_Stake Model_ Meta_Overview Emergence_ Prompt_"
+    "Level_4_ Core_Convergence Theory_Stake Model_ Meta_Overview Emergence_ Prompt_ Core_Priors"
     "Level_5_ Theory_Quantum Theory_Semantic Harmonic_ Meta_ Theory_"
 )
 

@@ -7,6 +7,7 @@ V12 data engines represent platforms that have achieved multiple, reinforcing da
 ## Global V12 Engines
 
 ### American Tech
+
 ```typescript
 TYPE USDataEngines = {
   apple: {
@@ -57,6 +58,7 @@ TYPE USDataEngines = {
 ```
 
 ### Chinese Tech
+
 ```typescript
 TYPE ChinaDataEngines = {
   tencent: {
@@ -96,6 +98,7 @@ TYPE ChinaDataEngines = {
 ```
 
 ### Other Global Players
+
 ```typescript
 TYPE GlobalDataEngines = {
   samsung: {
@@ -137,12 +140,14 @@ TYPE GlobalDataEngines = {
 ## Key Characteristics
 
 ### Multiple Flywheels
+
 - Each reinforces others
 - Cross-domain data capture
 - Ecosystem lock-in
 - Network effect multiplication
 
 ### Value Extraction
+
 ```typescript
 TYPE V12Extraction = {
   data: "Comprehensive capture",
@@ -153,6 +158,7 @@ TYPE V12Extraction = {
 ```
 
 ### Growth Pattern
+
 - Aggressive expansion
 - Strategic acquisition
 - Vertical integration
@@ -161,6 +167,7 @@ TYPE V12Extraction = {
 ## Emerging V12 Candidates
 
 ### AI Infrastructure
+
 - OpenAI + Microsoft
 - DeepMind + Google
 - Anthropic + Amazon
@@ -169,6 +176,7 @@ TYPE V12Extraction = {
 - Character.AI
 
 ### Enterprise AI
+
 - Databricks
 - Snowflake
 - MongoDB
@@ -176,6 +184,7 @@ TYPE V12Extraction = {
 - UiPath
 
 ### Web3/Crypto
+
 - Binance
 - Coinbase
 - Polygon
@@ -183,6 +192,7 @@ TYPE V12Extraction = {
 - Alchemy
 
 ### Regional Powers
+
 - Sea Limited (SE Asia)
 - Mercado Libre (Latin America)
 - Yandex (Russia)
@@ -193,6 +203,7 @@ TYPE V12Extraction = {
 - Gojek (Indonesia)
 
 ## Enterprise Data Engines
+
 ```typescript
 TYPE EnterpriseDataEngines = {
   salesforce: {
@@ -232,6 +243,7 @@ TYPE EnterpriseDataEngines = {
 ```
 
 ## Financial Data Engines
+
 ```typescript
 TYPE FinanceDataEngines = {
   visa: {
@@ -271,6 +283,7 @@ TYPE FinanceDataEngines = {
 ```
 
 ## Hard Tech Data Engines
+
 ```typescript
 TYPE HardTechEngines = {
   xiaomi: {
@@ -393,18 +406,21 @@ TYPE MetaDataEngines = {
 ### Key Differentiators
 
 1. **Pattern Recognition at Scale**
+
 - Operate across multiple domains
 - Identify universal principles
 - Create reusable knowledge
 - Build meta-frameworks
 
 2. **Knowledge Integration**
+
 - Connect disparate fields
 - Synthesize new insights
 - Create higher-order patterns
 - Enable cross-pollination
 
 3. **Value Creation Mechanisms**
+
 - Transform tacit to explicit knowledge
 - Create reusable playbooks
 - Build meta-level tools
@@ -435,6 +451,7 @@ TYPE DataEngineValue = {
 ### Example Evaluations
 
 1. **Meta (Facebook)**
+
 ```typescript
 TYPE SocialGraphEngine = {
   events: {
@@ -456,6 +473,7 @@ TYPE SocialGraphEngine = {
 ```
 
 2. **Visa/Mastercard**
+
 ```typescript
 TYPE PaymentEngine = {
   events: {
@@ -481,6 +499,7 @@ TYPE PaymentEngine = {
 ### V12 Qualification
 
 This heuristic helps explain what makes a V12 data engine:
+
 - Massive event capture across multiple domains
 - Extremely high value per event
 - Strong network effects multiplying value
@@ -488,9 +507,10 @@ This heuristic helps explain what makes a V12 data engine:
 
 ## Conclusion
 
-V12 data engines represent the pinnacle of data flywheel power, achieving dominance through multiple, reinforcing loops of data capture and value extraction. While their efficiency is unmatched, their monopolistic tendencies raise important questions about market power and social impact.
+V12 data engines represent the pinnacle of data flywheel power, achieving dominance through multiple, reinforcing Cycles of data capture and value extraction. While their efficiency is unmatched, their monopolistic tendencies raise important questions about market power and social impact.
 
 ### Hidden V12 Powers
+
 ```typescript
 TYPE HiddenDataEngines = {
   wolfram: {
@@ -521,12 +541,14 @@ TYPE HiddenDataEngines = {
 What makes these unique:
 
 1. **Wolfram's Engine**
+
 - Bridges symbolic and neural computation
 - Integrates across knowledge domains
 - Creates computational language
 - Powers both research and applications
 
 2. **Vista's Engine**
+
 - Operates across enterprise software companies
 - Accumulates operational excellence patterns
 - Cross-pollinates best practices
@@ -537,6 +559,7 @@ Both demonstrate how data engines can operate at meta-levels, creating value thr
 ## Data Engine Parameters
 
 ### Quantitative Dimensions
+
 ```typescript
 TYPE DataEngineMetrics = {
   volume: {
@@ -567,6 +590,7 @@ TYPE DataEngineMetrics = {
 ```
 
 ### Qualitative Factors
+
 ```typescript
 TYPE QualityMetrics = {
   signal_quality: {
@@ -591,6 +615,7 @@ TYPE QualityMetrics = {
 ```
 
 ### OpenAI vs Anthropic Case Study
+
 ```typescript
 TYPE AILabComparison = {
   openai: {
@@ -623,19 +648,23 @@ TYPE AILabComparison = {
 ```
 
 ### Long-term Value Creation
+
 1. **Consumer Scale Benefits**
+
 - Network effect amplification
 - Cultural relevance/mindshare
 - Platform standardization
 - Ecosystem attraction
 
 2. **Professional Quality Benefits**
+
 - Higher value per interaction
 - Deeper technical insights
 - Stronger moat building
 - Better monetization
 
 The ideal may be capturing both:
+
 - Consumer scale for breadth
 - Professional depth for value
 - Developer ecosystem for leverage
@@ -644,6 +673,7 @@ The ideal may be capturing both:
 ## Institutional Data Engines
 
 ### Intelligence & Government
+
 ```typescript
 TYPE IntelligenceEngines = {
   five_eyes: {
@@ -668,6 +698,7 @@ TYPE IntelligenceEngines = {
 ```
 
 ### Banking & Financial
+
 ```typescript
 TYPE BankingEngines = {
   jpmorgan: {
@@ -692,6 +723,7 @@ TYPE BankingEngines = {
 ```
 
 ### Consulting
+
 ```typescript
 TYPE ConsultingEngines = {
   mckinsey: {
@@ -716,6 +748,7 @@ TYPE ConsultingEngines = {
 ```
 
 These institutional engines often have:
+
 - Unique legal/regulatory positions
 - Multi-generational relationships
 - Cross-domain pattern recognition
@@ -724,6 +757,7 @@ These institutional engines often have:
 ## Data Engines vs Other Tech Models
 
 ### Value Creation Models
+
 ```typescript
 TYPE TechValueModels = {
   data_engine: {
@@ -756,18 +790,21 @@ TYPE TechValueModels = {
 ### Key Differentiators
 
 1. **Data Engine Characteristics**
+
 - Value compounds with usage
 - Network effects strengthen over time
 - Data creates unique insights
 - Flywheel gets stronger with scale
 
 2. **Non-Data Engine Tech**
+
 - Value tied to specific innovations
 - Growth through traditional channels
 - Moats from IP or brand
 - Linear or cyclical growth patterns
 
 3. **Hybrid Models**
+
 - Some tech companies evolve into data engines
 - Others remain product/service focused
 - Key is whether data creates compound value
@@ -780,6 +817,7 @@ This explains why not all successful tech companies are data engines, and why da
 ### Case Studies in Platform Evolution
 
 1. **Wikipedia**
+
 ```typescript
 TYPE WikipediaEvolution = {
   data_engine_era: {
@@ -812,6 +850,7 @@ TYPE WikipediaEvolution = {
 ```
 
 2. **Social Networks**
+
 ```typescript
 TYPE SocialDecline = {
   facebook: {
@@ -859,24 +898,28 @@ TYPE SocialDecline = {
 ### Common Decline Patterns
 
 1. **Metric Divergence**
+
 - Quantitative metrics remain strong
 - Qualitative experience degrades
 - User behavior becomes less authentic
 - Platform feels more institutional
 
 2. **Content Evolution**
+
 - Professional > Personal
 - Commercial > Authentic
 - Algorithmic > Organic
 - Controversy > Quality
 
 3. **Community Changes**
+
 - Passionate users leave
 - Casual consumption increases
 - Authentic interaction decreases
 - Institutional actors dominate
 
 4. **Trust Dynamics**
+
 - Platform optimization reduces quality
 - User behavior becomes strategic
 - Editorial control feels heavy-handed
@@ -887,6 +930,7 @@ This pattern suggests successful data engines may contain seeds of their own dec
 ## Search and Discovery Dynamics
 
 ### SEO Power Laws
+
 ```typescript
 TYPE SearchDynamics = {
   data_engine_dominance: {
@@ -905,6 +949,7 @@ TYPE SearchDynamics = {
 ```
 
 ### Quality Decline Patterns
+
 ```typescript
 TYPE QualityErosion = {
   eternal_september: {
@@ -929,6 +974,7 @@ TYPE QualityErosion = {
 ```
 
 ### Google's Evolution
+
 ```typescript
 TYPE GoogleSearch = {
   past: {

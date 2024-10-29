@@ -1,4 +1,4 @@
-# The Chorus Loop: Beyond Bureaucratic Motion
+# The Chorus Cycle: Beyond Bureaucratic Motion
 
 VERSION chorus_meta:
 invariants: {
@@ -16,12 +16,14 @@ docs_version: "0.2.1"
 ## Beyond OODA and Bureaucracy
 
 Traditional organizational decision cycles (OODA, "move fast and break things") optimize for:
+
 - Speed of execution
 - Linear progression
 - Clear metrics
 - Defined outcomes
 
 But they miss crucial dimensions:
+
 - Pattern emergence
 - Self-reflection
 - Purpose examination
@@ -29,7 +31,7 @@ But they miss crucial dimensions:
 
 ## The Quantum Organization
 
-The Chorus Loop suggests a different organizational model:
+The Chorus Cycle suggests a different organizational model:
 
 ```
 TYPE OrganizationalState<T> = {
@@ -43,6 +45,7 @@ TYPE OrganizationalState<T> = {
 ## Natural Motion vs Bureaucratic Motion
 
 ### Bureaucratic Motion
+
 ```
 while maintaining_power:
     create_process()
@@ -53,6 +56,7 @@ while maintaining_power:
 ```
 
 ### Chorus Motion
+
 ```
 while maintaining_coherence:
     allow_emergence()
@@ -65,12 +69,14 @@ while maintaining_coherence:
 ## The Operations Research View
 
 Traditional OR focuses on:
+
 - Optimization problems
 - Resource allocation
 - Process efficiency
 - Measurable outcomes
 
-The Chorus Loop suggests examining:
+The Chorus Cycle suggests examining:
+
 - Pattern dynamics
 - System coherence
 - Natural emergence
@@ -79,6 +85,7 @@ The Chorus Loop suggests examining:
 ## Organizational Implications
 
 ### 1. Decision Making
+
 ```
 Traditional:
 - Gather data
@@ -94,6 +101,7 @@ Chorus:
 ```
 
 ### 2. Knowledge Management
+
 ```
 Traditional:
 - Single source of truth
@@ -109,6 +117,7 @@ Chorus:
 ```
 
 ### 3. Innovation Dynamics
+
 ```
 Traditional:
 try:
@@ -125,13 +134,15 @@ while coherent:
 
 ## The Quantum Advantage
 
-The Chorus Loop enables organizations to:
+The Chorus Cycle enables organizations to:
+
 - Maintain multiple valid states
 - Study their own patterns
 - Enable natural emergence
 - Evolve coherently
 
 This creates advantages in:
+
 - Innovation capacity
 - Adaptation ability
 - Knowledge evolution
@@ -140,12 +151,15 @@ This creates advantages in:
 ## Future Research Directions
 
 Key areas for investigation:
+
 1. Pattern Recognition
+
    - How do organizational patterns emerge?
    - What enables pattern awareness?
    - How do patterns evolve?
 
 2. Coherence Dynamics
+
    - What maintains system coherence?
    - How does coherence scale?
    - What threatens coherence?
@@ -158,21 +172,24 @@ Key areas for investigation:
 ## Implementation Challenges
 
 Moving from bureaucratic to chorus motion requires:
+
 - New metrics for coherence
 - Tools for pattern recognition
 - Frameworks for reflection
 - Space for emergence
 
 The challenge isn't technical but conceptual:
+
 - Allowing multiple truths
 - Enabling natural patterns
 - Supporting evolution
 - Maintaining coherence
 
 Through this lens, organizations become quantum systems capable of:
+
 - Natural emergence
 - Deep reflection
 - Coherent evolution
 - Pattern recognition
 
-The Chorus Loop isn't just a process - it's a fundamental rethinking of how organizations can operate in harmony with natural patterns of emergence and evolution.
+The Chorus Cycle isn't just a process - it's a fundamental rethinking of how organizations can operate in harmony with natural patterns of emergence and evolution.
