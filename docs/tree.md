@@ -2,6 +2,7 @@
 ## Output of $ tree -I 'venv|node_modules|target' | pbcopy
 
 .
+├── ChoirChat-old.tsx
 ├── Dockerfile
 ├── LICENSE
 ├── README.md
@@ -66,9 +67,11 @@
 │   ├── Dockerfile
 │   ├── __pycache__
 │   │   ├── conftest.cpython-311-pytest-8.3.3.pyc
+│   │   ├── database.cpython-313.pyc
 │   │   ├── main.cpython-311.pyc
 │   │   ├── main.cpython-313.pyc
-│   │   └── websocket.cpython-313.pyc
+│   │   ├── websocket.cpython-313.pyc
+│   │   └── websocket_handler.cpython-313.pyc
 │   ├── chorus_cycle.py
 │   ├── config.py
 │   ├── database.py
@@ -304,16 +307,19 @@
 │   │       └── ui-layout.tsx
 │   ├── config
 │   │   └── index.ts
+│   ├── config.ts
 │   ├── hooks
 │   │   ├── useChorusCycle.ts
 │   │   ├── useThread.ts
 │   │   └── useWebSocket.ts
 │   ├── mocks
 │   │   └── mockWebSocket.ts
+│   ├── pages
+│   │   └── _app.tsx
 │   ├── test-utils.tsx
 │   └── types
 │       └── jest.d.ts
 ├── tailwind.config.ts
 └── tsconfig.json
 
-54 directories, 260 files
+55 directories, 265 files

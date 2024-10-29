@@ -34,7 +34,10 @@ const ChoirChat: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-grow overflow-y-auto p-4 bg-base-100" ref={chatContainerRef}>
+      <div
+        className="flex-grow overflow-y-auto p-4 bg-base-100"
+        ref={chatContainerRef}
+      >
         <MessageFlow
           messages={threadState.messages}
           onMessageSelect={handleMessageSelect}

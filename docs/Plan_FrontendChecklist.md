@@ -1,60 +1,58 @@
-# Frontend Rehydration Checklist
+# Frontend Development Checklist
 
-## General Setup
+## Completed Tasks
+- [x] Set up basic three-panel layout (ThreadList, ChoirChat, PriorPanel)
+- [x] Implement initial WebSocket connection
+- [x] Create basic message display in ChoirChat
 
-- [ ] Review existing frontend architecture and identify areas for improvement.
-- [ ] Set up development environment with necessary tools and libraries.
+## Next Steps
 
-## Choir Chat Interface
+### ThreadList Component
+- [ ] Implement thread creation functionality
+- [ ] Add thread selection mechanism
+- [ ] Implement real-time updates for new threads
+- [ ] Style the component for better user experience
 
-- [ ] Integrate WebSocket for real-time message updates.
-- [ ] Implement state management for threads and messages.
-- [ ] Ensure responsive design for various devices.
+### ChoirChat Component
+- [ ] Implement message sending functionality
+- [ ] Add real-time message receiving and display
+- [ ] Implement Chorus Cycle steps display
+- [ ] Add user avatars and message timestamps
+- [ ] Implement message loading for older messages
 
-## Chorus Panel
+### PriorPanel Component
+- [ ] Design and implement prior citation display
+- [ ] Add interactivity for prior selection
+- [ ] Implement real-time updates for new priors
+- [ ] Add filtering and sorting options for priors
 
-- [ ] Develop tab navigation for different sections.
-- [ ] Implement bottom sheet for mobile-first design.
-- [ ] Integrate with AI response components.
+### User Authentication
+- [ ] Implement login/logout functionality
+- [ ] Add user profile display and editing
+- [ ] Implement access control based on user roles
 
-## AI Response Handling
+### Error Handling and Feedback
+- [ ] Implement error boundary for React components
+- [ ] Add toast notifications for user feedback
+- [ ] Implement loading states and spinners
 
-- [ ] Display AI responses in a user-friendly manner.
-- [ ] Manage AI response state and interactivity.
-- [ ] Integrate with the Chorus Cycle for seamless updates.
+### Responsive Design
+- [ ] Ensure layout works on mobile devices
+- [ ] Implement collapsible panels for mobile view
+- [ ] Add touch gestures for mobile interaction
 
-## User Input Management
+### Testing
+- [ ] Set up Jest and React Testing Library
+- [ ] Write unit tests for individual components
+- [ ] Implement integration tests for component interactions
+- [ ] Add end-to-end tests for critical user flows
 
-- [ ] Capture and process user input efficiently.
-- [ ] Implement input validation and feedback mechanisms.
-- [ ] Ensure real-time updates and error handling.
+### Performance Optimization
+- [ ] Implement lazy loading for components
+- [ ] Optimize WebSocket connection management
+- [ ] Add caching mechanisms for frequently accessed data
 
-## State Management
-
-- [ ] Set up global state management using a library (e.g., Redux, Context API).
-- [ ] Implement local state management within components.
-- [ ] Develop optimistic updates for real-time feedback.
-
-## Integration
-
-- [ ] Connect with backend API endpoints for data retrieval and submission.
-- [ ] Ensure seamless integration with WebSocket protocol.
-- [ ] Integrate AI services for enhanced user interaction.
-
-## Performance Optimization
-
-- [ ] Implement lazy loading for components and data.
-- [ ] Use code splitting to optimize bundle size.
-- [ ] Develop caching strategies for frequently accessed data.
-
-## Security and Privacy
-
-- [ ] Ensure secure user authentication and session management.
-- [ ] Implement privacy controls for user data and interactions.
-- [ ] Develop robust error handling and logging for security incidents.
-
-## Testing and Deployment
-
-- [ ] Conduct thorough testing of all components and features.
-- [ ] Prepare for deployment with necessary configurations.
-- [ ] Monitor performance and user feedback post-deployment.
+### Accessibility
+- [ ] Ensure proper ARIA attributes are used
+- [ ] Implement keyboard navigation
+- [ ] Test with screen readers and make necessary adjustments
