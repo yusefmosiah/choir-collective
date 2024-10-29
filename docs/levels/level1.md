@@ -1574,10 +1574,10 @@ The codebase is designed to scale with AI capabilities:
 
 Security and correctness through:
 
-- Fuzzing-driven program design
 - Property-based testing
 - Invariant verification
 - Comprehensive test coverage
+- Security-focused test cases
 
 ### AI-Assisted Evolution
 
@@ -1592,10 +1592,10 @@ Built to leverage improving AI:
 
 ### Day 1: Study & Planning (Oct 26)
 
-- Study Trident anchor fuzzing
 - Document testing patterns
 - Plan security boundaries
 - Prepare implementation strategy
+- Setup test infrastructure
 
 ### Day 2: Environment Setup (Oct 27)
 
@@ -1644,8 +1644,9 @@ Built to leverage improving AI:
 
 ### Program Testing
 
-- Unit tests with Bankrun
-- Fuzzing with Trident
+- Unit tests with Bankrun - post pmf
+- Fuzzing with Trident — post pmf
+    - hard time setting these up; tests take too long to run while iteration speed is of the essence. anchor test works for now.
 - Property verification
 - Security boundaries
 
@@ -1796,7 +1797,7 @@ invariants: {
 }
 assumptions: {
 "AI code generation capabilities",
-"Testing framework stability",
+"Testing framework maturity",
 "Documentation completeness"
 }
 docs_version: "0.2.1"
@@ -1806,8 +1807,8 @@ docs_version: "0.2.1"
 ### Saturday Oct 26
 
 - [x] Initial deployment to Render
-- [ ] Study Trident anchor fuzzing library
 - [ ] Document testing patterns and strategies
+- [ ] Setup test infrastructure
 
 ### Sunday Oct 27
 
@@ -1835,7 +1836,6 @@ docs_version: "0.2.1"
 - [ ] Complete Solana program
   - [ ] State management
   - [ ] Security checks
-  - [ ] Fuzzing with Trident
   - [ ] Comprehensive testing
 
 ### Wednesday Oct 30
@@ -1996,7 +1996,7 @@ docs_version: "0.2.1"
 
 ### Phase 1: Foundation (Oct 26-27)
 
-- Study Trident fuzzing patterns
+- Document testing patterns
 - Setup development environment
 - Configure testing framework
 - Document core patterns

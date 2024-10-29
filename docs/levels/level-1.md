@@ -38,7 +38,6 @@ tree.md
 │   │   │   ├── run
 │   │   │   └── snapshot
 │   │   ├── admin.rpc
-│   │   ├── faucet-keypair 2.json
 │   │   ├── faucet-keypair.json
 │   │   ├── genesis.bin
 │   │   ├── genesis.tar.bz2
@@ -55,17 +54,16 @@ tree.md
 │   │   │   ├── IDENTITY
 │   │   │   ├── LOCK
 │   │   │   ├── LOG
-│   │   │   ├── LOG.old.1730140085016857
+│   │   │   ├── LOG.old.1730162495021090
 │   │   │   ├── MANIFEST-000063
 │   │   │   ├── OPTIONS-000069
 │   │   │   └── OPTIONS-000071
 │   │   ├── stake-account-keypair.json
 │   │   ├── test-ledger-log.txt
-│   │   ├── tower-1_9-H39rbSSbVh4TtPvvvv8Y23QP6MUn9imXivmoZrEYaFnz.bin
-│   │   ├── validator 2.log -> validator-1730133441172.log
-│   │   ├── validator-1730140083865.log
+│   │   ├── tower-1_9-AB359YHNRzjuDEVLAud86c8Dy86kyH3p67JBBXTQMm75.bin
+│   │   ├── validator-1730162494770.log
 │   │   ├── validator-keypair.json
-│   │   ├── validator.log -> validator-1730140083865.log
+│   │   ├── validator.log -> validator-1730162494770.log
 │   │   └── vote-account-keypair.json
 │   ├── tests
 │   │   └── basic.spec.ts
@@ -248,7 +246,6 @@ tree.md
 │   │   │   │   └── page.tsx
 │   │   │   └── page.tsx
 │   │   ├── api
-│   │   │   ├── config
 │   │   │   ├── env-info
 │   │   │   │   └── route.ts
 │   │   │   └── hello
@@ -340,7 +337,7 @@ tree.md
 │   └── vote-account-keypair.json
 └── tsconfig.json
 
-53 directories, 275 files
+52 directories, 273 files
 
 
 ==

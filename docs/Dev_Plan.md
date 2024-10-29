@@ -37,10 +37,10 @@ The codebase is designed to scale with AI capabilities:
 
 Security and correctness through:
 
-- Fuzzing-driven program design
 - Property-based testing
 - Invariant verification
 - Comprehensive test coverage
+- Security-focused test cases
 
 ### AI-Assisted Evolution
 
@@ -55,10 +55,10 @@ Built to leverage improving AI:
 
 ### Day 1: Study & Planning (Oct 26)
 
-- Study Trident anchor fuzzing
 - Document testing patterns
 - Plan security boundaries
 - Prepare implementation strategy
+- Setup test infrastructure
 
 ### Day 2: Environment Setup (Oct 27)
 
@@ -107,8 +107,9 @@ Built to leverage improving AI:
 
 ### Program Testing
 
-- Unit tests with Bankrun
-- Fuzzing with Trident
+- Unit tests with Bankrun - post pmf
+- Fuzzing with Trident — post pmf
+    - hard time setting these up; tests take too long to run while iteration speed is of the essence. anchor test works for now.
 - Property verification
 - Security boundaries
 

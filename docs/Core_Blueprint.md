@@ -157,3 +157,23 @@ The system is designed to evolve with:
 - Scaled development patterns
 
 Through this architecture, Choir creates a foundation for collaborative content creation where quality and value can emerge naturally through user interactions and collective judgment.
+
+## Testing Strategy
+
+1. **Core Testing**
+   - Property-based testing
+   - State transition verification
+   - Security invariant checks
+   - Integration testing
+
+2. **Security Focus**
+   - Attack surface analysis
+   - Access control verification
+   - Value conservation checks
+   - State consistency validation
+
+3. **Performance Testing**
+   - Throughput benchmarks
+   - Latency measurements
+   - Resource utilization
+   - Scalability verification
