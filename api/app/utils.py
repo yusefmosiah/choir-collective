@@ -24,17 +24,25 @@ async def get_embedding(input_text: str, model: str) -> List[float]:
                 api_base=Config.AZURE_API_BASE,
                 api_version=Config.AZURE_API_VERSION
             )
-            chunk_embeddings.append(response['data'][0]['embedding'])
+            embedding_vector = response['data'][0]['embedding']
+            # Validate vector size
+            if len(embedding_vector) != Config.VECTOR_SIZE:
+                logger.error(f"Embedding vector size mismatch: got {len(embedding_vector)}, expected {Config.VECTOR_SIZE}")
+                continue
+            chunk_embeddings.append(embedding_vector)
 
         # Average the embeddings if there are multiple chunks
         if len(chunk_embeddings) > 1:
             averaged_embedding = [sum(x) / len(chunk_embeddings) for x in zip(*chunk_embeddings)]
             return averaged_embedding
-        else:
+        elif len(chunk_embeddings) == 1:
             return chunk_embeddings[0]
+        else:
+            logger.error("No valid embeddings generated")
+            return [0.0] * Config.VECTOR_SIZE  # Return zero vector as fallback
     except Exception as e:
-        logger.error(f"Error getting embedding: {e}")
-        return []
+        logger.error(f"Error getting embedding: {e}", exc_info=True)
+        return [0.0] * Config.VECTOR_SIZE  # Return zero vector as fallback
 
 async def chat_completion(messages: List[Dict[str, str]], model: str, max_tokens: int, temperature: float, functions: List[Dict[str, Any]] = None) -> str:
     try:

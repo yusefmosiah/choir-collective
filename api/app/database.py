@@ -14,43 +14,22 @@ class DatabaseClient:
         self.client = QdrantClient(
             url=config.QDRANT_URL,
             api_key=config.QDRANT_API_KEY,
-            timeout=60  # Add timeout for cloud connection
+            timeout=60,  # Add timeout for cloud connection
+            https=True  # Force HTTPS for cloud connection
         )
-        self._ensure_collections()
-
-    def _ensure_collections(self):
-        """Ensure all required collections exist with proper configuration."""
-        try:
-            collections = [
-                (self.config.MESSAGES_COLLECTION, 1536),  # For embeddings
-                (self.config.CHAT_THREADS_COLLECTION, 1536),
-                (self.config.USERS_COLLECTION, 1536)
-            ]
-
-            for collection_name, vector_size in collections:
-                try:
-                    if not self.client.collection_exists(collection_name):
-                        logger.info(f"Creating collection {collection_name}")
-                        self.client.create_collection(
-                            collection_name=collection_name,
-                            vectors_config=models.VectorParams(
-                                size=vector_size,
-                                distance=models.Distance.COSINE
-                            )
-                        )
-                except Exception as e:
-                    logger.error(f"Error checking/creating collection {collection_name}: {e}")
-                    # Continue with other collections even if one fails
-                    continue
-
-        except Exception as e:
-            logger.error(f"Error in _ensure_collections: {e}")
-            # Don't raise the exception - allow the connection to proceed
-            # The collections will be created when needed
+        # Verify collections exist
+        for collection in [self.config.MESSAGES_COLLECTION, self.config.CHAT_THREADS_COLLECTION, self.config.USERS_COLLECTION]:
+            if not self.client.collection_exists(collection):
+                raise RuntimeError(f"Required collection {collection} does not exist")
 
     async def search_similar(self, collection: str, query_vector: List[float], limit: int = 10) -> List[Dict[str, Any]]:
         try:
-            logger.info(f"Searching with query embedding of length {len(query_vector)}, limit={limit}, search_limit={self.config.SEARCH_LIMIT}")
+            # Validate vector size
+            if len(query_vector) != self.config.VECTOR_SIZE:
+                logger.error(f"Invalid vector size: got {len(query_vector)}, expected {self.config.VECTOR_SIZE}")
+                return []
+
+            logger.info(f"Searching with query embedding of length {len(query_vector)}, limit={limit}, collection={collection}")
             search_result = self.client.search(
                 collection_name=collection,
                 query_vector=query_vector,
@@ -58,6 +37,7 @@ class DatabaseClient:
                 with_payload=True,
                 with_vectors=False
             )
+            logger.info(f"Search returned {len(search_result)} results")
 
             return [
                 {
@@ -73,7 +53,7 @@ class DatabaseClient:
                 for result in search_result
             ]
         except Exception as e:
-            logger.error(f"Error during search operation: {e}")
+            logger.error(f"Error during search operation: {e}", exc_info=True)
             return []
 
     async def save_message(self, message: Message):
@@ -134,5 +114,3 @@ class DatabaseClient:
         except Exception as e:
             logger.error(f"Error saving message: {e}")
             raise
-
-    # Add other methods from old database.py as needed...

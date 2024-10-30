@@ -47,7 +47,14 @@ class ChorusCycle:
         elif message.type == "submit_prompt":
             thread_id = message.data.get("thread_id")
             prompt = message.data.get("prompt")
-            chorus_state = ChorusState(messages=[], current_step=StepEnum.ACTION, thread_id=thread_id)
+            chorus_state = ChorusState(
+                messages=[],
+                current_step=StepEnum.ACTION,
+                thread_id=thread_id,
+                error_state=None,
+                priors=None,
+                current_response=None
+            )
             effects, new_chorus_state = await self.run_chorus_cycle(chorus_state, prompt)
 
         return new_state, effects
@@ -67,7 +74,13 @@ class ChorusCycle:
         new_state = state.copy(deep=True)
 
         step_function = getattr(self, f"run_{state.current_step.value}")
-        response, priors = await step_function(input, state.messages, state.priors)
+
+        # Call step function with correct arguments
+        if state.current_step == StepEnum.EXPERIENCE:
+            response, priors = await step_function(input, state.messages, state.priors)
+        else:
+            response = await step_function(input, state.messages)
+            priors = None
 
         # Update state with response and priors
         new_state.current_response = response

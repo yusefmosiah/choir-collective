@@ -88,9 +88,9 @@ class ChorusState(BaseModel):
     messages: List[Message]
     current_step: StepEnum
     thread_id: str
-    error_state: Optional[Dict[str, Any]]
-    priors: Optional[List[Dict[str, Any]]] = None  # Track priors from experience step
-    current_response: Optional[Dict[str, Any]] = None  # Track current step's response
+    error_state: Optional[Dict[str, Any]] = None
+    priors: Optional[List[Dict[str, Any]]] = None
+    current_response: Optional[Dict[str, Any]] = None
 
 class User(BaseModel):
     id: str

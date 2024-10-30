@@ -7,10 +7,11 @@ class Config:
     # Qdrant configuration
     QDRANT_URL: str = os.getenv("QDRANT_URL", "http://localhost:6333")
     QDRANT_API_KEY: str = os.getenv("QDRANT_API_KEY", "")
-    MESSAGES_COLLECTION: str = "messages"
+    MESSAGES_COLLECTION: str = "choir"
     CHAT_THREADS_COLLECTION: str = "chat_threads"
     USERS_COLLECTION: str = "users"
     SEARCH_LIMIT: int = 80
+    VECTOR_SIZE: int = 1536
 
     # API configuration
     API_URL: str = os.getenv('API_URL', 'http://localhost:8000')
