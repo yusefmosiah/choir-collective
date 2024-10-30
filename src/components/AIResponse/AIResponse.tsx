@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { Message, Prior, Step } from '@/types';
+import { Message, Prior, Step, ChorusStep } from '@/types';
 import ReactMarkdown from 'react-markdown';
 
 interface AIResponseProps {
   message: Message;
-  sources: Prior[];
+  sources?: Prior[];
+  currentStep: ChorusStep;
   steps: Step[];
 }
 
-const AIResponse: React.FC<AIResponseProps> = ({ message, sources, steps }) => {
-  const [activeStep, setActiveStep] = useState<string>('action');
-  const chorusSteps = ['action', 'experience', 'intention', 'observation', 'update', 'yield'];
+const AIResponse: React.FC<AIResponseProps> = ({ message, sources = [], currentStep, steps }) => {
+  const [activeStep, setActiveStep] = useState<ChorusStep>(currentStep);
+  const chorusSteps: ChorusStep[] = ['action', 'experience', 'intention', 'observation', 'update', 'yield'];
 
   return (
     <div className="p-4 bg-base-200 rounded-lg mb-4">
@@ -46,6 +47,24 @@ const AIResponse: React.FC<AIResponseProps> = ({ message, sources, steps }) => {
               className={activeStep === step.step ? 'block' : 'hidden'}
             >
               <ReactMarkdown>{step.content}</ReactMarkdown>
+
+              {/* Show sources inline for experience step */}
+              {step.step === 'experience' && sources.length > 0 && (
+                <div className="mt-4 space-y-2">
+                  <div className="font-medium">Prior Citations:</div>
+                  {sources.map((source) => (
+                    <div
+                      key={source.id}
+                      className="p-2 bg-base-200 rounded text-sm"
+                    >
+                      <div>{source.content}</div>
+                      <div className="text-xs opacity-70 mt-1">
+                        Similarity: {(source.similarity * 100).toFixed(1)}%
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

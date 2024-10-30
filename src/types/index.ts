@@ -1,5 +1,10 @@
 export type ChorusStep = 'action' | 'experience' | 'intention' | 'observation' | 'update' | 'yield';
 
+export interface Step {
+  step: ChorusStep;
+  content: string;
+}
+
 export interface Prior {
   id: string;
   content: string;
@@ -10,30 +15,13 @@ export interface Prior {
   token_value: number;
 }
 
-export interface ChorusState {
-  current_step: ChorusStep;
-  current_response?: {
-    content: string;
-    loop?: boolean;
-    reasoning?: string;
-  };
-  priors?: Prior[];
-}
-
 export interface Message {
   id: string;
   content: string;
   author: string;
   timestamp: Date;
-  step?: ChorusStep;
   thread_id: string;
-}
-
-export interface MessageFlowProps {
-  messages: Message[];
-  onMessageSelect: (messageId: string) => void;
-  selectedMessageId: string | null;
-  currentStep: ChorusStep;
+  step?: ChorusStep;
 }
 
 export interface WebSocketMessage {
@@ -46,5 +34,16 @@ export interface ThreadState {
   currentThread?: {
     id: string;
     name: string;
+    public_key?: string;
   };
+}
+
+export interface ChorusState {
+  current_step: ChorusStep;
+  current_response?: {
+    content: string;
+    loop?: boolean;
+    reasoning?: string;
+  };
+  priors?: Prior[];
 }

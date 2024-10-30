@@ -1,6 +1,6 @@
 import React from 'react';
-import { Message } from '@/hooks/useThread';
-import { ChorusStep } from '@/hooks/useChorusCycle';
+import { Message, ChorusStep } from '@/types';
+import AIResponse from '../AIResponse/AIResponse';
 
 interface MessageFlowProps {
   messages: Message[];
@@ -9,39 +9,39 @@ interface MessageFlowProps {
   currentStep: ChorusStep;
 }
 
-const MessageFlow: React.FC<MessageFlowProps> = ({ messages, onMessageSelect, selectedMessageId, currentStep }) => {
-  const chorusSteps: ChorusStep[] = ['action', 'experience', 'intention', 'observation', 'update', 'yield'];
-
+const MessageFlow: React.FC<MessageFlowProps> = ({
+  messages,
+  onMessageSelect,
+  selectedMessageId,
+  currentStep
+}) => {
   return (
     <div className="space-y-4">
       {messages.map((message) => (
-        <div
-          key={message.id}
-          className={`p-2 rounded-lg ${message.author === 'User' ? 'bg-blue-100' : 'bg-gray-100'}`}
-          onClick={() => onMessageSelect(message.id)}
-        >
-          <p className="text-sm">{message.content}</p>
-          <small className="text-xs text-gray-500">{message.author} - {message.timestamp.toLocaleString()}</small>
-
-          {message.author !== 'User' && (
-            <div className="mt-2">
-              <div className="flex border-b">
-                {chorusSteps.map((step) => (
-                  <button
-                    key={step}
-                    className={`px-2 py-1 text-xs ${selectedMessageId === message.id ? 'bg-gray-200' : ''}`}
-                  >
-                    {step}
-                  </button>
-                ))}
-              </div>
-              <div className="p-2 bg-white">
-                {/* Content for each step will go here */}
-                Step content
-              </div>
+        message.author === 'User' ? (
+          // User message
+          <div
+            key={message.id}
+            className="p-4 bg-base-300 rounded-lg"
+            onClick={() => onMessageSelect(message.id)}
+          >
+            <div className="text-sm">{message.content}</div>
+            <div className="text-xs opacity-70 mt-1">
+              {message.timestamp.toLocaleString()}
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          // AI message with Chorus Cycle
+          <AIResponse
+            key={message.id}
+            message={message}
+            currentStep={currentStep}
+            steps={[
+              { step: 'action', content: message.content },
+              // Other steps will be populated from the chorus cycle
+            ]}
+          />
+        )
       ))}
     </div>
   );
