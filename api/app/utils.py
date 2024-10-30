@@ -1,6 +1,6 @@
 import logging
 from typing import List, Dict, Any, Optional
-from config import Config
+from .config import Config
 from litellm import completion, embedding
 import json
 from pydantic import BaseModel

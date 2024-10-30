@@ -1,20 +1,21 @@
 import React from 'react';
 import { Message, ChorusStep } from '@/types';
 import AIResponse from '../AIResponse/AIResponse';
+import { useChorusCycle } from '@/hooks/useChorusCycle';
 
 interface MessageFlowProps {
   messages: Message[];
   onMessageSelect: (messageId: string) => void;
   selectedMessageId: string | null;
-  currentStep: ChorusStep;
 }
 
 const MessageFlow: React.FC<MessageFlowProps> = ({
   messages,
   onMessageSelect,
   selectedMessageId,
-  currentStep
 }) => {
+  const { currentStep, steps, priors } = useChorusCycle();
+
   return (
     <div className="space-y-4">
       {messages.map((message) => (
@@ -36,10 +37,8 @@ const MessageFlow: React.FC<MessageFlowProps> = ({
             key={message.id}
             message={message}
             currentStep={currentStep}
-            steps={[
-              { step: 'action', content: message.content },
-              // Other steps will be populated from the chorus cycle
-            ]}
+            steps={steps}
+            sources={priors}
           />
         )
       ))}

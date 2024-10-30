@@ -67,28 +67,42 @@
 │   └── tsconfig.json
 ├── api
 │   ├── Dockerfile
+│   ├── __init__.py
 │   ├── __pycache__
+│   │   ├── chorus_cycle.cpython-313.pyc
+│   │   ├── config.cpython-313.pyc
 │   │   ├── conftest.cpython-311-pytest-8.3.3.pyc
 │   │   ├── database.cpython-313.pyc
 │   │   ├── main.cpython-311.pyc
 │   │   ├── main.cpython-313.pyc
+│   │   ├── models.cpython-313.pyc
 │   │   ├── websocket.cpython-313.pyc
 │   │   └── websocket_handler.cpython-313.pyc
-│   ├── chorus_cycle.py
-│   ├── config.py
-│   ├── database.py
+│   ├── app
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-313.pyc
+│   │   │   ├── chorus_cycle.cpython-313.pyc
+│   │   │   ├── config.cpython-313.pyc
+│   │   │   ├── database.cpython-313.pyc
+│   │   │   ├── models.cpython-313.pyc
+│   │   │   ├── utils.cpython-313.pyc
+│   │   │   └── websocket_handler.cpython-313.pyc
+│   │   ├── chorus_cycle.py
+│   │   ├── config.py
+│   │   ├── database.py
+│   │   ├── models.py
+│   │   ├── utils.py
+│   │   └── websocket_handler.py
 │   ├── main.py
-│   ├── models.py
 │   ├── pyproject.toml
 │   ├── requirements.txt
-│   ├── tests
-│   │   ├── __pycache__
-│   │   │   ├── test_main.cpython-311-pytest-8.3.3.pyc
-│   │   │   ├── test_main.cpython-313-pytest-8.0.0.pyc
-│   │   │   └── test_websocket.cpython-313-pytest-8.0.0.pyc
-│   │   └── test_main.py
-│   ├── utils.py
-│   └── websocket_handler.py
+│   └── tests
+│       ├── __pycache__
+│       │   ├── test_main.cpython-311-pytest-8.3.3.pyc
+│       │   ├── test_main.cpython-313-pytest-8.0.0.pyc
+│       │   └── test_websocket.cpython-313-pytest-8.0.0.pyc
+│       └── test_main.py
 ├── build
 │   └── config.gypi
 ├── docker-compose.yml
@@ -285,6 +299,8 @@
 │   │   │   └── MessageFlow.tsx
 │   │   ├── ChorusPanel
 │   │   │   └── ChorusPanel.tsx
+│   │   ├── PriorCard
+│   │   │   └── PriorCard.tsx
 │   │   ├── PriorPanel
 │   │   │   └── PriorPanel.tsx
 │   │   ├── ThreadList
@@ -328,4 +344,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-56 directories, 270 files
+59 directories, 283 files

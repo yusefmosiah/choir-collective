@@ -10,33 +10,51 @@ from .models import User, Thread, Message
 class DatabaseClient:
     def __init__(self, config: Config):
         self.config = config
-        self.client = QdrantClient(url=config.QDRANT_URL, api_key=config.QDRANT_API_KEY)
+        # Initialize with cloud configuration
+        self.client = QdrantClient(
+            url=config.QDRANT_URL,
+            api_key=config.QDRANT_API_KEY,
+            timeout=60  # Add timeout for cloud connection
+        )
         self._ensure_collections()
 
     def _ensure_collections(self):
         """Ensure all required collections exist with proper configuration."""
-        collections = [
-            (self.config.MESSAGES_COLLECTION, 1536),  # For embeddings
-            (self.config.CHAT_THREADS_COLLECTION, 1536),
-            (self.config.USERS_COLLECTION, 1536)
-        ]
+        try:
+            collections = [
+                (self.config.MESSAGES_COLLECTION, 1536),  # For embeddings
+                (self.config.CHAT_THREADS_COLLECTION, 1536),
+                (self.config.USERS_COLLECTION, 1536)
+            ]
 
-        for collection_name, vector_size in collections:
-            if not self.client.collection_exists(collection_name):
-                self.client.create_collection(
-                    collection_name=collection_name,
-                    vectors_config=models.VectorParams(
-                        size=vector_size,
-                        distance=models.Distance.COSINE
-                    )
-                )
+            for collection_name, vector_size in collections:
+                try:
+                    if not self.client.collection_exists(collection_name):
+                        logger.info(f"Creating collection {collection_name}")
+                        self.client.create_collection(
+                            collection_name=collection_name,
+                            vectors_config=models.VectorParams(
+                                size=vector_size,
+                                distance=models.Distance.COSINE
+                            )
+                        )
+                except Exception as e:
+                    logger.error(f"Error checking/creating collection {collection_name}: {e}")
+                    # Continue with other collections even if one fails
+                    continue
+
+        except Exception as e:
+            logger.error(f"Error in _ensure_collections: {e}")
+            # Don't raise the exception - allow the connection to proceed
+            # The collections will be created when needed
 
     async def search_similar(self, collection: str, query_vector: List[float], limit: int = 10) -> List[Dict[str, Any]]:
         try:
+            logger.info(f"Searching with query embedding of length {len(query_vector)}, limit={limit}, search_limit={self.config.SEARCH_LIMIT}")
             search_result = self.client.search(
                 collection_name=collection,
                 query_vector=query_vector,
-                limit=limit,
+                limit=self.config.SEARCH_LIMIT,
                 with_payload=True,
                 with_vectors=False
             )
@@ -116,3 +134,5 @@ class DatabaseClient:
         except Exception as e:
             logger.error(f"Error saving message: {e}")
             raise
+
+    # Add other methods from old database.py as needed...

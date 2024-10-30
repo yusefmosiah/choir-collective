@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from websocket_handler import router as websocket_router
-from config import Config
+from app.websocket_handler import router as websocket_router
+from app.config import Config
 
 app = FastAPI()
 
@@ -22,7 +22,3 @@ app.include_router(websocket_router)
 @app.get("/")
 async def root():
     return {"message": "Choir Collective API"}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)

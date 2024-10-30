@@ -1,12 +1,13 @@
 import { useState, useCallback } from "react";
-import { ChorusStep, ChorusState, Prior, Message } from "@/types";
+import { ChorusStep, ChorusState, Prior, Message, Step } from "@/types";
 import { useWebSocket } from "./useWebSocket";
 
 export function useChorusCycle() {
   const [currentStep, setCurrentStep] = useState<ChorusStep>("action");
   const [chorusState, setChorusState] = useState<ChorusState>({
-    current_step: "action"
+    current_step: "action",
   });
+  const [steps, setSteps] = useState<Step[]>([]);
   const [priors, setPriors] = useState<Prior[]>([]);
   const { socket } = useWebSocket();
 
@@ -15,6 +16,7 @@ export function useChorusCycle() {
       if (!socket) return;
 
       try {
+        // Start the Chorus Cycle
         socket.send(
           JSON.stringify({
             type: "submit_prompt",
@@ -28,12 +30,28 @@ export function useChorusCycle() {
         socket.onmessage = (event) => {
           const response = JSON.parse(event.data);
 
-          if (response.type === "chorus_response") {
+          if (response.type === "chorus_step") {
             const { step, content, priors: newPriors } = response.data;
 
             setCurrentStep(step as ChorusStep);
+            setSteps((prevSteps) => [
+              ...prevSteps,
+              {
+                step: step as ChorusStep,
+                content,
+                state: {
+                  status: "complete",
+                  content,
+                  priors: newPriors,
+                },
+              },
+            ]);
 
-            setChorusState((prev: ChorusState) => ({
+            if (newPriors) {
+              setPriors(newPriors);
+            }
+
+            setChorusState((prev) => ({
               ...prev,
               current_step: step,
               current_response: {
@@ -43,16 +61,8 @@ export function useChorusCycle() {
               },
             }));
 
-            if (newPriors) {
-              setPriors(newPriors);
-            }
-
-            if (step === "update") {
-              if (response.data.loop) {
-                setCurrentStep("action");
-              } else {
-                setCurrentStep("yield");
-              }
+            if (step === "update" && !response.data.loop) {
+              setCurrentStep("yield");
             }
           }
         };
@@ -63,15 +73,11 @@ export function useChorusCycle() {
     [socket]
   );
 
-  const updateChorusState = useCallback((newState: Partial<ChorusState>) => {
-    setChorusState((prev: ChorusState) => ({ ...prev, ...newState }));
-  }, []);
-
   return {
     currentStep,
     chorusState,
+    steps,
     priors,
     processStep,
-    updateChorusState,
   };
 }

@@ -2484,51 +2484,59 @@ The Chorus Cycle inverts traditional AI agent design, starting with action and f
    - Purpose: Generate authentic, unbiased initial thoughts
    - Implementation:
      - [ ] Direct LLM call with minimal prompt
-     - [ ] Structured response with confidence level
-     - [ ] Error handling for initial response
+     - [ ] Structure response as markdown with confidence level
+     - [ ] Add error handling and retry logic
+     - [ ] Emit WebSocket events for step progress
 
 2. **Experience (E)**
    - Search for relevant prior context (n=80 priors)
    - Vector similarity search in Qdrant
    - Purpose: Ground the response in existing knowledge
    - Implementation:
-     - [ ] Vector search with proper ranking and deduplication
-     - [ ] Context integration with initial response
+     - [ ] Implement vector search with proper ranking
+     - [ ] Add semantic deduplication of results
+     - [ ] Format priors for LLM context
+     - [ ] Send prior preview events to frontend
 
 3. **Intention (I)**
    - Analyze planned actions and consequences
    - Select most relevant priors from search_limit = 80
    - Purpose: Understand implications and align with goals
    - Implementation:
-     - [ ] llm returns selected priors in structured output
-     - [ ] Intent analysis with structured output
+     - [ ] Create structured output format for selected priors
+     - [ ] Add intent analysis with clear criteria
+     - [ ] Track prior selection reasoning
+     - [ ] Update frontend with selection state
 
 4. **Observation (O)**
    - Self-reflection on analysis and intentions
    - Identify gaps and biases
    - Purpose: Critical examination of the process
    - Implementation:
-     - [ ] Gap analysis in structured format
-     - [ ] prompt +=~ "critical thinking encouraged"
-     - [ ] Record observations in Qdrant
+     - [ ] Add structured gap analysis format
+     - [ ] Enhance prompt for critical thinking
+     - [ ] Store observations in Qdrant
+     - [ ] Stream reflection to frontend
 
 5. **Update (U)**
    - Binary decision: loop or proceed
    - Based on confidence and completeness
    - Purpose: Quality control gate
    - Implementation:
-     - [ ] Clear decision criteria
-     - [ ] Confidence threshold logic
-     - [ ] Loop counter and limits
+     - [ ] Define clear confidence thresholds
+     - [ ] Add loop counter with limits
+     - [ ] Track decision criteria
+     - [ ] Notify frontend of loop/proceed
 
 6. **Yield (Y)**
    - Final response synthesis
    - Include inline citations to priors
    - Purpose: Deliver comprehensive, grounded response
    - Implementation:
-     - [ ] Citation formatting
-     - [ ] Response assembly with prior links
-     - [ ] Final quality checks
+     - [ ] Format citations with prior links
+     - [ ] Assemble final markdown response
+     - [ ] Add quality verification checks
+     - [ ] Stream final response to frontend
 
 #### Database Integration
 - [ ] Update database.py:
