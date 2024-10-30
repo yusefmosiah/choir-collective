@@ -40,15 +40,15 @@ const ChoirChat: React.FC = () => {
   };
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full h-full">
       {/* Left Column - Thread List */}
       <div className="w-64 min-w-64 bg-base-200 border-r border-base-300">
         <ThreadList />
       </div>
 
       {/* Center Column - Chat Messages with inline Chorus Cycle */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <div className="flex-grow overflow-y-auto p-4" ref={chatContainerRef}>
+      <div className="flex-1 flex flex-col min-w-0 relative">
+        <div className="h-full overflow-y-auto p-4 pb-32" ref={chatContainerRef}>
           <MessageFlow
             messages={threadState.messages}
             onMessageSelect={setSelectedMessageId}
@@ -56,7 +56,7 @@ const ChoirChat: React.FC = () => {
             currentStep={currentStep}
           />
         </div>
-        <div className="p-4 bg-base-300">
+        <div className="fixed bottom-0 left-64 right-80 bg-base-100 border-t border-base-300 z-10">
           <UserInput onSubmit={handleNewMessage} />
         </div>
       </div>

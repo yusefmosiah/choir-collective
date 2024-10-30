@@ -43,22 +43,23 @@ export function UiLayout({ children, links }: { children: ReactNode; links: { la
           <ClusterUiSelect />
         </div>
       </div>
-      <ClusterChecker>
-        <AccountChecker />
-      </ClusterChecker>
-      <div className="flex-grow overflow-hidden">
-        <Suspense
-          fallback={
-            <div className="text-center my-32">
-              <span className="loading loading-spinner loading-lg"></span>
-            </div>
-          }
-        >
-          {children}
-        </Suspense>
+      <div className="flex-1 overflow-hidden">
+        <ClusterChecker>
+          <AccountChecker />
+          <div className="h-full">
+            <Suspense
+              fallback={
+                <div className="text-center my-32">
+                  <span className="loading loading-spinner loading-lg"></span>
+                </div>
+              }
+            >
+              {children}
+            </Suspense>
+          </div>
+        </ClusterChecker>
         <Toaster position="bottom-right" />
       </div>
-
     </div>
   )
 }
