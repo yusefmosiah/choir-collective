@@ -1,72 +1,83 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
+import { ChorusStep, ChorusState, Prior, Message } from "@/types";
+import { useWebSocket } from "./useWebSocket";
 
-export type ChorusStep = 'action' | 'experience' | 'intention' | 'observation' | 'update' | 'yield';
-
-export interface ChorusState<T> {
-  resonance: any; // OscillatorSpace<T>
-  coupling: Set<string>; // ResonantSet<ThreadId>
-  modes: any[]; // HarmonicHistory<T>
-  phase: any; // Oscillation<T>
-}
-
-export const useChorusCycle = () => {
-  const [currentStep, setCurrentStep] = useState<ChorusStep>('action');
-  const [chorusState, setChorusState] = useState<ChorusState<any>>({
-    resonance: {},
-    coupling: new Set(),
-    modes: [],
-    phase: null,
+export function useChorusCycle() {
+  const [currentStep, setCurrentStep] = useState<ChorusStep>("action");
+  const [chorusState, setChorusState] = useState<ChorusState>({
+    current_step: "action",
   });
+  const [priors, setPriors] = useState<Prior[]>([]);
+  const { socket } = useWebSocket();
 
-  const moveToNextStep = useCallback(() => {
-    setCurrentStep((prevStep) => {
-      switch (prevStep) {
-        case 'action': return 'experience';
-        case 'experience': return 'intention';
-        case 'intention': return 'observation';
-        case 'observation': return 'update';
-        case 'update': return 'yield';
-        case 'yield': return 'action';
-        default: return 'action';
+  const processStep = useCallback(
+    async (message: Message) => {
+      if (!socket) return;
+
+      try {
+        // Send message to backend
+        socket.send(
+          JSON.stringify({
+            type: "submit_prompt",
+            data: {
+              content: message.content,
+              thread_id: message.thread_id,
+            },
+          })
+        );
+
+        // Listen for response
+        socket.onmessage = (event) => {
+          const response = JSON.parse(event.data);
+
+          if (response.type === "chorus_response") {
+            const { step, content, priors: newPriors } = response.data;
+
+            // Update step
+            setCurrentStep(step as ChorusStep);
+
+            // Update state
+            setChorusState((prev) => ({
+              ...prev,
+              current_step: step,
+              current_response: {
+                content,
+                loop: response.data.loop,
+                reasoning: response.data.reasoning,
+              },
+            }));
+
+            // Update priors if provided
+            if (newPriors) {
+              setPriors(newPriors);
+            }
+
+            // Handle loop/halt decision in update step
+            if (step === "update") {
+              if (response.data.loop) {
+                setCurrentStep("action");
+              } else {
+                setCurrentStep("yield");
+              }
+            }
+          }
+        };
+      } catch (error) {
+        console.error("Error processing step:", error);
       }
-    });
-  }, []);
+    },
+    [socket]
+  );
 
-  const processStep = useCallback((input: any) => {
-    switch (currentStep) {
-      case 'action':
-        // Implement action phase logic
-        break;
-      case 'experience':
-        // Implement experience phase logic
-        break;
-      case 'intention':
-        // Implement intention phase logic
-        break;
-      case 'observation':
-        // Implement observation phase logic
-        break;
-      case 'update':
-        // Implement update phase logic
-        break;
-      case 'yield':
-        // Implement yield phase logic
-        break;
-    }
-    moveToNextStep();
-  }, [currentStep, moveToNextStep]);
-
-  const updateChorusState = useCallback((newState: Partial<ChorusState<any>>) => {
-    setChorusState((prevState) => ({
-      ...prevState,
-      ...newState,
-    }));
+  const updateChorusState = useCallback((newState: Partial<ChorusState>) => {
+    setChorusState((prev) => ({ ...prev, ...newState }));
   }, []);
 
   return {
     currentStep,
     chorusState,
+    priors,
     processStep,
     updateChorusState,
   };
-};
+}

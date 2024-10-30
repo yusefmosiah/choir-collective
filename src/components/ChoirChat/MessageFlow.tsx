@@ -6,9 +6,10 @@ interface MessageFlowProps {
   messages: Message[];
   onMessageSelect: (messageId: string) => void;
   selectedMessageId: string | null;
+  currentStep: ChorusStep;
 }
 
-const MessageFlow: React.FC<MessageFlowProps> = ({ messages, onMessageSelect, selectedMessageId }) => {
+const MessageFlow: React.FC<MessageFlowProps> = ({ messages, onMessageSelect, selectedMessageId, currentStep }) => {
   const chorusSteps: ChorusStep[] = ['action', 'experience', 'intention', 'observation', 'update', 'yield'];
 
   return (

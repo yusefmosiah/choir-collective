@@ -2,7 +2,9 @@
 ## Output of $ tree -I 'venv|node_modules|target' | pbcopy
 
 .
-├── ChoirChat-old.tsx
+├── AIResponse-old.tsx.old
+├── ChoirChat-old.tsx.old
+├── ChorusPanel-old.tsx.old
 ├── Dockerfile
 ├── LICENSE
 ├── README.md
@@ -275,6 +277,8 @@
 │   │   ├── page.tsx
 │   │   └── react-query-provider.tsx
 │   ├── components
+│   │   ├── AIResponse
+│   │   │   └── AIResponse.tsx
 │   │   ├── ChoirChat
 │   │   │   ├── ChoirChat.tsx
 │   │   │   └── MessageFlow.tsx
@@ -318,8 +322,9 @@
 │   │   └── _app.tsx
 │   ├── test-utils.tsx
 │   └── types
+│       ├── index.ts
 │       └── jest.d.ts
 ├── tailwind.config.ts
 └── tsconfig.json
 
-55 directories, 265 files
+56 directories, 269 files

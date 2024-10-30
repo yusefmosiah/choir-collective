@@ -5,7 +5,6 @@ interface UserInputProps {
 }
 
 const UserInput: React.FC<UserInputProps> = ({ onSubmit }) => {
-  console.log("UserInput component rendering");
   const [input, setInput] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -14,6 +13,9 @@ const UserInput: React.FC<UserInputProps> = ({ onSubmit }) => {
     if (input.trim()) {
       onSubmit(input);
       setInput('');
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto';
+      }
     }
   };
 
@@ -34,12 +36,12 @@ const UserInput: React.FC<UserInputProps> = ({ onSubmit }) => {
   }, [input]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-end">
+    <form onSubmit={handleSubmit} className="relative z-50 flex items-end bg-base-300 p-4">
       <textarea
         ref={textareaRef}
         value={input}
         onChange={handleInputChange}
-        className="flex-1 p-2 bg-base-100 text-base-content border border-base-300 rounded-l-lg resize-none focus:outline-none focus:border-primary"
+        className="flex-1 p-2 bg-base-100 text-base-content border border-base-300 rounded-l-lg resize-none focus:outline-none focus:border-primary min-h-[38px] max-h-[200px]"
         rows={1}
         placeholder="Type your message..."
       />

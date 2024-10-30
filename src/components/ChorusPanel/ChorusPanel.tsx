@@ -1,26 +1,60 @@
-import React from 'react';
-import { useChorusCycle } from '@/hooks/useChorusCycle';
+import React from "react";
+import { useChorusCycle } from "@/hooks/useChorusCycle";
+import PriorPanel from "../PriorPanel/PriorPanel";
 
 const ChorusPanel: React.FC = () => {
-  const { currentStep, chorusState, processStep } = useChorusCycle();
-
-  const handleProcessStep = () => {
-    processStep({}); // Pass any necessary input here
-  };
+  const { currentStep, chorusState, priors } = useChorusCycle();
+  const steps = [
+    "action",
+    "experience",
+    "intention",
+    "observation",
+    "update",
+    "yield",
+  ];
 
   return (
-    <div className="bg-gray-100 p-4 border-t">
-      <h2 className="font-bold mb-2">Chorus Cycle</h2>
-      <p className="text-sm text-gray-600 mb-2">Current Step: {currentStep}</p>
-      <button
-        onClick={handleProcessStep}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-      >
-        Process Step
-      </button>
-      <div className="mt-4">
-        <h3 className="font-bold mb-1">Chorus State:</h3>
-        <pre className="text-xs bg-white p-2 rounded">{JSON.stringify(chorusState, null, 2)}</pre>
+    <div className="flex flex-col h-full">
+      <div className="p-4 border-b border-base-300">
+        <h2 className="text-lg font-bold mb-4">Chorus Cycle</h2>
+        {/* Step Progress */}
+        <div className="flex flex-col gap-2">
+          {steps.map((step) => (
+            <div
+              key={step}
+              className={`p-2 rounded-lg ${
+                currentStep === step
+                  ? "bg-primary text-primary-content"
+                  : "bg-base-100"
+              }`}
+            >
+              <div className="font-medium capitalize">{step}</div>
+              {currentStep === step && chorusState?.current_response && (
+                <div className="text-sm mt-1 opacity-80">
+                  {chorusState.current_response.content}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Loop/Halt Status */}
+        {chorusState?.current_step === "update" &&
+          chorusState?.current_response && (
+            <div className="mt-4 p-3 bg-base-100 rounded-lg">
+              <div className="font-medium">
+                Decision: {chorusState.current_response.loop ? "Loop" : "Halt"}
+              </div>
+              <div className="text-sm mt-1 opacity-80">
+                {chorusState.current_response.reasoning}
+              </div>
+            </div>
+          )}
+      </div>
+
+      {/* Prior Citations Panel */}
+      <div className="flex-1 overflow-hidden">
+        <PriorPanel priors={priors} />
       </div>
     </div>
   );
