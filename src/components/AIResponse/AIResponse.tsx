@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Message, Step, ChorusStep } from "@/types";
+import { Message, Step, ChorusStep, Prior } from "@/types";
 import ReactMarkdown from "react-markdown";
 import PriorCard from "../PriorCard/PriorCard";
 
@@ -7,12 +7,14 @@ interface AIResponseProps {
   message: Message;
   currentStep: ChorusStep;
   steps: Step[];
+  priors: Prior[];
 }
 
 const AIResponse: React.FC<AIResponseProps> = ({
   message,
   currentStep,
   steps,
+  priors,
 }) => {
   const [activeStep, setActiveStep] = useState<ChorusStep>(currentStep);
   const chorusSteps: ChorusStep[] = [
@@ -100,6 +102,15 @@ const AIResponse: React.FC<AIResponseProps> = ({
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Priors */}
+      <div className="mt-4">
+        {priors.map((prior) => (
+          <div key={prior.id}>
+            {/* ... rest of your prior rendering ... */}
+          </div>
+        ))}
       </div>
     </div>
   );

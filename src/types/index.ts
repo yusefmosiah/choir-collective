@@ -1,53 +1,57 @@
 export type ChorusStep =
-  | 'action'
-  | 'experience'
-  | 'intention'
-  | 'observation'
-  | 'update'
-  | 'yield';
+  | "action"
+  | "experience"
+  | "intention"
+  | "observation"
+  | "update"
+  | "yield";
 
-export interface Message {
+export type Prior = {
   id: string;
   content: string;
-  author: string;
-  timestamp: Date;
-  thread_id: string;
-}
+  source_message: string;
+  source_thread: string;
+  context: string;
+  embedding: number[];
+  resonance: number;
+};
 
-export interface Prior {
-  id: string;
-  content: string;
-  similarity: number;
-  created_at: string;
-}
-
-export interface Step {
+export type Step = {
   step: ChorusStep;
   content: string;
-  state: StepState;
-}
+  state: {
+    status: "pending" | "complete" | "error";
+    content: string;
+    priors?: Prior[];
+  };
+};
 
-export interface StepState {
-  status: "idle" | "loading" | "complete" | "error";
-  content?: string;
-  priors?: Prior[];
-  selectedPriors?: Prior[];
-  gaps?: string[];
-  decision?: boolean;
-  reasoning?: string;
-  finalResponse?: string;
-}
+export type Message = {
+  id?: string;
+  content: string;
+  thread_id: string;
+  author?: string;
+  timestamp?: number | Date;
+};
 
-export interface ChorusState {
+export type ChorusState = {
   current_step: ChorusStep;
   current_response?: {
     content: string;
     loop?: boolean;
     reasoning?: string;
   };
-}
+};
 
-export interface WebSocketMessage {
+export type ThreadState = {
+  messages: Message[];
+  current_step: ChorusStep;
+  thread_id: string;
+  error_state?: string;
+  currentThread?: string;
+};
+
+export type WebSocketMessage = {
   type: string;
   data: {
     message_id?: string;
@@ -58,4 +62,4 @@ export interface WebSocketMessage {
     priors?: Prior[];
     [key: string]: any;
   };
-}
+};

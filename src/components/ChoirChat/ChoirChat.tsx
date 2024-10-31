@@ -1,14 +1,14 @@
 // src/components/ChoirChat/ChoirChat.tsx
 
 import React, { useState, useRef } from "react";
-import MessageFlow, { MessageFlowProps } from "./MessageFlow";
+import MessageFlow from "./MessageFlow";
 import UserInput from "../UserInput/UserInput";
 import { useThread } from "@/hooks/useThread";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { useChorusCycle } from "@/hooks/useChorusCycle";
 import ThreadList from "../ThreadList/ThreadList";
 import PriorPanel from "../PriorPanel/PriorPanel";
-import { WebSocketMessage } from "@/types";
+import { WebSocketMessage, Message } from "@/types";
 
 const ChoirChat: React.FC = () => {
   const { threadState, addMessage } = useThread();
@@ -18,22 +18,21 @@ const ChoirChat: React.FC = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const handleNewMessage = (content: string) => {
-    const messageId = Date.now().toString();
-    const newMessage = {
-      id: messageId,
+    const message: Message = {
+      id: crypto.randomUUID(),
       content,
-      author: "User",
-      timestamp: new Date(),
-      thread_id: threadState.currentThread?.id || "default",
+      author: "user",
+      timestamp: Date.now(),
+      thread_id: threadState.currentThread || "",
     };
-    addMessage(newMessage);
+    addMessage(message);
 
     const wsMessage: WebSocketMessage = {
       type: "submit_prompt",
       data: {
-        message_id: messageId,
+        message_id: message.id,
         content: content,
-        thread_id: threadState.currentThread?.id || "default",
+        thread_id: threadState.currentThread || "default",
       },
     };
     sendMessage(wsMessage);

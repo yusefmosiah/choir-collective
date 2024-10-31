@@ -18,9 +18,8 @@ const nextConfig = {
     return config;
   },
   experimental: {
-    esmExternals: true,
+    esmExternals: true
   },
-  swcMinify: true,
   compress: true,
   productionBrowserSourceMaps: false
 };

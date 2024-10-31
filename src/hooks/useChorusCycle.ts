@@ -13,7 +13,10 @@ export function useChorusCycle() {
 
   const processStep = useCallback(
     async (message: Message) => {
-      if (!socket) return;
+      if (!socket) {
+        console.error("WebSocket not connected");
+        return;
+      }
 
       try {
         // Start the Chorus Cycle
@@ -28,46 +31,60 @@ export function useChorusCycle() {
         );
 
         socket.onmessage = (event) => {
-          const response = JSON.parse(event.data);
+          try {
+            const response = JSON.parse(event.data);
 
-          if (response.type === "chorus_step") {
-            const { step, content, priors: newPriors } = response.data;
+            if (response.type === "chorus_step") {
+              const { step, content, priors: newPriors } = response.data;
 
-            setCurrentStep(step as ChorusStep);
-            setSteps((prevSteps) => [
-              ...prevSteps,
-              {
-                step: step as ChorusStep,
-                content,
-                state: {
-                  status: "complete",
+              // Update current step
+              setCurrentStep(step as ChorusStep);
+
+              // Add new step to history
+              setSteps((prevSteps) => [
+                ...prevSteps,
+                {
+                  step: step as ChorusStep,
                   content,
-                  priors: newPriors,
+                  state: {
+                    status: "complete",
+                    content,
+                    priors: newPriors,
+                  },
                 },
-              },
-            ]);
+              ]);
 
-            if (newPriors) {
-              setPriors(newPriors);
+              // Update priors if provided
+              if (newPriors) {
+                setPriors(newPriors);
+              }
+
+              // Update chorus state
+              setChorusState((prev) => ({
+                ...prev,
+                current_step: step,
+                current_response: {
+                  content,
+                  loop: response.data.loop,
+                  reasoning: response.data.reasoning,
+                },
+              }));
+
+              // Handle transition to yield step
+              if (step === "update" && !response.data.loop) {
+                setCurrentStep("yield");
+              }
             }
-
-            setChorusState((prev) => ({
-              ...prev,
-              current_step: step,
-              current_response: {
-                content,
-                loop: response.data.loop,
-                reasoning: response.data.reasoning,
-              },
-            }));
-
-            if (step === "update" && !response.data.loop) {
-              setCurrentStep("yield");
-            }
+          } catch (error) {
+            console.error("Error parsing WebSocket message:", error);
           }
         };
       } catch (error) {
         console.error("Error processing step:", error);
+        setChorusState((prev) => ({
+          ...prev,
+          error_state: "Failed to process step",
+        }));
       }
     },
     [socket]
