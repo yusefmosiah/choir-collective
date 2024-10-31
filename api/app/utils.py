@@ -13,6 +13,7 @@ async def get_embedding(input_text: str, model: str) -> List[float]:
     try:
         # Chunk the input text
         chunks = chunk_text(input_text, chunk_size=4000, overlap=200)
+        config = Config()  # Instantiate Config
 
         # Get embeddings for each chunk
         chunk_embeddings = []
@@ -20,14 +21,14 @@ async def get_embedding(input_text: str, model: str) -> List[float]:
             response = embedding(
                 model=f"azure/{model}",
                 input=chunk,
-                api_key=Config.AZURE_API_KEY,
-                api_base=Config.AZURE_API_BASE,
-                api_version=Config.AZURE_API_VERSION
+                api_key=config.AZURE_API_KEY,
+                api_base=config.AZURE_API_BASE,
+                api_version=config.AZURE_API_VERSION
             )
             embedding_vector = response['data'][0]['embedding']
             # Validate vector size
-            if len(embedding_vector) != Config.VECTOR_SIZE:
-                logger.error(f"Embedding vector size mismatch: got {len(embedding_vector)}, expected {Config.VECTOR_SIZE}")
+            if len(embedding_vector) != config.VECTOR_SIZE:
+                logger.error(f"Embedding vector size mismatch: got {len(embedding_vector)}, expected {config.VECTOR_SIZE}")
                 continue
             chunk_embeddings.append(embedding_vector)
 
@@ -39,10 +40,10 @@ async def get_embedding(input_text: str, model: str) -> List[float]:
             return chunk_embeddings[0]
         else:
             logger.error("No valid embeddings generated")
-            return [0.0] * Config.VECTOR_SIZE  # Return zero vector as fallback
+            return [0.0] * config.VECTOR_SIZE  # Return zero vector as fallback
     except Exception as e:
         logger.error(f"Error getting embedding: {e}", exc_info=True)
-        return [0.0] * Config.VECTOR_SIZE  # Return zero vector as fallback
+        return [0.0] * Config().VECTOR_SIZE  # Return zero vector as fallback
 
 async def chat_completion(messages: List[Dict[str, str]], model: str, max_tokens: int, temperature: float, functions: List[Dict[str, Any]] = None) -> str:
     try:
@@ -74,20 +75,16 @@ def chunk_text(text: str, chunk_size: int, overlap: int) -> List[str]:
 async def structured_chat_completion(
     messages: List[Dict[str, str]],
     config: Config,
-    response_format: Optional[BaseModel] = None
+    response_format: Optional[Dict[str, Any]] = None
 ) -> Dict[str, Any]:
     """
     Make a structured chat completion call that returns data in a specified format.
-
-    Args:
-        messages: List of message dictionaries with 'role' and 'content'
-        config: Config object containing model settings
-        response_format: Pydantic model or dict specifying the expected response structure
-
-    Returns:
-        Dict with parsed response matching the specified format
     """
     try:
+        # Debug log the inputs
+        logger.info(f"Messages: {messages}")
+        logger.info(f"Response format: {response_format}")
+
         response = completion(
             model=config.CHAT_MODEL,
             messages=messages,
@@ -96,10 +93,12 @@ async def structured_chat_completion(
             response_format=response_format
         )
 
-        # LiteLLM handles the parsing when response_format is provided
+        # Debug log the response
+        logger.info(f"Response: {response}")
+
         return {
             "status": "success",
-            "content": response.choices[0].message.parsed if response_format else response.choices[0].message.content
+            "content": response.choices[0].message.content
         }
 
     except Exception as e:

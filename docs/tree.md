@@ -338,7 +338,6 @@
 │   │       └── ui-layout.tsx
 │   ├── config
 │   │   └── index.ts
-│   ├── config.ts
 │   ├── hooks
 │   │   ├── useChorusCycle.ts
 │   │   ├── useThread.ts
@@ -354,4 +353,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-60 directories, 292 files
+60 directories, 291 files

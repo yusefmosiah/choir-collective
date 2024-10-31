@@ -31,8 +31,9 @@ class Config:
     AZURE_API_VERSION: str = "2024-02-15-preview"
 
     # Model configuration
-    EMBEDDING_MODEL: str = "choir-embeddings-ada-002"
-    CHAT_MODEL: str = "azure/choir-gpt-4o"
+    EMBEDDING_MODEL: str = "text-embedding-ada-002"
+    CHAT_MODEL: str = "azure/gpt-4o-2024-08-06"
+    SUMMARY_MODEL: str = "azure/gpt-4o-mini"
     MAX_TOKENS: int = 4000
     TEMPERATURE: float = 0.7
 
