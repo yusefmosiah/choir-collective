@@ -1,15 +1,15 @@
 import React from 'react';
-import { Message, ChorusStep } from '@/types';
+import { Message, ChorusStep, Step, Prior } from '@/types';
 import AIResponse from '../AIResponse/AIResponse';
-import { useChorusCycle } from '@/hooks/useChorusCycle';
-import { Dispatch, SetStateAction } from 'react';
 
 // Export the interface
 export interface MessageFlowProps {
   messages: Message[];
-  onMessageSelect: Dispatch<SetStateAction<string | null>>;
-  selectedMessageId: string | null;
+  onMessageSelect?: (id: string | null) => void;
+  selectedMessageId?: string | null;
   currentStep: ChorusStep;
+  steps: Step[];
+  priors: Prior[];
 }
 
 const MessageFlow: React.FC<MessageFlowProps> = ({
@@ -17,34 +17,35 @@ const MessageFlow: React.FC<MessageFlowProps> = ({
   onMessageSelect,
   selectedMessageId,
   currentStep,
+  steps,
+  priors,
 }) => {
-  const { steps, priors } = useChorusCycle();
-
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col space-y-4">
       {messages.map((message) => (
-        message.author === 'User' ? (
-          // User message
-          <div
-            key={message.id}
-            className="p-4 bg-base-300 rounded-lg"
-            onClick={() => onMessageSelect(message.id)}
-          >
-            <div className="text-sm">{message.content}</div>
-            <div className="text-xs opacity-70 mt-1">
-              {message.timestamp.toLocaleString()}
+        <div
+          key={message.id}
+          onClick={() => onMessageSelect?.(message.id || null)}
+          className={`cursor-pointer ${
+            selectedMessageId === message.id ? "ring-2 ring-primary" : ""
+          }`}
+        >
+          {message.author === "user" ? (
+            // User message
+            <div className="p-4 bg-base-300 rounded-lg">
+              <div className="font-semibold text-lg">You</div>
+              <div>{message.content}</div>
             </div>
-          </div>
-        ) : (
-          // AI message with Chorus Cycle
-          <AIResponse
-            key={message.id}
-            message={message}
-            currentStep={currentStep}
-            steps={steps}
-            sources={priors}
-          />
-        )
+          ) : (
+            // AI response
+            <AIResponse
+              message={message}
+              currentStep={currentStep}
+              steps={steps}
+              priors={priors}
+            />
+          )}
+        </div>
       ))}
     </div>
   );

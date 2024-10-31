@@ -13,7 +13,7 @@ import { WebSocketMessage, Message } from "@/types";
 const ChoirChat: React.FC = () => {
   const { threadState, addMessage } = useThread();
   const { sendMessage } = useWebSocket();
-  const { currentStep } = useChorusCycle();
+  const { currentStep, steps, priors, processStep } = useChorusCycle();
   const [selectedMessageId, setSelectedMessageId] = useState<string | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -36,6 +36,7 @@ const ChoirChat: React.FC = () => {
       },
     };
     sendMessage(wsMessage);
+    processStep(message);
   };
 
   return (
@@ -53,6 +54,8 @@ const ChoirChat: React.FC = () => {
             onMessageSelect={setSelectedMessageId}
             selectedMessageId={selectedMessageId}
             currentStep={currentStep}
+            steps={steps}
+            priors={priors}
           />
         </div>
         <div className="fixed bottom-0 left-64 right-80 bg-base-100 border-t border-base-300 z-10">

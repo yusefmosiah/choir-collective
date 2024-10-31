@@ -16,9 +16,60 @@ export type Prior = {
   resonance: number;
 };
 
+export type ActionContent = {
+  proposed_response: string;
+  confidence: number;
+  reasoning: string;
+};
+
+export type ExperienceContent = {
+  synthesis: string;
+  key_insights: string[];
+  source_relevance: {
+    most_relevant: string[];
+    reasoning: string;
+  };
+};
+
+export type IntentionContent = {
+  explicit_intent: string;
+  implicit_intent: string;
+  confidence: number;
+};
+
+export type ObservationContent = {
+  patterns: string[];
+  context_analysis: string;
+  user_state: string;
+  confidence: number;
+};
+
+export type UpdateContent = {
+  loop: boolean;
+  reasoning: string;
+  confidence: number;
+  key_insights: string[];
+};
+
+export type YieldContent = {
+  final_response: string;
+  key_points: string[];
+  confidence: number;
+  synthesis_quality: string;
+};
+
+export type StepContent =
+  | string
+  | ActionContent
+  | ExperienceContent
+  | IntentionContent
+  | ObservationContent
+  | UpdateContent
+  | YieldContent;
+
 export type Step = {
   step: ChorusStep;
-  content: string;
+  content: StepContent;
   state: {
     status: "pending" | "complete" | "error";
     content: string;
