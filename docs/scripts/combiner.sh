@@ -17,27 +17,6 @@ add_separator() {
     echo -e "\n"
 }
 
-# First phase: Combine by prefix
-echo "Processing documentation..."
-
-# Create combined directory if it doesn't exist
-mkdir -p docs/combined
-
-# Get unique prefixes from all markdown files
-for prefix in $(ls docs/*_*.md | grep -v 'tree' | cut -d'_' -f1 | sed 's/docs\///g' | sort -u); do
-    output_file="docs/combined/Combined_${prefix}.md"
-    echo "# ${prefix} Documentation" > "$output_file"
-    echo -e "\n" >> "$output_file"
-
-    # Combine all files with this prefix
-    for file in docs/${prefix}_*.md; do
-        if [ -f "$file" ]; then
-            add_separator "$(basename "$file" .md)" >> "$output_file"
-            cat "$file" >> "$output_file"
-        fi
-    done
-done
-
 # Function to get level for a file
 get_level_for_file() {
     filename=$(basename "$1")

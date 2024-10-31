@@ -2455,7 +2455,7 @@ assumptions: {
 "Vector space stability",
 "WebSocket reliability"
 }
-docs_version: "0.2.3"
+docs_version: "0.2.4"
 
 ## Progress So Far
 
@@ -2476,91 +2476,88 @@ docs_version: "0.2.3"
 
 ## Next Steps
 
-### Chorus Cycle Implementation
-- [ ] Step Prompts
-  - [ ] ACTION: "Beginner's mind" prompt
-  - [ ] EXPERIENCE: Context integration prompt
-  - [ ] INTENTION: Goal analysis prompt
-  - [ ] OBSERVATION: Semantic recording prompt
-  - [ ] UPDATE: Loop decision prompt
-  - [ ] YIELD: Citation integration prompt
+### 1. Chorus Cycle Core (Priority)
+- [ ] Complete Step Implementation
+  - [ ] ACTION: Initial response generation
+  - [ ] EXPERIENCE: Vector search + context
+  - [ ] INTENTION: Goal analysis
+  - [ ] OBSERVATION: Semantic link recording
+  - [ ] UPDATE: Loop decision logic
+  - [ ] YIELD: Citation integration
 
-- [ ] Prior Flow
-  - [ ] EXPERIENCE: Get n=80 priors
-  - [ ] INTENTION: Analyze for user goal
-  - [ ] OBSERVATION: Record in Qdrant
-  - [ ] YIELD: Natural citations
+- [ ] Effect System Cleanup
+  - [ ] Define clear effect types
+  - [ ] Implement effect accumulation
+  - [ ] Add error effect handling
+  - [ ] Test effect propagation
 
-- [ ] Effect System
-  - [ ] Clean effect types
-  - [ ] Proper accumulation
-  - [ ] UI synchronization
-  - [ ] Error handling
+- [ ] Semantic Links
+  - [ ] Define semantic link type
+  - [ ] Implement link recording
+  - [ ] Add link retrieval
+  - [ ] Test link integrity
 
-### Frontend Components
-- [ ] AIResponse
+### 2. Frontend Integration (Next)
+- [ ] Thread Management
+  - [ ] Save thread state
+  - [ ] Load thread history
+  - [ ] Handle thread updates
+  - [ ] Sync with WebSocket
+
+- [ ] AI Response Flow
   - [ ] Step visualization
   - [ ] Prior display
-  - [ ] Citation rendering
+  - [ ] Effect handling
   - [ ] Loading states
 
-- [ ] PriorPanel
-  - [ ] Prior list display
+- [ ] Chorus Step UI
+  - [ ] Step progress indicators
+  - [ ] Prior panel integration
   - [ ] Citation preview
-  - [ ] Prior filtering
-  - [ ] Selection handling
+  - [ ] Error states
 
-### Database Integration
-- [ ] Semantic Recording
-  - [ ] Design link schema
-  - [ ] Implement recording
-  - [ ] Enable retrieval
-  - [ ] Track metadata
-
-- [ ] Vector Search
-  - [ ] Optimize parameters
-  - [ ] Handle errors
-  - [ ] Add caching
-  - [ ] Improve ranking
-
-### Testing
-- [ ] Backend Tests
-  - [ ] Step functions
-  - [ ] Prior flow
-  - [ ] Effect system
-  - [ ] Semantic recording
+### 3. Testing Suite
+- [ ] Chorus Cycle Tests
+  - [ ] Step function tests
+  - [ ] Effect handling tests
+  - [ ] Semantic link tests
+  - [ ] Integration tests
 
 - [ ] Frontend Tests
-  - [ ] Component rendering
-  - [ ] Effect handling
-  - [ ] Prior display
-  - [ ] Citation integration
+  - [ ] Thread state tests
+  - [ ] AI response tests
+  - [ ] WebSocket sync tests
+  - [ ] UI component tests
 
-## Immediate Priorities
+## Implementation Order
 
-1. **Prior Flow**
-   - Complete EXPERIENCE step
-   - Implement semantic recording
-   - Add citation integration
-   - Test prior handling
-
-2. **Effect System**
+1. **Phase 1: Core Cycle**
+   - Complete step functions
    - Clean up effect types
-   - Fix accumulation
-   - Add error handling
-   - Test effect flow
+   - Implement semantic links
 
-3. **UI Components**
-   - Update AIResponse
-   - Enhance PriorPanel
-   - Add loading states
-   - Test interactions
+2. **Phase 2: Frontend Sync**
+   - Thread save/load
+   - AI response display
+   - Step visualization
+
+3. **Phase 3: Testing**
+   - Core cycle tests
+   - Frontend integration tests
+   - End-to-end tests
 
 ## Notes
-- Keep prior flow simple and clean
-- Focus on semantic recording
-- Maintain effect coherence
-- Enable natural citations
+- Focus on completing core cycle first
+- Keep effect system simple but robust
+- Implement semantic links as foundation
+- Test each component thoroughly
+
+## Success Metrics
+- All step functions working
+- Effects flowing correctly
+- Semantic links recording
+- Frontend displaying properly
+- Tests passing
 
 === File: docs/Plan_FrontendChecklist.md ===
 
