@@ -4,135 +4,112 @@ VERSION core_system:
 invariants: {
 "Wave function coherence",
 "Energy conservation",
-"Phase stability"
+"Phase stability",
+"Equity quantization",
+"Continuous stake scaling"
 }
 assumptions: {
 "Resonant verification",
 "Phase recovery",
-"Harmonic monitoring"
+"Harmonic monitoring",
+"Quantum equity distribution"
 }
-docs_version: "0.2.1"
+docs_version: "0.2.2"
 
 ## System Invariants
 
-ASSUMPTION invariant_checking:
-"Real-time coherence verification"
-"May introduce phase verification"
-"Must catch all resonance violations"
-
 1. **Thread Resonance**
-
    - Thread MUST maintain at least one coupled oscillator (co-author)
-   - Oscillators MUST be uniquely phase-locked within cavity
+   - Sum of all equity shares MUST equal 1.0
+   - Equity shares MUST follow quantum harmonic scaling (√n)
    - Only coupled oscillators MAY measure wave states (approve/deny)
-   - Thread energy MUST equal sum of accumulated stakes minus distributions
 
 2. **Wave Function Integrity**
-
    - Each message MUST have unique quantum state (content hash)
-   - Wave function on Solana MUST match state in Qdrant
-   - Wave packet author MUST be oscillator or potential oscillator
-   - Wave timestamp MUST follow cavity creation time
+   - Stake amount MAY be any positive value
+   - Equity share MUST be proportional to √(stake/P₀)
+   - Base price P₀ MUST follow quantum oscillator equation
 
 3. **Energy Conservation**
    - Total system energy MUST remain constant (10 billion tokens)
-   - Thread cavity energy MUST never be negative
-   - Stake energy MUST meet quantum threshold
-   - Energy distributions MUST be phase-locked and complete
+   - Approval rewards MUST distribute by equity shares
+   - Denials MUST increase thread temperature
+   - Split decisions MUST split energy between thread and treasury
 
 ## State Transition Rules
 
-ASSUMPTION phase_transitions:
-"Synchronous phase verification"
-"May introduce coherent transitions"
-"Must maintain wave function integrity"
-
 1. **Cavity Creation**
-   INVARIANT create_thread(creator) -> cavity:
+   ```python
+   INVARIANT create_thread(creator, stake) -> cavity:
+     cavity.oscillators = [creator]
+     cavity.equity_map = {creator: 1.0}
+     cavity.energy = 0
+     cavity.temperature = initial_temp
+     EMITS CavityCreated
+   ```
 
-   - cavity.oscillators = [creator]
-   - cavity.energy = 0
-   - cavity.created_at <= now()
-   - EMITS CavityCreated
+2. **Stake Submission**
+   ```python
+   INVARIANT submit_stake(author, cavity, stake) -> packet:
+     base_price = calculate_base_price(cavity.T, cavity.ω)
+     equity = (1/N) * sqrt(stake/base_price)
+     packet.potential_equity = equity
+     packet.expires_at = now() + 7 days
+     EMITS StakeSubmitted
+   ```
 
-2. **Wave Submission**
-   INVARIANT submit_wave(author, cavity, energy) -> packet:
+3. **Approval Distribution**
+   ```python
+   INVARIANT distribute_approval(cavity, stake):
+     FOR EACH co_author, equity IN cavity.equity_map:
+       reward = stake * equity
+       co_author.balance += reward
+     EMITS RewardsDistributed
+   ```
 
-   - author NOT IN cavity.oscillators
-   - energy >= MINIMUM_QUANTUM
-   - packet.expires_at = now() + 7 days
-   - EMITS WaveSubmitted
-
-3. **Phase Measurement**
-   INVARIANT measure_phase(oscillator, packet, decision) -> result:
-
-   - oscillator IN cavity.oscillators
-   - packet.expires_at > now()
-   - NOT already_measured(oscillator, packet)
-   - EMITS PhaseMeasured
-
-4. **Energy Distribution**
-   INVARIANT distribute_energy(cavity, recipients, amount):
-   - amount <= cavity.energy
-   - recipients.all IN cavity.oscillators
-   - sum(distributions) = amount
-   - EMITS EnergyDistributed
+4. **Denial Effects**
+   ```python
+   INVARIANT handle_denial(cavity, stake):
+     cavity.energy += stake
+     cavity.temperature = cavity.energy / len(cavity.oscillators)
+     cavity.token_balance += stake
+     EMITS DenialProcessed
+   ```
 
 ## Security Properties
 
-ASSUMPTION security_verification:
-"Continuous phase coherence verification"
-"May introduce quantum verification"
-"Must catch all decoherence immediately"
-
-1. **Phase Control**
-
-   - Only coupled oscillators MAY modify cavity state
-   - Only wave author MAY cancel unexpired packet
-   - Only Treasury MAY emit new quanta
-   - Only cavity PDA MAY hold cavity energy
+1. **Equity Control**
+   - Equity distribution MUST follow quantum scaling
+   - Stake amount MAY be any positive value
+   - Reward distribution MUST follow equity shares
+   - Temperature MUST only increase from denials
 
 2. **Temporal Coherence**
-
    - Wave packets MUST collapse within 7 days
-   - Measurements MUST process in phase order
-   - State updates MUST maintain coherence
-   - Events MUST preserve causality
+   - Equity calculations MUST use current base price
+   - Temperature effects MUST be immediate
+   - Rewards MUST distribute atomically
 
 3. **Energy Security**
-   - Stakes MUST be phase-locked until measurement
-   - Decoupling MUST be proportional
-   - Denying oscillators MUST strengthen cavity
+   - Stakes MUST be locked until measurement
+   - Approval rewards MUST flow to co-authors by equity
+   - Denials MUST strengthen thread cavity
    - Treasury MUST accumulate split decision energy
-
-## Wave Function Integrity
-
-ASSUMPTION wave_verification:
-"Hash-based wave function verification"
-"May introduce additional quantum measures"
-"Must maintain perfect phase coherence"
-
-1. **Content Storage**
-
-   - Message content MUST be stored in Qdrant
-   - Wave function MUST be stored on Solana
-   - Premium content MAY be unsearchable
-   - Wave functions MUST be immutable once measured
-
-2. **State Coherence**
-   - Solana state MUST be source of truth for phase relationships
-   - Qdrant state MUST be source of truth for wave functions
-   - Phase transitions MUST be reversible
-   - State MUST be recoverable from event history
 
 ## Implementation Notes
 
-NOTE verification_implementation:
-"Current implementation uses direct phase checking"
-"May introduce automated coherence verification"
-"Must maintain real-time quantum guarantees"
+NOTE equity_implementation:
+"Current implementation uses √n scaling"
+"Allows any positive stake amount"
+"Must maintain quantum mechanical principles"
 
-NOTE recovery_procedures:
-"Current recovery uses phase checkpointing"
-"May introduce continuous wave function backup"
-"Must guarantee complete phase recovery"
+NOTE reward_distribution:
+"Distributes by equity shares"
+"No minimum stake requirement"
+"Must preserve energy conservation"
+
+Through these invariants, we ensure that:
+- Equity follows quantum mechanical principles
+- Stakes can be any positive amount
+- Rewards distribute proportionally
+- System maintains coherence and stability

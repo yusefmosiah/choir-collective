@@ -167,164 +167,156 @@ VERSION harmonic_economic:
 invariants: {
 "Wave energy conservation",
 "Resonant cavity coherence",
-"Collective phase locking"
+"Collective phase locking",
+"Equity quantization"
 }
 assumptions: {
 "Thread-centric resonance",
 "Phase-locked incentives",
-"Harmonic distribution"
+"Harmonic distribution",
+"Continuous stake scaling"
 }
-docs_version: "0.2.1"
+docs_version: "0.2.2"
 
 ## Token Flow as Wave Mechanics
 
 TYPE TokenFlow = {
-treasury: ResonantWell, // Base frequency source + split decision approver share
-threads: Map<ThreadId, ResonantCavity>, // Primary value accumulators
-stakes: Map<Hash, WavePacket>, // Energy quanta
-escrow: Map<Hash, PotentialWell> // Temporary coupling
+treasury: ResonantWell,      // Global field + split decision approver share
+threads: Map<ThreadId, ResonantCavity>, // Temperature and frequency
+stakes: Map<Hash, WavePacket>,  // Quantum contributions
+equity: Map<ThreadId, Map<PublicKey, float>> // Ownership shares
 }
+
+## Quantum Equity Distribution
+
+1. **Base Price Function**
+```
+P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
+
+where:
+- S₀: Base stake quantum
+- ω: Thread frequency (activity/coherence)
+- T: Thread temperature (from denials)
+- ℏ: Platform coupling constant
+```
+
+2. **Equity Scaling Function**
+```
+E(s) = (1/N) * √(s/P₀)
+
+where:
+- E(s): Equity share acquired
+- N: Current number of co-authors
+- s: Stake amount
+- P₀: Base price for 1/N share
+```
+
+3. **Examples**
+```python
+# For a thread with N co-authors:
+stake = P₀/4  -> equity = (1/2N)  # Quarter stake
+stake = P₀    -> equity = (1/N)   # Base quantum
+stake = 4P₀   -> equity = (2/N)   # Double quantum
+```
 
 ## Token Distribution Mechanics
 
 1. **Unanimous Approval**
-
-   - Stake distributes equally to approvers (like dividends)
-   - Direct value recognition for quality judgment
-   - Phase-locked reward distribution
-   - Strengthens individual oscillator coherence
+   - Stake distributes to co-authors based on their equity shares
+   - Each co-author receives: stake_amount * their_equity_share
+   - No tokens added to thread balance
+   - Maintains incentive alignment through ownership
 
 2. **Denial Flow**
-
-   - Full stake flows to thread resonant cavity
-   - Increases cavity energy level
-   - Strengthens thread coherence
-   - Natural quality filter
+   - Full stake flows to thread (increases temperature)
+   - Raises energy barrier for future submissions
+   - Creates natural quality filter
+   - Temperature affects base price P₀
 
 3. **Split Decision**
-
-   - Approvers' share flows to Treasury (global field)
-   - Deniers' share flows to thread cavity
-   - Creates balanced energy distribution
-   - Maintains multi-scale resonance
+   - Approvers' share flows to Treasury
+   - Deniers' share flows to thread
+   - Partial temperature increase
+   - Maintains circular token flow
 
 4. **Prior Rewards**
-   - Treasury energy flows to thread cavities
-   - Strengthens resonant coupling between threads
-   - Rewards knowledge network formation
-   - Creates collective value accumulation
+   - Treasury rewards flow to thread
+   - Co-authors receive based on equity shares
+   - Strengthens knowledge network
+   - Creates sustainable value flow
 
 ## Resonant Cavity Mechanics
 
-The core pricing function derives from quantum harmonic oscillator:
+1. **Temperature Evolution**
+   ```python
+   # On denial:
+   thread.temperature += stake_energy
+   thread.token_balance += stake_amount
 
-```
-P(q) = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
+   # On approval:
+   for coauthor, equity in thread.equity_map.items():
+       reward = stake_amount * equity
+       coauthor.balance += reward
+   # Note: No change to thread temperature/balance
+   ```
 
-where:
-- S₀: Base stake quantum (100 CHOIR)
-- ω: Thread cavity frequency (collective activity)
-- T: Thread temperature (volatility)
-- ℏ: Platform coupling constant
-```
-
-This creates:
-
-1. **Cavity Energy Levels**
-
-   - Discrete stake quantization
-   - Natural frequency modes
-   - Collective oscillation patterns
-   - Phase-locked stability
-
-2. **Collective Oscillations**
-
-   - Co-authors as coupled oscillators
-   - Thread as resonant cavity
-   - Prior rewards strengthen coupling
-   - Natural phase locking
-
-3. **Value Crystallization**
-   - Quality creates standing waves
-   - Energy accumulates at nodes
-   - Patterns self-reinforce
-   - Natural selection emerges
+2. **Equity Management**
+   ```python
+   # On new contribution:
+   stake = contribution.stake_amount
+   equity_share = (1/len(coauthors)) * math.sqrt(stake/base_price)
+   thread.equity_map[contributor] = equity_share
+   ```
 
 ## Multi-Scale Resonance
 
 1. **Individual Scale**
-
-   - Approval rewards as direct energy absorption
-   - Quality judgment strengthens coupling
-   - Phase-locked participation
-   - Natural frequency alignment
+   - Equity determines reward share
+   - Larger stakes get proportionally larger equity
+   - Natural √n scaling from physics
+   - Continuous stake-to-equity curve
 
 2. **Thread Scale**
-
-   - Collective energy accumulation
-   - Standing wave formation
-   - Quality pattern crystallization
-   - Resonant cavity strengthening
+   - Temperature from denials
+   - Frequency from activity
+   - Collective equity distribution
+   - Natural quality emergence
 
 3. **Network Scale**
-   - Prior rewards couple threads
-   - Knowledge network resonance
    - Treasury as global field
-   - Harmonic value flow
-
-## Game Theoretic Harmonics
-
-1. **Strategy Space**
-
-   ```
-   TYPE Strategy =
-     | CollectiveResonance   // Align with thread harmonics
-     | ForceDissonance       // Attempt artificial patterns
-     | QualityOscillation    // Maintain phase coherence
-     | NetworkCoupling       // Strengthen thread connections
-   ```
-
-2. **Nash Equilibrium**
-   ```
-   PROPERTY equilibrium:
-     FORALL oscillators, modes:
-       energy(CollectiveResonance) > energy(ForceDissonance) AND
-       energy(QualityOscillation) > energy(RandomPhase) AND
-       energy(NetworkCoupling) > energy(IsolatedCavity)
-   ```
+   - Prior rewards through equity
+   - Knowledge network coupling
+   - System-wide coherence
 
 ## Economic Invariants
 
 1. **Energy Conservation**
+   ```
+   INVARIANT token_conservation:
+     treasury_balance +
+     sum(thread_balances) +
+     sum(user_balances) =
+     TOTAL_SUPPLY
+   ```
 
+2. **Equity Conservation**
    ```
-   INVARIANT wave_conservation:
-     treasury_energy + sum(thread_cavity_energy) + sum(stake_energy) = TOTAL_SUPPLY
-   ```
-
-2. **Resonant Stability**
-   ```
-   INVARIANT phase_stability:
+   INVARIANT equity_conservation:
      FORALL thread IN threads:
-       resonant(thread) ⟹
-         stable_cavity_modes(thread) AND
-         coherent_collective_phase(thread) AND
-         conserved_cavity_energy(thread)
+       sum(thread.equity_map.values()) = 1.0
    ```
 
 Through this harmonic economic model, we see how:
-
-- Threads act as primary resonant cavities
-- Value accumulates through collective oscillation
-- Prior rewards strengthen cavity coupling
-- Quality emerges from natural resonance
+- Stake amount determines equity share
+- Equity share determines reward distribution
+- Denials increase thread temperature
+- Quality emerges through natural selection
 
 The model creates an economic system that:
-
-- Rewards collective quality
-- Strengthens thread coherence
+- Allows participation at any stake level
+- Rewards contribution proportionally
+- Maintains quantum mechanical principles
 - Enables natural value flow
-- Maintains multi-scale harmony
 
 
 ==
@@ -1545,161 +1537,153 @@ VERSION harmonic_economic:
 invariants: {
 "Wave energy conservation",
 "Resonant cavity coherence",
-"Collective phase locking"
+"Collective phase locking",
+"Equity quantization"
 }
 assumptions: {
 "Thread-centric resonance",
 "Phase-locked incentives",
-"Harmonic distribution"
+"Harmonic distribution",
+"Continuous stake scaling"
 }
-docs_version: "0.2.1"
+docs_version: "0.2.2"
 
 ## Token Flow as Wave Mechanics
 
 TYPE TokenFlow = {
-treasury: ResonantWell, // Base frequency source + split decision approver share
-threads: Map<ThreadId, ResonantCavity>, // Primary value accumulators
-stakes: Map<Hash, WavePacket>, // Energy quanta
-escrow: Map<Hash, PotentialWell> // Temporary coupling
+treasury: ResonantWell,      // Global field + split decision approver share
+threads: Map<ThreadId, ResonantCavity>, // Temperature and frequency
+stakes: Map<Hash, WavePacket>,  // Quantum contributions
+equity: Map<ThreadId, Map<PublicKey, float>> // Ownership shares
 }
+
+## Quantum Equity Distribution
+
+1. **Base Price Function**
+```
+P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
+
+where:
+- S₀: Base stake quantum
+- ω: Thread frequency (activity/coherence)
+- T: Thread temperature (from denials)
+- ℏ: Platform coupling constant
+```
+
+2. **Equity Scaling Function**
+```
+E(s) = (1/N) * √(s/P₀)
+
+where:
+- E(s): Equity share acquired
+- N: Current number of co-authors
+- s: Stake amount
+- P₀: Base price for 1/N share
+```
+
+3. **Examples**
+```python
+# For a thread with N co-authors:
+stake = P₀/4  -> equity = (1/2N)  # Quarter stake
+stake = P₀    -> equity = (1/N)   # Base quantum
+stake = 4P₀   -> equity = (2/N)   # Double quantum
+```
 
 ## Token Distribution Mechanics
 
 1. **Unanimous Approval**
-
-   - Stake distributes equally to approvers (like dividends)
-   - Direct value recognition for quality judgment
-   - Phase-locked reward distribution
-   - Strengthens individual oscillator coherence
+   - Stake distributes to co-authors based on their equity shares
+   - Each co-author receives: stake_amount * their_equity_share
+   - No tokens added to thread balance
+   - Maintains incentive alignment through ownership
 
 2. **Denial Flow**
-
-   - Full stake flows to thread resonant cavity
-   - Increases cavity energy level
-   - Strengthens thread coherence
-   - Natural quality filter
+   - Full stake flows to thread (increases temperature)
+   - Raises energy barrier for future submissions
+   - Creates natural quality filter
+   - Temperature affects base price P₀
 
 3. **Split Decision**
-
-   - Approvers' share flows to Treasury (global field)
-   - Deniers' share flows to thread cavity
-   - Creates balanced energy distribution
-   - Maintains multi-scale resonance
+   - Approvers' share flows to Treasury
+   - Deniers' share flows to thread
+   - Partial temperature increase
+   - Maintains circular token flow
 
 4. **Prior Rewards**
-   - Treasury energy flows to thread cavities
-   - Strengthens resonant coupling between threads
-   - Rewards knowledge network formation
-   - Creates collective value accumulation
+   - Treasury rewards flow to thread
+   - Co-authors receive based on equity shares
+   - Strengthens knowledge network
+   - Creates sustainable value flow
 
 ## Resonant Cavity Mechanics
 
-The core pricing function derives from quantum harmonic oscillator:
+1. **Temperature Evolution**
+   ```python
+   # On denial:
+   thread.temperature += stake_energy
+   thread.token_balance += stake_amount
 
-```
-P(q) = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
+   # On approval:
+   for coauthor, equity in thread.equity_map.items():
+       reward = stake_amount * equity
+       coauthor.balance += reward
+   # Note: No change to thread temperature/balance
+   ```
 
-where:
-- S₀: Base stake quantum (100 CHOIR)
-- ω: Thread cavity frequency (collective activity)
-- T: Thread temperature (volatility)
-- ℏ: Platform coupling constant
-```
-
-This creates:
-
-1. **Cavity Energy Levels**
-
-   - Discrete stake quantization
-   - Natural frequency modes
-   - Collective oscillation patterns
-   - Phase-locked stability
-
-2. **Collective Oscillations**
-
-   - Co-authors as coupled oscillators
-   - Thread as resonant cavity
-   - Prior rewards strengthen coupling
-   - Natural phase locking
-
-3. **Value Crystallization**
-   - Quality creates standing waves
-   - Energy accumulates at nodes
-   - Patterns self-reinforce
-   - Natural selection emerges
+2. **Equity Management**
+   ```python
+   # On new contribution:
+   stake = contribution.stake_amount
+   equity_share = (1/len(coauthors)) * math.sqrt(stake/base_price)
+   thread.equity_map[contributor] = equity_share
+   ```
 
 ## Multi-Scale Resonance
 
 1. **Individual Scale**
-
-   - Approval rewards as direct energy absorption
-   - Quality judgment strengthens coupling
-   - Phase-locked participation
-   - Natural frequency alignment
+   - Equity determines reward share
+   - Larger stakes get proportionally larger equity
+   - Natural √n scaling from physics
+   - Continuous stake-to-equity curve
 
 2. **Thread Scale**
-
-   - Collective energy accumulation
-   - Standing wave formation
-   - Quality pattern crystallization
-   - Resonant cavity strengthening
+   - Temperature from denials
+   - Frequency from activity
+   - Collective equity distribution
+   - Natural quality emergence
 
 3. **Network Scale**
-   - Prior rewards couple threads
-   - Knowledge network resonance
    - Treasury as global field
-   - Harmonic value flow
-
-## Game Theoretic Harmonics
-
-1. **Strategy Space**
-
-   ```
-   TYPE Strategy =
-     | CollectiveResonance   // Align with thread harmonics
-     | ForceDissonance       // Attempt artificial patterns
-     | QualityOscillation    // Maintain phase coherence
-     | NetworkCoupling       // Strengthen thread connections
-   ```
-
-2. **Nash Equilibrium**
-   ```
-   PROPERTY equilibrium:
-     FORALL oscillators, modes:
-       energy(CollectiveResonance) > energy(ForceDissonance) AND
-       energy(QualityOscillation) > energy(RandomPhase) AND
-       energy(NetworkCoupling) > energy(IsolatedCavity)
-   ```
+   - Prior rewards through equity
+   - Knowledge network coupling
+   - System-wide coherence
 
 ## Economic Invariants
 
 1. **Energy Conservation**
+   ```
+   INVARIANT token_conservation:
+     treasury_balance +
+     sum(thread_balances) +
+     sum(user_balances) =
+     TOTAL_SUPPLY
+   ```
 
+2. **Equity Conservation**
    ```
-   INVARIANT wave_conservation:
-     treasury_energy + sum(thread_cavity_energy) + sum(stake_energy) = TOTAL_SUPPLY
-   ```
-
-2. **Resonant Stability**
-   ```
-   INVARIANT phase_stability:
+   INVARIANT equity_conservation:
      FORALL thread IN threads:
-       resonant(thread) ⟹
-         stable_cavity_modes(thread) AND
-         coherent_collective_phase(thread) AND
-         conserved_cavity_energy(thread)
+       sum(thread.equity_map.values()) = 1.0
    ```
 
 Through this harmonic economic model, we see how:
-
-- Threads act as primary resonant cavities
-- Value accumulates through collective oscillation
-- Prior rewards strengthen cavity coupling
-- Quality emerges from natural resonance
+- Stake amount determines equity share
+- Equity share determines reward distribution
+- Denials increase thread temperature
+- Quality emerges through natural selection
 
 The model creates an economic system that:
-
-- Rewards collective quality
-- Strengthens thread coherence
+- Allows participation at any stake level
+- Rewards contribution proportionally
+- Maintains quantum mechanical principles
 - Enables natural value flow
-- Maintains multi-scale harmony
