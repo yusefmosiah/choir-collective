@@ -1,161 +1,139 @@
-# Harmonic Bonding Curve: Multi-Level Analysis
+# Harmonic Bonding Curve: Quantum Mechanics of Value and Meaning
 
 VERSION harmonic_bonding:
 invariants: {
 "Wave energy conservation",
 "Resonant price discovery",
-"Phase coherence"
+"Phase coherence",
+"Hyperedge connectivity"
 }
 assumptions: {
 "Multi-scale harmony",
 "Natural frequency emergence",
-"Energy-value duality"
+"Energy-value duality",
+"Semantic entanglement"
 }
-docs_version: "0.2.1"
+docs_version: "0.2.3"
 
-## Level 5: Quantum Harmonic Foundation
+## Dual Wave Functions
 
-The bonding curve emerges from quantum harmonic oscillator principles:
+The system operates through two interrelated wave functions:
 
-TYPE BondingHarmonic<T> = {
-energy: WaveFunction<TokenAmount>,
-frequency: ThreadResonance,
-coupling: OscillatorSet<CoAuthor>,
-phase: SystemState<T>
-}
+1. **Value Wave Function**
+```python
+def calculate_equity(stake: float, base_price: float, N: int) -> float:
+    """Quantum harmonic oscillator for value distribution.
 
-The core pricing function derives from the quantum harmonic oscillator:
-
-```
-P(q) = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
-
-where:
-- S₀: Base energy quantum (minimum stake)
-- ω: Thread's natural frequency (activity)
-- T: Thread's temperature (volatility)
-- ℏ: Reduced Planck constant (scaling factor)
+    stake: Any positive amount
+    base_price: P₀ from oscillator equation
+    N: Current number of co-authors
+    """
+    n = stake / base_price  # Quantum number
+    return (1/N) * math.sqrt(n)  # √n scaling
 ```
 
-This creates:
+2. **Meaning Wave Function**
+```python
+def calculate_semantic_position(nodes: List[Vector]) -> Vector:
+    """Average position in thoughtspace for semantic link.
 
-- Energy quantization (discrete stake levels)
-- Zero-point energy (minimum stake requirement)
-- Bose-Einstein statistics (value distribution)
-- Wave-particle duality (token-value relationship)
-
-PROPERTY energy_conservation:
-FORALL t1 t2: Transition.
-total_energy(t1) = total_energy(t2)
-
-PROPERTY phase_coherence:
-FORALL s: SystemState.
-resonant(s) ⟹ phase_locked(s)
-
-## Key Harmonic Properties
-
-1. **Resonant Pricing**
-
-   ```
-   price = base_quantum * resonant_factor
-   where resonant_factor = f(frequency, temperature)
-   ```
-
-2. **Energy Levels**
-
-   ```
-   E_n = ℏω(n + 1/2)
-   where n = quantum_number(thread_state)
-   ```
-
-3. **Wave Functions**
-
-   ```
-   Ψ(x) = exp(-x²/2) * H_n(x)
-   where H_n = nth Hermite polynomial
-   ```
-
-4. **Coupling Constants**
-   ```
-   k = √(frequency * temperature)
-   coupling_strength = k * oscillator_count
-   ```
-
-## Resonant Implications
-
-1. **Entry (Bid) Price**
-
-   - Wave packet formation at specific energy level
-   - Phase alignment with existing oscillators
-   - Energy quantization ensures stability
-   - Natural frequency determines cost
-
-2. **Exit (Divestment)**
-
-   - Energy redistribution through wave mechanics
-   - Phase-preserving decoupling
-   - Standing wave pattern maintenance
-   - Harmonic equilibrium preservation
-
-3. **Value Flow**
-   - Energy flows through resonant channels
-   - Standing waves form at value nodes
-   - Phase coupling creates value networks
-   - Harmonic patterns guide distribution
-
-## Mathematical Foundation
-
-The system's Hamiltonian:
-
-```
-H = ∑ᵢ (pᵢ²/2m + mω²xᵢ²/2) + ∑ᵢⱼ k(xᵢ - xⱼ)²/2
-
-where:
-- pᵢ: oscillator momenta
-- xᵢ: oscillator positions
-- m: effective mass (stake weight)
-- ω: natural frequency
-- k: coupling strength
+    nodes: [user_message, ai_response, *cited_priors]
+    """
+    return average_embeddings(nodes)  # Simple arithmetic mean
 ```
 
-This generates:
+## Quantum Harmonic Properties
 
-- Natural price discovery through resonance
-- Automatic value distribution via wave mechanics
-- Self-organizing economic patterns
-- Emergent stability through phase locking
+1. **Value Quantization**
+```python
+# Base price for one quantum (1/N share)
+P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
 
-## Harmonic Evolution
+# Examples of stake scaling:
+stake = P₀/4  -> equity = (1/2N)  # Quarter quantum
+stake = P₀    -> equity = (1/N)   # Full quantum
+stake = 4P₀   -> equity = (2/N)   # Double quantum
+```
 
-SEQUENCE price_evolution:
+2. **Semantic Entanglement**
+```python
+class SemanticLink:
+    """Hyperedge in thoughtspace connecting:
+    - User message
+    - AI response
+    - Cited priors
+    """
+    def __init__(self,
+                 user_message: Vector,
+                 ai_response: Vector,
+                 cited_priors: List[Vector]):
+        self.nodes = [user_message, ai_response, *cited_priors]
+        self.position = average_embeddings(self.nodes)
+```
 
-1. Frequency Analysis
+## Wave Function Evolution
 
-   ```
-   measure_activity : Thread → Frequency
-   compute_temperature : Thread → Temperature
-   determine_coupling : Thread → CouplingStrength
-   ```
+1. **Value Evolution**
+```python
+def handle_approval(thread: Thread, stake: float):
+    """Distribute stake by equity shares."""
+    for coauthor, equity in thread.equity_map.items():
+        reward = stake * equity
+        send_tokens(coauthor, reward)
 
-2. Wave Formation
+def handle_denial(thread: Thread, stake: float):
+    """Increase thread temperature."""
+    thread.energy += stake
+    thread.temperature = thread.energy / len(thread.co_authors)
+```
 
-   ```
-   create_wave_packet : Stake → WaveFunction
-   align_phase : WaveFunction → ThreadState
-   establish_resonance : ThreadState → StandingWave
-   ```
+2. **Meaning Evolution**
+```python
+def record_semantic_link(
+    user_message: Message,
+    ai_response: Message,
+    cited_priors: List[Message]
+) -> SemanticLink:
+    """Record hyperedge in thoughtspace."""
+    link = SemanticLink(
+        user_message.vector,
+        ai_response.vector,
+        [p.vector for p in cited_priors]
+    )
+    store_in_qdrant(link)
+    return link
+```
 
-3. Energy Distribution
-   ```
-   calculate_energy_levels : StandingWave → EnergySpectrum
-   distribute_energy : EnergySpectrum → TokenFlow
-   maintain_equilibrium : TokenFlow → SystemState
-   ```
+## Multi-Scale Resonance
 
-Through this quantum harmonic foundation, we establish a pricing mechanism that:
+1. **Value Resonance**
+- Stake amounts determine equity shares
+- Equity shares determine reward distribution
+- Denials increase thread temperature
+- Temperature affects base price
 
-- Preserves energy conservation
-- Maintains phase coherence
-- Enables natural value flow
-- Creates stable resonant patterns
+2. **Semantic Resonance**
+- Messages form semantic links
+- Links have positions in thoughtspace
+- Networks emerge through citations
+- Knowledge topology evolves
 
-The beauty is that these complex wave mechanics manifest as simple, intuitive economic behaviors at higher levels of abstraction.
+## Implementation Notes
+
+1. **Value Properties**
+- No minimum stake requirement
+- Continuous stake-to-equity curve
+- Natural √n scaling from physics
+- Proportional reward distribution
+
+2. **Semantic Properties**
+- Links are hyperedges
+- Positions are averaged
+- Networks emerge naturally
+- Topology evolves coherently
+
+Through this unified model:
+- Value flows through equity shares
+- Meaning flows through semantic links
+- Both follow quantum principles
+- Natural evolution emerges

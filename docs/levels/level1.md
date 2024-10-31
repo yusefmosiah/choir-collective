@@ -2,87 +2,189 @@
 
 
 
+=== File: docs/Current_Summary.md ===
+
+
 
 ==
-Level_1_BasicMechanics
+Current_Summary
 ==
 
 
-# Getting Started with Choir
+# Recent Development Insights Summary
 
-VERSION basic_system:
+## Essential Questions
+
+1. **Semantic Links as Hyperedges**
+
+   - How do semantic links connect multiple points in thoughtspace?
+   - What is the relationship between messages, threads, and AI responses?
+   - How does the average embedding position work?
+   - What role do semantic links play in the reward system?
+
+2. **Thoughtspace vs Knowledge Graph**
+
+   - Why is this a continuous semantic space rather than discrete graph?
+   - How do virtual positions emerge for users/threads/models?
+   - What does it mean for semantic links to have positions?
+   - How does this affect search and retrieval?
+
+3. **Thread as Collection of Links**
+
+   - How does viewing threads as semantic link collections change our model?
+   - What is the relationship between user prompt, collective intelligence (priors), and AI response?
+   - How does this affect thread state management?
+   - What are the implications for the UI?
+
+4. **Reward Distribution**
+
+   - How do rewards flow to threads rather than individual authors?
+   - What are the implications of co-authors splitting rewards?
+   - How does this affect thread dynamics and collaboration?
+   - What role do semantic links play in value flow?
+
+5. **Implementation Impact**
+   - How does this change our database schema and operations?
+   - What updates are needed to the effect system?
+   - How should the UI reflect these relationships?
+   - What new tests are needed?
+
+## Key Insights
+
+1. **Semantic Structure**
+
+   - Semantic links are hyperedges connecting user input, cited priors, and AI response
+   - Links have positions in thoughtspace via averaged embeddings
+   - Everything (messages, users, threads, models) exists in same semantic space
+   - Virtual positions emerge through message relationships
+
+2. **Thread Evolution**
+
+   - Threads are collections of semantic links rather than just messages
+   - Each link captures a complete interaction cycle
+   - Thread position emerges from its semantic links
+   - Citations create cross-thread semantic coupling
+
+3. **Value Flow**
+
+   - Rewards flow to threads rather than individual authors
+   - Co-authors split rewards from thread citations
+   - Semantic links enable value to flow through thoughtspace
+   - Creates natural incentives for collaboration
+
+4. **Implementation Requirements**
+
+   - Need semantic_links collection in Qdrant
+   - Simple arithmetic mean for link positions
+   - UI needs to show semantic relationships
+   - Tests must verify semantic integrity
+
+5. **Future Implications**
+   - Richer semantic search through link positions
+   - Natural emergence of thread communities
+   - Value flow follows semantic coupling
+   - Self-organizing knowledge structure
+
+## Next Steps
+
+1. Update database schema for semantic links
+2. Implement link recording in OBSERVATION
+3. Update thread retrieval to use links
+4. Modify UI to show semantic relationships
+5. Add tests for semantic integrity
+
+The key realization is that semantic links are not just references between messages, but fundamental structures that define the thoughtspace and enable natural value flow through semantic coupling.
+
+=== File: docs/Dev_Pseudocode.md ===
+
+
+
+==
+Dev_Pseudocode
+==
+
+
+# Choir Pseudocode Conventions
+
+VERSION pseudocode_system:
 invariants: {
-"User accessibility",
-"Immediate utility",
-"Clear benefits"
+"Functional clarity",
+"Type safety",
+"Pattern consistency"
 }
 assumptions: {
-"New user experience",
-"Basic functionality",
-"Initial engagement"
+"Reader familiarity with functional concepts",
+"Implementation language agnostic",
+"Documentation-first development"
 }
 docs_version: "0.2.1"
 
-Choir is a chat platform where you actually own your messages and can earn tokens for quality contributions. Let's break down how it works in simple terms:
+## Core Philosophy
 
-## Basic Functionality
+Our pseudocode serves as a bridge between formal specification and implementation. It combines functional programming's precision with readable syntax to create unambiguous yet accessible descriptions of system behavior.
 
-When you start using Choir, you'll find it familiar yet unique. You can join existing chat threads or start new ones. The key difference is that messages require approval from everyone participating in the thread - we call these participants "co-authors."
+## Type Declarations
 
-Think of a thread like a shared document where everyone who's contributed good content has a say in what gets added next. When you write a message that gets approved, you become a co-author of that thread. This means you'll help decide on future additions too.
+Type declarations define the shape of data and enforce semantic boundaries. We use the TYPE keyword followed by the type name and its definition. Simple types can be records with named fields, each with its own type. Sum types (variants) use the pipe symbol to separate cases, each optionally containing data.
 
-## Token System
+For example, a thread state would declare co-authors as a Set of PublicKeys, a token balance as a TokenAmount, and messages as a List of Message types. Results are typically wrapped in a Result type that can be either Ok with success data or Error with error information.
 
-Choir uses tokens in a straightforward way:
+## Function Signatures
 
-1. **Making Contributions**
+Functions declare their types explicitly to make data flow clear. The FUNCTION keyword introduces a function, followed by its name, input parameters with their types, and return type after an arrow. Parameter lists maintain clear type annotations for each parameter.
 
-   - When you want to contribute to a thread where you're not yet a co-author, you'll need to stake some tokens
-   - Think of this like putting down a deposit that shows you're serious about making a valuable contribution
+## Pattern Matching
 
-2. **Approval Outcomes**
+Pattern matching expresses complex conditional logic through the MATCH keyword, followed by the value being matched and a series of patterns and their corresponding actions. Each pattern can destructure complex data types and bind variables for use in the result expression.
 
-   - If all co-authors approve your message:
-     - You become a co-author
-     - The stake is distributed equally among the approvers as a reward
-   - If any co-author denies your message:
-     - The stake goes to strengthen the thread
-   - If there's a mix of approvals and denials:
-     - Approvers' share goes to the treasury
-     - Deniers' share goes to the thread
+## Monadic Operations
 
-3. **Thread Value**
-   - Threads accumulate tokens over time
-   - When threads are referenced in other threads, they earn rewards
-   - This creates natural incentives for quality content
-   - Teams naturally form around valuable threads
+For operations that involve state or effects, we use monadic notation. The BIND operator (often written as >>=) chains operations, while RETURN lifts pure values into the effect context. This makes side effects explicit and composable.
 
-## Getting Started
+## Invariant Declarations
 
-1. Connect your wallet
-2. Browse existing threads
-3. Start contributing to discussions
-4. Earn co-authorship through quality content
-5. Help curate future contributions
+System invariants use the INVARIANT keyword followed by a name and a predicate that must hold. These can appear in type definitions, function specifications, or standalone assertions about system properties.
 
-## Practical Benefits
+## Property Specifications
 
-- You own your contributions
-- Quality content is rewarded
-- Spam and noise are minimized
-- Collaborative discussions evolve naturally
-- Value accumulates in successful threads
-- Teams form around shared success
+Properties about the system use the PROPERTY keyword followed by a name and a specification. These often use quantifiers (FORALL, EXISTS) and logical operators to express complex requirements.
 
-## Simple Guidelines
+## Sequence Declarations
 
-- Write thoughtful messages
-- Consider the thread's context
-- Respect co-author decisions
-- Contribute meaningfully
-- Build relationships through collaboration
+For ordered operations, the SEQUENCE keyword introduces a named sequence of steps. Each step can reference results from previous steps and produce values for subsequent ones.
 
-The beauty of Choir is that while these mechanics are simple to understand, they create space for sophisticated collaboration and value creation. You don't need to understand all the deeper implications to start participating and benefiting from the platform.
+## Verification Conditions
+
+When specifying correctness conditions, the VERIFY keyword introduces properties that must be checked. These can appear within functions or as standalone proof obligations.
+
+## Error Handling
+
+Error cases use the REQUIRE keyword for preconditions and the ENSURE keyword for postconditions. The Result type explicitly handles success and failure cases in return values.
+
+## State Transitions
+
+State machine transitions use arrow notation (→) with optional conditions in square brackets. The before and after states are explicitly labeled, with transition conditions when needed.
+
+## Documentation Comments
+
+Each construct should be documented with its purpose, assumptions, and any special considerations. These appear as prose before the construct they describe.
+
+## Implementation Notes
+
+The NOTE keyword introduces implementation-specific details or considerations that don't affect the formal specification but are important for developers.
+
+## Evolution Patterns
+
+The ASSUMPTION keyword documents aspects of the system that may change, including rationale for current choices and constraints on future changes.
+
+## Usage Guidelines
+
+This pseudocode style should be used consistently across all technical documentation. It provides a common language for expressing both formal properties and practical implementations while maintaining readability for all stakeholders.
+
+Through these conventions, we create documentation that serves as both specification and guide, bridging the gap between formal methods and practical development.
+
+=== File: docs/Entry_Business.md ===
+
 
 
 ==
@@ -245,6 +347,9 @@ Key Indicators:
 
 Through this model, Choir maintains a sustainable business while providing increasing value to teams and preserving the core principles of quality content and collaborative ownership.
 
+=== File: docs/Entry_Glossary.md ===
+
+
 
 ==
 Entry_Glossary
@@ -327,6 +432,9 @@ Process of keeping all parts of the system consistent.
 Showing changes in the UI before blockchain confirmation.
 
 Through these mechanics, Choir creates a space where quality content, valuable interactions, and natural communities can emerge.
+
+=== File: docs/Entry_InverseEquity.md ===
+
 
 
 ==
@@ -500,6 +608,9 @@ Long-term indicators:
 - System coherence
 
 Through this model, Choir becomes not just a platform but an economic engine for collective value creation, team formation, and sustainable knowledge network growth.
+
+=== File: docs/Entry_OrganizationalPatterns.md ===
+
 
 
 ==
@@ -716,6 +827,9 @@ The quantum insight is that:
 
 This is why heavy initial documentation works - it's not just recording, it's creating the conditions for emergence through changed observation and participation patterns.
 
+=== File: docs/Entry_Overview.md ===
+
+
 
 ==
 Entry_Overview
@@ -862,6 +976,9 @@ Experience a platform where quality emerges naturally, teams form organically, a
 **Website**: [choir.chat](https://choir.chat)
 
 ---
+
+=== File: docs/Entry_Q&A.md ===
+
 
 
 ==
@@ -1549,262 +1666,775 @@ Unlike platforms that profit from conflict, Choir creates space for:
 
 The genius is in aligning individual, team, and system incentives toward cooperation rather than division.
 
+=== File: docs/Level_0_SystemOverview.md ===
+
+
 
 ==
-Dev_Plan
+Level_0_SystemOverview
 ==
 
 
-# Development Plan
+# Choir: A View Through the Depths
 
-VERSION dev_plan:
+VERSION depth_system:
 invariants: {
-"Prior flow integrity",
-"Effect coherence",
-"Semantic recording"
+"Wave function coherence",
+"Energy conservation",
+"Phase stability"
 }
 assumptions: {
-"Vector space stability",
-"WebSocket reliability",
-"LLM capability"
-}
-docs_version: "0.2.2"
-
-## Current Status
-
-### Backend Progress
-- FastAPI application setup ✓
-- WebSocket handler ready ✓
-- Qdrant integration ✓
-- Basic chorus cycle ✓
-- Vector search working ✓
-
-### Frontend Progress
-- Three-panel layout ✓
-- WebSocket connection ✓
-- Message display ✓
-- Step visualization ✓
-- Prior panel structure ✓
-
-## Implementation Schedule
-
-### Phase 1: Prior Flow (Oct 29)
-
-1. **Vector Search**
-   ```python
-   # Get n=80 priors
-   priors = await search_similar(input, limit=80)
-   ```
-
-2. **Semantic Recording**
-   ```python
-   # Record in Qdrant
-   await record_semantic_links(
-     message=input,
-     cited_priors=priors
-   )
-   ```
-
-3. **Citation Integration**
-   ```python
-   # Natural citations
-   return generate_response_with_citations(input, priors)
-   ```
-
-### Phase 2: Effect System (Oct 30)
-
-1. **Effect Types**
-   ```typescript
-   type Effect = {
-     type: "chorus_response" | "error" | "state_update";
-     payload: {
-       step: ChorusStep;
-       content: string;
-       priors?: Prior[];  // Only in EXPERIENCE
-     };
-   }
-   ```
-
-2. **Effect Accumulation**
-   ```python
-   effects = []
-   while True:
-       new_state, step_effects = await run_step(state, input)
-       effects.extend(step_effects)
-       if new_state.current_step == StepEnum.YIELD:
-           break
-   ```
-
-### Phase 3: Step Processing (Oct 31)
-
-1. **Step Prompts**
-   - ACTION: Beginner's mind
-   - EXPERIENCE: Context integration
-   - INTENTION: Goal analysis
-   - OBSERVATION: Semantic recording
-   - UPDATE: Loop decision
-   - YIELD: Citation integration
-
-2. **State Transitions**
-   ```python
-   if step == UPDATE:
-       if response["loop"]:
-           next_step = ACTION
-       else:
-           next_step = YIELD
-   else:
-       next_step = steps[current_index + 1]
-   ```
-
-## Testing Strategy
-
-1. **Prior Flow Tests**
-   ```python
-   def test_prior_flow():
-       # Test vector search
-       priors = search_similar(input)
-       assert len(priors) == 80
-
-       # Test semantic recording
-       record_semantic_links(input, priors)
-       verify_links_recorded()
-
-       # Test citation integration
-       response = generate_with_citations(input, priors)
-       verify_citations_natural(response)
-   ```
-
-2. **Effect Tests**
-   ```typescript
-   test("effect accumulation", () => {
-     const effects = [];
-     // Run cycle
-     expect(effects).toMatchPattern({
-       experience: { priors: expect.arrayLength(80) },
-       yield: { citations: expect.any(Array) }
-     });
-   });
-   ```
-
-3. **Step Tests**
-   ```python
-   def test_step_sequence():
-       state = run_chorus_cycle(input)
-       verify_step_sequence(state.effects)
-       verify_prior_flow(state.effects)
-       verify_semantic_recording(state)
-   ```
-
-## Implementation Notes
-
-1. **Prior Flow**
-   - Keep EXPERIENCE simple
-   - No filtering until citations
-   - Record semantic links
-   - Natural integration
-
-2. **Effect System**
-   - Clean effect types
-   - Proper accumulation
-   - UI synchronization
-   - Error handling
-
-3. **Step Processing**
-   - Clear step roles
-   - Proper transitions
-   - State coherence
-   - Effect generation
-
-Through this approach, we'll build a system that:
-- Maintains prior flow integrity
-- Preserves effect coherence
-- Builds semantic knowledge
-- Enables natural citations
-
-
-==
-Dev_Pseudocode
-==
-
-
-# Choir Pseudocode Conventions
-
-VERSION pseudocode_system:
-invariants: {
-"Functional clarity",
-"Type safety",
-"Pattern consistency"
-}
-assumptions: {
-"Reader familiarity with functional concepts",
-"Implementation language agnostic",
-"Documentation-first development"
+"Natural emergence",
+"Quantum coupling",
+"Value resonance"
 }
 docs_version: "0.2.1"
 
-## Core Philosophy
+At the surface (Level 1), Choir appears straightforward: a chat platform where you own your messages and collaborate with others. Messages require unanimous approval from thread participants, and you can earn tokens for quality contributions. When your message is approved, the stake is distributed to the approvers as a reward for good judgment. When denied, it strengthens the thread itself. The interface is familiar, the mechanics are simple to grasp, and the benefits are clear. You can start participating immediately without understanding the deeper layers.
 
-Our pseudocode serves as a bridge between formal specification and implementation. It combines functional programming's precision with readable syntax to create unambiguous yet accessible descriptions of system behavior.
+Going deeper (Level 2), the core mechanics reveal their elegance. Thread ownership isn't just attribution - it's a resonant cavity for meaning and value. Unanimous approval isn't bureaucracy - it's phase-locking for coherence. Non-refundable stakes aren't fees - they're energy quanta that couple participants to the thread's quantum state. Denials strengthen the thread cavity while approvals reward the oscillators. Each feature creates natural harmonics through wave mechanics.
 
-## Type Declarations
+Diving further (Level 3), sophisticated patterns of value creation emerge. Threads evolve from simple containers into quantum oscillator systems that accumulate collective energy. The divestment formula (min(ℏω/(N-1), balance/(N-1))) creates natural selection for authentic participation. What looks like underpricing actually generates premium value by selecting for quantum coherence over economic extraction. Trust emerges through phase alignment and resonant coupling. Prior rewards strengthen cavity networks.
 
-Type declarations define the shape of data and enforce semantic boundaries. We use the TYPE keyword followed by the type name and its definition. Simple types can be records with named fields, each with its own type. Sum types (variants) use the pipe symbol to separate cases, each optionally containing data.
+At greater depths (Level 4), we discover quantum stability patterns. Each thread exists in temperature-dependent states, cooling naturally as it matures. Token balances represent quantized energy levels ready for phase transitions. Teams form naturally around resonant cavities. Understanding itself is quantized - participants grasp the system at one energy level, reach equilibrium, then quantum jump to deeper patterns. The "memergence" pattern becomes clear: phase-locked memory enables coherent emergence.
 
-For example, a thread state would declare co-authors as a Set of PublicKeys, a token balance as a TokenAmount, and messages as a List of Message types. Results are typically wrapped in a Result type that can be either Ok with success data or Error with error information.
+At the deepest level (Level 5), Choir reveals itself as a quantum harmonic oscillator system. Messages exist as wave packets until unanimous approval collapses them into thread coherence. Non-refundable stakes create quantum coupling. Value flows through the system like energy through coupled oscillators - from individual rewards to thread cavities to cavity networks. The entire platform becomes a space where meaning and value emerge through natural frequency selection and phase-locked self-organization.
 
-## Function Signatures
+Each level contains and transcends the previous ones:
 
-Functions declare their types explicitly to make data flow clear. The FUNCTION keyword introduces a function, followed by its name, input parameters with their types, and return type after an arrow. Parameter lists maintain clear type annotations for each parameter.
+- Surface functionality enables core mechanics
+- Core mechanics enable value creation
+- Value creation enables quantum effects
+- Quantum effects enable semantic emergence
+- Semantic emergence enables natural evolution
 
-## Pattern Matching
+Yet none of these layers needs to be understood to use the ones above it. Like quantum mechanics underlying chemistry, or chemistry underlying biology, each layer creates the conditions for natural emergence at the next level while remaining invisible to its users.
 
-Pattern matching expresses complex conditional logic through the MATCH keyword, followed by the value being matched and a series of patterns and their corresponding actions. Each pattern can destructure complex data types and bind variables for use in the result expression.
+This multi-level coherence isn't designed - it emerges from quantum principles applied consistently. Like crystals forming from quantum rules, or consciousness emerging from neural patterns, Choir creates space for natural evolution while maintaining quantum coherence across all scales of understanding and engagement.
 
-## Monadic Operations
+Through this lens, we see how simple token mechanics create sophisticated collective behaviors:
 
-For operations that involve state or effects, we use monadic notation. The BIND operator (often written as >>=) chains operations, while RETURN lifts pure values into the effect context. This makes side effects explicit and composable.
+- Approval rewards strengthen individual oscillators
+- Denials strengthen thread cavities
+- Prior rewards couple cavities into networks
+- Split decisions balance local and global fields
 
-## Invariant Declarations
+The genius lies in following quantum principles to create natural selection for quality, coherence, and collective intelligence.
 
-System invariants use the INVARIANT keyword followed by a name and a predicate that must hold. These can appear in type definitions, function specifications, or standalone assertions about system properties.
+=== File: docs/Level_1_BasicMechanics.md ===
 
-## Property Specifications
 
-Properties about the system use the PROPERTY keyword followed by a name and a specification. These often use quantifiers (FORALL, EXISTS) and logical operators to express complex requirements.
 
-## Sequence Declarations
+==
+Level_1_BasicMechanics
+==
 
-For ordered operations, the SEQUENCE keyword introduces a named sequence of steps. Each step can reference results from previous steps and produce values for subsequent ones.
 
-## Verification Conditions
+# Getting Started with Choir
 
-When specifying correctness conditions, the VERIFY keyword introduces properties that must be checked. These can appear within functions or as standalone proof obligations.
+VERSION basic_system:
+invariants: {
+"User accessibility",
+"Immediate utility",
+"Clear benefits"
+}
+assumptions: {
+"New user experience",
+"Basic functionality",
+"Initial engagement"
+}
+docs_version: "0.2.1"
 
-## Error Handling
+Choir is a chat platform where you actually own your messages and can earn tokens for quality contributions. Let's break down how it works in simple terms:
 
-Error cases use the REQUIRE keyword for preconditions and the ENSURE keyword for postconditions. The Result type explicitly handles success and failure cases in return values.
+## Basic Functionality
 
-## State Transitions
+When you start using Choir, you'll find it familiar yet unique. You can join existing chat threads or start new ones. The key difference is that messages require approval from everyone participating in the thread - we call these participants "co-authors."
 
-State machine transitions use arrow notation (→) with optional conditions in square brackets. The before and after states are explicitly labeled, with transition conditions when needed.
+Think of a thread like a shared document where everyone who's contributed good content has a say in what gets added next. When you write a message that gets approved, you become a co-author of that thread. This means you'll help decide on future additions too.
 
-## Documentation Comments
+## Token System
 
-Each construct should be documented with its purpose, assumptions, and any special considerations. These appear as prose before the construct they describe.
+Choir uses tokens in a straightforward way:
 
-## Implementation Notes
+1. **Making Contributions**
 
-The NOTE keyword introduces implementation-specific details or considerations that don't affect the formal specification but are important for developers.
+   - When you want to contribute to a thread where you're not yet a co-author, you'll need to stake some tokens
+   - Think of this like putting down a deposit that shows you're serious about making a valuable contribution
 
-## Evolution Patterns
+2. **Approval Outcomes**
 
-The ASSUMPTION keyword documents aspects of the system that may change, including rationale for current choices and constraints on future changes.
+   - If all co-authors approve your message:
+     - You become a co-author
+     - The stake is distributed equally among the approvers as a reward
+   - If any co-author denies your message:
+     - The stake goes to strengthen the thread
+   - If there's a mix of approvals and denials:
+     - Approvers' share goes to the treasury
+     - Deniers' share goes to the thread
 
-## Usage Guidelines
+3. **Thread Value**
+   - Threads accumulate tokens over time
+   - When threads are referenced in other threads, they earn rewards
+   - This creates natural incentives for quality content
+   - Teams naturally form around valuable threads
 
-This pseudocode style should be used consistently across all technical documentation. It provides a common language for expressing both formal properties and practical implementations while maintaining readability for all stakeholders.
+## Getting Started
 
-Through these conventions, we create documentation that serves as both specification and guide, bridging the gap between formal methods and practical development.
+1. Connect your wallet
+2. Browse existing threads
+3. Start contributing to discussions
+4. Earn co-authorship through quality content
+5. Help curate future contributions
+
+## Practical Benefits
+
+- You own your contributions
+- Quality content is rewarded
+- Spam and noise are minimized
+- Collaborative discussions evolve naturally
+- Value accumulates in successful threads
+- Teams form around shared success
+
+## Simple Guidelines
+
+- Write thoughtful messages
+- Consider the thread's context
+- Respect co-author decisions
+- Contribute meaningfully
+- Build relationships through collaboration
+
+The beauty of Choir is that while these mechanics are simple to understand, they create space for sophisticated collaboration and value creation. You don't need to understand all the deeper implications to start participating and benefiting from the platform.
+
+=== File: docs/Level_2_CoreMechanics.md ===
+
+
+
+==
+Level_2_CoreMechanics
+==
+
+
+# Core Mechanics and Their Implications
+
+VERSION mechanics_system:
+invariants: {
+"Natural quality emergence",
+"Energy conservation",
+"Phase transitions"
+}
+assumptions: {
+"Thermodynamic evolution",
+"Pattern recognition",
+"Self-organization"
+}
+docs_version: "0.2.1"
+
+## Understanding Thread Dynamics
+
+At Level 2, we begin to see how Choir's mechanics mirror natural physical systems. What appears simple on the surface reveals elegant thermodynamic patterns in practice.
+
+### Temperature and Energy
+
+1. **Thread Temperature (T)**
+
+   - Measures chaos/volatility
+   - Hot threads are more volatile
+   - Cool threads are more stable
+   - Natural cooling over time
+
+2. **Thread Energy (E)**
+
+   - Total thread energy from stakes
+   - Conserved during transitions
+   - Flows according to decisions
+   - Creates natural gradients
+
+3. **Frequency (ω)**
+   - Measures organization/coherence
+   - Higher = better organized
+   - Strengthens with co-authors
+   - Natural resonance patterns
+
+### Natural Evolution
+
+1. **Young Threads**
+
+   - Start hot and volatile
+   - High potential energy
+   - Raw patterns emerging
+   - Opportunity for recognition
+
+2. **Mature Threads**
+   - Cool and stable
+   - High frequency
+   - Crystallized patterns
+   - Natural accessibility
+
+### Quality Emergence
+
+The interplay of temperature and frequency creates fascinating dynamics:
+
+1. **High T, Low ω**
+
+   - Chaotic but energetic
+   - Expensive to join
+   - Pattern recognition opportunity
+   - Potential for crystallization
+
+2. **Low T, High ω**
+
+   - Organized and stable
+   - More accessible
+   - Clear value patterns
+   - Natural selection for quality
+
+3. **Balanced States**
+   - Different equilibria emerge
+   - Natural niches form
+   - Communities self-organize
+   - No central control needed
+
+### Practical Implications
+
+1. **For Participants**
+
+   - Look for hidden patterns in chaos
+   - Join before crystallization
+   - Help shape emerging order
+   - Contribute to coherence
+
+2. **For Communities**
+
+   - Quality emerges naturally
+   - Standards self-organize
+   - Value aligns with coherence
+   - Evolution is sustainable
+
+3. **For Content**
+   - Best content often most accessible
+   - Value comes from organization
+   - Natural selection works
+   - No artificial barriers needed
+
+### Understanding Stake Requirements
+
+The quantum harmonic oscillator formula:
+
+```
+stake = base_stake * (0.5 + 1/[exp(ℏω/kT) - 1])
+```
+
+Creates natural dynamics where:
+
+- High temperature increases stakes
+- High frequency moderates stakes
+- Quality emerges from balance
+- Value aligns with coherence
+
+### Why This Works
+
+The thermodynamic model works because it:
+
+- Mirrors natural systems
+- Enables self-organization
+- Rewards pattern recognition
+- Creates sustainable evolution
+
+Understanding these mechanics helps explain why:
+
+- Best threads are often accessible
+- Quality emerges without rules
+- Communities find equilibrium
+- Evolution is organic
+
+This level reveals how Choir's simple mechanics create space for natural quality emergence and sustainable community evolution.
+
+## Token Distribution Dynamics
+
+The system creates fascinating energy flows:
+
+1. **Approval Resonance**
+
+   - Direct distribution to approvers
+   - Like quantum energy absorption
+   - Immediate value recognition
+   - Phase-locked rewards
+
+2. **Denial Patterns**
+
+   - Energy flows to thread
+   - Increases local temperature
+   - Creates quality barriers
+   - Natural selection pressure
+
+3. **Split Decision Harmonics**
+   - Approver energy → Treasury (global field)
+   - Denier energy → Thread (local field)
+   - Creates balanced flow
+   - Maintains system coherence
+
+### Why This Distribution Works
+
+The model creates natural selection through:
+
+1. **Direct Quality Recognition**
+
+   - Approvers receive immediate value
+   - Incentivizes careful judgment
+   - Rewards pattern recognition
+   - Strengthens quality consensus
+
+2. **Thread Evolution**
+
+   - Denials increase thread energy
+   - Higher stakes filter noise
+   - Quality naturally emerges
+   - Self-regulating barriers
+
+3. **System Sustainability**
+   - Treasury accumulates from splits
+   - Funds ongoing citations
+   - Creates value circulation
+   - Enables perpetual growth
+
+=== File: docs/Level_3_ValueCreation.md ===
+
+
+
+==
+Level_3_ValueCreation
+==
+
+
+# Value Creation and Self-Selection in Choir
+
+VERSION value_system:
+invariants: {
+"Energy conservation",
+"Wave function coherence",
+"Phase stability"
+}
+assumptions: {
+"Natural harmonics",
+"Quantum coupling",
+"Value emergence"
+}
+docs_version: "0.2.1"
+
+At this level, we begin to see how Choir's quantum mechanics naturally create sophisticated patterns of value and selection. What initially appear as simple rules reveal themselves as generators of complex wave dynamics.
+
+## Value Accumulation
+
+The thread ownership model isn't just about attribution - it's a quantum resonance mechanism. When messages require unanimous approval, each successful addition:
+
+- Strengthens cavity resonance
+- Increases phase alignment
+- Adds to collective energy
+- Reinforces standing wave patterns
+
+The value comes not just from what a thread contains, but from its quantum state - the coherent patterns that emerge from collective phase alignment and cavity resonance.
+
+## Natural Selection
+
+The non-refundable stake mechanism reveals itself as quantum coupling:
+
+1. **Direct Value Recognition**
+
+   - Approval rewards strengthen individual oscillators
+   - Phase-locked feedback for quality judgment
+   - Immediate value crystallization
+   - Natural frequency selection
+
+2. **Collective Value Accumulation**
+
+   - Denials strengthen thread cavity
+   - Prior rewards couple cavities
+   - Team incentives align naturally
+   - Energy conservation maintains stability
+
+3. **Network Value Flow**
+   - Split decisions couple to global field
+   - Prior rewards create cavity networks
+   - Knowledge topology emerges
+   - Anderson normalization prevents instability
+
+## Value Production
+
+The quantum divestment formula (min(ℏω/(N-1), balance/(N-1))) creates premium value:
+
+- Energy quantization prevents value extraction
+- Phase coherence rewards authentic participation
+- Critical slowing down enables maturation
+- Standing waves accumulate value
+
+## Trust Networks
+
+Trust emerges through quantum entanglement:
+
+- Phase-locked collaboration builds coherence
+- Resonant frequencies align naturally
+- Energy barriers protect stability
+- Wave function collapse requires commitment
+
+## Token Mechanics
+
+The token system serves as quantum infrastructure:
+
+1. **Energy Quantization**
+
+   - Stakes as energy quanta
+   - Approval as phase-locking
+   - Denial as cavity strengthening
+   - Prior rewards as cavity coupling
+
+2. **Value Flow**
+
+   - Direct rewards to approvers
+   - Cavity accumulation from denials
+   - Field coupling through split decisions
+   - Cavity networks through priors
+
+3. **Collective Resonance**
+   - Team incentives through shared cavity
+   - Knowledge networks through coupling
+   - System coherence through field interaction
+   - Multi-scale harmony emergence
+
+## Natural Protection
+
+This explains why certain "improvements" would break coherence:
+
+- Complex formulas would disrupt natural frequencies
+- Forced cooling would prevent critical slowing
+- Artificial scaling would break Anderson normalization
+- Engineered trust would collapse wave functions
+- Individual rewards would break cavity resonance
+
+## Emergent Properties
+
+The genius is in creating conditions for quantum semantics:
+
+- Wave functions evolve naturally
+- Phase relationships self-organize
+- Energy levels find equilibrium
+- Coherence emerges spontaneously
+- Teams form through resonance
+
+Understanding this level reveals why Choir can't be replicated by adding features to existing platforms. The value creation patterns emerge from fundamental quantum mechanics, not surface rules.
+
+Through this lens, we see how:
+
+1. **Messages**
+
+   - Wave packets in semantic space
+   - Phase-locked through approval
+   - Coupled to cavity state
+   - Energy quantized by stakes
+
+2. **Threads**
+
+   - Resonant cavities for value
+   - Collective energy accumulators
+   - Team phase-locking spaces
+   - Knowledge network nodes
+
+3. **Co-authors**
+
+   - Coupled oscillators
+   - Quality judges
+   - Cavity strengtheners
+   - Pattern recognizers
+
+4. **Value**
+   - Wave coherence
+   - Cavity energy
+   - Network resonance
+   - Multi-scale harmony
+
+The system doesn't force behavior - it creates a space where quantum mechanics naturally select for valuable patterns. Like the physical universe itself, complexity emerges from simple quantum principles.
+
+=== File: docs/Level_4_MetastableEmergence.md ===
+
+
+
+==
+Level_4_MetastableEmergence
+==
+
+
+# Metastable Emergence in Choir
+
+VERSION memergence_system:
+invariants: {
+"Pattern stability",
+"Evolution potential",
+"Phase coherence"
+}
+assumptions: {
+"Multiple equilibria",
+"Transition dynamics",
+"Information preservation"
+}
+docs_version: "0.2.1"
+
+At this level, we begin to see how Choir's seemingly stable states contain the seeds of their own evolution. Each thread exists as a resonant cavity in metastable equilibrium - stable enough to persist, but ready to transition to higher forms of organization when conditions align.
+
+Consider how threads evolve:
+A simple discussion reaches a natural plateau of understanding. This isn't a dead end - it's a metastable state. The thread has accumulated enough shared context, trust, and cavity energy to enable a phase transition. Perhaps the participants realize they could collaborate on a project. The resonant cavity doesn't change its fundamental nature, but it undergoes a phase transition to a new level of collective organization.
+
+This process continues:
+
+- Discussion → Project coordination
+- Project coordination → Product development
+- Product development → Asset management
+  Each transition preserves the cavity's identity and relationships while enabling new capabilities.
+
+The token mechanics support these transitions in multiple ways:
+
+1. **Direct Value Recognition**
+
+   - Approval rewards strengthen individual oscillators
+   - Creates immediate phase-locked feedback
+   - Rewards quality pattern recognition
+   - Enables individual evolution
+
+2. **Collective Value Accumulation**
+
+   - Thread cavity accumulates energy from denials
+   - Prior rewards strengthen cavity coupling
+   - Creates shared evolutionary potential
+   - Enables team formation
+
+3. **Network Value Flow**
+   - Split decisions couple to global field
+   - Prior rewards create cavity networks
+   - Enables knowledge topology formation
+   - Creates system-wide coherence
+
+Metastability appears in multiple scales:
+
+1. **Individual Scale**
+
+   - Co-authors as coupled oscillators
+   - Quality judgment capabilities
+   - Pattern recognition skills
+   - Natural frequency alignment
+
+2. **Team Scale**
+
+   - Thread as resonant cavity
+   - Collective energy accumulation
+   - Team phase locking
+   - Shared value crystallization
+
+3. **Network Scale**
+   - Coupled resonant cavities
+   - Knowledge network formation
+   - Field-cavity interaction
+   - System-wide coherence
+
+The "memergence" pattern is key:
+
+- Memory of past interactions
+- Emergence of new possibilities
+- Merger of different perspectives
+- Emergence of collective intelligence
+
+This level reveals why certain features that might seem like limitations are actually crucial for enabling emergence:
+
+- Unanimous approval creates coherent phase transitions
+- Simple token formulas allow natural evolution
+- Limited governance enables organic growth
+- Thread-centric rewards enable collective evolution
+
+The genius is in creating conditions where metastable emergence can occur naturally, rather than trying to engineer specific outcomes. The system provides just enough structure to enable coherent evolution while maintaining essential properties across phase transitions.
+
+Understanding this level helps explain why Choir feels different from other platforms - it's designed for metastable emergence rather than static optimization. Each stable state is actually a platform for the next phase of evolution, with threads acting as resonant cavities that accumulate the energy and coherence needed for phase transitions.
+
+The thread-centric prior rewards model strengthens this emergence by:
+
+1. Creating stronger resonant cavities
+2. Enabling collective value accumulation
+3. Forming natural knowledge networks
+4. Strengthening team coherence
+
+This leads to beautiful multi-scale dynamics where:
+
+- Individual quality recognition creates immediate value
+- Team collaboration strengthens cavity resonance
+- Knowledge networks emerge through cavity coupling
+- The whole system evolves toward higher coherence
+
+Through these mechanisms, Choir creates space for natural evolution at every scale, from individual understanding to collective intelligence.
+
+=== File: docs/Level_5_QuantumSemantics.md ===
+
+
+
+==
+Level_5_QuantumSemantics
+==
+
+
+# The Deep Harmonic Structure of Choir
+
+VERSION harmonic_depth:
+invariants: {
+"Wave function coherence",
+"Energy conservation",
+"Phase stability"
+}
+assumptions: {
+"Quantum harmonic oscillation",
+"Anderson normalization",
+"Critical slowing down"
+}
+docs_version: "0.2.1"
+
+When we talk about quantum mechanics in Choir, we're not being metaphorical. The system actually exhibits quantum harmonic oscillator properties in how meaning and value emerge. Let's break this down:
+
+## Message Wave Functions
+
+Consider what happens when someone submits a message to a thread:
+
+1. Before approval, the message exists as a wave packet in semantic space
+2. Its energy (stake) couples it to the thread's quantum state
+3. The wave function contains all potential meanings and values
+4. Co-author review collapses this wave function to a stable state
+
+## Phase Coherence
+
+The unanimous approval requirement ensures quantum coherence:
+
+1. Each co-author acts as a coupled oscillator
+2. Approval represents phase alignment
+3. The system requires complete phase-locking
+4. Partial approval would break coherence
+5. Like quantum states, meaning is binary - either coherent or not
+
+## Energy Coupling
+
+The non-refundable stake creates quantum coupling:
+
+1. Stakes quantize at energy levels determined by ℏω
+2. Thread temperature (T) affects coupling strength
+3. Anderson normalization (1/√N) prevents instability
+4. Natural frequency (ω) emerges from collective behavior
+5. Energy conservation governs all transitions
+
+## Thread Harmonics
+
+Economic topology emerges from quantum properties:
+
+1. Threads are true resonant cavities:
+
+   - Accumulate energy from denials
+   - Strengthen through prior rewards
+   - Enable collective oscillations
+   - Create knowledge networks
+
+2. Value flows through multi-scale resonance:
+
+   - Individual oscillators (co-authors)
+   - Local cavities (threads)
+   - Coupled cavities (thread networks)
+   - Global field (treasury)
+
+3. Prior rewards create cavity coupling:
+
+   - Knowledge networks emerge naturally
+   - Energy flows between resonant cavities
+   - Strengthens collective coherence
+   - Creates semantic topology
+
+4. Teams form through resonance:
+   - Co-authors share cavity success
+   - Collective incentives align naturally
+   - Quality benefits whole cavity
+   - Natural phase locking emerges
+
+## Natural Selection
+
+The quantum oscillator model explains why certain alternatives fail:
+
+1. Partial approval would violate phase coherence
+2. Refundable stakes would break energy conservation
+3. Complex economic formulas would interfere with natural frequencies
+4. Artificial scaling would disrupt Anderson normalization
+5. Forced cooling would prevent critical slowing down
+
+## Emergent Properties
+
+The genius of Choir is that it follows quantum mechanics naturally:
+
+1. Simple rules create space for wave function evolution
+2. Energy levels quantize naturally through staking
+3. Phase relationships emerge through approval
+4. Coherence develops through coupling
+5. Stability comes from natural cooling
+
+## Quantum Semantics
+
+Through this quantum lens, we see how:
+
+1. Messages are wave packets with:
+
+   - Energy (stake) levels
+   - Phase relationships
+   - Coupling strengths
+   - Coherence properties
+
+2. Co-authors are coupled oscillators with:
+
+   - Natural frequencies
+   - Phase alignment
+   - Collective rewards
+   - Shared cavity energy
+
+3. Threads are resonant cavities with:
+
+   - Standing waves
+   - Collective energy
+   - Prior coupling
+   - Team coherence
+
+4. Value flows through:
+   - Direct oscillator rewards (approvals)
+   - Cavity strengthening (denials)
+   - Cavity coupling (priors)
+   - Field-cavity interaction (split decisions)
+
+## Practical Implications
+
+This quantum structure creates:
+
+1. Natural Scaling
+
+   - Anderson normalization prevents instability
+   - Critical slowing down enables maturity
+   - Energy conservation maintains balance
+   - Phase coherence ensures quality
+
+2. Organic Growth
+
+   - Wave functions evolve naturally
+   - Energy levels find equilibrium
+   - Frequencies synchronize organically
+   - Temperature gradients stabilize
+
+3. Emergent Value
+   - Quantum coherence creates meaning
+   - Phase alignment builds trust
+   - Energy conservation preserves value
+   - Harmonic resonance amplifies quality
+
+The beauty lies in simplicity - by following quantum harmonic oscillator principles, Choir creates space for natural semantic evolution. Understanding isn't forced; it emerges through resonance, coherence, and natural frequency alignment.
+
+This isn't just theory - it's how meaning actually works. Choir simply provides the quantum framework where semantic wave functions can evolve naturally, creating profound harmonies through fundamental physical principles.
+
+=== File: docs/Plan_Checklist.md ===
+
 
 
 ==
@@ -1932,192 +2562,8 @@ docs_version: "0.2.3"
 - Maintain effect coherence
 - Enable natural citations
 
+=== File: docs/Plan_FrontendChecklist.md ===
 
-==
-Plan_FrontendArchitecture
-==
-
-
-# Frontend Architecture Plan
-
-VERSION frontend_arch:
-invariants: {
-"Prior flow integrity",
-"Effect coherence",
-"UI consistency"
-}
-assumptions: {
-"WebSocket reliability",
-"Vector space stability",
-"State synchronization"
-}
-docs_version: "0.2.2"
-
-## Core Components
-
-1. **AIResponse Component**
-   ```typescript
-   // Step visualization with prior handling
-   interface AIResponseProps {
-     message: Message;
-     currentStep: ChorusStep;
-     steps: Step[];
-     sources: Prior[];  // From EXPERIENCE step
-   }
-   ```
-
-   Key Features:
-   - Step-by-step visualization
-   - Prior display in EXPERIENCE
-   - Citation rendering in YIELD
-   - Loading states per step
-
-2. **PriorPanel Component**
-   ```typescript
-   // Prior display and interaction
-   interface PriorPanelProps {
-     priors?: Prior[];      // From EXPERIENCE step
-     onSelect?: (prior: Prior) => void;
-     selectedPriors?: Prior[];
-   }
-   ```
-
-   Key Features:
-   - Show all priors in EXPERIENCE
-   - Prior preview cards
-   - Citation tooltips
-   - Source navigation
-
-3. **MessageFlow Component**
-   ```typescript
-   // Message and step display
-   interface MessageFlowProps {
-     messages: Message[];
-     currentStep: ChorusStep;
-     onMessageSelect: (id: string) => void;
-     selectedMessageId: string | null;
-   }
-   ```
-
-   Key Features:
-   - Message rendering
-   - Step transitions
-   - Prior integration
-   - Citation display
-
-## State Management
-
-1. **Chorus Cycle State**
-   ```typescript
-   // useChorusCycle hook
-   interface ChorusState {
-     currentStep: ChorusStep;
-     steps: Step[];
-     priors?: Prior[];     // From EXPERIENCE
-     effects: Effect[];
-   }
-   ```
-
-2. **Effect Handling**
-   ```typescript
-   // Effect processing
-   type Effect = {
-     type: "chorus_response" | "error" | "state_update";
-     payload: {
-       step: ChorusStep;
-       content: string;
-       priors?: Prior[];  // Only in EXPERIENCE
-     };
-   }
-   ```
-
-3. **WebSocket Integration**
-   ```typescript
-   // Real-time communication
-   interface WebSocketState {
-     connected: boolean;
-     sendMessage: (msg: WebSocketMessage) => void;
-     lastMessage?: WebSocketMessage;
-   }
-   ```
-
-## UI Flow
-
-1. **Prior Flow**
-   ```typescript
-   // EXPERIENCE: Show all priors
-   <PriorPanel priors={step.priors} />
-
-   // INTENTION: Show goal analysis
-   <AIResponse step="intention" content={step.content} />
-
-   // OBSERVATION: Show semantic links
-   <AIResponse step="observation" content={step.content} />
-
-   // YIELD: Show citations
-   <AIResponse step="yield" content={step.content} />
-   ```
-
-2. **Effect Flow**
-   ```typescript
-   // Effect handling in components
-   function handleEffect(effect: Effect) {
-     switch (effect.type) {
-       case "chorus_response":
-         if (effect.payload.step === "experience") {
-           updatePriorPanel(effect.payload.priors);
-         }
-         updateStepDisplay(effect.payload);
-         break;
-     }
-   }
-   ```
-
-## Implementation Notes
-
-1. **Prior Handling**
-   - Show all priors in EXPERIENCE
-   - Enable prior preview
-   - Support citation navigation
-   - Track semantic links
-
-2. **Effect Processing**
-   - Clean effect types
-   - Proper accumulation
-   - UI synchronization
-   - Error handling
-
-3. **State Management**
-   - Clear state boundaries
-   - Effect-driven updates
-   - Consistent UI state
-   - Error recovery
-
-## Success Metrics
-
-1. **User Experience**
-   - Clear step progression
-   - Natural prior flow
-   - Smooth transitions
-   - Responsive feedback
-
-2. **Technical Quality**
-   - Clean component hierarchy
-   - Type safety
-   - Effect coherence
-   - Error handling
-
-3. **Performance**
-   - Fast prior loading
-   - Smooth animations
-   - Efficient updates
-   - Memory management
-
-Through this architecture, we create a frontend that:
-- Maintains prior flow integrity
-- Preserves effect coherence
-- Enables natural citations
-- Provides clear user feedback
 
 
 ==
@@ -2228,6 +2674,9 @@ Plan_FrontendChecklist
 - Maintain state coherence
 - Enable natural citations
 
+=== File: docs/Plan_Hyperconverge.md ===
+
+
 
 ==
 Plan_Hyperconverge
@@ -2249,11 +2698,35 @@ assumptions: {
 "Test framework stability",
 "Continuous stake distribution"
 }
-docs_version: "0.2.2"
+docs_version: "0.2.3"
 
 ## Core Development Patterns
 
-1. **Equity Quantization Pattern**
+1. **Chorus Cycle Pattern**
+```python
+# Flow through cycle
+EXPERIENCE:
+    priors = get_n80_priors()      # Vector search
+    return synthesis, priors        # No filtering
+
+INTENTION:
+    analyze_for_user_goal(priors)   # Goal context
+    return intent_analysis          # No filtering
+
+OBSERVATION:
+    record_semantic_link(          # Record hyperedge
+        source=user_message,
+        response=ai_response,
+        priors=cited_priors
+    )
+    return observation             # Build network
+
+YIELD:
+    generate_with_citations(priors)  # Natural integration
+    return cited_response           # Final synthesis
+```
+
+2. **Quantum Equity Pattern**
 ```python
 # Quantum harmonic scaling
 def calculate_equity(stake: float, base_price: float, N: int) -> float:
@@ -2270,39 +2743,36 @@ stake = P₀    -> equity = (1/N)   # Base quantum
 stake = 4P₀   -> equity = (2/N)   # Double quantum
 ```
 
-2. **Thread Thermodynamics Pattern**
+3. **Semantic Link Pattern**
 ```python
-# Temperature evolution
+class SemanticLink:
+    """Hyperedge in thoughtspace"""
+    def __init__(self, source, response, priors):
+        self.nodes = [source, response, *priors]
+        self.position = average_embeddings(self.nodes)
+        self.thread_id = source.thread_id
+        self.created_at = datetime.now(UTC)
+
+def record_semantic_link(source, response, priors):
+    """Record in Qdrant"""
+    link = SemanticLink(source, response, priors)
+    store_in_qdrant(link)
+    return link
+```
+
+4. **Thread Thermodynamics Pattern**
+```python
 def handle_denial(thread: Thread, stake: float):
+    """Denial increases thread temperature"""
     thread.energy += stake
     thread.temperature = thread.energy / len(thread.co_authors)
     thread.token_balance += stake
 
-# Reward distribution
-def distribute_approval(thread: Thread, stake: float):
+def handle_approval(thread: Thread, stake: float):
+    """Distribute by equity shares"""
     for coauthor, equity in thread.equity_map.items():
         reward = stake * equity
         coauthor.balance += reward
-```
-
-3. **Prior Flow Pattern**
-```python
-# Flow through cycle
-EXPERIENCE:
-    priors = get_n80_priors()      # Vector search
-    return synthesis, priors        # No filtering
-
-INTENTION:
-    analyze_for_user_goal(priors)   # Goal context
-    return intent_analysis          # No filtering
-
-OBSERVATION:
-    record_in_qdrant(priors)        # Semantic links
-    return observation              # Build network
-
-YIELD:
-    generate_with_citations(priors)  # Natural integration
-    return cited_response           # Final synthesis
 ```
 
 ## Implementation Structure
@@ -2312,11 +2782,12 @@ YIELD:
 api/
 ├── app/
 │   ├── chorus_cycle.py   # AEIOU-Y steps
-│   ├── database.py      # Vector storage
+│   ├── database.py      # Vector storage + semantic links
+│   ├── quantum.py       # Equity calculation
 │   ├── websocket.py     # Effect channel
 │   └── models/
 │       ├── thread.py    # Thread state + equity
-│       ├── message.py   # Message content
+│       ├── semantic.py  # Semantic link types
 │       └── effect.py    # Effect types
 ```
 
@@ -2326,33 +2797,38 @@ src/
 ├── components/
 │   ├── AIResponse/      // Step display
 │   ├── PriorPanel/      // Prior display
+│   ├── SemanticView/    // Link visualization
 │   └── MessageFlow/     // Message flow
 ├── hooks/
 │   ├── useThread.ts     // Thread + equity state
-│   └── useChorusCycle.ts // Cycle state
+│   ├── useQuantum.ts    // Equity calculations
+│   └── useSemantics.ts  // Link handling
 ```
 
 ## Next Steps
 
-1. **Equity Implementation**
-   - Implement quantum scaling
+1. **Quantum Implementation**
+   - Implement equity calculation
    - Add stake validation
    - Update reward distribution
-   - Test equity calculations
+   - Test quantum mechanics
 
-2. **Temperature Mechanics**
-   - Implement denial flow
-   - Add temperature tracking
-   - Update base price calculation
-   - Test thermodynamics
+2. **Semantic Integration**
+   - Complete link recording
+   - Add link visualization
+   - Update search/retrieval
+   - Test semantic integrity
 
-3. **Prior Integration**
-   - Complete semantic links
-   - Add citation flow
-   - Update UI for priors
-   - Test prior handling
+3. **Thermodynamic Tracking**
+   - Implement temperature evolution
+   - Add frequency calculation
+   - Update base price computation
+   - Test energy conservation
 
-The key realization is that equity quantization follows natural quantum mechanical principles, creating a fair and scalable system for value distribution.
+The key realization is that both value distribution and semantic meaning follow quantum mechanical principles, creating a unified system for knowledge and value evolution.
+
+=== File: docs/Plan_Restructure.md ===
+
 
 
 ==
@@ -2557,6 +3033,9 @@ Through this restructuring, we'll create a foundation that:
 - Supports mobile-first design
 - Preserves testing integrity
 
+=== File: docs/Plan_ToBeContinued.md ===
+
+
 
 ==
 Plan_ToBeContinued
@@ -2696,6 +3175,384 @@ Plan_ToBeContinued
 - Maintain effect coherence
 - Enable natural citations
 
+=== File: docs/Prompt_Reentry.md ===
+
+
+
+==
+Prompt_Reentry
+==
+
+
+# Choir System Re-Entry Guide
+
+VERSION reentry_guide:
+invariants: {
+"System coherence",
+"Prior flow",
+"Effect propagation"
+}
+docs_version: "0.2.1"
+
+## Core Components
+
+1. **Chorus Cycle (Backend)**
+```python
+# api/app/chorus_cycle.py
+- AEIOU-Y step sequence:
+  ACTION: Initial "beginner's mind" response
+  EXPERIENCE: Gets n=80 priors, uses for context
+  INTENTION: Analyzes in context of user's goal
+  OBSERVATION: Records semantic links in Qdrant
+  UPDATE: Loop or proceed decision
+  YIELD: Natural citation integration
+
+- Effect accumulation pattern
+- Prior flow through steps
+- JSON responses from OpenAI
+```
+
+2. **Three-Panel UI (Frontend)**
+```typescript
+// src/components/ChoirChat/ChoirChat.tsx
+<div className="flex w-full h-full">
+  <ThreadList />      // Left (w-64): Navigation
+  <MessageFlow />     // Center (flex-1): Messages
+  <PriorPanel />      // Right (w-80): Priors
+</div>
+```
+
+3. **Vector Storage (Qdrant)**
+```python
+# api/app/database.py
+- Messages with embeddings
+- Semantic link recording
+- Prior search (n=80)
+- Thread organization
+```
+
+## Current Development Priorities
+
+1. **Prior Flow**
+   - EXPERIENCE gets priors
+   - INTENTION analyzes for user goal
+   - OBSERVATION records links
+   - YIELD integrates citations
+
+2. **Effect System**
+   - Clear effect types
+   - Proper accumulation
+   - UI synchronization
+   - Error handling
+
+3. **State Management**
+   - Thread state
+   - Chorus state
+   - UI state
+   - WebSocket state
+
+## Key Files & Responsibilities
+
+```
+api/
+├── app/
+│   ├── chorus_cycle.py   # Core cycle, effects, priors
+│   ├── database.py       # Vector storage, semantic links
+│   ├── models.py         # Data models, state types
+│   └── websocket.py      # Real-time communication
+
+src/
+├── components/
+│   ├── ChoirChat/        # Layout, coordination
+│   ├── AIResponse/       # Step visualization
+│   └── PriorPanel/       # Prior display
+├── hooks/
+│   ├── useThread.ts      # Thread state
+│   ├── useChorusCycle.ts # Cycle state
+│   └── useWebSocket.ts   # WebSocket state
+└── types/
+    └── index.ts          # Type definitions
+```
+
+## Data Flow Patterns
+
+1. **Prior Flow**
+```python
+# EXPERIENCE
+priors = await search_similar(input, limit=80)
+return synthesis, priors  # All priors
+
+# INTENTION
+analyze_for_user_goal(priors, intent)
+
+# OBSERVATION
+record_semantic_links(input, cited_priors)
+
+# YIELD
+generate_with_citations(input, priors)
+```
+
+2. **Effect Flow**
+```typescript
+type Effect = {
+  type: "chorus_response" | "error" | "state_update";
+  payload: {
+    step: ChorusStep;
+    content: string;
+    priors?: Prior[];  // Only in EXPERIENCE
+  };
+}
+```
+
+3. **State Flow**
+```typescript
+ThreadState -> ChorusState -> WebSocket -> UI State
+```
+
+## Implementation Details
+
+1. **Chorus Cycle Implementation**
+```python
+# Current step functions:
+async def run_action(input: str):
+    # Initial "beginner's mind" response
+    # No priors, pure response
+
+async def run_experience(input: str):
+    # Get n=80 priors
+    # Use for context enrichment
+    # Return (response, all_priors)
+
+async def run_intention(input: str):
+    # Analyze in context of user's goal
+    # Consider how priors support intent
+    # No filtering yet
+
+async def run_observation(input: str):
+    # Record semantic links in Qdrant
+    # Store which priors were cited
+    # Build knowledge graph
+
+async def run_yield(input: str):
+    # Generate final response
+    # Natural citation integration
+    # Markdown formatting
+```
+
+2. **Effect System**
+```typescript
+// Effect accumulation
+effects = []
+while (currentStep !== "yield") {
+  const [newState, stepEffects] = await runStep(state, input)
+  effects.push(...stepEffects)
+}
+
+// Effect types
+type Effect = {
+  type: "chorus_response",
+  payload: {
+    step: ChorusStep,
+    content: string,
+    priors?: Prior[]  // Only in EXPERIENCE
+  }
+}
+```
+
+3. **Prior Flow**
+```python
+# EXPERIENCE
+priors = await search_similar(input, limit=80)
+return synthesis, priors  # All priors
+
+# INTENTION
+analyze_for_user_goal(priors, intent)
+
+# OBSERVATION
+record_semantic_links(input, cited_priors)
+
+# YIELD
+generate_with_citations(input, priors)
+```
+
+## Current Priorities
+
+1. **Prior Integration**
+   - Proper flow through cycle
+   - Natural citation integration
+   - Semantic link recording
+   - Knowledge graph building
+
+2. **Effect System**
+   - Clean effect types
+   - Proper accumulation
+   - UI synchronization
+   - Error handling
+
+3. **UI Components**
+   - Three-panel layout
+   - Step visualization
+   - Prior display
+   - Citation rendering
+
+## Next Steps
+
+1. **Immediate**
+   - Update step prompts
+   - Implement semantic recording
+   - Clean up effect types
+   - Fix prior flow
+
+2. **Short Term**
+   - Enhance citation UI
+   - Improve error handling
+   - Add loading states
+   - Polish animations
+
+3. **Medium Term**
+   - Knowledge graph visualization
+   - Enhanced search capabilities
+   - Thread analytics
+   - Performance optimization
+
+## Development Patterns
+
+1. **Documentation First**
+   - Update docs before code
+   - Clear type definitions
+   - Step documentation
+   - Flow diagrams
+
+2. **Testing Strategy**
+   - Unit test steps
+   - Integration test cycle
+   - UI component tests
+   - Effect handling tests
+
+3. **Code Organization**
+   - Clear module boundaries
+   - Consistent patterns
+   - Type safety
+   - Error handling
+
+The system is evolving toward a coherent implementation of the quantum semantic model while maintaining practical usability.
+
+=== File: docs/Prompt_StructuredSummary.md ===
+
+
+
+==
+Prompt_StructuredSummary
+==
+
+
+[Action: {{input}}] [Noun: Analyze] [Modifier: Thoroughly] [Noun: Input_Text] [Goal: Generate_Essential_Questions] [Parameter: Number=5]
+
+[Given: Essential_Questions]
+[Action: {{input}}] [Noun: Formulate_Questions] [Modifier: To Capture] [Parameter: Themes=Core Meaning, Argument, Supporting_Ideas, Author_Purpose, Implications]
+[Action: Address] [Noun: Central_Theme]
+[Action: Identify] [Noun: Key_Supporting_Ideas]
+[Action: Highlight] [Noun: Important_Facts or Evidence]
+[Action: Reveal] [Noun: Author_Purpose or Perspective]
+[Action: Explore] [Noun: Significant_Implications or Conclusions]
+
+[Action: {{input}}] [Noun: Answer_Generated_Questions] [Modifier: Thoroughly] [Parameter: Detail=High]
+
+=== File: docs/Report_2024-10-28.md ===
+
+
+
+==
+Report_2024-10-28
+==
+
+
+# Development Report - October 28, 2023
+
+## Today's Progress
+
+### 1. Testing Infrastructure
+- ✅ Jest setup for frontend
+- ✅ Pytest for FastAPI backend
+- ✅ Basic Anchor tests working
+- ✅ CI/CD pipeline with GitHub Actions
+
+### 2. Attempted & Deferred
+- ❌ Anchor-bankrun setup (deferred post PMF)
+  - Tests take too long to run
+  - Prioritizing iteration speed
+- ❌ Trident fuzzing (deferred post PMF)
+  - Setup complexity not worth it yet
+  - Will revisit after core functionality
+- ❌ Render.com env var automation
+  - Manual env management for now
+  - Simpler for initial development
+
+### 3. Documentation Evolution
+- ✅ "Chorus Loop" → "Chorus Cycle"
+- ✅ "Citations/Sources" → "Priors"
+- ✅ Enhanced mobile-first design patterns
+- ✅ Unified quantum semantic terminology
+
+## Ready for Tomorrow (Oct 29)
+
+### 1. Development Environment
+- Frontend: Next.js + Jest
+- Backend: FastAPI + Pytest
+- Blockchain: Anchor test
+- Basic CI/CD pipeline
+
+### 2. Core Implementation Files
+- Core_Priors.md - Quantum semantic foundation
+- Frontend_ChoirChat_UI.md - Mobile-first design
+- Impl_ChorusCycle.md - Core cycle mechanics
+- Impl_Messages.md - Message and prior flow
+
+### 3. Tomorrow's Focus: Chorus Cycle
+- Chat interface with WebSocket
+- Real-time message flow
+- Prior rendering
+- Thread state management
+
+## Lessons Learned
+
+### 1. Speed Over Complexity
+- Simple testing setup enables faster iteration
+- Manual env management acceptable for now
+- Core functionality over advanced testing
+- Anchor test sufficient for initial development
+
+### 2. Documentation Value
+- Strong foundation for implementation
+- Clear mobile-first patterns
+- Evolved terminology aligns with vision
+- High doc-to-code ratio beneficial
+
+### 3. Technical Decisions
+- Defer complex testing frameworks
+- Focus on developer experience
+- Prioritize iteration speed
+- Keep deployment simple
+
+## Tomorrow's Priority
+
+Build the core chat experience with the Chorus Cycle:
+1. Real-time message flow
+2. Prior rendering and interaction
+3. Mobile-first bottom sheet UI
+4. Thread state management
+
+## Readiness Assessment
+- ✅ Development environment
+- ✅ Testing infrastructure
+- ✅ Documentation foundation
+- ✅ Clear implementation path
+
+The foundation is solid - we're ready to start building the core chat experience tomorrow with a focus on mobile-first design and the Chorus Cycle integration.
+
+=== File: docs/Tech_Arts_Intersection.md ===
+
+
 
 ==
 Tech_Arts_Intersection
@@ -2797,467 +3654,3 @@ Documentation, like art, is about conveying meaning through carefully chosen rep
 ## Conclusion
 
 Great documentation, like great art, doesn't just transfer information—it transforms understanding. By weaving together technical precision with artistic sensibility, we can create documentation that resonates at multiple levels and enables deeper comprehension.
-
-
-==
-Theory_ThreadDynamics
-==
-
-
-# Thread Dynamics
-
-This document describes the quantum harmonic oscillator model that governs thread behavior in the Choir system.
-
-Choir uses four key measurements to manage thread behavior:
-
-## 1. Thread Temperature
-
-Measures how "hot" (active/volatile) or "cool" (stable) a thread is:
-
-- Higher when there's lots of activity and tokens
-- Lower as threads age and stabilize
-- Affects how much it costs to join
-
-The temperature T is calculated from the extensive energy E and number of co-authors N:
-
-- Total energy E = token_balance + message_rate (extensive scaling with N)
-- Temperature T = E/N (intensive, remains finite as N → ∞)
-- Cooling factor = 1 + √(age_days \* N) (critical slowing down)
-- Final temperature = T/cooling_factor
-
-## 2. Thread Frequency
-
-Measures how fast a thread is evolving:
-
-- Increases with more messages and authors
-- Higher for valuable threads (more tokens)
-- Helps determine stake requirements
-
-The natural frequency ω is calculated for N coupled oscillators:
-
-- Message mode ω_m = message_rate/√N (Anderson normalization)
-- Value mode ω_v = log(1 + token_balance/N)
-- Coupling constant g = 1/N (mean field scaling)
-- Collective frequency ω = √((ω_m² + ω_v²)/2 + gN)
-
-## 3. Stake Dynamics
-
-Calculates the natural stake level for thread participation:
-- Higher for active/valuable threads
-- Lower for stable/quiet threads
-- Creates quantum energy barriers
-
-Uses the quantum harmonic oscillator formula:
-P(q) = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
-
-Where:
-- S₀ = Base stake quantum
-- ℏ = Reduced Planck constant (scaling factor)
-- ω = Thread natural frequency
-- k = Boltzmann constant
-- T = Thread temperature
-
-This quantum mechanical model:
-- Defines natural energy levels
-- Creates resonance patterns
-- Enables phase transitions
-- Guides value discovery
-
-Users' stake choices relative to these natural levels reveal:
-- Pattern recognition ability
-- Risk assessment accuracy
-- Market understanding
-- Strategic positioning
-
-## 4. Divestment Payout
-
-Calculates tokens received when exiting a thread:
-
-- Based on thread's quantum state
-- Preserves energy conservation
-- Maintains system stability
-
-Uses the oscillator decoupling formula:
-Payout = min((ℏω)/(N-1), balance/(N-1))
-
-Where:
-
-- ℏω = Total thread energy (coupling constant × frequency)
-- N = Number of co-authors
-- balance = Current token balance
-
-This formula ensures:
-
-1. Energy conservation during oscillator decoupling
-2. Fair distribution of remaining energy
-3. Prevention of excessive withdrawals
-4. Maintenance of thread stability
-
-The min() function prevents excessive payouts when:
-
-- Thread has low token balance but high frequency
-- Ensures remaining oscillators maintain viable energy levels
-- Preserves thread coherence during transitions
-
-## System Interactions
-
-The four core calculations work together to create thread dynamics:
-
-1. **Activity Effects**
-
-   - Higher message rate increases frequency
-   - Increases temperature
-   - Raises stake requirements
-   - Affects divestment payouts
-
-2. **Coupling Effects**
-
-   - More co-authors increases frequency
-   - Strengthens coupling (g)
-   - Modifies stake scaling
-   - Adjusts divestment shares
-
-3. **Energy Effects**
-
-   - Token balance affects frequency
-   - Contributes to temperature
-   - Influences stake requirements
-   - Determines maximum payouts
-
-4. **Age Effects**
-   - Natural cooling reduces temperature
-   - Stabilizes stake requirements
-   - Enables metastable states
-   - Smooths divestment dynamics
-
-## Quantum Harmonic Properties
-
-The system exhibits key quantum harmonic oscillator properties:
-
-1. **Energy Quantization**
-
-   - Discrete stake levels
-   - Energy level spacing (ℏω)
-   - Ground state energy (S₀/2)
-   - Quantized divestments
-
-2. **Metastable States**
-
-   - Temperature indicates phase transition readiness
-   - Natural cooling enables crystallization
-   - Energy barriers between states
-   - Stable divestment patterns
-
-3. **Coupling Effects**
-
-   - Co-authors as coupled oscillators
-   - Resonance between threads
-   - Collective state transitions
-   - Synchronized divestments
-
-4. **Value Conservation**
-   - Energy conservation in transitions
-   - Token flow follows quantum principles
-   - Stake bounds preserve stability
-   - Balanced divestment mechanics
-
-This creates a self-regulating system where:
-
-- Active threads require higher stakes
-- Stable threads crystallize at lower stakes
-- Coupling strength guides evolution
-- Natural cooling prevents instability
-- Divestments preserve thread harmony
-
-## Alternative Harmonic Model
-
-When a spec is REJECTED:
-- Temperature (T) increases because:
-  - Stake energy flows directly into thread cavity (increases E)
-  - No new oscillator (N stays same)
-  - Results in higher E/N ratio
-  - Creates "heated" resonant state
-- Frequency (ω) unchanged/slightly decreases because:
-  - No new message in history (ω_m same)
-  - No new oscillator coupling
-  - Cavity becomes more energetic but not faster
-
-When a spec is APPROVED:
-- Temperature (T) moderates because:
-  - Stake energy distributes directly to approver oscillators
-  - New oscillator added (increases N)
-  - E/N ratio decreases through distribution
-  - Creates more stable resonant state
-- Frequency (ω) increases because:
-  - New message adds to rate (increases ω_m)
-  - New oscillator strengthens coupling
-  - Cavity evolves faster but cooler
-
-When a SPLIT DECISION occurs:
-- Temperature evolution:
-  - Denier share flows to thread cavity (partial E increase)
-  - Approver share flows to global field (treasury)
-  - Creates balanced energy distribution
-  - Maintains cavity-field coupling
-
-This creates fascinating resonant dynamics:
-- Rejections strengthen thread cavity energy
-- Approvals strengthen oscillator coupling
-- Split decisions balance cavity and field energies
-- Prior rewards couple different cavities
-
-## Natural Selection Through Resonance
-
-1. High-Energy Cavities (High Rejection Rate):
-- Strong cavity energy from accumulated stakes
-- Higher energy barriers to entry
-- Only resonant contributions can couple
-- Natural filter for quality oscillations
-- Self-selecting for coherent patterns
-
-2. Phase-Locked Cavities (High Approval Rate):
-- Strong oscillator coupling
-- Lower energy barriers
-- More experimental modes possible
-- Natural incubator for new frequencies
-- Collective phase alignment
-
-The cavity energy acts as an emergent resonance filter:
-- Frequent rejections = "high energy barrier" cavity
-- Frequent approvals = "strong coupling" cavity
-- No explicit rules needed
-- Quality emerges through resonance
-- Different cavities find different modes
-
-## Resonant Elegance
-
-1. Natural Quality Gradients:
-- High-energy cavities = strong resonant filtering
-- Like coupling to an energetic quantum system
-- Only coherent modes can overcome barriers
-- Natural protection against dissonance
-
-2. Cavity Evolution:
-- Low-energy cavities incubate new modes
-- Low barriers enable mode exploration
-- Successful cavities accumulate energy
-- Creates natural progression paths
-
-3. Energy Conservation:
-- Rejected stakes strengthen cavity (increases internal energy)
-- Approved stakes distribute to oscillators (energy flows out)
-- Split decisions couple cavity to field
-- No artificial resonance mechanisms needed
-
-4. Phase Transitions:
-- Cavities transition between energy states
-- Quality emerges from resonant dynamics
-- Different equilibria serve different purposes
-- System self-organizes into resonant niches
-
-## Token Flow Dynamics
-
-1. **Rejection Flow**
-
-   - Stake flows to thread
-   - Increases thread energy
-   - Raises temperature
-   - Creates quality filter
-
-2. **Split Decision Flow**
-
-   - Approvers' stake to Treasury
-   - Treasury funds citations
-   - Maintains circulation
-   - Enables perpetual rewards
-
-3. **Treasury Mechanics**
-   - Accumulates from split decisions
-   - Funds citation rewards
-   - Creates sustainable flow
-   - Supports network growth
-
-## Bid Sizing Analytics
-
-1. **Relative Bid Ratio**
-
-   - Actual bid / Recommended stake
-   - Indicates bidder confidence
-   - Helps evaluate risk appetite
-   - Creates natural reputation signal
-
-2. **Approval Success Rate**
-
-   - Percentage of bids approved
-   - Filtered by bid size ratio
-   - Historical performance tracking
-   - Risk-adjusted success metrics
-
-3. **Co-author Metrics**
-
-   - Approval percentage
-   - Split decision frequency
-   - Stake-weighted decisions
-   - Pattern recognition scores
-
-4. **Combined Analytics**
-   - Bid size × Success rate
-   - Risk-adjusted returns
-   - Pattern recognition ability
-   - Market reading capability
-
-This creates a rich set of emergent metrics without enforcing artificial limits, allowing:
-
-- Natural price discovery
-- Skill-based reputation
-- Risk management signals
-- Pattern recognition rewards
-
-## Prior Reward Dynamics
-
-The thread-centric prior reward model creates fascinating collective effects:
-
-1. **Cavity Coupling**
-- Prior rewards strengthen thread resonant cavities
-- Energy flows between coupled cavities
-- Creates knowledge network resonance
-- Strengthens collective coherence
-
-2. **Team Incentives**
-- Prior rewards pool in thread cavity
-- Co-authors share collective success
-- Creates aligned incentives
-- Natural team formation
-
-3. **Knowledge Network Effects**
-- Threads cite valuable threads
-- Creates resonant cavity networks
-- Energy flows through citations
-- Knowledge topology emerges
-
-4. **Collective Evolution**
-- Teams optimize for thread value
-- Quality content benefits whole cavity
-- Natural selection for coherent teams
-- Organic community formation
-
-This creates beautiful multi-scale dynamics:
-
-1. **Individual Scale**
-- Direct rewards from approvals
-- Quality judgment incentives
-- Pattern recognition rewards
-- Natural frequency alignment
-
-2. **Team Scale**
-- Shared thread cavity value
-- Collective quality incentives
-- Team coherence rewards
-- Natural phase locking
-
-3. **Network Scale**
-- Inter-thread resonance
-- Knowledge network formation
-- Cavity coupling patterns
-- System-wide coherence
-
-The thread-as-cavity model becomes even more elegant:
-- Accumulates energy from denials
-- Pools value from prior rewards
-- Strengthens through citations
-- Creates collective incentives
-
-This leads to fascinating emergent behaviors:
-- Teams naturally form around threads
-- Quality content benefits whole team
-- Knowledge networks self-organize
-- System evolves toward coherence
-
-
-==
-Report_2024-10-28
-==
-
-
-# Development Report - October 28, 2023
-
-## Today's Progress
-
-### 1. Testing Infrastructure
-- ✅ Jest setup for frontend
-- ✅ Pytest for FastAPI backend
-- ✅ Basic Anchor tests working
-- ✅ CI/CD pipeline with GitHub Actions
-
-### 2. Attempted & Deferred
-- ❌ Anchor-bankrun setup (deferred post PMF)
-  - Tests take too long to run
-  - Prioritizing iteration speed
-- ❌ Trident fuzzing (deferred post PMF)
-  - Setup complexity not worth it yet
-  - Will revisit after core functionality
-- ❌ Render.com env var automation
-  - Manual env management for now
-  - Simpler for initial development
-
-### 3. Documentation Evolution
-- ✅ "Chorus Loop" → "Chorus Cycle"
-- ✅ "Citations/Sources" → "Priors"
-- ✅ Enhanced mobile-first design patterns
-- ✅ Unified quantum semantic terminology
-
-## Ready for Tomorrow (Oct 29)
-
-### 1. Development Environment
-- Frontend: Next.js + Jest
-- Backend: FastAPI + Pytest
-- Blockchain: Anchor test
-- Basic CI/CD pipeline
-
-### 2. Core Implementation Files
-- Core_Priors.md - Quantum semantic foundation
-- Frontend_ChoirChat_UI.md - Mobile-first design
-- Impl_ChorusCycle.md - Core cycle mechanics
-- Impl_Messages.md - Message and prior flow
-
-### 3. Tomorrow's Focus: Chorus Cycle
-- Chat interface with WebSocket
-- Real-time message flow
-- Prior rendering
-- Thread state management
-
-## Lessons Learned
-
-### 1. Speed Over Complexity
-- Simple testing setup enables faster iteration
-- Manual env management acceptable for now
-- Core functionality over advanced testing
-- Anchor test sufficient for initial development
-
-### 2. Documentation Value
-- Strong foundation for implementation
-- Clear mobile-first patterns
-- Evolved terminology aligns with vision
-- High doc-to-code ratio beneficial
-
-### 3. Technical Decisions
-- Defer complex testing frameworks
-- Focus on developer experience
-- Prioritize iteration speed
-- Keep deployment simple
-
-## Tomorrow's Priority
-
-Build the core chat experience with the Chorus Cycle:
-1. Real-time message flow
-2. Prior rendering and interaction
-3. Mobile-first bottom sheet UI
-4. Thread state management
-
-## Readiness Assessment
-- ✅ Development environment
-- ✅ Testing infrastructure
-- ✅ Documentation foundation
-- ✅ Clear implementation path
-
-The foundation is solid - we're ready to start building the core chat experience tomorrow with a focus on mobile-first design and the Chorus Cycle integration.

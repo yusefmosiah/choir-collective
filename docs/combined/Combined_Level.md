@@ -1,4 +1,4 @@
-# Level Documentation - Understanding Progression
+# Level Documentation
 
 
 

@@ -13,11 +13,35 @@ assumptions: {
 "Test framework stability",
 "Continuous stake distribution"
 }
-docs_version: "0.2.2"
+docs_version: "0.2.3"
 
 ## Core Development Patterns
 
-1. **Equity Quantization Pattern**
+1. **Chorus Cycle Pattern**
+```python
+# Flow through cycle
+EXPERIENCE:
+    priors = get_n80_priors()      # Vector search
+    return synthesis, priors        # No filtering
+
+INTENTION:
+    analyze_for_user_goal(priors)   # Goal context
+    return intent_analysis          # No filtering
+
+OBSERVATION:
+    record_semantic_link(          # Record hyperedge
+        source=user_message,
+        response=ai_response,
+        priors=cited_priors
+    )
+    return observation             # Build network
+
+YIELD:
+    generate_with_citations(priors)  # Natural integration
+    return cited_response           # Final synthesis
+```
+
+2. **Quantum Equity Pattern**
 ```python
 # Quantum harmonic scaling
 def calculate_equity(stake: float, base_price: float, N: int) -> float:
@@ -34,39 +58,36 @@ stake = P₀    -> equity = (1/N)   # Base quantum
 stake = 4P₀   -> equity = (2/N)   # Double quantum
 ```
 
-2. **Thread Thermodynamics Pattern**
+3. **Semantic Link Pattern**
 ```python
-# Temperature evolution
+class SemanticLink:
+    """Hyperedge in thoughtspace"""
+    def __init__(self, source, response, priors):
+        self.nodes = [source, response, *priors]
+        self.position = average_embeddings(self.nodes)
+        self.thread_id = source.thread_id
+        self.created_at = datetime.now(UTC)
+
+def record_semantic_link(source, response, priors):
+    """Record in Qdrant"""
+    link = SemanticLink(source, response, priors)
+    store_in_qdrant(link)
+    return link
+```
+
+4. **Thread Thermodynamics Pattern**
+```python
 def handle_denial(thread: Thread, stake: float):
+    """Denial increases thread temperature"""
     thread.energy += stake
     thread.temperature = thread.energy / len(thread.co_authors)
     thread.token_balance += stake
 
-# Reward distribution
-def distribute_approval(thread: Thread, stake: float):
+def handle_approval(thread: Thread, stake: float):
+    """Distribute by equity shares"""
     for coauthor, equity in thread.equity_map.items():
         reward = stake * equity
         coauthor.balance += reward
-```
-
-3. **Prior Flow Pattern**
-```python
-# Flow through cycle
-EXPERIENCE:
-    priors = get_n80_priors()      # Vector search
-    return synthesis, priors        # No filtering
-
-INTENTION:
-    analyze_for_user_goal(priors)   # Goal context
-    return intent_analysis          # No filtering
-
-OBSERVATION:
-    record_in_qdrant(priors)        # Semantic links
-    return observation              # Build network
-
-YIELD:
-    generate_with_citations(priors)  # Natural integration
-    return cited_response           # Final synthesis
 ```
 
 ## Implementation Structure
@@ -76,11 +97,12 @@ YIELD:
 api/
 ├── app/
 │   ├── chorus_cycle.py   # AEIOU-Y steps
-│   ├── database.py      # Vector storage
+│   ├── database.py      # Vector storage + semantic links
+│   ├── quantum.py       # Equity calculation
 │   ├── websocket.py     # Effect channel
 │   └── models/
 │       ├── thread.py    # Thread state + equity
-│       ├── message.py   # Message content
+│       ├── semantic.py  # Semantic link types
 │       └── effect.py    # Effect types
 ```
 
@@ -90,30 +112,32 @@ src/
 ├── components/
 │   ├── AIResponse/      // Step display
 │   ├── PriorPanel/      // Prior display
+│   ├── SemanticView/    // Link visualization
 │   └── MessageFlow/     // Message flow
 ├── hooks/
 │   ├── useThread.ts     // Thread + equity state
-│   └── useChorusCycle.ts // Cycle state
+│   ├── useQuantum.ts    // Equity calculations
+│   └── useSemantics.ts  // Link handling
 ```
 
 ## Next Steps
 
-1. **Equity Implementation**
-   - Implement quantum scaling
+1. **Quantum Implementation**
+   - Implement equity calculation
    - Add stake validation
    - Update reward distribution
-   - Test equity calculations
+   - Test quantum mechanics
 
-2. **Temperature Mechanics**
-   - Implement denial flow
-   - Add temperature tracking
-   - Update base price calculation
-   - Test thermodynamics
+2. **Semantic Integration**
+   - Complete link recording
+   - Add link visualization
+   - Update search/retrieval
+   - Test semantic integrity
 
-3. **Prior Integration**
-   - Complete semantic links
-   - Add citation flow
-   - Update UI for priors
-   - Test prior handling
+3. **Thermodynamic Tracking**
+   - Implement temperature evolution
+   - Add frequency calculation
+   - Update base price computation
+   - Test energy conservation
 
-The key realization is that equity quantization follows natural quantum mechanical principles, creating a fair and scalable system for value distribution.
+The key realization is that both value distribution and semantic meaning follow quantum mechanical principles, creating a unified system for knowledge and value evolution.

@@ -1,4 +1,4 @@
-# Entry Documentation - Getting Started
+# Entry Documentation
 
 
 

@@ -1,4 +1,4 @@
-# Reward Documentation - Incentive Systems
+# Reward Documentation
 
 
 

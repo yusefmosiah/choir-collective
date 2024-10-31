@@ -117,7 +117,6 @@
 ├── docs
 │   ├── Backend_Chorus.md
 │   ├── Backend_Database.md
-│   ├── Backend_Main.md
 │   ├── Backend_Models.md
 │   ├── Core_Chorus_Steps.md
 │   ├── Core_Comprehensive.md
@@ -135,10 +134,9 @@
 │   ├── Core_StateTransitions.md
 │   ├── Core_Types.md
 │   ├── Core_Whitepaper.md
+│   ├── Current_Summary.md
 │   ├── Data_Engine_Vision.md
 │   ├── Deploy_Render_Checklist.md
-│   ├── Deploy_Report.md
-│   ├── Dev_Plan.md
 │   ├── Dev_Pseudocode.md
 │   ├── Entry_Business.md
 │   ├── Entry_Glossary.md
@@ -148,20 +146,16 @@
 │   ├── Entry_Q&A.md
 │   ├── Error_Correction_Layers.md
 │   ├── Frontend_AIResponse.md
-│   ├── Frontend_ChoirChat.md
 │   ├── Frontend_ChoirChat_UI.md
 │   ├── Frontend_ChoirChat_update.md
 │   ├── Frontend_ChorusPanel.md
 │   ├── Frontend_UserInput.md
 │   ├── Harmonic_Theory.md
 │   ├── Impl_API.md
-│   ├── Impl_ChorusCycle.md
 │   ├── Impl_ChorusCycle_update.md
-│   ├── Impl_Messages.md
 │   ├── Impl_Messages_update.md
 │   ├── Impl_Privacy.md
 │   ├── Impl_Security.md
-│   ├── Impl_WebSocket.md
 │   ├── Impl_WebSocket_update.md
 │   ├── Implementation_Dependencies.md
 │   ├── Level_0_SystemOverview.md
@@ -173,6 +167,7 @@
 │   ├── Meta_Bureaucracy.md
 │   ├── Meta_Chorus.md
 │   ├── Meta_Diagrams.md
+│   ├── Meta_DocumentStructure.md
 │   ├── Meta_DocumentationDrivenDevelopment.md
 │   ├── Meta_Emergence.md
 │   ├── Meta_EmergentAIDocumentation.md
@@ -185,11 +180,9 @@
 │   ├── Meta_Overview.md
 │   ├── Meta_Progression.md
 │   ├── Meta_ValueEvolution.md
-│   ├── Model_Emergency.md
 │   ├── Model_Metastability.md
 │   ├── Model_Recursion.md
 │   ├── Plan_Checklist.md
-│   ├── Plan_FrontendArchitecture.md
 │   ├── Plan_FrontendChecklist.md
 │   ├── Plan_Hyperconverge.md
 │   ├── Plan_Restructure.md
@@ -228,6 +221,16 @@
 │   ├── Theory_ThreadDynamics.md
 │   ├── V10_Prompt_Engineering.md
 │   ├── V12_Data_Engines.md
+│   ├── archive
+│   │   ├── Backend_Main.md
+│   │   ├── Deploy_Report.md
+│   │   ├── Dev_Plan.md
+│   │   ├── Frontend_ChoirChat.md
+│   │   ├── Impl_ChorusCycle.md
+│   │   ├── Impl_Messages.md
+│   │   ├── Impl_WebSocket.md
+│   │   ├── Model_Emergency.md
+│   │   └── Plan_FrontendArchitecture.md
 │   ├── combined
 │   │   ├── Combined_Backend.md
 │   │   ├── Combined_Core.md
@@ -362,4 +365,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-60 directories, 300 files
+61 directories, 302 files

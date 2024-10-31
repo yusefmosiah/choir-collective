@@ -1,13 +1,3 @@
-# Current Documentation
-
-
-
-
-==
-Current_Summary
-==
-
-
 # Recent Development Insights Summary
 
 ## Essential Questions

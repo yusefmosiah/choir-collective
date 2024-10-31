@@ -1,4 +1,4 @@
-# Core Documentation - Fundamental Concepts
+# Core Documentation
 
 
 

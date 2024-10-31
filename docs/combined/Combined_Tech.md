@@ -1,4 +1,4 @@
-# Tech Documentation - Technical Architecture
+# Tech Documentation
 
 
 

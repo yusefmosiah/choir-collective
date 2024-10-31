@@ -1,4 +1,4 @@
-# Plan Documentation - Project Planning
+# Plan Documentation
 
 
 
@@ -130,193 +130,6 @@ docs_version: "0.2.3"
 
 
 ==
-Plan_FrontendArchitecture
-==
-
-
-# Frontend Architecture Plan
-
-VERSION frontend_arch:
-invariants: {
-"Prior flow integrity",
-"Effect coherence",
-"UI consistency"
-}
-assumptions: {
-"WebSocket reliability",
-"Vector space stability",
-"State synchronization"
-}
-docs_version: "0.2.2"
-
-## Core Components
-
-1. **AIResponse Component**
-   ```typescript
-   // Step visualization with prior handling
-   interface AIResponseProps {
-     message: Message;
-     currentStep: ChorusStep;
-     steps: Step[];
-     sources: Prior[];  // From EXPERIENCE step
-   }
-   ```
-
-   Key Features:
-   - Step-by-step visualization
-   - Prior display in EXPERIENCE
-   - Citation rendering in YIELD
-   - Loading states per step
-
-2. **PriorPanel Component**
-   ```typescript
-   // Prior display and interaction
-   interface PriorPanelProps {
-     priors?: Prior[];      // From EXPERIENCE step
-     onSelect?: (prior: Prior) => void;
-     selectedPriors?: Prior[];
-   }
-   ```
-
-   Key Features:
-   - Show all priors in EXPERIENCE
-   - Prior preview cards
-   - Citation tooltips
-   - Source navigation
-
-3. **MessageFlow Component**
-   ```typescript
-   // Message and step display
-   interface MessageFlowProps {
-     messages: Message[];
-     currentStep: ChorusStep;
-     onMessageSelect: (id: string) => void;
-     selectedMessageId: string | null;
-   }
-   ```
-
-   Key Features:
-   - Message rendering
-   - Step transitions
-   - Prior integration
-   - Citation display
-
-## State Management
-
-1. **Chorus Cycle State**
-   ```typescript
-   // useChorusCycle hook
-   interface ChorusState {
-     currentStep: ChorusStep;
-     steps: Step[];
-     priors?: Prior[];     // From EXPERIENCE
-     effects: Effect[];
-   }
-   ```
-
-2. **Effect Handling**
-   ```typescript
-   // Effect processing
-   type Effect = {
-     type: "chorus_response" | "error" | "state_update";
-     payload: {
-       step: ChorusStep;
-       content: string;
-       priors?: Prior[];  // Only in EXPERIENCE
-     };
-   }
-   ```
-
-3. **WebSocket Integration**
-   ```typescript
-   // Real-time communication
-   interface WebSocketState {
-     connected: boolean;
-     sendMessage: (msg: WebSocketMessage) => void;
-     lastMessage?: WebSocketMessage;
-   }
-   ```
-
-## UI Flow
-
-1. **Prior Flow**
-   ```typescript
-   // EXPERIENCE: Show all priors
-   <PriorPanel priors={step.priors} />
-
-   // INTENTION: Show goal analysis
-   <AIResponse step="intention" content={step.content} />
-
-   // OBSERVATION: Show semantic links
-   <AIResponse step="observation" content={step.content} />
-
-   // YIELD: Show citations
-   <AIResponse step="yield" content={step.content} />
-   ```
-
-2. **Effect Flow**
-   ```typescript
-   // Effect handling in components
-   function handleEffect(effect: Effect) {
-     switch (effect.type) {
-       case "chorus_response":
-         if (effect.payload.step === "experience") {
-           updatePriorPanel(effect.payload.priors);
-         }
-         updateStepDisplay(effect.payload);
-         break;
-     }
-   }
-   ```
-
-## Implementation Notes
-
-1. **Prior Handling**
-   - Show all priors in EXPERIENCE
-   - Enable prior preview
-   - Support citation navigation
-   - Track semantic links
-
-2. **Effect Processing**
-   - Clean effect types
-   - Proper accumulation
-   - UI synchronization
-   - Error handling
-
-3. **State Management**
-   - Clear state boundaries
-   - Effect-driven updates
-   - Consistent UI state
-   - Error recovery
-
-## Success Metrics
-
-1. **User Experience**
-   - Clear step progression
-   - Natural prior flow
-   - Smooth transitions
-   - Responsive feedback
-
-2. **Technical Quality**
-   - Clean component hierarchy
-   - Type safety
-   - Effect coherence
-   - Error handling
-
-3. **Performance**
-   - Fast prior loading
-   - Smooth animations
-   - Efficient updates
-   - Memory management
-
-Through this architecture, we create a frontend that:
-- Maintains prior flow integrity
-- Preserves effect coherence
-- Enables natural citations
-- Provides clear user feedback
-
-
-==
 Plan_FrontendChecklist
 ==
 
@@ -445,11 +258,35 @@ assumptions: {
 "Test framework stability",
 "Continuous stake distribution"
 }
-docs_version: "0.2.2"
+docs_version: "0.2.3"
 
 ## Core Development Patterns
 
-1. **Equity Quantization Pattern**
+1. **Chorus Cycle Pattern**
+```python
+# Flow through cycle
+EXPERIENCE:
+    priors = get_n80_priors()      # Vector search
+    return synthesis, priors        # No filtering
+
+INTENTION:
+    analyze_for_user_goal(priors)   # Goal context
+    return intent_analysis          # No filtering
+
+OBSERVATION:
+    record_semantic_link(          # Record hyperedge
+        source=user_message,
+        response=ai_response,
+        priors=cited_priors
+    )
+    return observation             # Build network
+
+YIELD:
+    generate_with_citations(priors)  # Natural integration
+    return cited_response           # Final synthesis
+```
+
+2. **Quantum Equity Pattern**
 ```python
 # Quantum harmonic scaling
 def calculate_equity(stake: float, base_price: float, N: int) -> float:
@@ -466,39 +303,36 @@ stake = P₀    -> equity = (1/N)   # Base quantum
 stake = 4P₀   -> equity = (2/N)   # Double quantum
 ```
 
-2. **Thread Thermodynamics Pattern**
+3. **Semantic Link Pattern**
 ```python
-# Temperature evolution
+class SemanticLink:
+    """Hyperedge in thoughtspace"""
+    def __init__(self, source, response, priors):
+        self.nodes = [source, response, *priors]
+        self.position = average_embeddings(self.nodes)
+        self.thread_id = source.thread_id
+        self.created_at = datetime.now(UTC)
+
+def record_semantic_link(source, response, priors):
+    """Record in Qdrant"""
+    link = SemanticLink(source, response, priors)
+    store_in_qdrant(link)
+    return link
+```
+
+4. **Thread Thermodynamics Pattern**
+```python
 def handle_denial(thread: Thread, stake: float):
+    """Denial increases thread temperature"""
     thread.energy += stake
     thread.temperature = thread.energy / len(thread.co_authors)
     thread.token_balance += stake
 
-# Reward distribution
-def distribute_approval(thread: Thread, stake: float):
+def handle_approval(thread: Thread, stake: float):
+    """Distribute by equity shares"""
     for coauthor, equity in thread.equity_map.items():
         reward = stake * equity
         coauthor.balance += reward
-```
-
-3. **Prior Flow Pattern**
-```python
-# Flow through cycle
-EXPERIENCE:
-    priors = get_n80_priors()      # Vector search
-    return synthesis, priors        # No filtering
-
-INTENTION:
-    analyze_for_user_goal(priors)   # Goal context
-    return intent_analysis          # No filtering
-
-OBSERVATION:
-    record_in_qdrant(priors)        # Semantic links
-    return observation              # Build network
-
-YIELD:
-    generate_with_citations(priors)  # Natural integration
-    return cited_response           # Final synthesis
 ```
 
 ## Implementation Structure
@@ -508,11 +342,12 @@ YIELD:
 api/
 ├── app/
 │   ├── chorus_cycle.py   # AEIOU-Y steps
-│   ├── database.py      # Vector storage
+│   ├── database.py      # Vector storage + semantic links
+│   ├── quantum.py       # Equity calculation
 │   ├── websocket.py     # Effect channel
 │   └── models/
 │       ├── thread.py    # Thread state + equity
-│       ├── message.py   # Message content
+│       ├── semantic.py  # Semantic link types
 │       └── effect.py    # Effect types
 ```
 
@@ -522,33 +357,35 @@ src/
 ├── components/
 │   ├── AIResponse/      // Step display
 │   ├── PriorPanel/      // Prior display
+│   ├── SemanticView/    // Link visualization
 │   └── MessageFlow/     // Message flow
 ├── hooks/
 │   ├── useThread.ts     // Thread + equity state
-│   └── useChorusCycle.ts // Cycle state
+│   ├── useQuantum.ts    // Equity calculations
+│   └── useSemantics.ts  // Link handling
 ```
 
 ## Next Steps
 
-1. **Equity Implementation**
-   - Implement quantum scaling
+1. **Quantum Implementation**
+   - Implement equity calculation
    - Add stake validation
    - Update reward distribution
-   - Test equity calculations
+   - Test quantum mechanics
 
-2. **Temperature Mechanics**
-   - Implement denial flow
-   - Add temperature tracking
-   - Update base price calculation
-   - Test thermodynamics
+2. **Semantic Integration**
+   - Complete link recording
+   - Add link visualization
+   - Update search/retrieval
+   - Test semantic integrity
 
-3. **Prior Integration**
-   - Complete semantic links
-   - Add citation flow
-   - Update UI for priors
-   - Test prior handling
+3. **Thermodynamic Tracking**
+   - Implement temperature evolution
+   - Add frequency calculation
+   - Update base price computation
+   - Test energy conservation
 
-The key realization is that equity quantization follows natural quantum mechanical principles, creating a fair and scalable system for value distribution.
+The key realization is that both value distribution and semantic meaning follow quantum mechanical principles, creating a unified system for knowledge and value evolution.
 
 
 ==

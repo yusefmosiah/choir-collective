@@ -1,4 +1,4 @@
-# Harmonic Documentation - System Harmony
+# Harmonic Documentation
 
 
 

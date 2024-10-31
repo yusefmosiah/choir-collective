@@ -2,6 +2,9 @@
 
 
 
+=== File: docs/tree.md ===
+
+
 
 ==
 tree.md
@@ -127,7 +130,6 @@ tree.md
 ├── docs
 │   ├── Backend_Chorus.md
 │   ├── Backend_Database.md
-│   ├── Backend_Main.md
 │   ├── Backend_Models.md
 │   ├── Core_Chorus_Steps.md
 │   ├── Core_Comprehensive.md
@@ -145,10 +147,9 @@ tree.md
 │   ├── Core_StateTransitions.md
 │   ├── Core_Types.md
 │   ├── Core_Whitepaper.md
+│   ├── Current_Summary.md
 │   ├── Data_Engine_Vision.md
 │   ├── Deploy_Render_Checklist.md
-│   ├── Deploy_Report.md
-│   ├── Dev_Plan.md
 │   ├── Dev_Pseudocode.md
 │   ├── Entry_Business.md
 │   ├── Entry_Glossary.md
@@ -158,20 +159,16 @@ tree.md
 │   ├── Entry_Q&A.md
 │   ├── Error_Correction_Layers.md
 │   ├── Frontend_AIResponse.md
-│   ├── Frontend_ChoirChat.md
 │   ├── Frontend_ChoirChat_UI.md
 │   ├── Frontend_ChoirChat_update.md
 │   ├── Frontend_ChorusPanel.md
 │   ├── Frontend_UserInput.md
 │   ├── Harmonic_Theory.md
 │   ├── Impl_API.md
-│   ├── Impl_ChorusCycle.md
 │   ├── Impl_ChorusCycle_update.md
-│   ├── Impl_Messages.md
 │   ├── Impl_Messages_update.md
 │   ├── Impl_Privacy.md
 │   ├── Impl_Security.md
-│   ├── Impl_WebSocket.md
 │   ├── Impl_WebSocket_update.md
 │   ├── Implementation_Dependencies.md
 │   ├── Level_0_SystemOverview.md
@@ -183,6 +180,7 @@ tree.md
 │   ├── Meta_Bureaucracy.md
 │   ├── Meta_Chorus.md
 │   ├── Meta_Diagrams.md
+│   ├── Meta_DocumentStructure.md
 │   ├── Meta_DocumentationDrivenDevelopment.md
 │   ├── Meta_Emergence.md
 │   ├── Meta_EmergentAIDocumentation.md
@@ -195,11 +193,9 @@ tree.md
 │   ├── Meta_Overview.md
 │   ├── Meta_Progression.md
 │   ├── Meta_ValueEvolution.md
-│   ├── Model_Emergency.md
 │   ├── Model_Metastability.md
 │   ├── Model_Recursion.md
 │   ├── Plan_Checklist.md
-│   ├── Plan_FrontendArchitecture.md
 │   ├── Plan_FrontendChecklist.md
 │   ├── Plan_Hyperconverge.md
 │   ├── Plan_Restructure.md
@@ -238,6 +234,16 @@ tree.md
 │   ├── Theory_ThreadDynamics.md
 │   ├── V10_Prompt_Engineering.md
 │   ├── V12_Data_Engines.md
+│   ├── archive
+│   │   ├── Backend_Main.md
+│   │   ├── Deploy_Report.md
+│   │   ├── Dev_Plan.md
+│   │   ├── Frontend_ChoirChat.md
+│   │   ├── Impl_ChorusCycle.md
+│   │   ├── Impl_Messages.md
+│   │   ├── Impl_WebSocket.md
+│   │   ├── Model_Emergency.md
+│   │   └── Plan_FrontendArchitecture.md
 │   ├── combined
 │   │   ├── Combined_Backend.md
 │   │   ├── Combined_Core.md
@@ -372,7 +378,10 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-60 directories, 300 files
+61 directories, 302 files
+
+=== File: docs/scripts/combiner.sh ===
+
 
 
 ==
@@ -382,38 +391,13 @@ combiner.sh
 
 #!/bin/bash
 
-# Documentation Combiner Script
-# ===========================
-#
-# This script combines Markdown documentation files in the docs/ directory in two ways:
-#
-# 1. By Prefix: Combines files sharing common prefixes (e.g., Core_, Theory_) into
-#    Combined_{prefix}.md files in docs/combined/
-#
-# 2. By Abstraction Level: Creates level{0-5}.md files representing different levels
-#    of abstraction, from most concrete (0) to most abstract (5):
-#
-#    - Level 0: Implementation details (code, deployment, technical specs)
-#    - Level 1: Getting started guides and development documentation
-#    - Level 2: Core system implementation and state management
-#    - Level 3: Economic and game theoretical foundations
-#    - Level 4: Meta-level system concepts and models
-#    - Level 5: Abstract theoretical foundations and quantum semantics
-#
-# Special handling is implemented for level0.md to ensure critical system files
-# (tree.md, combiner.sh, update_tree.sh) appear first.
-#
-# Usage:
-#   ./combiner.sh
-#
-# Output:
-#   - docs/combined/Combined_{prefix}.md files
-#   - docs/combined/level{0-5}.md files
-#
-# Note: This script expects to be run from the project root directory
-# and requires the docs/ directory structure to be present.
-#
-# @abstraction_level: 0 - Implementation/Scripts
+# Define level prefixes as simple arrays
+level0_prefixes=("Solana" "Frontend" "Backend" "Deploy" "Implementation" "Data" "Error" "Reward" "Impl")
+level1_prefixes=("Entry" "Dev" "Plan" "Tech" "Report" "Level" "Current" "Prompt")
+level2_prefixes=("Core" "State" "Summary")
+level3_prefixes=("Theory" "V10" "V12")
+level4_prefixes=("Model" "Emergence" "Meta")
+level5_prefixes=("Harmonic")
 
 # Function to add separator and header
 add_separator() {
@@ -425,110 +409,45 @@ add_separator() {
 }
 
 # First phase: Combine by prefix
-prefixes=$(ls docs/*_*.md | grep -v 'tree' | cut -d'_' -f1 | sed 's/docs\///g' | sort -u)
+echo "Processing documentation..."
 
-for prefix in $prefixes; do
-    # Create title from prefix
-    title="${prefix} Documentation"
-    case $prefix in
-        "Core") subtitle="- Fundamental Concepts" ;;
-        "Dev") subtitle="- Building Choir" ;;
-        "Entry") subtitle="- Getting Started" ;;
-        "Impl") subtitle="- Technical Details" ;;
-        "Level") subtitle="- Understanding Progression" ;;
-        "Meta") subtitle="- Documentation About Documentation" ;;
-        "Model") subtitle="- System Patterns" ;;
-        "Theory") subtitle="- Mathematical Foundations" ;;
-        "Crystallization") subtitle="- Development Milestones" ;;
-        "Data") subtitle="- Data Management" ;;
-        "Deploy") subtitle="- Deployment Guidelines" ;;
-        "Error") subtitle="- Error Handling" ;;
-        "Frontend") subtitle="- UI Components" ;;
-        "Backend") subtitle="- Server Implementation" ;;
-        "Solana") subtitle="- Blockchain Integration" ;;
-        "Reward") subtitle="- Incentive Systems" ;;
-        "State") subtitle="- State Management" ;;
-        "Tech") subtitle="- Technical Architecture" ;;
-        "Plan") subtitle="- Project Planning" ;;
-        "Harmonic") subtitle="- System Harmony" ;;
-        *) subtitle="" ;;
-    esac
+# Create combined directory if it doesn't exist
+mkdir -p docs/combined
 
-    # Create combined file with correct path
-    {
-        echo "# ${title} ${subtitle}"
-        echo -e "\n"
+# Get unique prefixes from all markdown files
+for prefix in $(ls docs/*_*.md | grep -v 'tree' | cut -d'_' -f1 | sed 's/docs\///g' | sort -u); do
+    output_file="docs/combined/Combined_${prefix}.md"
+    echo "# ${prefix} Documentation" > "$output_file"
+    echo -e "\n" >> "$output_file"
 
-        # Concatenate all files with this prefix, excluding tree
-        for file in docs/${prefix}_*.md; do
-            if [ -f "$file" ] && ! grep -q "tree" <<< "$file"; then
-                add_separator "$(basename "$file" .md)"
-                cat "$file"
-            fi
-        done
-    } > "docs/combined/Combined_${prefix}.md"
-
-    echo "Created Combined_${prefix}.md"
+    # Combine all files with this prefix
+    for file in docs/${prefix}_*.md; do
+        if [ -f "$file" ]; then
+            add_separator "$(basename "$file" .md)" >> "$output_file"
+            cat "$file" >> "$output_file"
+        fi
+    done
 done
 
-# Update file finding patterns to look directly in docs/
-all_docs=$(find docs -maxdepth 1 -name "*.md" ! -name "tree.md")
+# Function to get level for a file
+get_level_for_file() {
+    filename=$(basename "$1")
+    prefix=$(echo "$filename" | cut -d'_' -f1)
 
-# Base patterns that define the core structure of each level
-base_patterns=(
-    "Level_0_ tree.md scripts/ Solana_ Frontend_ Backend_ Deploy_ Implementation_ Data_ Error_ Reward_"
-    "Level_1_ Entry_ Dev_ Plan_ Tech_ Crystallization_ Thread Porting_ Report_"
-    "Level_2_ Core_State Core_Types Core_Blueprint Impl_ State_ Core_ Summary_"
-    "Level_3_ Core_Economics Theory_Game Theory_Implementation V10_ V12_"
-    "Level_4_ Core_Convergence Theory_Stake Model_ Meta_Overview Emergence_ Prompt_ Core_Priors"
-    "Level_5_ Theory_Quantum Theory_Semantic Harmonic_ Meta_ Theory_"
-)
+    for p in "${level0_prefixes[@]}"; do [[ "$prefix" == "$p" ]] && echo 0 && return; done
+    for p in "${level1_prefixes[@]}"; do [[ "$prefix" == "$p" ]] && echo 1 && return; done
+    for p in "${level2_prefixes[@]}"; do [[ "$prefix" == "$p" ]] && echo 2 && return; done
+    for p in "${level3_prefixes[@]}"; do [[ "$prefix" == "$p" ]] && echo 3 && return; done
+    for p in "${level4_prefixes[@]}"; do [[ "$prefix" == "$p" ]] && echo 4 && return; done
+    for p in "${level5_prefixes[@]}"; do [[ "$prefix" == "$p" ]] && echo 5 && return; done
 
-# Additional patterns for each level that follow the concrete->abstract progression
-core_patterns=(
-    ""  # Level 0 has no Core_ docs
-    ""  # Level 1 has no Core_ docs
-    "Core_Proof Core_Comprehensive Core_Context Core_Consistency Core_Invariants Core_Ownership Core_Persuasion Core_ProofOfText Core_StateTransitions Core_Whitepaper"
-    "Core_Economics Core_Moat"
-    "Core_Convergence"
-    ""  # Level 5 has no Core_ docs
-)
-
-theory_patterns=(
-    ""  # Level 0 has no Theory_ docs
-    ""  # Level 1 has no Theory_ docs
-    ""  # Level 2 has no Theory_ docs
-    "Theory_Game Theory_Implementation Theory_Integration Theory_StakeEntanglement Theory_StateAlgebra Theory_Topology"
-    "Theory_Stake"
-    "Theory_Quantum Theory_Semantic Theory_Algebra Theory_ApprovalMeasurement Theory_ChorusQuantum Theory_SemanticGameTopology Theory_SemanticsExplained Theory_StateAlgebraExplained Theory_TopologyExplained"
-)
-
-meta_patterns=(
-    ""  # Level 0 has no Meta_ docs
-    ""  # Level 1 has no Meta_ docs
-    ""  # Level 2 has no Meta_ docs
-    ""  # Level 3 has no Meta_ docs
-    "Meta_Overview Meta_Index Meta_Navigation Meta_Network Meta_Progression"
-    "Meta_Bridges Meta_Density Meta_Diagrams Meta_Emergence Meta_Evolution Meta_Experience Meta_Layers"
-)
-
-# Function to combine patterns for a level
-get_level_patterns() {
-    level=$1
-    echo "${base_patterns[$level]} ${core_patterns[$level]} ${theory_patterns[$level]} ${meta_patterns[$level]}"
+    echo -1
 }
 
 # Function to process files for a level
 process_level() {
     level=$1
-    patterns=$2
-
-    # Handle negative level number in filename
-    if [ "$level" -eq -1 ]; then
-        output_file="docs/levels/level-1.md"
-    else
-        output_file="docs/levels/level${level}.md"
-    fi
+    output_file="docs/levels/level${level}.md"
 
     echo "# Level ${level} Documentation" > "$output_file"
     echo -e "\n" >> "$output_file"
@@ -537,58 +456,57 @@ process_level() {
     if [ "$level" -eq -1 ]; then
         for special_file in "docs/tree.md" "docs/scripts/combiner.sh" "docs/scripts/update_tree.sh"; do
             if [ -f "$special_file" ]; then
+                echo -e "\n=== File: $special_file ===\n" >> "$output_file"
                 add_separator "$(basename "$special_file")" >> "$output_file"
                 cat "$special_file" >> "$output_file"
+                echo "$special_file" >> "/tmp/processed_files.txt"
             fi
         done
-        echo "Created level-1.md"
         return
     fi
 
-    # Process patterns
-    for pattern in $patterns; do
-        for file in docs/*${pattern}*.md; do
-            if [ -f "$file" ]; then
-                add_separator "$(basename "$file" .md)" >> "$output_file"
-                cat "$file" >> "$output_file"
-                echo "$file" >> "/tmp/processed_files.txt"
-            fi
-        done
+    # Process all docs to find ones for this level
+    for file in docs/*.md; do
+        if [ -f "$file" ] && [ "$(get_level_for_file "$file")" -eq "$level" ]; then
+            echo -e "\n=== File: $file ===\n" >> "$output_file"
+            add_separator "$(basename "$file" .md)" >> "$output_file"
+            cat "$file" >> "$output_file"
+            echo "$file" >> "/tmp/processed_files.txt"
+        fi
     done
-
-    echo "Created level${level}.md"
 }
 
-# Clear processed files tracking
-> "/tmp/processed_files.txt"
+# Create temporary file for tracking
+touch /tmp/processed_files.txt
 
-# Process level -1 first for system files
-process_level -1 ""
-
-# Process levels 0-5
+# Process all levels
+echo "Processing documentation..."
+process_level -1
 for level in {0..5}; do
-    process_level $level "$(get_level_patterns $level)"
+    process_level $level
 done
 
-# Verify all files were processed
-echo -e "\nVerifying document coverage:"
+# Check for uncategorized files
+echo -e "\nUncategorized files:"
 uncategorized=0
-for doc in $all_docs; do
+for doc in docs/*.md; do
     if ! grep -q "^$doc$" "/tmp/processed_files.txt"; then
-        echo "Warning: $doc was not categorized into any level"
+        echo "$doc"
         uncategorized=$((uncategorized + 1))
     fi
 done
 
 if [ "$uncategorized" -gt 0 ]; then
-    echo "Warning: $uncategorized files were not categorized into any level"
-    echo "Please update level patterns to include these files"
+    echo -e "\nTotal uncategorized: $uncategorized files"
 fi
 
 # Cleanup
 rm -f "/tmp/processed_files.txt"
 
 echo "Documentation combination complete"
+
+=== File: docs/scripts/update_tree.sh ===
+
 
 
 ==

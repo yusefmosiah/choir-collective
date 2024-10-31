@@ -1,4 +1,4 @@
-# State Documentation - State Management
+# State Documentation
 
 
 

@@ -1,4 +1,4 @@
-# Solana Documentation - Blockchain Integration
+# Solana Documentation
 
 
 

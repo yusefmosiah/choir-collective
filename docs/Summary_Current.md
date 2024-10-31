@@ -2,31 +2,27 @@
 
 ## Essential Questions
 
-1. **Semantic Links as Hyperedges**
+1. **Quantum Equity Distribution**
+   - How does the √n scaling create fair value distribution?
+   - What is the relationship between stake amount and equity share?
+   - How does base price P₀ emerge from thread thermodynamics?
+   - What role does continuous stake scaling play in the system?
 
+2. **Semantic Links as Hyperedges**
    - How do semantic links connect multiple points in thoughtspace?
    - What is the relationship between messages, threads, and AI responses?
    - How does the average embedding position work?
    - What role do semantic links play in the reward system?
 
-2. **Thoughtspace vs Knowledge Graph**
-
-   - Why is this a continuous semantic space rather than discrete graph?
-   - How do virtual positions emerge for users/threads/models?
-   - What does it mean for semantic links to have positions?
-   - How does this affect search and retrieval?
-
-3. **Thread as Collection of Links**
-
-   - How does viewing threads as semantic link collections change our model?
-   - What is the relationship between user prompt, collective intelligence (priors), and AI response?
-   - How does this affect thread state management?
-   - What are the implications for the UI?
+3. **Thread Thermodynamics**
+   - How do denials increase thread temperature?
+   - What is the relationship between temperature and base price?
+   - How does frequency emerge from thread activity?
+   - What role does energy conservation play?
 
 4. **Reward Distribution**
-
-   - How do rewards flow to threads rather than individual authors?
-   - What are the implications of co-authors splitting rewards?
+   - How do rewards flow to threads based on equity shares?
+   - What are the implications of co-authors splitting rewards by equity?
    - How does this affect thread dynamics and collaboration?
    - What role do semantic links play in value flow?
 
@@ -38,46 +34,61 @@
 
 ## Key Insights
 
-1. **Semantic Structure**
+1. **Quantum Equity Structure**
+   ```python
+   # Base price for 1/N share
+   P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
 
-   - Semantic links are hyperedges connecting user input, cited priors, and AI response
-   - Links have positions in thoughtspace via averaged embeddings
-   - Everything (messages, users, threads, models) exists in same semantic space
-   - Virtual positions emerge through message relationships
+   # Equity follows √n scaling
+   equity = (1/N) * √(stake/P₀)
 
-2. **Thread Evolution**
+   # Examples:
+   stake = P₀/4  -> equity = (1/2N)  # Quarter stake
+   stake = P₀    -> equity = (1/N)   # Base quantum
+   stake = 4P₀   -> equity = (2/N)   # Double quantum
+   ```
 
-   - Threads are collections of semantic links rather than just messages
-   - Each link captures a complete interaction cycle
-   - Thread position emerges from its semantic links
-   - Citations create cross-thread semantic coupling
+2. **Semantic Structure**
+   ```python
+   class SemanticLink:
+       """Hyperedge in thoughtspace"""
+       def __init__(self, source, response, priors):
+           self.nodes = [source, response, *priors]
+           self.position = average_embeddings(self.nodes)
+   ```
 
-3. **Value Flow**
+3. **Thread Thermodynamics**
+   ```python
+   def handle_denial(thread: Thread, stake: float):
+       """Denial increases thread temperature"""
+       thread.energy += stake
+       thread.temperature = thread.energy / len(thread.co_authors)
 
-   - Rewards flow to threads rather than individual authors
-   - Co-authors split rewards from thread citations
-   - Semantic links enable value to flow through thoughtspace
-   - Creates natural incentives for collaboration
+   def handle_approval(thread: Thread, stake: float):
+       """Distribute by equity shares"""
+       for coauthor, equity in thread.equity_map.items():
+           reward = stake * equity
+           send_tokens(coauthor, reward)
+   ```
 
 4. **Implementation Requirements**
-
-   - Need semantic_links collection in Qdrant
-   - Simple arithmetic mean for link positions
-   - UI needs to show semantic relationships
-   - Tests must verify semantic integrity
+   - Quantum equity calculation system
+   - Semantic links collection in Qdrant
+   - Thread thermodynamics tracking
+   - UI for showing relationships and equity
 
 5. **Future Implications**
-   - Richer semantic search through link positions
-   - Natural emergence of thread communities
-   - Value flow follows semantic coupling
+   - Natural price discovery through quantum mechanics
+   - Semantic search through link positions
+   - Value flow follows quantum principles
    - Self-organizing knowledge structure
 
 ## Next Steps
 
-1. Update database schema for semantic links
-2. Implement link recording in OBSERVATION
-3. Update thread retrieval to use links
-4. Modify UI to show semantic relationships
-5. Add tests for semantic integrity
+1. Implement quantum equity calculation
+2. Update database schema for semantic links
+3. Add thread thermodynamics tracking
+4. Modify UI to show relationships and equity
+5. Add tests for quantum mechanics and semantic integrity
 
-The key realization is that semantic links are not just references between messages, but fundamental structures that define the thoughtspace and enable natural value flow through semantic coupling.
+The key realization is that both value distribution and semantic meaning follow quantum mechanical principles, creating a unified system where equity quantization and semantic links work together to enable natural evolution of knowledge and value.
