@@ -1,7 +1,7 @@
 // src/components/ChoirChat/ChoirChat.tsx
 
 import React, { useState, useRef } from "react";
-import MessageFlow from "./MessageFlow";
+import MessageFlow, { MessageFlowProps } from "./MessageFlow";
 import UserInput from "../UserInput/UserInput";
 import { useThread } from "@/hooks/useThread";
 import { useWebSocket } from "@/hooks/useWebSocket";

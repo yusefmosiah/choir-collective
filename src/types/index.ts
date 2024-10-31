@@ -1,4 +1,10 @@
-export type ChorusStep = "action" | "experience" | "intention" | "observation" | "update" | "yield";
+export type ChorusStep =
+  | 'action'
+  | 'experience'
+  | 'intention'
+  | 'observation'
+  | 'update'
+  | 'yield';
 
 export interface Message {
   id: string;

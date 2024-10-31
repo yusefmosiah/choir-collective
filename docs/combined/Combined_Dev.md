@@ -12,162 +12,167 @@ Dev_Plan
 
 VERSION dev_plan:
 invariants: {
-"Documentation-driven development",
-"Test-first implementation",
-"Security-first approach"
+"Prior flow integrity",
+"Effect coherence",
+"Semantic recording"
 }
 assumptions: {
-"AI code generation capabilities",
-"Testing framework maturity",
-"Documentation completeness"
+"Vector space stability",
+"WebSocket reliability",
+"LLM capability"
 }
-docs_version: "0.2.1"
+docs_version: "0.2.2"
 
-## Current Status (Oct 26)
+## Current Status
 
-The project currently consists of:
+### Backend Progress
+- FastAPI application setup ✓
+- WebSocket handler ready ✓
+- Qdrant integration ✓
+- Basic chorus cycle ✓
+- Vector search working ✓
 
-- Documentation corpus (~100k tokens)
-- create-solana-dapp template
-- Initial Render deployment
-- Core specifications and tests
-
-## Development Philosophy
-
-### Documentation-Driven Development
-
-The codebase is designed to scale with AI capabilities:
-
-- High documentation-to-code ratio
-- Tests generated from specifications
-- Implementation guided by docs
-- AI-assisted code generation
-
-### Test-First Development
-
-Security and correctness through:
-
-- Property-based testing
-- Invariant verification
-- Comprehensive test coverage
-- Security-focused test cases
-
-### AI-Assisted Evolution
-
-Built to leverage improving AI:
-
-- Code generation from docs
-- Test case generation
-- Pattern recognition
-- Implementation assistance
+### Frontend Progress
+- Three-panel layout ✓
+- WebSocket connection ✓
+- Message display ✓
+- Step visualization ✓
+- Prior panel structure ✓
 
 ## Implementation Schedule
 
-### Day 1: Study & Planning (Oct 26)
+### Phase 1: Prior Flow (Oct 29)
 
-- Document testing patterns
-- Plan security boundaries
-- Prepare implementation strategy
-- Setup test infrastructure
+1. **Vector Search**
+   ```python
+   # Get n=80 priors
+   priors = await search_similar(input, limit=80)
+   ```
 
-### Day 2: Environment Setup (Oct 27)
+2. **Semantic Recording**
+   ```python
+   # Record in Qdrant
+   await record_semantic_links(
+     message=input,
+     cited_priors=priors
+   )
+   ```
 
-- Development environment configuration
-  - Next.js setup
-  - FastAPI configuration
-  - Solana development chain
-  - Testing infrastructure
-- CI/CD pipeline
-- Secrets management
-- Deployment automation
+3. **Citation Integration**
+   ```python
+   # Natural citations
+   return generate_response_with_citations(input, priors)
+   ```
 
-### Day 3-4: Core Protocol (Oct 28-29)
+### Phase 2: Effect System (Oct 30)
 
-- CHOIR token implementation
-- Thread program development
-- State transition handlers
-- Security verification
-- Comprehensive testing
+1. **Effect Types**
+   ```typescript
+   type Effect = {
+     type: "chorus_response" | "error" | "state_update";
+     payload: {
+       step: ChorusStep;
+       content: string;
+       priors?: Prior[];  // Only in EXPERIENCE
+     };
+   }
+   ```
 
-### Day 5: Backend (Oct 30)
+2. **Effect Accumulation**
+   ```python
+   effects = []
+   while True:
+       new_state, step_effects = await run_step(state, input)
+       effects.extend(step_effects)
+       if new_state.current_step == StepEnum.YIELD:
+           break
+   ```
 
-- FastAPI implementation
-- WebSocket protocol
-- Qdrant integration
-- State synchronization
-- Cache management
+### Phase 3: Step Processing (Oct 31)
 
-### Day 6: Frontend (Oct 31)
+1. **Step Prompts**
+   - ACTION: Beginner's mind
+   - EXPERIENCE: Context integration
+   - INTENTION: Goal analysis
+   - OBSERVATION: Semantic recording
+   - UPDATE: Loop decision
+   - YIELD: Citation integration
 
-- Core UI components
-- Wallet integration
-- Real-time updates
-- State management
-- Soft launch
-
-### Day 7-8: Integration (Nov 1-2)
-
-- System integration
-- Analytics setup
-- Monitoring implementation
-- Performance optimization
-- Bug fixes
+2. **State Transitions**
+   ```python
+   if step == UPDATE:
+       if response["loop"]:
+           next_step = ACTION
+       else:
+           next_step = YIELD
+   else:
+       next_step = steps[current_index + 1]
+   ```
 
 ## Testing Strategy
 
-### Program Testing
+1. **Prior Flow Tests**
+   ```python
+   def test_prior_flow():
+       # Test vector search
+       priors = search_similar(input)
+       assert len(priors) == 80
 
-- Unit tests with Bankrun - post pmf
-- Fuzzing with Trident — post pmf
-    - hard time setting these up; tests take too long to run while iteration speed is of the essence. anchor test works for now.
-- Property verification
-- Security boundaries
+       # Test semantic recording
+       record_semantic_links(input, priors)
+       verify_links_recorded()
 
-### Integration Testing
+       # Test citation integration
+       response = generate_with_citations(input, priors)
+       verify_citations_natural(response)
+   ```
 
-- End-to-end workflows
-- State synchronization
-- Error conditions
-- Performance metrics
+2. **Effect Tests**
+   ```typescript
+   test("effect accumulation", () => {
+     const effects = [];
+     // Run cycle
+     expect(effects).toMatchPattern({
+       experience: { priors: expect.arrayLength(80) },
+       yield: { citations: expect.any(Array) }
+     });
+   });
+   ```
 
-### Security Testing
+3. **Step Tests**
+   ```python
+   def test_step_sequence():
+       state = run_chorus_cycle(input)
+       verify_step_sequence(state.effects)
+       verify_prior_flow(state.effects)
+       verify_semantic_recording(state)
+   ```
 
-- Attack surface analysis
-- Invariant verification
-- State transition validation
-- Access control verification
+## Implementation Notes
 
-## Monitoring Considerations
+1. **Prior Flow**
+   - Keep EXPERIENCE simple
+   - No filtering until citations
+   - Record semantic links
+   - Natural integration
 
-### System Health
+2. **Effect System**
+   - Clean effect types
+   - Proper accumulation
+   - UI synchronization
+   - Error handling
 
-- Performance metrics
-- Error rates
-- State consistency
-- Network stability
+3. **Step Processing**
+   - Clear step roles
+   - Proper transitions
+   - State coherence
+   - Effect generation
 
-### Security Monitoring
-
-- Attack detection
-- Anomaly identification
-- State verification
-- Access patterns
-
-## Future Evolution
-
-The system is designed to evolve with:
-
-- Improved AI capabilities
-- Enhanced testing tools
-- Automated code generation
-- Scaled development patterns
-
-Through this approach, we create a foundation that:
-
-- Scales with AI advancement
-- Maintains security focus
-- Enables rapid iteration
-- Preserves system integrity
+Through this approach, we'll build a system that:
+- Maintains prior flow integrity
+- Preserves effect coherence
+- Builds semantic knowledge
+- Enables natural citations
 
 
 ==

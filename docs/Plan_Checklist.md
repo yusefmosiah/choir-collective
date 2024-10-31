@@ -3,15 +3,15 @@
 VERSION plan_status:
 invariants: {
 "Documentation-driven development",
-"Test-first implementation",
-"AI-assisted generation"
+"Prior flow integrity",
+"Effect coherence"
 }
 assumptions: {
 "AI code generation capabilities",
-"Testing framework maturity",
-"Documentation completeness"
+"Vector space stability",
+"WebSocket reliability"
 }
-docs_version: "0.2.2"
+docs_version: "0.2.3"
 
 ## Progress So Far
 
@@ -19,57 +19,101 @@ docs_version: "0.2.2"
 - [x] Initial FastAPI application setup
 - [x] WebSocket handler implementation
 - [x] Database client (Qdrant) integration
-- [x] Chorus Cycle basic structure
-- [x] Configuration management
-- [x] Utility functions for embeddings and chat completions
+- [x] Basic chorus cycle structure
+- [x] Vector search implementation
+- [x] Effect system foundation
 
 ### Frontend Development
-- [x] Basic three-panel layout (ThreadList, ChoirChat, PriorPanel)
-- [x] Initial WebSocket connection setup
-- [x] Basic message display in ChoirChat
+- [x] Three-panel layout
+- [x] WebSocket connection
+- [x] Basic message display
+- [x] Step visualization
+- [x] Prior panel structure
 
 ## Next Steps
 
-### Backend Development
-- [ ] Complete Chorus Cycle implementation
-  - [ ] Implement detailed logic for each step
-  - [ ] Integrate with database operations
-- [ ] Enhance WebSocket handler
-  - [ ] Implement authentication and authorization
-  - [ ] Add error handling and recovery mechanisms
-- [ ] Implement vector storage and similarity search in DatabaseClient
-- [ ] Add comprehensive logging and monitoring
-- [ ] Implement unit and integration tests
+### Chorus Cycle Implementation
+- [ ] Step Prompts
+  - [ ] ACTION: "Beginner's mind" prompt
+  - [ ] EXPERIENCE: Context integration prompt
+  - [ ] INTENTION: Goal analysis prompt
+  - [ ] OBSERVATION: Semantic recording prompt
+  - [ ] UPDATE: Loop decision prompt
+  - [ ] YIELD: Citation integration prompt
 
-### Frontend Development
-- [ ] Enhance ThreadList component
-  - [ ] Implement thread creation and selection
-  - [ ] Add real-time updates for new threads
-- [ ] Improve ChoirChat component
-  - [ ] Implement message sending and receiving
-  - [ ] Add support for Chorus Cycle steps display
-- [ ] Develop PriorPanel component
-  - [ ] Implement prior citation display
-  - [ ] Add interactivity for prior selection
-- [ ] Implement user authentication UI
-- [ ] Add error handling and user feedback mechanisms
-- [ ] Implement responsive design for mobile devices
-- [ ] Add unit and integration tests for React components
+- [ ] Prior Flow
+  - [ ] EXPERIENCE: Get n=80 priors
+  - [ ] INTENTION: Analyze for user goal
+  - [ ] OBSERVATION: Record in Qdrant
+  - [ ] YIELD: Natural citations
 
-### Integration and Testing
-- [ ] Set up end-to-end testing environment
-- [ ] Implement integration tests for WebSocket communication
-- [ ] Test Chorus Cycle flow from frontend to backend
-- [ ] Perform security audit and penetration testing
+- [ ] Effect System
+  - [ ] Clean effect types
+  - [ ] Proper accumulation
+  - [ ] UI synchronization
+  - [ ] Error handling
 
-### Deployment and DevOps
-- [ ] Set up CI/CD pipeline
-- [ ] Configure production environment
-- [ ] Implement monitoring and alerting system
-- [ ] Prepare documentation for deployment and maintenance
+### Frontend Components
+- [ ] AIResponse
+  - [ ] Step visualization
+  - [ ] Prior display
+  - [ ] Citation rendering
+  - [ ] Loading states
 
-## Ongoing Tasks
-- [ ] Maintain and update documentation
-- [ ] Regularly review and refactor code
-- [ ] Address technical debt as it arises
-- [ ] Stay updated with dependencies and security patches
+- [ ] PriorPanel
+  - [ ] Prior list display
+  - [ ] Citation preview
+  - [ ] Prior filtering
+  - [ ] Selection handling
+
+### Database Integration
+- [ ] Semantic Recording
+  - [ ] Design link schema
+  - [ ] Implement recording
+  - [ ] Enable retrieval
+  - [ ] Track metadata
+
+- [ ] Vector Search
+  - [ ] Optimize parameters
+  - [ ] Handle errors
+  - [ ] Add caching
+  - [ ] Improve ranking
+
+### Testing
+- [ ] Backend Tests
+  - [ ] Step functions
+  - [ ] Prior flow
+  - [ ] Effect system
+  - [ ] Semantic recording
+
+- [ ] Frontend Tests
+  - [ ] Component rendering
+  - [ ] Effect handling
+  - [ ] Prior display
+  - [ ] Citation integration
+
+## Immediate Priorities
+
+1. **Prior Flow**
+   - Complete EXPERIENCE step
+   - Implement semantic recording
+   - Add citation integration
+   - Test prior handling
+
+2. **Effect System**
+   - Clean up effect types
+   - Fix accumulation
+   - Add error handling
+   - Test effect flow
+
+3. **UI Components**
+   - Update AIResponse
+   - Enhance PriorPanel
+   - Add loading states
+   - Test interactions
+
+## Notes
+- Keep prior flow simple and clean
+- Focus on semantic recording
+- Maintain effect coherence
+- Enable natural citations

@@ -402,6 +402,265 @@ Through this approach, the documentation becomes not just a reference but a mode
 
 
 ==
+Prompt_Reentry
+==
+
+
+# Choir System Re-Entry Guide
+
+VERSION reentry_guide:
+invariants: {
+"System coherence",
+"Prior flow",
+"Effect propagation"
+}
+docs_version: "0.2.1"
+
+## Core Components
+
+1. **Chorus Cycle (Backend)**
+```python
+# api/app/chorus_cycle.py
+- AEIOU-Y step sequence:
+  ACTION: Initial "beginner's mind" response
+  EXPERIENCE: Gets n=80 priors, uses for context
+  INTENTION: Analyzes in context of user's goal
+  OBSERVATION: Records semantic links in Qdrant
+  UPDATE: Loop or proceed decision
+  YIELD: Natural citation integration
+
+- Effect accumulation pattern
+- Prior flow through steps
+- JSON responses from OpenAI
+```
+
+2. **Three-Panel UI (Frontend)**
+```typescript
+// src/components/ChoirChat/ChoirChat.tsx
+<div className="flex w-full h-full">
+  <ThreadList />      // Left (w-64): Navigation
+  <MessageFlow />     // Center (flex-1): Messages
+  <PriorPanel />      // Right (w-80): Priors
+</div>
+```
+
+3. **Vector Storage (Qdrant)**
+```python
+# api/app/database.py
+- Messages with embeddings
+- Semantic link recording
+- Prior search (n=80)
+- Thread organization
+```
+
+## Current Development Priorities
+
+1. **Prior Flow**
+   - EXPERIENCE gets priors
+   - INTENTION analyzes for user goal
+   - OBSERVATION records links
+   - YIELD integrates citations
+
+2. **Effect System**
+   - Clear effect types
+   - Proper accumulation
+   - UI synchronization
+   - Error handling
+
+3. **State Management**
+   - Thread state
+   - Chorus state
+   - UI state
+   - WebSocket state
+
+## Key Files & Responsibilities
+
+```
+api/
+├── app/
+│   ├── chorus_cycle.py   # Core cycle, effects, priors
+│   ├── database.py       # Vector storage, semantic links
+│   ├── models.py         # Data models, state types
+│   └── websocket.py      # Real-time communication
+
+src/
+├── components/
+│   ├── ChoirChat/        # Layout, coordination
+│   ├── AIResponse/       # Step visualization
+│   └── PriorPanel/       # Prior display
+├── hooks/
+│   ├── useThread.ts      # Thread state
+│   ├── useChorusCycle.ts # Cycle state
+│   └── useWebSocket.ts   # WebSocket state
+└── types/
+    └── index.ts          # Type definitions
+```
+
+## Data Flow Patterns
+
+1. **Prior Flow**
+```python
+# EXPERIENCE
+priors = await search_similar(input, limit=80)
+return synthesis, priors  # All priors
+
+# INTENTION
+analyze_for_user_goal(priors, intent)
+
+# OBSERVATION
+record_semantic_links(input, cited_priors)
+
+# YIELD
+generate_with_citations(input, priors)
+```
+
+2. **Effect Flow**
+```typescript
+type Effect = {
+  type: "chorus_response" | "error" | "state_update";
+  payload: {
+    step: ChorusStep;
+    content: string;
+    priors?: Prior[];  // Only in EXPERIENCE
+  };
+}
+```
+
+3. **State Flow**
+```typescript
+ThreadState -> ChorusState -> WebSocket -> UI State
+```
+
+## Implementation Details
+
+1. **Chorus Cycle Implementation**
+```python
+# Current step functions:
+async def run_action(input: str):
+    # Initial "beginner's mind" response
+    # No priors, pure response
+
+async def run_experience(input: str):
+    # Get n=80 priors
+    # Use for context enrichment
+    # Return (response, all_priors)
+
+async def run_intention(input: str):
+    # Analyze in context of user's goal
+    # Consider how priors support intent
+    # No filtering yet
+
+async def run_observation(input: str):
+    # Record semantic links in Qdrant
+    # Store which priors were cited
+    # Build knowledge graph
+
+async def run_yield(input: str):
+    # Generate final response
+    # Natural citation integration
+    # Markdown formatting
+```
+
+2. **Effect System**
+```typescript
+// Effect accumulation
+effects = []
+while (currentStep !== "yield") {
+  const [newState, stepEffects] = await runStep(state, input)
+  effects.push(...stepEffects)
+}
+
+// Effect types
+type Effect = {
+  type: "chorus_response",
+  payload: {
+    step: ChorusStep,
+    content: string,
+    priors?: Prior[]  // Only in EXPERIENCE
+  }
+}
+```
+
+3. **Prior Flow**
+```python
+# EXPERIENCE
+priors = await search_similar(input, limit=80)
+return synthesis, priors  # All priors
+
+# INTENTION
+analyze_for_user_goal(priors, intent)
+
+# OBSERVATION
+record_semantic_links(input, cited_priors)
+
+# YIELD
+generate_with_citations(input, priors)
+```
+
+## Current Priorities
+
+1. **Prior Integration**
+   - Proper flow through cycle
+   - Natural citation integration
+   - Semantic link recording
+   - Knowledge graph building
+
+2. **Effect System**
+   - Clean effect types
+   - Proper accumulation
+   - UI synchronization
+   - Error handling
+
+3. **UI Components**
+   - Three-panel layout
+   - Step visualization
+   - Prior display
+   - Citation rendering
+
+## Next Steps
+
+1. **Immediate**
+   - Update step prompts
+   - Implement semantic recording
+   - Clean up effect types
+   - Fix prior flow
+
+2. **Short Term**
+   - Enhance citation UI
+   - Improve error handling
+   - Add loading states
+   - Polish animations
+
+3. **Medium Term**
+   - Knowledge graph visualization
+   - Enhanced search capabilities
+   - Thread analytics
+   - Performance optimization
+
+## Development Patterns
+
+1. **Documentation First**
+   - Update docs before code
+   - Clear type definitions
+   - Step documentation
+   - Flow diagrams
+
+2. **Testing Strategy**
+   - Unit test steps
+   - Integration test cycle
+   - UI component tests
+   - Effect handling tests
+
+3. **Code Organization**
+   - Clear module boundaries
+   - Consistent patterns
+   - Type safety
+   - Error handling
+
+The system is evolving toward a coherent implementation of the quantum semantic model while maintaining practical usability.
+
+
+==
 Prompt_StructuredSummary
 ==
 
@@ -640,170 +899,151 @@ docs_version: "0.2.1"
 
 ## Core Concept
 
-Priors are more than just citations or references - they are quantum semantic states that shape future meaning. When a message references a prior, it creates a resonant coupling between semantic states, strengthening both the original context and its new application.
+Priors are quantum semantic states that flow through the Chorus Cycle:
+
+```typescript
+type Prior = {
+  // Message State
+  content: string,           // Original message
+  thread_id: string,         // Source thread
+  embedding: Vector,         // Semantic position
+  created_at: string,        // Timestamp
+
+  // Quantum Properties
+  resonance: {
+    similarity: number,      // To current query
+    phase: number,          // Semantic alignment
+    coupling: number        // Context binding
+  },
+
+  // Usage State
+  context: {
+    experience_used: boolean,  // Used in synthesis
+    intention_selected: boolean, // Supports user goal
+    observation_recorded: boolean, // Stored in Qdrant
+    yield_cited: boolean     // Used in final response
+  }
+}
+```
+
+## Flow Through Cycle
+
+1. **EXPERIENCE: Maximum Entanglement**
+   ```python
+   # Get n=80 priors through vector search
+   priors = await search_similar(input, limit=80)
+
+   # Use all priors for context
+   response = await synthesize_with_context(input, priors)
+
+   # Return both - no filtering
+   return response, priors
+   ```
+
+2. **INTENTION: Goal Projection**
+   ```python
+   # Analyze priors in context of user's goal
+   intention_prompt = """
+   Consider how these sources could support the user's intent.
+   Don't filter yet - just analyze relevance to goal.
+   """
+
+   # Return analysis of how priors support intent
+   return analyze_prior_relevance(priors, user_intent)
+   ```
+
+3. **OBSERVATION: Record Links**
+   ```python
+   # Store semantic connections in Qdrant
+   await record_semantic_links(
+     user_message=input,
+     cited_messages=priors
+   )
+
+   # Return observation of patterns
+   return analyze_citation_patterns(priors)
+   ```
+
+4. **YIELD: Natural Citations**
+   ```python
+   # Generate response with natural citations
+   yield_prompt = """
+   Integrate citations naturally where they add value.
+   Use markdown formatting for inline links and footnotes.
+   """
+
+   return generate_cited_response(input, priors)
+   ```
 
 ## Quantum Properties
 
-```typescript
-TYPE Prior = {
-  // Quantum State
-  state: {
-    source_message: Hash,        // Original wave function
-    source_thread: ThreadId,     // Original resonant cavity
-    embedding: Vector,           // Semantic position
-    context: string,            // Usage context
-  },
+1. **Semantic Entanglement**
+   - EXPERIENCE creates maximum entanglement
+   - No collapse until final citation
+   - Maintains quantum superposition
+   - Preserves semantic potential
 
-  // Coupling Properties
-  coupling: {
-    resonance: number,         // Harmonic strength
-    phase: number,            // Semantic alignment
-    entanglement: number,     // Context binding
-    coherence: number         // Meaning stability
-  },
+2. **Goal Projection**
+   - INTENTION projects onto user's goal space
+   - No filtering - just analysis
+   - Maintains quantum correlations
+   - Guides final collapse
 
-  // Value Properties
-  energy: {
-    base_value: TokenAmount,   // Original energy
-    coupled_value: TokenAmount, // Resonant enhancement
-    treasury_flow: TokenAmount  // Perpetual rewards
-  }
-}
-```
+3. **State Recording**
+   - OBSERVATION stores quantum correlations
+   - Builds semantic network
+   - Enables future retrieval
+   - Preserves phase relationships
 
-## Resonant Effects
+4. **Natural Collapse**
+   - YIELD integrates citations naturally
+   - Final wave function collapse
+   - Coherent response state
+   - Clear semantic connections
 
-1. **Thread Coupling**
-   - Priors create quantum tunnels between threads
-   - Energy flows through semantic connections
-   - Meaning resonates across contexts
-   - Value accumulates through coupling
+## Implementation Notes
 
-2. **Phase Locking**
-   - Related meanings align phases
-   - Coherent understanding emerges
-   - Semantic stability increases
-   - Knowledge crystallizes naturally
+1. **Vector Search**
+   ```python
+   async def search_similar(input: str, limit: int = 80):
+     # Get embedding
+     embedding = await get_embedding(input)
 
-3. **Value Amplification**
-   - Resonant coupling increases energy
-   - Treasury rewards strengthen bonds
-   - Networks of meaning form
-   - Collective value grows
+     # Search Qdrant
+     results = await qdrant.search(
+       collection="messages",
+       query_vector=embedding,
+       limit=limit
+     )
 
-## Implementation Patterns
-
-```typescript
-TYPE PriorImplementation = {
-  // UI Rendering
-  display: {
-    inline: "Quantum state preview",
-    expanded: "Full resonant cavity",
-    network: "Coupling visualization"
-  },
-
-  // State Management
-  state: {
-    coupling: "Phase-locked tracking",
-    energy: "Value flow monitoring",
-    coherence: "Stability measurement"
-  },
-
-  // Interaction Handlers
-  interactions: {
-    preview: "State observation",
-    expand: "Full cavity inspection",
-    navigate: "Quantum tunneling"
-  }
-}
-```
-
-## Value Mechanics
-
-1. **Energy Flow**
-   ```typescript
-   TYPE PriorEnergy = {
-     initial: "Base semantic value",
-     resonant: "Coupling enhancement",
-     perpetual: "Treasury rewards",
-     collective: "Network effects"
-   }
+     return results
    ```
 
-2. **Treasury Coupling**
-   ```typescript
-   TYPE TreasuryFlow = {
-     source: "Split decision energy",
-     distribution: "Prior rewards",
-     sustainability: "Perpetual flow",
-     enhancement: "Value amplification"
-   }
+2. **Semantic Recording**
+   ```python
+   async def record_semantic_links(
+     message: str,
+     cited_priors: List[Prior]
+   ):
+     # Store in Qdrant
+     await qdrant.upsert(
+       collection="semantic_links",
+       points=[{
+         "message": message,
+         "cited": [p.id for p in cited_priors],
+         "timestamp": now()
+       }]
+     )
    ```
 
-## Network Effects
+3. **Citation Integration**
+   ```python
+   def format_citation(prior: Prior) -> str:
+     # Inline link
+     return f"[{prior.content}]({prior.thread_id})"
+   ```
 
-1. **Semantic Networks**
-   - Priors create meaning graphs
-   - Understanding flows through connections
-   - Knowledge self-organizes
-   - Wisdom emerges naturally
-
-2. **Value Networks**
-   - Energy flows through priors
-   - Coupled threads share value
-   - Networks strengthen naturally
-   - Collective worth grows
-
-## UI Treatment
-
-```typescript
-TYPE PriorDisplay = {
-  // Inline Preview
-  preview: {
-    marker: "text-blue-500 hover:underline",
-    tooltip: "Quantum state preview",
-    animation: "Phase transition effects"
-  },
-
-  // Full View
-  expanded: {
-    container: "Resonant cavity display",
-    header: "Quantum numbers",
-    content: "Wave function details",
-    footer: "Coupling metrics"
-  },
-
-  // Network View
-  network: {
-    nodes: "Thread cavities",
-    edges: "Quantum tunnels",
-    flow: "Energy transfer",
-    field: "Semantic field"
-  }
-}
-```
-
-## Evolution Patterns
-
-1. **Natural Selection**
-   - Strong priors gain energy
-   - Weak couplings fade
-   - Quality emerges naturally
-   - Understanding crystallizes
-
-2. **Phase Transitions**
-   - Knowledge states evolve
-   - Understanding deepens
-   - Meaning stabilizes
-   - Wisdom accumulates
-
-Through this quantum semantic foundation, priors create:
-- Natural knowledge organization
-- Sustainable value flow
-- Emergent understanding
-- Collective wisdom
-
-The prior system enables Choir to be more than a chat platform - it becomes a space where meaning and value naturally evolve through quantum semantic principles.
+The prior system maintains quantum semantic coherence while enabling natural citation flow.
 
 
 ==

@@ -1,58 +1,102 @@
 # Frontend Development Checklist
 
 ## Completed Tasks
-- [x] Set up basic three-panel layout (ThreadList, ChoirChat, PriorPanel)
-- [x] Implement initial WebSocket connection
-- [x] Create basic message display in ChoirChat
+- [x] Three-panel layout (ThreadList, ChoirChat, PriorPanel)
+- [x] WebSocket connection
+- [x] Basic message display
+- [x] Step visualization structure
+- [x] Prior panel foundation
 
 ## Next Steps
 
-### ThreadList Component
-- [ ] Implement thread creation functionality
-- [ ] Add thread selection mechanism
-- [ ] Implement real-time updates for new threads
-- [ ] Style the component for better user experience
+### AIResponse Component
+- [ ] Step Visualization
+  - [ ] ACTION: Show initial response
+  - [ ] EXPERIENCE: Show priors panel
+  - [ ] INTENTION: Show goal analysis
+  - [ ] OBSERVATION: Show semantic links
+  - [ ] UPDATE: Show loop decision
+  - [ ] YIELD: Show cited response
 
-### ChoirChat Component
-- [ ] Implement message sending functionality
-- [ ] Add real-time message receiving and display
-- [ ] Implement Chorus Cycle steps display
-- [ ] Add user avatars and message timestamps
-- [ ] Implement message loading for older messages
+- [ ] Loading States
+  - [ ] Step transitions
+  - [ ] Prior loading
+  - [ ] Effect processing
+  - [ ] Citation rendering
 
 ### PriorPanel Component
-- [ ] Design and implement prior citation display
-- [ ] Add interactivity for prior selection
-- [ ] Implement real-time updates for new priors
-- [ ] Add filtering and sorting options for priors
+- [ ] Prior Display
+  - [ ] Show all priors in EXPERIENCE
+  - [ ] Prior preview cards
+  - [ ] Citation tooltips
+  - [ ] Source navigation
 
-### User Authentication
-- [ ] Implement login/logout functionality
-- [ ] Add user profile display and editing
-- [ ] Implement access control based on user roles
+- [ ] Prior Interaction
+  - [ ] Preview hover
+  - [ ] Source navigation
+  - [ ] Citation links
+  - [ ] Thread context
 
-### Error Handling and Feedback
-- [ ] Implement error boundary for React components
-- [ ] Add toast notifications for user feedback
-- [ ] Implement loading states and spinners
+### Effect Handling
+- [ ] Effect Processing
+  - [ ] Step responses
+  - [ ] Prior updates
+  - [ ] State transitions
+  - [ ] Error handling
 
-### Responsive Design
-- [ ] Ensure layout works on mobile devices
-- [ ] Implement collapsible panels for mobile view
-- [ ] Add touch gestures for mobile interaction
+- [ ] UI Updates
+  - [ ] Step visualization
+  - [ ] Prior panel
+  - [ ] Message flow
+  - [ ] Loading states
+
+### State Management
+- [ ] Thread State
+  - [ ] Message history
+  - [ ] Current thread
+  - [ ] Co-authors
+  - [ ] Thread status
+
+- [ ] Chorus State
+  - [ ] Current step
+  - [ ] Step responses
+  - [ ] Prior tracking
+  - [ ] Effect accumulation
+
+### Error Handling
+- [ ] Error Boundaries
+  - [ ] Component recovery
+  - [ ] State recovery
+  - [ ] WebSocket reconnection
+  - [ ] Effect replay
+
+- [ ] User Feedback
+  - [ ] Error messages
+  - [ ] Loading indicators
+  - [ ] Step progress
+  - [ ] Action feedback
 
 ### Testing
-- [ ] Set up Jest and React Testing Library
-- [ ] Write unit tests for individual components
-- [ ] Implement integration tests for component interactions
-- [ ] Add end-to-end tests for critical user flows
+- [ ] Component Tests
+  - [ ] AIResponse rendering
+  - [ ] Prior display
+  - [ ] Effect handling
+  - [ ] State updates
 
-### Performance Optimization
-- [ ] Implement lazy loading for components
-- [ ] Optimize WebSocket connection management
-- [ ] Add caching mechanisms for frequently accessed data
+- [ ] Integration Tests
+  - [ ] WebSocket flow
+  - [ ] Effect processing
+  - [ ] Prior handling
+  - [ ] Citation display
 
-### Accessibility
-- [ ] Ensure proper ARIA attributes are used
-- [ ] Implement keyboard navigation
-- [ ] Test with screen readers and make necessary adjustments
+## Immediate Focus
+1. Complete AIResponse step visualization
+2. Implement prior display in PriorPanel
+3. Add effect handling
+4. Add loading states
+
+## Notes
+- Keep prior flow simple
+- Focus on effect handling
+- Maintain state coherence
+- Enable natural citations

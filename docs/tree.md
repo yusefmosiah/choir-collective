@@ -119,18 +119,23 @@
 │   ├── Backend_Database.md
 │   ├── Backend_Main.md
 │   ├── Backend_Models.md
-│   ├── Core_Blueprint.md
+│   ├── Core_Chorus_Steps.md
 │   ├── Core_Comprehensive.md
 │   ├── Core_Consistency.md
 │   ├── Core_Context.md
 │   ├── Core_Economics.md
+│   ├── Core_Effect_Quantum.md
+│   ├── Core_Effects.md
 │   ├── Core_Invariants.md
 │   ├── Core_Ownership.md
+│   ├── Core_Patterns.md
+│   ├── Core_Prior_Flow.md
 │   ├── Core_Priors.md
 │   ├── Core_ProofOfText.md
 │   ├── Core_StateTransitions.md
 │   ├── Core_Types.md
 │   ├── Core_Whitepaper.md
+│   ├── Current_Summary.md
 │   ├── Data_Engine_Vision.md
 │   ├── Deploy_Render_Checklist.md
 │   ├── Deploy_Report.md
@@ -190,7 +195,7 @@
 │   ├── Plan_Hyperconverge.md
 │   ├── Plan_Restructure.md
 │   ├── Plan_ToBeContinued.md
-│   ├── Porting_Checklist.md
+│   ├── Prompt_Reentry.md
 │   ├── Prompt_StructuredSummary.md
 │   ├── Report_2024-10-28.md
 │   ├── Reward_Explained.md
@@ -210,9 +215,12 @@
 │   ├── Solana_thread_test.md
 │   ├── Solana_validation.md
 │   ├── State_Boundaries.md
+│   ├── Summary_level4.md
+│   ├── Summary_level5.md
 │   ├── Tech_Arts_Intersection.md
 │   ├── Theory_ChorusQuantum.md
 │   ├── Theory_Chorus_Cycle.md
+│   ├── Theory_EquityQuantization.md
 │   ├── Theory_HarmonicBondingCurve.md
 │   ├── Theory_HarmonicMetastability.md
 │   ├── Theory_HarmonicOscillator.md
@@ -236,7 +244,6 @@
 │   │   ├── Combined_Meta.md
 │   │   ├── Combined_Model.md
 │   │   ├── Combined_Plan.md
-│   │   ├── Combined_Porting.md
 │   │   ├── Combined_Prompt.md
 │   │   ├── Combined_Report.md
 │   │   ├── Combined_Reward.md
@@ -353,4 +360,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-60 directories, 291 files
+60 directories, 298 files

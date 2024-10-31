@@ -2,19 +2,23 @@ import React from 'react';
 import { Message, ChorusStep } from '@/types';
 import AIResponse from '../AIResponse/AIResponse';
 import { useChorusCycle } from '@/hooks/useChorusCycle';
+import { Dispatch, SetStateAction } from 'react';
 
-interface MessageFlowProps {
+// Export the interface
+export interface MessageFlowProps {
   messages: Message[];
-  onMessageSelect: (messageId: string) => void;
+  onMessageSelect: Dispatch<SetStateAction<string | null>>;
   selectedMessageId: string | null;
+  currentStep: ChorusStep;
 }
 
 const MessageFlow: React.FC<MessageFlowProps> = ({
   messages,
   onMessageSelect,
   selectedMessageId,
+  currentStep,
 }) => {
-  const { currentStep, steps, priors } = useChorusCycle();
+  const { steps, priors } = useChorusCycle();
 
   return (
     <div className="space-y-4">

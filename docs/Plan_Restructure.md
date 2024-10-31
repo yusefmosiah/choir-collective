@@ -28,28 +28,28 @@ Starting from create-solana-dapp template with:
 src/
 ├── components/
 │   ├── ChoirChat/        // Main chat container
-│   │   ├── ChoirChat.tsx // Chat interface
-│   │   ├── MessageFlow.tsx // Message display
+│   │   ├── ChoirChat.tsx // Three-panel layout
+│   │   ├── MessageFlow.tsx // Message & step display
 │   │   └── types.ts      // Chat types
-│   ├── ChorusPanel/      // Bottom sheet UI
-│   │   ├── ChorusPanel.tsx // Panel container
-│   │   ├── StepContent.tsx // Step rendering
-│   │   └── types.ts      // Panel types
-│   ├── AIResponse/       // AI response handling
-│   │   ├── AIResponse.tsx // Response display
-│   │   ├── PriorRenderer.tsx // Prior citations
-│   │   └── types.ts      // Response types
-│   └── ui/              // Shared UI components
+│   ├── AIResponse/       // Step visualization
+│   │   ├── AIResponse.tsx // Step display
+│   │   ├── StepContent.tsx // Step-specific content
+│   │   └── types.ts      // Step types
+│   ├── PriorPanel/       // Prior handling
+│   │   ├── PriorPanel.tsx // Prior display
+│   │   ├── PriorCard.tsx  // Prior preview
+│   │   └── types.ts      // Prior types
+│   └── ui/              // Shared components
 ```
 
 2. **State Management**
 ```typescript
 src/
 ├── hooks/
-│   ├── useThread.ts     // Thread state & operations
-│   ├── useWebSocket.ts  // Real-time connection
-│   ├── useChorus.ts     // Chorus cycle state
-│   └── useBottomSheet.ts // Mobile UI gestures
+│   ├── useThread.ts      // Thread state
+│   ├── useWebSocket.ts   // Real-time comms
+│   ├── useChorusCycle.ts // Cycle state & effects
+│   └── usePriors.ts      // Prior handling
 ```
 
 3. **Mobile-First UI**
@@ -66,30 +66,26 @@ src/
 1. **Core Services**
 ```python
 api/
-├── main.py              # FastAPI application
-├── chorus.py            # Chorus cycle implementation
-├── websocket.py         # WebSocket protocol
-├── database.py          # Qdrant integration
-└── models/
-    ├── thread.py        # Thread state
-    ├── message.py       # Message types
-    └── user.py          # User session
+├── app/
+│   ├── chorus_cycle.py   # AEIOU-Y cycle
+│   ├── database.py      # Qdrant operations
+│   ├── websocket.py     # Real-time comms
+│   └── models/
+│       ├── message.py   # Message types
+│       ├── prior.py     # Prior types
+│       └── effect.py    # Effect types
 ```
 
-2. **WebSocket Protocol**
+2. **Chorus Cycle**
 ```python
-websocket.py
-├── ConnectionManager    # Connection handling
-├── ThreadSubscription   # Room management
-└── MessageQueue        # Real-time updates
-```
-
-3. **Chorus Cycle**
-```python
-chorus.py
-├── ChorusCycle         # Core cycle logic
-├── StepProcessor       # Step handling
-└── PriorIntegration    # Citation management
+chorus_cycle.py
+├── ChorusCycle         # Core cycle
+│   ├── run_action      # Beginner's mind
+│   ├── run_experience  # Get n=80 priors
+│   ├── run_intention   # Analyze for goal
+│   ├── run_observation # Record in Qdrant
+│   ├── run_update      # Loop decision
+│   └── run_yield       # Natural citations
 ```
 
 ## Solana Program Restructuring (anchor/)
@@ -119,23 +115,23 @@ tests/
 
 ## Implementation Priority
 
-1. **Phase 1: Core Chat (Oct 29)**
-- WebSocket implementation
-- Real-time message flow
-- Prior rendering
-- Thread state management
+1. **Phase 1: Prior Flow (Oct 29)**
+   - Vector search implementation
+   - Prior display components
+   - Semantic recording
+   - Citation integration
 
-2. **Phase 2: Mobile UI (Oct 30)**
-- Bottom sheet implementation
-- Tab navigation
-- Gesture handling
-- Safe area management
+2. **Phase 2: Effect System (Oct 30)**
+   - Effect type cleanup
+   - Effect accumulation
+   - UI synchronization
+   - Error handling
 
-3. **Phase 3: Chorus Cycle (Oct 31)**
-- Step processing
-- Prior integration
-- State transitions
-- Real-time updates
+3. **Phase 3: Step Processing (Oct 31)**
+   - Step prompts
+   - State transitions
+   - Real-time updates
+   - Loading states
 
 ## Testing Strategy
 

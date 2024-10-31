@@ -9,14 +9,14 @@
    - Proper height constraints and overflow handling
 
 2. Component Structure:
-   - AIResponse component ready to display chorus cycle steps
-   - MessageFlow handling both user and AI messages
-   - Proper TypeScript interfaces for all components
+   - AIResponse component ready for step visualization
+   - MessageFlow handling user/AI messages
+   - PriorPanel ready for prior display
 
 3. State Management:
-   - useWebSocket hook with wallet integration
-   - useThread hook for managing thread state
-   - useChorusCycle hook for managing chorus cycle state
+   - useWebSocket hook for real-time updates
+   - useThread hook for thread state
+   - useChorusCycle hook for cycle state
 
 ### Backend
 1. Database Setup:
@@ -24,152 +24,109 @@
      - messages (1536d vectors)
      - chat_threads (1536d vectors)
      - users (1536d vectors)
-   - Collection operations implemented in DatabaseClient
+   - Collection operations implemented
 
 2. Initial Structure:
    - WebSocket handler ready
-   - Basic chorus cycle implementation
+   - Basic chorus cycle implemented
    - Database client with vector search
 
 ## Next Steps
 
-### 1. Backend Implementation
+### 1. Chorus Cycle Implementation
 
-#### Chorus Cycle (AEIOU-Y)
-The Chorus Cycle inverts traditional AI agent design, starting with action and focusing on self-reflection:
+1. **ACTION**
+   - [ ] Implement "beginner's mind" prompt
+   - [ ] Add confidence scoring
+   - [ ] Setup effect generation
+   - [ ] Add error handling
 
-1. **Action (A)**
-   - Initial response with "beginner's mind"
-   - Pure, unfiltered response without context
-   - Purpose: Generate authentic, unbiased initial thoughts
-   - Implementation:
-     - [ ] Direct LLM call with minimal prompt
-     - [ ] Structure response as markdown with confidence level
-     - [ ] Add error handling and retry logic
-     - [ ] Emit WebSocket events for step progress
+2. **EXPERIENCE**
+   - [ ] Implement vector search (n=80)
+   - [ ] Format priors for context
+   - [ ] Return both synthesis and priors
+   - [ ] No filtering at this stage
 
-2. **Experience (E)**
-   - Search for relevant prior context (n=80 priors)
-   - Vector similarity search in Qdrant
-   - Purpose: Ground the response in existing knowledge
-   - Implementation:
-     - [ ] Implement vector search with proper ranking
-     - [ ] Add semantic deduplication of results
-     - [ ] Format priors for LLM context
-     - [ ] Send prior preview events to frontend
+3. **INTENTION**
+   - [ ] Analyze priors for user's goal
+   - [ ] Consider how priors support intent
+   - [ ] Return intent analysis
+   - [ ] No filtering yet
 
-3. **Intention (I)**
-   - Analyze planned actions and consequences
-   - Select most relevant priors from search_limit = 80
-   - Purpose: Understand implications and align with goals
-   - Implementation:
-     - [ ] Create structured output format for selected priors
-     - [ ] Add intent analysis with clear criteria
-     - [ ] Track prior selection reasoning
-     - [ ] Update frontend with selection state
+4. **OBSERVATION**
+   - [ ] Record semantic links in Qdrant
+   - [ ] Store which priors were cited
+   - [ ] Build knowledge graph
+   - [ ] Return observation analysis
 
-4. **Observation (O)**
-   - Self-reflection on analysis and intentions
-   - Identify gaps and biases
-   - Purpose: Critical examination of the process
-   - Implementation:
-     - [ ] Add structured gap analysis format
-     - [ ] Enhance prompt for critical thinking
-     - [ ] Store observations in Qdrant
-     - [ ] Stream reflection to frontend
+5. **UPDATE**
+   - [ ] Implement loop/proceed decision
+   - [ ] Add confidence threshold
+   - [ ] Track decision reasoning
+   - [ ] Handle state transitions
 
-5. **Update (U)**
-   - Binary decision: loop or proceed
-   - Based on confidence and completeness
-   - Purpose: Quality control gate
-   - Implementation:
-     - [ ] Define clear confidence thresholds
-     - [ ] Add loop counter with limits
-     - [ ] Track decision criteria
-     - [ ] Notify frontend of loop/proceed
+6. **YIELD**
+   - [ ] Natural citation integration
+   - [ ] Markdown formatting
+   - [ ] Citation quality checks
+   - [ ] Final response synthesis
 
-6. **Yield (Y)**
-   - Final response synthesis
-   - Include inline citations to priors
-   - Purpose: Deliver comprehensive, grounded response
-   - Implementation:
-     - [ ] Format citations with prior links
-     - [ ] Assemble final markdown response
-     - [ ] Add quality verification checks
-     - [ ] Stream final response to frontend
+### 2. Prior Flow Implementation
 
-#### Database Integration
-- [ ] Update database.py:
-  - [ ] Thread management methods
-  - [ ] User authentication
-  - [ ] Thread history retrieval
-  - [ ] Vector storage optimization
+1. **Vector Search**
+   - [ ] Optimize search parameters
+   - [ ] Handle embedding errors
+   - [ ] Add result caching
+   - [ ] Improve ranking
 
-#### WebSocket Handler
-- [ ] Enhance websocket_handler.py:
-  - [ ] Message routing for each step
-  - [ ] Connection management
-  - [ ] Real-time updates
-  - [ ] Error recovery
+2. **Semantic Recording**
+   - [ ] Design semantic links schema
+   - [ ] Implement recording in Qdrant
+   - [ ] Add metadata tracking
+   - [ ] Enable future retrieval
 
-### 2. Frontend Integration
-- [ ] Complete MessageFlow:
-  - [ ] Add proper step transitions
-  - [ ] Implement prior citation display
-  - [ ] Add loading states
+3. **Citation Integration**
+   - [ ] Design citation format
+   - [ ] Implement natural integration
+   - [ ] Add citation previews
+   - [ ] Handle citation navigation
 
-- [ ] Enhance ThreadList:
-  - [ ] Add thread creation
-  - [ ] Add thread selection
-  - [ ] Show thread status
+### 3. Effect System
 
-- [ ] Update PriorPanel:
-  - [ ] Show relevant priors during experience step
-  - [ ] Add prior selection
-  - [ ] Add prior filtering
+1. **Effect Generation**
+   - [ ] Clean up effect types
+   - [ ] Implement accumulation
+   - [ ] Add error effects
+   - [ ] Handle state updates
 
-### 3. Wallet Integration
-- [ ] Add user authentication:
-  - [ ] Connect wallet to backend
-  - [ ] Manage user sessions
-  - [ ] Handle wallet changes
+2. **Effect Handling**
+   - [ ] Update UI components
+   - [ ] Handle WebSocket events
+   - [ ] Add error recovery
+   - [ ] Maintain state coherence
 
-- [ ] Thread ownership:
-  - [ ] Link threads to wallets
-  - [ ] Manage thread permissions
-  - [ ] Handle co-authors
+### 4. Frontend Components
 
-### 4. Testing
-- [ ] Add backend tests:
-  - [ ] Test database operations
-  - [ ] Test chorus cycle
-  - [ ] Test WebSocket handling
+1. **AIResponse**
+   - [ ] Step visualization
+   - [ ] Prior display
+   - [ ] Citation rendering
+   - [ ] Loading states
 
-- [ ] Add frontend tests:
-  - [ ] Test components
-  - [ ] Test hooks
-  - [ ] Test wallet integration
+2. **PriorPanel**
+   - [ ] Prior list display
+   - [ ] Citation preview
+   - [ ] Prior filtering
+   - [ ] Selection handling
 
-### 5. Deployment
-- [ ] Update Docker configuration:
-  - [ ] Add environment variables
-  - [ ] Configure production settings
-  - [ ] Add health checks
-
-- [ ] Add monitoring:
-  - [ ] Add logging
-  - [ ] Add error tracking
-  - [ ] Add performance monitoring
-
-## Immediate Next Tasks
-1. Complete chorus_cycle.py implementation with litellm integration
-2. Add proper WebSocket message handling
-3. Implement thread creation and management
-4. Add wallet authentication flow
-5. Test the complete message flow from frontend to backend
+## Immediate Focus
+1. Complete prior flow implementation
+2. Add semantic recording
+3. Clean up effect system
+4. Enhance citation handling
 
 ## Notes
-- Keep the quantum semantic model in mind when implementing the chorus cycle
-- Ensure proper error handling throughout
-- Maintain type safety between frontend and backend
-- Document all major components and flows
+- Keep prior flow clean and simple
+- Focus on semantic recording
+- Maintain effect coherence
+- Enable natural citations

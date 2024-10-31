@@ -1559,162 +1559,167 @@ Dev_Plan
 
 VERSION dev_plan:
 invariants: {
-"Documentation-driven development",
-"Test-first implementation",
-"Security-first approach"
+"Prior flow integrity",
+"Effect coherence",
+"Semantic recording"
 }
 assumptions: {
-"AI code generation capabilities",
-"Testing framework maturity",
-"Documentation completeness"
+"Vector space stability",
+"WebSocket reliability",
+"LLM capability"
 }
-docs_version: "0.2.1"
+docs_version: "0.2.2"
 
-## Current Status (Oct 26)
+## Current Status
 
-The project currently consists of:
+### Backend Progress
+- FastAPI application setup ✓
+- WebSocket handler ready ✓
+- Qdrant integration ✓
+- Basic chorus cycle ✓
+- Vector search working ✓
 
-- Documentation corpus (~100k tokens)
-- create-solana-dapp template
-- Initial Render deployment
-- Core specifications and tests
-
-## Development Philosophy
-
-### Documentation-Driven Development
-
-The codebase is designed to scale with AI capabilities:
-
-- High documentation-to-code ratio
-- Tests generated from specifications
-- Implementation guided by docs
-- AI-assisted code generation
-
-### Test-First Development
-
-Security and correctness through:
-
-- Property-based testing
-- Invariant verification
-- Comprehensive test coverage
-- Security-focused test cases
-
-### AI-Assisted Evolution
-
-Built to leverage improving AI:
-
-- Code generation from docs
-- Test case generation
-- Pattern recognition
-- Implementation assistance
+### Frontend Progress
+- Three-panel layout ✓
+- WebSocket connection ✓
+- Message display ✓
+- Step visualization ✓
+- Prior panel structure ✓
 
 ## Implementation Schedule
 
-### Day 1: Study & Planning (Oct 26)
+### Phase 1: Prior Flow (Oct 29)
 
-- Document testing patterns
-- Plan security boundaries
-- Prepare implementation strategy
-- Setup test infrastructure
+1. **Vector Search**
+   ```python
+   # Get n=80 priors
+   priors = await search_similar(input, limit=80)
+   ```
 
-### Day 2: Environment Setup (Oct 27)
+2. **Semantic Recording**
+   ```python
+   # Record in Qdrant
+   await record_semantic_links(
+     message=input,
+     cited_priors=priors
+   )
+   ```
 
-- Development environment configuration
-  - Next.js setup
-  - FastAPI configuration
-  - Solana development chain
-  - Testing infrastructure
-- CI/CD pipeline
-- Secrets management
-- Deployment automation
+3. **Citation Integration**
+   ```python
+   # Natural citations
+   return generate_response_with_citations(input, priors)
+   ```
 
-### Day 3-4: Core Protocol (Oct 28-29)
+### Phase 2: Effect System (Oct 30)
 
-- CHOIR token implementation
-- Thread program development
-- State transition handlers
-- Security verification
-- Comprehensive testing
+1. **Effect Types**
+   ```typescript
+   type Effect = {
+     type: "chorus_response" | "error" | "state_update";
+     payload: {
+       step: ChorusStep;
+       content: string;
+       priors?: Prior[];  // Only in EXPERIENCE
+     };
+   }
+   ```
 
-### Day 5: Backend (Oct 30)
+2. **Effect Accumulation**
+   ```python
+   effects = []
+   while True:
+       new_state, step_effects = await run_step(state, input)
+       effects.extend(step_effects)
+       if new_state.current_step == StepEnum.YIELD:
+           break
+   ```
 
-- FastAPI implementation
-- WebSocket protocol
-- Qdrant integration
-- State synchronization
-- Cache management
+### Phase 3: Step Processing (Oct 31)
 
-### Day 6: Frontend (Oct 31)
+1. **Step Prompts**
+   - ACTION: Beginner's mind
+   - EXPERIENCE: Context integration
+   - INTENTION: Goal analysis
+   - OBSERVATION: Semantic recording
+   - UPDATE: Loop decision
+   - YIELD: Citation integration
 
-- Core UI components
-- Wallet integration
-- Real-time updates
-- State management
-- Soft launch
-
-### Day 7-8: Integration (Nov 1-2)
-
-- System integration
-- Analytics setup
-- Monitoring implementation
-- Performance optimization
-- Bug fixes
+2. **State Transitions**
+   ```python
+   if step == UPDATE:
+       if response["loop"]:
+           next_step = ACTION
+       else:
+           next_step = YIELD
+   else:
+       next_step = steps[current_index + 1]
+   ```
 
 ## Testing Strategy
 
-### Program Testing
+1. **Prior Flow Tests**
+   ```python
+   def test_prior_flow():
+       # Test vector search
+       priors = search_similar(input)
+       assert len(priors) == 80
 
-- Unit tests with Bankrun - post pmf
-- Fuzzing with Trident — post pmf
-    - hard time setting these up; tests take too long to run while iteration speed is of the essence. anchor test works for now.
-- Property verification
-- Security boundaries
+       # Test semantic recording
+       record_semantic_links(input, priors)
+       verify_links_recorded()
 
-### Integration Testing
+       # Test citation integration
+       response = generate_with_citations(input, priors)
+       verify_citations_natural(response)
+   ```
 
-- End-to-end workflows
-- State synchronization
-- Error conditions
-- Performance metrics
+2. **Effect Tests**
+   ```typescript
+   test("effect accumulation", () => {
+     const effects = [];
+     // Run cycle
+     expect(effects).toMatchPattern({
+       experience: { priors: expect.arrayLength(80) },
+       yield: { citations: expect.any(Array) }
+     });
+   });
+   ```
 
-### Security Testing
+3. **Step Tests**
+   ```python
+   def test_step_sequence():
+       state = run_chorus_cycle(input)
+       verify_step_sequence(state.effects)
+       verify_prior_flow(state.effects)
+       verify_semantic_recording(state)
+   ```
 
-- Attack surface analysis
-- Invariant verification
-- State transition validation
-- Access control verification
+## Implementation Notes
 
-## Monitoring Considerations
+1. **Prior Flow**
+   - Keep EXPERIENCE simple
+   - No filtering until citations
+   - Record semantic links
+   - Natural integration
 
-### System Health
+2. **Effect System**
+   - Clean effect types
+   - Proper accumulation
+   - UI synchronization
+   - Error handling
 
-- Performance metrics
-- Error rates
-- State consistency
-- Network stability
+3. **Step Processing**
+   - Clear step roles
+   - Proper transitions
+   - State coherence
+   - Effect generation
 
-### Security Monitoring
-
-- Attack detection
-- Anomaly identification
-- State verification
-- Access patterns
-
-## Future Evolution
-
-The system is designed to evolve with:
-
-- Improved AI capabilities
-- Enhanced testing tools
-- Automated code generation
-- Scaled development patterns
-
-Through this approach, we create a foundation that:
-
-- Scales with AI advancement
-- Maintains security focus
-- Enables rapid iteration
-- Preserves system integrity
+Through this approach, we'll build a system that:
+- Maintains prior flow integrity
+- Preserves effect coherence
+- Builds semantic knowledge
+- Enables natural citations
 
 
 ==
@@ -1812,15 +1817,15 @@ Plan_Checklist
 VERSION plan_status:
 invariants: {
 "Documentation-driven development",
-"Test-first implementation",
-"AI-assisted generation"
+"Prior flow integrity",
+"Effect coherence"
 }
 assumptions: {
 "AI code generation capabilities",
-"Testing framework maturity",
-"Documentation completeness"
+"Vector space stability",
+"WebSocket reliability"
 }
-docs_version: "0.2.2"
+docs_version: "0.2.3"
 
 ## Progress So Far
 
@@ -1828,60 +1833,104 @@ docs_version: "0.2.2"
 - [x] Initial FastAPI application setup
 - [x] WebSocket handler implementation
 - [x] Database client (Qdrant) integration
-- [x] Chorus Cycle basic structure
-- [x] Configuration management
-- [x] Utility functions for embeddings and chat completions
+- [x] Basic chorus cycle structure
+- [x] Vector search implementation
+- [x] Effect system foundation
 
 ### Frontend Development
-- [x] Basic three-panel layout (ThreadList, ChoirChat, PriorPanel)
-- [x] Initial WebSocket connection setup
-- [x] Basic message display in ChoirChat
+- [x] Three-panel layout
+- [x] WebSocket connection
+- [x] Basic message display
+- [x] Step visualization
+- [x] Prior panel structure
 
 ## Next Steps
 
-### Backend Development
-- [ ] Complete Chorus Cycle implementation
-  - [ ] Implement detailed logic for each step
-  - [ ] Integrate with database operations
-- [ ] Enhance WebSocket handler
-  - [ ] Implement authentication and authorization
-  - [ ] Add error handling and recovery mechanisms
-- [ ] Implement vector storage and similarity search in DatabaseClient
-- [ ] Add comprehensive logging and monitoring
-- [ ] Implement unit and integration tests
+### Chorus Cycle Implementation
+- [ ] Step Prompts
+  - [ ] ACTION: "Beginner's mind" prompt
+  - [ ] EXPERIENCE: Context integration prompt
+  - [ ] INTENTION: Goal analysis prompt
+  - [ ] OBSERVATION: Semantic recording prompt
+  - [ ] UPDATE: Loop decision prompt
+  - [ ] YIELD: Citation integration prompt
 
-### Frontend Development
-- [ ] Enhance ThreadList component
-  - [ ] Implement thread creation and selection
-  - [ ] Add real-time updates for new threads
-- [ ] Improve ChoirChat component
-  - [ ] Implement message sending and receiving
-  - [ ] Add support for Chorus Cycle steps display
-- [ ] Develop PriorPanel component
-  - [ ] Implement prior citation display
-  - [ ] Add interactivity for prior selection
-- [ ] Implement user authentication UI
-- [ ] Add error handling and user feedback mechanisms
-- [ ] Implement responsive design for mobile devices
-- [ ] Add unit and integration tests for React components
+- [ ] Prior Flow
+  - [ ] EXPERIENCE: Get n=80 priors
+  - [ ] INTENTION: Analyze for user goal
+  - [ ] OBSERVATION: Record in Qdrant
+  - [ ] YIELD: Natural citations
 
-### Integration and Testing
-- [ ] Set up end-to-end testing environment
-- [ ] Implement integration tests for WebSocket communication
-- [ ] Test Chorus Cycle flow from frontend to backend
-- [ ] Perform security audit and penetration testing
+- [ ] Effect System
+  - [ ] Clean effect types
+  - [ ] Proper accumulation
+  - [ ] UI synchronization
+  - [ ] Error handling
 
-### Deployment and DevOps
-- [ ] Set up CI/CD pipeline
-- [ ] Configure production environment
-- [ ] Implement monitoring and alerting system
-- [ ] Prepare documentation for deployment and maintenance
+### Frontend Components
+- [ ] AIResponse
+  - [ ] Step visualization
+  - [ ] Prior display
+  - [ ] Citation rendering
+  - [ ] Loading states
 
-## Ongoing Tasks
-- [ ] Maintain and update documentation
-- [ ] Regularly review and refactor code
-- [ ] Address technical debt as it arises
-- [ ] Stay updated with dependencies and security patches
+- [ ] PriorPanel
+  - [ ] Prior list display
+  - [ ] Citation preview
+  - [ ] Prior filtering
+  - [ ] Selection handling
+
+### Database Integration
+- [ ] Semantic Recording
+  - [ ] Design link schema
+  - [ ] Implement recording
+  - [ ] Enable retrieval
+  - [ ] Track metadata
+
+- [ ] Vector Search
+  - [ ] Optimize parameters
+  - [ ] Handle errors
+  - [ ] Add caching
+  - [ ] Improve ranking
+
+### Testing
+- [ ] Backend Tests
+  - [ ] Step functions
+  - [ ] Prior flow
+  - [ ] Effect system
+  - [ ] Semantic recording
+
+- [ ] Frontend Tests
+  - [ ] Component rendering
+  - [ ] Effect handling
+  - [ ] Prior display
+  - [ ] Citation integration
+
+## Immediate Priorities
+
+1. **Prior Flow**
+   - Complete EXPERIENCE step
+   - Implement semantic recording
+   - Add citation integration
+   - Test prior handling
+
+2. **Effect System**
+   - Clean up effect types
+   - Fix accumulation
+   - Add error handling
+   - Test effect flow
+
+3. **UI Components**
+   - Update AIResponse
+   - Enhance PriorPanel
+   - Add loading states
+   - Test interactions
+
+## Notes
+- Keep prior flow simple and clean
+- Focus on semantic recording
+- Maintain effect coherence
+- Enable natural citations
 
 
 ==
@@ -1891,63 +1940,184 @@ Plan_FrontendArchitecture
 
 # Frontend Architecture Plan
 
-## Overview
-
-This document outlines the architecture for the frontend rehydration process, focusing on integrating real-time updates, user interaction, and AI response handling.
+VERSION frontend_arch:
+invariants: {
+"Prior flow integrity",
+"Effect coherence",
+"UI consistency"
+}
+assumptions: {
+"WebSocket reliability",
+"Vector space stability",
+"State synchronization"
+}
+docs_version: "0.2.2"
 
 ## Core Components
 
-1. **Choir Chat Interface**
-   - **Purpose**: Facilitate real-time communication and interaction.
-   - **Key Features**:
-     - WebSocket integration for live updates.
-     - State management for threads and messages.
-     - Responsive design for various devices.
+1. **AIResponse Component**
+   ```typescript
+   // Step visualization with prior handling
+   interface AIResponseProps {
+     message: Message;
+     currentStep: ChorusStep;
+     steps: Step[];
+     sources: Prior[];  // From EXPERIENCE step
+   }
+   ```
 
-2. **Chorus Panel**
-   - **Purpose**: Provide an interactive UI for managing threads and AI responses.
-   - **Key Features**:
-     - Tab navigation for different sections.
-     - Bottom sheet for mobile-first design.
-     - Integration with AI response components.
+   Key Features:
+   - Step-by-step visualization
+   - Prior display in EXPERIENCE
+   - Citation rendering in YIELD
+   - Loading states per step
 
-3. **AI Response Handling**
-   - **Purpose**: Enhance user interaction with AI-generated content.
-   - **Key Features**:
-     - Display AI responses in a user-friendly manner.
-     - Manage AI response state and interactivity.
-     - Integrate with the Chorus Cycle for seamless updates.
+2. **PriorPanel Component**
+   ```typescript
+   // Prior display and interaction
+   interface PriorPanelProps {
+     priors?: Prior[];      // From EXPERIENCE step
+     onSelect?: (prior: Prior) => void;
+     selectedPriors?: Prior[];
+   }
+   ```
 
-4. **User Input Management**
-   - **Purpose**: Capture and process user input efficiently.
-   - **Key Features**:
-     - Input validation and feedback mechanisms.
-     - Integration with backend for processing.
-     - Real-time updates and error handling.
+   Key Features:
+   - Show all priors in EXPERIENCE
+   - Prior preview cards
+   - Citation tooltips
+   - Source navigation
+
+3. **MessageFlow Component**
+   ```typescript
+   // Message and step display
+   interface MessageFlowProps {
+     messages: Message[];
+     currentStep: ChorusStep;
+     onMessageSelect: (id: string) => void;
+     selectedMessageId: string | null;
+   }
+   ```
+
+   Key Features:
+   - Message rendering
+   - Step transitions
+   - Prior integration
+   - Citation display
 
 ## State Management
 
-- **Global State**: Managed using a state management library (e.g., Redux, Context API).
-- **Local State**: Managed within components for UI-specific interactions.
-- **Optimistic Updates**: Implemented for real-time feedback before server confirmation.
+1. **Chorus Cycle State**
+   ```typescript
+   // useChorusCycle hook
+   interface ChorusState {
+     currentStep: ChorusStep;
+     steps: Step[];
+     priors?: Prior[];     // From EXPERIENCE
+     effects: Effect[];
+   }
+   ```
 
-## Integration Points
+2. **Effect Handling**
+   ```typescript
+   // Effect processing
+   type Effect = {
+     type: "chorus_response" | "error" | "state_update";
+     payload: {
+       step: ChorusStep;
+       content: string;
+       priors?: Prior[];  // Only in EXPERIENCE
+     };
+   }
+   ```
 
-- **WebSocket Protocol**: Ensure seamless integration for real-time updates.
-- **Backend API**: Connect with backend endpoints for data retrieval and submission.
-- **AI Services**: Integrate AI response handling for enhanced user interaction.
+3. **WebSocket Integration**
+   ```typescript
+   // Real-time communication
+   interface WebSocketState {
+     connected: boolean;
+     sendMessage: (msg: WebSocketMessage) => void;
+     lastMessage?: WebSocketMessage;
+   }
+   ```
 
-## Performance Considerations
+## UI Flow
 
-- **Lazy Loading**: Implement lazy loading for components and data.
-- **Code Splitting**: Use code splitting to optimize bundle size.
-- **Caching**: Implement caching strategies for frequently accessed data.
+1. **Prior Flow**
+   ```typescript
+   // EXPERIENCE: Show all priors
+   <PriorPanel priors={step.priors} />
 
-## Security and Privacy
+   // INTENTION: Show goal analysis
+   <AIResponse step="intention" content={step.content} />
 
-- **Authentication**: Ensure secure user authentication and session management.
-- **Data Privacy**: Implement privacy controls for user data and interactions.
-- **Error Handling**: Robust error handling and logging for security incidents.
+   // OBSERVATION: Show semantic links
+   <AIResponse step="observation" content={step.content} />
+
+   // YIELD: Show citations
+   <AIResponse step="yield" content={step.content} />
+   ```
+
+2. **Effect Flow**
+   ```typescript
+   // Effect handling in components
+   function handleEffect(effect: Effect) {
+     switch (effect.type) {
+       case "chorus_response":
+         if (effect.payload.step === "experience") {
+           updatePriorPanel(effect.payload.priors);
+         }
+         updateStepDisplay(effect.payload);
+         break;
+     }
+   }
+   ```
+
+## Implementation Notes
+
+1. **Prior Handling**
+   - Show all priors in EXPERIENCE
+   - Enable prior preview
+   - Support citation navigation
+   - Track semantic links
+
+2. **Effect Processing**
+   - Clean effect types
+   - Proper accumulation
+   - UI synchronization
+   - Error handling
+
+3. **State Management**
+   - Clear state boundaries
+   - Effect-driven updates
+   - Consistent UI state
+   - Error recovery
+
+## Success Metrics
+
+1. **User Experience**
+   - Clear step progression
+   - Natural prior flow
+   - Smooth transitions
+   - Responsive feedback
+
+2. **Technical Quality**
+   - Clean component hierarchy
+   - Type safety
+   - Effect coherence
+   - Error handling
+
+3. **Performance**
+   - Fast prior loading
+   - Smooth animations
+   - Efficient updates
+   - Memory management
+
+Through this architecture, we create a frontend that:
+- Maintains prior flow integrity
+- Preserves effect coherence
+- Enables natural citations
+- Provides clear user feedback
 
 
 ==
@@ -1958,61 +2128,105 @@ Plan_FrontendChecklist
 # Frontend Development Checklist
 
 ## Completed Tasks
-- [x] Set up basic three-panel layout (ThreadList, ChoirChat, PriorPanel)
-- [x] Implement initial WebSocket connection
-- [x] Create basic message display in ChoirChat
+- [x] Three-panel layout (ThreadList, ChoirChat, PriorPanel)
+- [x] WebSocket connection
+- [x] Basic message display
+- [x] Step visualization structure
+- [x] Prior panel foundation
 
 ## Next Steps
 
-### ThreadList Component
-- [ ] Implement thread creation functionality
-- [ ] Add thread selection mechanism
-- [ ] Implement real-time updates for new threads
-- [ ] Style the component for better user experience
+### AIResponse Component
+- [ ] Step Visualization
+  - [ ] ACTION: Show initial response
+  - [ ] EXPERIENCE: Show priors panel
+  - [ ] INTENTION: Show goal analysis
+  - [ ] OBSERVATION: Show semantic links
+  - [ ] UPDATE: Show loop decision
+  - [ ] YIELD: Show cited response
 
-### ChoirChat Component
-- [ ] Implement message sending functionality
-- [ ] Add real-time message receiving and display
-- [ ] Implement Chorus Cycle steps display
-- [ ] Add user avatars and message timestamps
-- [ ] Implement message loading for older messages
+- [ ] Loading States
+  - [ ] Step transitions
+  - [ ] Prior loading
+  - [ ] Effect processing
+  - [ ] Citation rendering
 
 ### PriorPanel Component
-- [ ] Design and implement prior citation display
-- [ ] Add interactivity for prior selection
-- [ ] Implement real-time updates for new priors
-- [ ] Add filtering and sorting options for priors
+- [ ] Prior Display
+  - [ ] Show all priors in EXPERIENCE
+  - [ ] Prior preview cards
+  - [ ] Citation tooltips
+  - [ ] Source navigation
 
-### User Authentication
-- [ ] Implement login/logout functionality
-- [ ] Add user profile display and editing
-- [ ] Implement access control based on user roles
+- [ ] Prior Interaction
+  - [ ] Preview hover
+  - [ ] Source navigation
+  - [ ] Citation links
+  - [ ] Thread context
 
-### Error Handling and Feedback
-- [ ] Implement error boundary for React components
-- [ ] Add toast notifications for user feedback
-- [ ] Implement loading states and spinners
+### Effect Handling
+- [ ] Effect Processing
+  - [ ] Step responses
+  - [ ] Prior updates
+  - [ ] State transitions
+  - [ ] Error handling
 
-### Responsive Design
-- [ ] Ensure layout works on mobile devices
-- [ ] Implement collapsible panels for mobile view
-- [ ] Add touch gestures for mobile interaction
+- [ ] UI Updates
+  - [ ] Step visualization
+  - [ ] Prior panel
+  - [ ] Message flow
+  - [ ] Loading states
+
+### State Management
+- [ ] Thread State
+  - [ ] Message history
+  - [ ] Current thread
+  - [ ] Co-authors
+  - [ ] Thread status
+
+- [ ] Chorus State
+  - [ ] Current step
+  - [ ] Step responses
+  - [ ] Prior tracking
+  - [ ] Effect accumulation
+
+### Error Handling
+- [ ] Error Boundaries
+  - [ ] Component recovery
+  - [ ] State recovery
+  - [ ] WebSocket reconnection
+  - [ ] Effect replay
+
+- [ ] User Feedback
+  - [ ] Error messages
+  - [ ] Loading indicators
+  - [ ] Step progress
+  - [ ] Action feedback
 
 ### Testing
-- [ ] Set up Jest and React Testing Library
-- [ ] Write unit tests for individual components
-- [ ] Implement integration tests for component interactions
-- [ ] Add end-to-end tests for critical user flows
+- [ ] Component Tests
+  - [ ] AIResponse rendering
+  - [ ] Prior display
+  - [ ] Effect handling
+  - [ ] State updates
 
-### Performance Optimization
-- [ ] Implement lazy loading for components
-- [ ] Optimize WebSocket connection management
-- [ ] Add caching mechanisms for frequently accessed data
+- [ ] Integration Tests
+  - [ ] WebSocket flow
+  - [ ] Effect processing
+  - [ ] Prior handling
+  - [ ] Citation display
 
-### Accessibility
-- [ ] Ensure proper ARIA attributes are used
-- [ ] Implement keyboard navigation
-- [ ] Test with screen readers and make necessary adjustments
+## Immediate Focus
+1. Complete AIResponse step visualization
+2. Implement prior display in PriorPanel
+3. Add effect handling
+4. Add loading states
+
+## Notes
+- Keep prior flow simple
+- Focus on effect handling
+- Maintain state coherence
+- Enable natural citations
 
 
 ==
@@ -2020,7 +2234,7 @@ Plan_Hyperconverge
 ==
 
 
-# Development Pattern Convergence
+ # Development Pattern Convergence
 
 VERSION convergence_system:
 invariants: {
@@ -2037,193 +2251,64 @@ docs_version: "0.2.1"
 
 ## Core Development Patterns
 
-1. **State Management**
+1. **Prior Flow Pattern**
+```python
+# Flow through cycle
+EXPERIENCE:
+  priors = get_n80_priors()      # Vector search
+  return synthesis, priors        # No filtering
 
-   - Solana as ownership source of truth
-   - Qdrant as content/embedding store
-   - Backend as real-time coordinator
-   - Frontend as optimistic UI layer
+INTENTION:
+  analyze_for_user_goal(priors)   # Goal context
+  return intent_analysis          # No filtering
 
-   PROPERTY state_coherence:
-   solana.thread.co_authors = qdrant.thread.metadata.co_authors
-   solana.message.hash = qdrant.message.content_hash
-   frontend.thread_state ⊆ backend.thread_state
+OBSERVATION:
+  record_in_qdrant(priors)        # Semantic links
+  return observation              # Build network
 
-2. **Token Mechanics**
+YIELD:
+  generate_with_citations(priors)  # Natural integration
+  return cited_response           # Final synthesis
+```
 
-   - Thread PDAs as token custodians
-   - Stake escrow for pending specs
-   - Atomic distribution operations
-   - Conservation law enforcement
+2. **Effect Pattern**
+```typescript
+// Effect accumulation
+type Effect = {
+  type: "chorus_response",
+  payload: {
+    step: ChorusStep,
+    content: string,
+    priors?: Prior[]  // Only in EXPERIENCE
+  }
+}
 
-   INVARIANT token_conservation:
-   treasury + sum(threads) + sum(stakes) = TOTAL_SUPPLY
+// Effect handling
+effects = []
+while (step !== YIELD) {
+  [state, step_effects] = await run_step(state)
+  effects.extend(step_effects)
+}
+```
 
-3. **Documentation-Driven Development**
-   - High doc-to-code ratio
-   - Test generation from specs
-   - AI-assisted implementation
-   - Pattern recognition and emergence
+3. **State Pattern**
+```typescript
+// Quantum state evolution
+type ChorusState = {
+  current_step: ChorusStep,
+  messages: Message[],
+  priors?: Prior[],     // From EXPERIENCE
+  effects: Effect[]
+}
+```
 
-## Implementation Structure
+## Token Flow Clarification
 
-1. **Solana Program Core**
+**Note:** Approval does not add tokens to the thread; instead, tokens go directly to the **approving co-authors** as rewards. **Denials add tokens to the thread** (and to the treasury in the case of split decisions). This impacts the value flow patterns in the system.
 
-   ```rust
-   program/
-   ├── src/
-   │   ├── lib.rs          // State management
-   │   ├── thread.rs       // Thread operations
-   │   ├── message.rs      // Message handling
-   │   ├── validation.rs   // Invariant checks
-   │   └── token.rs        // Value operations
-   ```
+---
 
-2. **Backend Core**
-
-   ```python
-   api/
-   ├── chorus.py         # Core logic engine
-   ├── database.py      # Storage operations
-   ├── websocket.py     # Real-time protocol
-   └── models.py        # State types
-   ```
-
-3. **Frontend Core**
-   ```typescript
-   src/
-   ├── components/
-   │   ├── ChoirChat.tsx     // Chat container
-   │   ├── MessageFlow.tsx    // Message display
-   │   └── ApprovalPane.tsx   // Approval interface
-   ```
-
-## Testing Framework
-
-1. **Property Testing**
-
-   ```rust
-   #[test]
-   fn test_state_transitions() {
-     // Verify state consistency
-     // Check value conservation
-     // Validate transitions
-     // Test invariants
-   }
-   ```
-
-2. **Value Testing**
-   ```typescript
-   describe("Value Flow", () => {
-     test("conserves total value", () => {
-       // Verify token conservation
-       // Check distribution accuracy
-       // Validate stake mechanics
-     });
-   });
-   ```
-
-## Development Timeline
-
-### Phase 1: Foundation (Oct 26-28)
-
-- Development environment setup
-- Initial deployment
-- Testing infrastructure
-- Core patterns
-
-### Phase 2: Core Features (Oct 29-31)
-
-- Chorus Cycle (Oct 29)
-
-  - Chat interface
-  - WebSocket protocol
-  - Prior citations
-  - Thread state
-
-- Rewards System (Oct 30)
-
-  - Token mechanics
-  - Message rewards
-  - Citation rewards
-  - Treasury flow
-
-- Thread Program (Oct 31)
-  - PDA architecture
-  - Co-author logic
-  - Approval flow
-  - Token custody
-
-### Phase 3: Integration (Nov 1-2)
-
-- System integration
-- Performance optimization
-- Analytics setup
-- Pattern observation
-
-## Pattern Recognition
-
-The development process enables:
-
-- Natural emergence of system behaviors
-- Discovery of underlying patterns
-- Recognition of conservation laws
-- Evolution of coherent structures
-
-## Security Framework
-
-1. **Core Properties**
-
-   - State transition atomicity
-   - Value conservation
-   - Access control integrity
-   - Pattern preservation
-
-2. **Value Properties**
-   - Token custody verification
-   - Distribution atomicity
-   - Stake integrity
-   - Balance conservation
-
-## Documentation Strategy
-
-1. **Implementation Docs**
-
-   - State transition guides
-   - Protocol specifications
-   - Security requirements
-   - Deployment procedures
-
-2. **Pattern Documentation**
-   - Observed behaviors
-   - Emergent properties
-   - System dynamics
-   - Evolution patterns
-
-## Evolution Strategy
-
-The system should:
-
-- Enable pattern discovery
-- Preserve core properties
-- Support natural evolution
-- Maintain coherence
-
-Through this approach, we create a development framework that:
-
-- Generates high-quality code
-- Discovers natural patterns
-- Maintains system integrity
-- Enables organic growth
-
-The goal is to create a space where:
-
-- Quality emerges naturally
-- Value flows efficiently
-- Patterns self-organize
-- Evolution is sustainable
-
-This convergent development plan provides a foundation for building a system that discovers and preserves its own natural patterns while maintaining practical implementability.
+### **2. Update to `docs/levels/level5.md`**
 
 
 ==
@@ -2261,28 +2346,28 @@ Starting from create-solana-dapp template with:
 src/
 ├── components/
 │   ├── ChoirChat/        // Main chat container
-│   │   ├── ChoirChat.tsx // Chat interface
-│   │   ├── MessageFlow.tsx // Message display
+│   │   ├── ChoirChat.tsx // Three-panel layout
+│   │   ├── MessageFlow.tsx // Message & step display
 │   │   └── types.ts      // Chat types
-│   ├── ChorusPanel/      // Bottom sheet UI
-│   │   ├── ChorusPanel.tsx // Panel container
-│   │   ├── StepContent.tsx // Step rendering
-│   │   └── types.ts      // Panel types
-│   ├── AIResponse/       // AI response handling
-│   │   ├── AIResponse.tsx // Response display
-│   │   ├── PriorRenderer.tsx // Prior citations
-│   │   └── types.ts      // Response types
-│   └── ui/              // Shared UI components
+│   ├── AIResponse/       // Step visualization
+│   │   ├── AIResponse.tsx // Step display
+│   │   ├── StepContent.tsx // Step-specific content
+│   │   └── types.ts      // Step types
+│   ├── PriorPanel/       // Prior handling
+│   │   ├── PriorPanel.tsx // Prior display
+│   │   ├── PriorCard.tsx  // Prior preview
+│   │   └── types.ts      // Prior types
+│   └── ui/              // Shared components
 ```
 
 2. **State Management**
 ```typescript
 src/
 ├── hooks/
-│   ├── useThread.ts     // Thread state & operations
-│   ├── useWebSocket.ts  // Real-time connection
-│   ├── useChorus.ts     // Chorus cycle state
-│   └── useBottomSheet.ts // Mobile UI gestures
+│   ├── useThread.ts      // Thread state
+│   ├── useWebSocket.ts   // Real-time comms
+│   ├── useChorusCycle.ts // Cycle state & effects
+│   └── usePriors.ts      // Prior handling
 ```
 
 3. **Mobile-First UI**
@@ -2299,30 +2384,26 @@ src/
 1. **Core Services**
 ```python
 api/
-├── main.py              # FastAPI application
-├── chorus.py            # Chorus cycle implementation
-├── websocket.py         # WebSocket protocol
-├── database.py          # Qdrant integration
-└── models/
-    ├── thread.py        # Thread state
-    ├── message.py       # Message types
-    └── user.py          # User session
+├── app/
+│   ├── chorus_cycle.py   # AEIOU-Y cycle
+│   ├── database.py      # Qdrant operations
+│   ├── websocket.py     # Real-time comms
+│   └── models/
+│       ├── message.py   # Message types
+│       ├── prior.py     # Prior types
+│       └── effect.py    # Effect types
 ```
 
-2. **WebSocket Protocol**
+2. **Chorus Cycle**
 ```python
-websocket.py
-├── ConnectionManager    # Connection handling
-├── ThreadSubscription   # Room management
-└── MessageQueue        # Real-time updates
-```
-
-3. **Chorus Cycle**
-```python
-chorus.py
-├── ChorusCycle         # Core cycle logic
-├── StepProcessor       # Step handling
-└── PriorIntegration    # Citation management
+chorus_cycle.py
+├── ChorusCycle         # Core cycle
+│   ├── run_action      # Beginner's mind
+│   ├── run_experience  # Get n=80 priors
+│   ├── run_intention   # Analyze for goal
+│   ├── run_observation # Record in Qdrant
+│   ├── run_update      # Loop decision
+│   └── run_yield       # Natural citations
 ```
 
 ## Solana Program Restructuring (anchor/)
@@ -2352,23 +2433,23 @@ tests/
 
 ## Implementation Priority
 
-1. **Phase 1: Core Chat (Oct 29)**
-- WebSocket implementation
-- Real-time message flow
-- Prior rendering
-- Thread state management
+1. **Phase 1: Prior Flow (Oct 29)**
+   - Vector search implementation
+   - Prior display components
+   - Semantic recording
+   - Citation integration
 
-2. **Phase 2: Mobile UI (Oct 30)**
-- Bottom sheet implementation
-- Tab navigation
-- Gesture handling
-- Safe area management
+2. **Phase 2: Effect System (Oct 30)**
+   - Effect type cleanup
+   - Effect accumulation
+   - UI synchronization
+   - Error handling
 
-3. **Phase 3: Chorus Cycle (Oct 31)**
-- Step processing
-- Prior integration
-- State transitions
-- Real-time updates
+3. **Phase 3: Step Processing (Oct 31)**
+   - Step prompts
+   - State transitions
+   - Real-time updates
+   - Loading states
 
 ## Testing Strategy
 
@@ -2449,14 +2530,14 @@ Plan_ToBeContinued
    - Proper height constraints and overflow handling
 
 2. Component Structure:
-   - AIResponse component ready to display chorus cycle steps
-   - MessageFlow handling both user and AI messages
-   - Proper TypeScript interfaces for all components
+   - AIResponse component ready for step visualization
+   - MessageFlow handling user/AI messages
+   - PriorPanel ready for prior display
 
 3. State Management:
-   - useWebSocket hook with wallet integration
-   - useThread hook for managing thread state
-   - useChorusCycle hook for managing chorus cycle state
+   - useWebSocket hook for real-time updates
+   - useThread hook for thread state
+   - useChorusCycle hook for cycle state
 
 ### Backend
 1. Database Setup:
@@ -2464,155 +2545,112 @@ Plan_ToBeContinued
      - messages (1536d vectors)
      - chat_threads (1536d vectors)
      - users (1536d vectors)
-   - Collection operations implemented in DatabaseClient
+   - Collection operations implemented
 
 2. Initial Structure:
    - WebSocket handler ready
-   - Basic chorus cycle implementation
+   - Basic chorus cycle implemented
    - Database client with vector search
 
 ## Next Steps
 
-### 1. Backend Implementation
+### 1. Chorus Cycle Implementation
 
-#### Chorus Cycle (AEIOU-Y)
-The Chorus Cycle inverts traditional AI agent design, starting with action and focusing on self-reflection:
+1. **ACTION**
+   - [ ] Implement "beginner's mind" prompt
+   - [ ] Add confidence scoring
+   - [ ] Setup effect generation
+   - [ ] Add error handling
 
-1. **Action (A)**
-   - Initial response with "beginner's mind"
-   - Pure, unfiltered response without context
-   - Purpose: Generate authentic, unbiased initial thoughts
-   - Implementation:
-     - [ ] Direct LLM call with minimal prompt
-     - [ ] Structure response as markdown with confidence level
-     - [ ] Add error handling and retry logic
-     - [ ] Emit WebSocket events for step progress
+2. **EXPERIENCE**
+   - [ ] Implement vector search (n=80)
+   - [ ] Format priors for context
+   - [ ] Return both synthesis and priors
+   - [ ] No filtering at this stage
 
-2. **Experience (E)**
-   - Search for relevant prior context (n=80 priors)
-   - Vector similarity search in Qdrant
-   - Purpose: Ground the response in existing knowledge
-   - Implementation:
-     - [ ] Implement vector search with proper ranking
-     - [ ] Add semantic deduplication of results
-     - [ ] Format priors for LLM context
-     - [ ] Send prior preview events to frontend
+3. **INTENTION**
+   - [ ] Analyze priors for user's goal
+   - [ ] Consider how priors support intent
+   - [ ] Return intent analysis
+   - [ ] No filtering yet
 
-3. **Intention (I)**
-   - Analyze planned actions and consequences
-   - Select most relevant priors from search_limit = 80
-   - Purpose: Understand implications and align with goals
-   - Implementation:
-     - [ ] Create structured output format for selected priors
-     - [ ] Add intent analysis with clear criteria
-     - [ ] Track prior selection reasoning
-     - [ ] Update frontend with selection state
+4. **OBSERVATION**
+   - [ ] Record semantic links in Qdrant
+   - [ ] Store which priors were cited
+   - [ ] Build knowledge graph
+   - [ ] Return observation analysis
 
-4. **Observation (O)**
-   - Self-reflection on analysis and intentions
-   - Identify gaps and biases
-   - Purpose: Critical examination of the process
-   - Implementation:
-     - [ ] Add structured gap analysis format
-     - [ ] Enhance prompt for critical thinking
-     - [ ] Store observations in Qdrant
-     - [ ] Stream reflection to frontend
+5. **UPDATE**
+   - [ ] Implement loop/proceed decision
+   - [ ] Add confidence threshold
+   - [ ] Track decision reasoning
+   - [ ] Handle state transitions
 
-5. **Update (U)**
-   - Binary decision: loop or proceed
-   - Based on confidence and completeness
-   - Purpose: Quality control gate
-   - Implementation:
-     - [ ] Define clear confidence thresholds
-     - [ ] Add loop counter with limits
-     - [ ] Track decision criteria
-     - [ ] Notify frontend of loop/proceed
+6. **YIELD**
+   - [ ] Natural citation integration
+   - [ ] Markdown formatting
+   - [ ] Citation quality checks
+   - [ ] Final response synthesis
 
-6. **Yield (Y)**
-   - Final response synthesis
-   - Include inline citations to priors
-   - Purpose: Deliver comprehensive, grounded response
-   - Implementation:
-     - [ ] Format citations with prior links
-     - [ ] Assemble final markdown response
-     - [ ] Add quality verification checks
-     - [ ] Stream final response to frontend
+### 2. Prior Flow Implementation
 
-#### Database Integration
-- [ ] Update database.py:
-  - [ ] Thread management methods
-  - [ ] User authentication
-  - [ ] Thread history retrieval
-  - [ ] Vector storage optimization
+1. **Vector Search**
+   - [ ] Optimize search parameters
+   - [ ] Handle embedding errors
+   - [ ] Add result caching
+   - [ ] Improve ranking
 
-#### WebSocket Handler
-- [ ] Enhance websocket_handler.py:
-  - [ ] Message routing for each step
-  - [ ] Connection management
-  - [ ] Real-time updates
-  - [ ] Error recovery
+2. **Semantic Recording**
+   - [ ] Design semantic links schema
+   - [ ] Implement recording in Qdrant
+   - [ ] Add metadata tracking
+   - [ ] Enable future retrieval
 
-### 2. Frontend Integration
-- [ ] Complete MessageFlow:
-  - [ ] Add proper step transitions
-  - [ ] Implement prior citation display
-  - [ ] Add loading states
+3. **Citation Integration**
+   - [ ] Design citation format
+   - [ ] Implement natural integration
+   - [ ] Add citation previews
+   - [ ] Handle citation navigation
 
-- [ ] Enhance ThreadList:
-  - [ ] Add thread creation
-  - [ ] Add thread selection
-  - [ ] Show thread status
+### 3. Effect System
 
-- [ ] Update PriorPanel:
-  - [ ] Show relevant priors during experience step
-  - [ ] Add prior selection
-  - [ ] Add prior filtering
+1. **Effect Generation**
+   - [ ] Clean up effect types
+   - [ ] Implement accumulation
+   - [ ] Add error effects
+   - [ ] Handle state updates
 
-### 3. Wallet Integration
-- [ ] Add user authentication:
-  - [ ] Connect wallet to backend
-  - [ ] Manage user sessions
-  - [ ] Handle wallet changes
+2. **Effect Handling**
+   - [ ] Update UI components
+   - [ ] Handle WebSocket events
+   - [ ] Add error recovery
+   - [ ] Maintain state coherence
 
-- [ ] Thread ownership:
-  - [ ] Link threads to wallets
-  - [ ] Manage thread permissions
-  - [ ] Handle co-authors
+### 4. Frontend Components
 
-### 4. Testing
-- [ ] Add backend tests:
-  - [ ] Test database operations
-  - [ ] Test chorus cycle
-  - [ ] Test WebSocket handling
+1. **AIResponse**
+   - [ ] Step visualization
+   - [ ] Prior display
+   - [ ] Citation rendering
+   - [ ] Loading states
 
-- [ ] Add frontend tests:
-  - [ ] Test components
-  - [ ] Test hooks
-  - [ ] Test wallet integration
+2. **PriorPanel**
+   - [ ] Prior list display
+   - [ ] Citation preview
+   - [ ] Prior filtering
+   - [ ] Selection handling
 
-### 5. Deployment
-- [ ] Update Docker configuration:
-  - [ ] Add environment variables
-  - [ ] Configure production settings
-  - [ ] Add health checks
-
-- [ ] Add monitoring:
-  - [ ] Add logging
-  - [ ] Add error tracking
-  - [ ] Add performance monitoring
-
-## Immediate Next Tasks
-1. Complete chorus_cycle.py implementation with litellm integration
-2. Add proper WebSocket message handling
-3. Implement thread creation and management
-4. Add wallet authentication flow
-5. Test the complete message flow from frontend to backend
+## Immediate Focus
+1. Complete prior flow implementation
+2. Add semantic recording
+3. Clean up effect system
+4. Enhance citation handling
 
 ## Notes
-- Keep the quantum semantic model in mind when implementing the chorus cycle
-- Ensure proper error handling throughout
-- Maintain type safety between frontend and backend
-- Document all major components and flows
+- Keep prior flow clean and simple
+- Focus on semantic recording
+- Maintain effect coherence
+- Enable natural citations
 
 
 ==
@@ -3090,196 +3128,6 @@ This leads to fascinating emergent behaviors:
 - Quality content benefits whole team
 - Knowledge networks self-organize
 - System evolves toward coherence
-
-
-==
-Porting_Checklist
-==
-
-
-# Deployment & CI/CD Checklist
-
-## 1. CI/CD Setup
-
-- [x] Setup GitHub Actions workflow
-- [x] Configure build pipeline
-- [x] Add linting and formatting checks
-- [x] Setup test automation
-- [x] Configure deployment triggers
-
-### 1.1 Render Deploy Hook Setup
-
-- [x] Get Deploy Hook URL:
-
-  1. Go to Render Dashboard
-  2. Select the `choir-collective` service
-  3. Go to "Settings" tab
-  4. Find "Deploy Hook" section
-  5. Copy the deploy hook URL
-
-- [x] Add GitHub Secret:
-
-  1. Go to GitHub repo settings
-  2. Click "Secrets and variables > Actions"
-  3. Click "New repository secret"
-  4. Name: `RENDER_DEPLOY_HOOK_URL`
-  5. Value: Paste the deploy hook URL
-  6. Click "Add secret"
-
-- [x] Disable Render Auto-Deploy:
-
-  1. Go to Render Dashboard
-  2. Select the `choir-collective` service
-  3. Go to "Settings" tab
-  4. Find "Auto-Deploy" section
-  5. Disable auto-deploy
-
-- [x] Test CI/CD Pipeline:
-  1. Make a small change to the codebase
-  2. Push to main branch
-  3. Verify GitHub Actions workflow runs
-  4. Verify deployment triggers on Render
-  5. Check application updates successfully
-
-## 2. Testing Infrastructure
-
-- [x] Use already set-up testing framework
-- [ ] Configure test data
-- [ ] Add test fixtures
-- [ ] Setup test coverage reporting
-- [ ] Add integration tests for Solana program interaction
-
-## 3. Frontend Deployment ✅
-
-- [x] Deploy Next.js app to Render
-- [x] Configure environment variables
-- [x] Verify HTTPS/SSL setup
-- [x] Test Solana integration
-- [x] Verify all pages working
-
-## 4. Backend Deployment
-
-### 4.1 Render Service Setup
-
-- [x] Create new Web Service for backend:
-
-  1. Go to Render Dashboard
-  2. Click "New +" and select "Web Service"
-  3. Connect to GitHub repo
-  4. Configure service:
-     - Name: `choir-collective-api`
-     - Root Directory: `api`
-     - Environment: `Docker`
-     - Region: Choose nearest
-     - Instance Type: Start with "Starter" plan
-     - Auto-Deploy: Disable # We'll use GitHub Actions instead
-
-- [x] Get Deploy Hook URL for backend:
-  1. Go to service settings
-  2. Find "Deploy Hook" section
-  3. Copy the deploy hook URL
-  4. Add as GitHub secret: `RENDER_DEPLOY_HOOK_URL_BACKEND`
-
-### 4.2 Environment Variables
-
-- [x] Add environment variables in Render:
-  ```
-  PORT=8000
-  ```
-
-### 4.3 Update Frontend Configuration
-
-- [x] Update frontend environment in Render:
-  ```
-  NEXT_PUBLIC_API_URL=https://choir-collective-api.onrender.com
-  ```
-
-### 4.4 CORS Configuration
-
-- [x] Update CORS in main.py to allow frontend domain:
-  ```python
-  app.add_middleware(
-      CORSMiddleware,
-      allow_origins=[
-          "https://choir-collective.onrender.com",
-          "http://localhost:3000"  # For local development
-      ],
-      allow_credentials=True,
-      allow_methods=["*"],
-      allow_headers=["*"],
-  )
-  ```
-
-### 4.5 Verify Deployment
-
-- [ ] Check backend health endpoint: https://choir-collective-api.onrender.com/health
-- [ ] Test button click from frontend
-- [ ] Verify logs in Render dashboard
-
-## 5. Integration
-
-- [ ] Connect frontend to new backend
-- [ ] Test WebSocket connections
-- [ ] Verify Solana program interactions
-- [ ] Test end-to-end message flow
-- [ ] Verify state synchronization
-
-## 6. Monitoring
-
-- [ ] Setup logging
-- [ ] Configure error tracking
-- [ ] Add performance monitoring
-- [ ] Setup alerts
-- [ ] Add health checks
-
-### 6.1 Backend Monitoring
-
-- [ ] Add logging configuration:
-
-  ```python
-  import logging
-  logging.basicConfig(level=logging.INFO)
-  ```
-
-- [ ] Setup health check endpoint:
-
-  ```python
-  @app.get("/health")
-  async def health_check():
-      return {"status": "healthy"}
-  ```
-
-- [ ] Configure Render health checks:
-  1. Go to service settings
-  2. Set health check path to "/health"
-  3. Configure check interval and timeout
-
-### 4.2 Environment Variables
-
-- [ ] Verify environment variables in Render:
-  1. Frontend service:
-     ```
-     NEXT_PUBLIC_API_URL=https://choir-collective-api.onrender.com
-     ```
-  2. Backend service:
-     ```
-     PORT=8000
-     ```
-
-### 4.3 Verify Deployment
-
-- [ ] Check backend health endpoint directly: https://choir-collective-api.onrender.com/health
-- [ ] Check backend logs in Render dashboard for any errors
-- [ ] Verify frontend environment variables are set correctly
-- [ ] Test CORS by checking browser console during API calls
-
-## 7. Additional Tasks
-
-- [ ] Update documentation to reflect changes
-- [ ] Review and update testing infrastructure
-- [ ] Verify integration with Solana program
-- [ ] Test end-to-end message flow
-- [ ] Verify state synchronization
 
 
 ==

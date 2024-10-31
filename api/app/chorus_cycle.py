@@ -78,10 +78,15 @@ class ChorusCycle:
         effects = []
         new_state = state.copy(deep=True)
 
-        while new_state.current_step != StepEnum.YIELD:
+        # Run steps until we complete the cycle
+        while True:
             logger.info(f"Running step: {new_state.current_step}")
             new_state, step_effects = await self.run_step(new_state, input)
             effects.extend(step_effects)
+
+            # Break after YIELD step
+            if new_state.current_step == StepEnum.YIELD:
+                break
 
         return effects, new_state
 
@@ -116,7 +121,7 @@ class ChorusCycle:
             }
         ))
 
-        # Special handling for UPDATE step
+        # Handle step transitions
         if state.current_step == StepEnum.UPDATE:
             if isinstance(response, dict) and response.get("loop"):
                 new_state.current_step = StepEnum.ACTION  # Loop back to start
@@ -124,7 +129,20 @@ class ChorusCycle:
             else:
                 new_state.current_step = StepEnum.YIELD  # Move to final step
                 logger.info("Moving to YIELD step")
-        elif state.current_step != StepEnum.YIELD:
+                # Execute YIELD step immediately
+                yield_response = await self.run_yield(input, state.messages)
+                logger.info(f"YIELD step response: {yield_response}")
+                effects.append(Effect(
+                    type="chorus_response",
+                    payload={
+                        "step": "yield",
+                        "content": yield_response,
+                        "priors": []
+                    }
+                ))
+        elif state.current_step == StepEnum.YIELD:
+            logger.info("Completed YIELD step - cycle finished")
+        else:
             # Normal progression for other steps
             new_state.current_step = StepEnum(list(StepEnum)[list(StepEnum).index(state.current_step) + 1].value)
             logger.info(f"Moving to next step: {new_state.current_step}")
@@ -134,7 +152,7 @@ class ChorusCycle:
     async def run_action(self, input: str, messages: List[Message]) -> str:
         logger.info("Running ACTION step")
         action_prompt = """
-        This is the Chorus Loop, a decision-making model that turns the OODA loop on its head.
+        This is the Chorus Cycle, a decision-making model that turns the OODA loop on its head.
         Rather than accumulating data before acting, you act with "beginner's mind"/emptiness,
         then reflect on your "System 1" action.
         This is step 1, Action: Provide an initial response to the user's prompt to the best of your ability.
@@ -166,7 +184,7 @@ class ChorusCycle:
     async def run_experience(self, input: str, messages: List[Message], priors: Optional[List[Dict[str, Any]]] = None) -> Tuple[str, List[Dict[str, Any]]]:
         logger.info("Running EXPERIENCE step")
         experience_prompt = """
-        This is step 2 of the Chorus Loop, Experience: Search your memory for relevant context that could help refine the response from step 1.
+        This is step 2 of the Chorus Cycle, Experience: Search your memory for relevant context that could help refine the response from step 1.
 
         Respond in this JSON format:
         {
@@ -206,8 +224,14 @@ class ChorusCycle:
     async def run_intention(self, input: str, messages: List[Message]) -> str:
         logger.info("Running INTENTION step")
         intention_prompt = """
-        This is step 3 of the Chorus Loop, Intention: Analyze your planned actions and consider potential consequences.
-        Return your response containing your analysis and intentions.
+        This is step 3 of the Chorus Cycle, Intention: Analyze your planned actions and consider potential consequences.
+
+        Respond in this JSON format:
+        {
+            "explicit_intent": "What you plan to do directly",
+            "implicit_intent": "Underlying goals and potential consequences",
+            "confidence": 0.8  // A number between 0 and 1
+        }
         """
         messages = [
             {"role": "system", "content": intention_prompt},
@@ -216,17 +240,19 @@ class ChorusCycle:
         result = await structured_chat_completion(
             messages,
             self.config,
-            response_format=IntentionResponse
+            response_format={"type": "json_object"}
         )
-        if result["status"] == "success":
-            response = result["content"]
-            return f"Explicit: {response.explicit_intent}\nImplicit: {response.implicit_intent}"
-        return "Error analyzing intention"
+        try:
+            content = json.loads(result["content"])
+            return f"Explicit: {content.get('explicit_intent')}\nImplicit: {content.get('implicit_intent')}"
+        except Exception as e:
+            logger.error(f"Error parsing intention response: {e}")
+            return "Error analyzing intention"
 
     async def run_observation(self, input: str, messages: List[Message]) -> str:
         logger.info("Running OBSERVATION step")
         observation_prompt = """
-        This is step 4 of the Chorus Loop, Observation: Reflect on your analysis and intentions.
+        This is step 4 of the Chorus Cycle, Observation: Reflect on your analysis and intentions.
         Identify any gaps in your knowledge or potential biases.
         Return your response containing your observations and reflections.
 
@@ -257,7 +283,7 @@ class ChorusCycle:
     async def run_update(self, input: str, messages: List[Message]) -> Dict[str, Any]:
         logger.info("Running UPDATE step")
         update_prompt = """
-        This is step 5 of the Chorus Loop, Update: Based on your observations,
+        This is step 5 of the Chorus Cycle, Update: Based on your observations,
         decide whether to proceed with your current plan or loop back for further refinement.
         You must make a binary choice:
         - Return loop: true if you need another iteration through the cycle
@@ -296,23 +322,34 @@ class ChorusCycle:
     async def run_yield(self, input: str, messages: List[Message]) -> str:
         logger.info("Running YIELD step")
         yield_prompt = """
-        This is the final step of the Chorus Loop, Yield: Synthesize the accumulated context
+        This is the final step of the Chorus Cycle, Yield: Synthesize the accumulated context
         from all iterations and provide a final response that comprehensively addresses
-        the user's original prompt. Return your response containing your synthesized response.
+        the user's original prompt.
+
+        Respond in this JSON format:
+        {
+            "final_response": "Your synthesized response here",
+            "key_points": ["List of key points considered"],
+            "confidence": 0.8,  // A number between 0 and 1
+            "synthesis_quality": "Brief assessment of response completeness"
+        }
         """
         messages = [
             {"role": "system", "content": yield_prompt},
-            {"role": "user", "content": "Write a final response to the user's prompt:"}
+            {"role": "user", "content": input}
         ]
         result = await structured_chat_completion(
             messages,
             self.config,
-            response_format=YieldResponse
+            response_format={"type": "json_object"}
         )
-        if result["status"] == "success":
-            response = result["content"]
-            return response.final_response
-        return "Error generating final response"
+        logger.info(f"Yield result: {result}")
+        try:
+            content = json.loads(result["content"])
+            return content.get("final_response", result["content"])
+        except Exception as e:
+            logger.error(f"Error parsing yield response: {e}")
+            return "Error generating final response"
 
     async def handle_connection_error(self, error: Exception, state: ConnectionState) -> Tuple[ConnectionState, str]:
         new_state = state.copy(deep=True)

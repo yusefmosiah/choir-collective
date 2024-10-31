@@ -1,59 +1,180 @@
 # Frontend Architecture Plan
 
-## Overview
-
-This document outlines the architecture for the frontend rehydration process, focusing on integrating real-time updates, user interaction, and AI response handling.
+VERSION frontend_arch:
+invariants: {
+"Prior flow integrity",
+"Effect coherence",
+"UI consistency"
+}
+assumptions: {
+"WebSocket reliability",
+"Vector space stability",
+"State synchronization"
+}
+docs_version: "0.2.2"
 
 ## Core Components
 
-1. **Choir Chat Interface**
-   - **Purpose**: Facilitate real-time communication and interaction.
-   - **Key Features**:
-     - WebSocket integration for live updates.
-     - State management for threads and messages.
-     - Responsive design for various devices.
+1. **AIResponse Component**
+   ```typescript
+   // Step visualization with prior handling
+   interface AIResponseProps {
+     message: Message;
+     currentStep: ChorusStep;
+     steps: Step[];
+     sources: Prior[];  // From EXPERIENCE step
+   }
+   ```
 
-2. **Chorus Panel**
-   - **Purpose**: Provide an interactive UI for managing threads and AI responses.
-   - **Key Features**:
-     - Tab navigation for different sections.
-     - Bottom sheet for mobile-first design.
-     - Integration with AI response components.
+   Key Features:
+   - Step-by-step visualization
+   - Prior display in EXPERIENCE
+   - Citation rendering in YIELD
+   - Loading states per step
 
-3. **AI Response Handling**
-   - **Purpose**: Enhance user interaction with AI-generated content.
-   - **Key Features**:
-     - Display AI responses in a user-friendly manner.
-     - Manage AI response state and interactivity.
-     - Integrate with the Chorus Cycle for seamless updates.
+2. **PriorPanel Component**
+   ```typescript
+   // Prior display and interaction
+   interface PriorPanelProps {
+     priors?: Prior[];      // From EXPERIENCE step
+     onSelect?: (prior: Prior) => void;
+     selectedPriors?: Prior[];
+   }
+   ```
 
-4. **User Input Management**
-   - **Purpose**: Capture and process user input efficiently.
-   - **Key Features**:
-     - Input validation and feedback mechanisms.
-     - Integration with backend for processing.
-     - Real-time updates and error handling.
+   Key Features:
+   - Show all priors in EXPERIENCE
+   - Prior preview cards
+   - Citation tooltips
+   - Source navigation
+
+3. **MessageFlow Component**
+   ```typescript
+   // Message and step display
+   interface MessageFlowProps {
+     messages: Message[];
+     currentStep: ChorusStep;
+     onMessageSelect: (id: string) => void;
+     selectedMessageId: string | null;
+   }
+   ```
+
+   Key Features:
+   - Message rendering
+   - Step transitions
+   - Prior integration
+   - Citation display
 
 ## State Management
 
-- **Global State**: Managed using a state management library (e.g., Redux, Context API).
-- **Local State**: Managed within components for UI-specific interactions.
-- **Optimistic Updates**: Implemented for real-time feedback before server confirmation.
+1. **Chorus Cycle State**
+   ```typescript
+   // useChorusCycle hook
+   interface ChorusState {
+     currentStep: ChorusStep;
+     steps: Step[];
+     priors?: Prior[];     // From EXPERIENCE
+     effects: Effect[];
+   }
+   ```
 
-## Integration Points
+2. **Effect Handling**
+   ```typescript
+   // Effect processing
+   type Effect = {
+     type: "chorus_response" | "error" | "state_update";
+     payload: {
+       step: ChorusStep;
+       content: string;
+       priors?: Prior[];  // Only in EXPERIENCE
+     };
+   }
+   ```
 
-- **WebSocket Protocol**: Ensure seamless integration for real-time updates.
-- **Backend API**: Connect with backend endpoints for data retrieval and submission.
-- **AI Services**: Integrate AI response handling for enhanced user interaction.
+3. **WebSocket Integration**
+   ```typescript
+   // Real-time communication
+   interface WebSocketState {
+     connected: boolean;
+     sendMessage: (msg: WebSocketMessage) => void;
+     lastMessage?: WebSocketMessage;
+   }
+   ```
 
-## Performance Considerations
+## UI Flow
 
-- **Lazy Loading**: Implement lazy loading for components and data.
-- **Code Splitting**: Use code splitting to optimize bundle size.
-- **Caching**: Implement caching strategies for frequently accessed data.
+1. **Prior Flow**
+   ```typescript
+   // EXPERIENCE: Show all priors
+   <PriorPanel priors={step.priors} />
 
-## Security and Privacy
+   // INTENTION: Show goal analysis
+   <AIResponse step="intention" content={step.content} />
 
-- **Authentication**: Ensure secure user authentication and session management.
-- **Data Privacy**: Implement privacy controls for user data and interactions.
-- **Error Handling**: Robust error handling and logging for security incidents.
+   // OBSERVATION: Show semantic links
+   <AIResponse step="observation" content={step.content} />
+
+   // YIELD: Show citations
+   <AIResponse step="yield" content={step.content} />
+   ```
+
+2. **Effect Flow**
+   ```typescript
+   // Effect handling in components
+   function handleEffect(effect: Effect) {
+     switch (effect.type) {
+       case "chorus_response":
+         if (effect.payload.step === "experience") {
+           updatePriorPanel(effect.payload.priors);
+         }
+         updateStepDisplay(effect.payload);
+         break;
+     }
+   }
+   ```
+
+## Implementation Notes
+
+1. **Prior Handling**
+   - Show all priors in EXPERIENCE
+   - Enable prior preview
+   - Support citation navigation
+   - Track semantic links
+
+2. **Effect Processing**
+   - Clean effect types
+   - Proper accumulation
+   - UI synchronization
+   - Error handling
+
+3. **State Management**
+   - Clear state boundaries
+   - Effect-driven updates
+   - Consistent UI state
+   - Error recovery
+
+## Success Metrics
+
+1. **User Experience**
+   - Clear step progression
+   - Natural prior flow
+   - Smooth transitions
+   - Responsive feedback
+
+2. **Technical Quality**
+   - Clean component hierarchy
+   - Type safety
+   - Effect coherence
+   - Error handling
+
+3. **Performance**
+   - Fast prior loading
+   - Smooth animations
+   - Efficient updates
+   - Memory management
+
+Through this architecture, we create a frontend that:
+- Maintains prior flow integrity
+- Preserves effect coherence
+- Enables natural citations
+- Provides clear user feedback
