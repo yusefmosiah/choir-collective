@@ -135,7 +135,6 @@
 │   ├── Core_StateTransitions.md
 │   ├── Core_Types.md
 │   ├── Core_Whitepaper.md
-│   ├── Current_Summary.md
 │   ├── Data_Engine_Vision.md
 │   ├── Deploy_Render_Checklist.md
 │   ├── Deploy_Report.md
@@ -215,6 +214,7 @@
 │   ├── Solana_thread_test.md
 │   ├── Solana_validation.md
 │   ├── State_Boundaries.md
+│   ├── Summary_Current.md
 │   ├── Summary_level4.md
 │   ├── Summary_level5.md
 │   ├── Tech_Arts_Intersection.md
