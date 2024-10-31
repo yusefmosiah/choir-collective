@@ -3345,6 +3345,54 @@ def calculate_equity_share(stake: float, base_price: float, coauthor_count: int)
    - Quality barrier emerges naturally
    - Coherent growth through quantum selection
 
+## Stake-to-Equity Scaling
+
+1. **Base Case**
+   - Stake = P₀ → get exactly 1/N share
+   - This is the "natural quantum" of equity
+
+2. **Smaller Stakes**
+   ```
+   When stake < P₀:
+   - Equity scales as √(stake/P₀)/N
+   - Example: stake = P₀/4 → get (1/2)/N share
+   - Example: stake = P₀/9 → get (1/3)/N share
+   ```
+
+3. **Larger Stakes**
+   ```
+   When stake > P₀:
+   - Equity scales as √(stake/P₀)/N
+   - Example: stake = 4P₀ → get 2/N share
+   - Example: stake = 9P₀ → get 3/N share
+   ```
+
+### Continuous Scaling
+The quantum harmonic oscillator model provides a natural, continuous curve:
+- No minimum stake requirement
+- Any positive stake amount is valid
+- Smaller stakes get proportionally smaller equity
+- Follows √n scaling from physics
+
+### Examples
+```python
+# For a thread with 4 co-authors (N=4)
+base_price = P₀  # from quantum oscillator equation
+
+examples = [
+    (P₀/16, 0.0625/4),  # Very small stake -> very small share
+    (P₀/4,  0.5/4),     # Quarter stake -> half quantum share
+    (P₀,    1.0/4),     # Full stake -> full quantum share
+    (4*P₀,  2.0/4),     # 4x stake -> double quantum share
+]
+```
+
+This natural scaling:
+- Enables participation at any level
+- Rewards larger stakes proportionally
+- Maintains quantum mechanical principles
+- Creates smooth equity distribution curve
+
 
 ==
 Theory_HarmonicBondingCurve
