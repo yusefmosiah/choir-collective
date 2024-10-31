@@ -2,7 +2,7 @@
 
 # Define level prefixes as simple arrays
 level0_prefixes=("Solana" "Frontend" "Backend" "Deploy" "Implementation" "Data" "Error" "Reward" "Impl")
-level1_prefixes=("Entry" "Dev" "Plan" "Tech" "Report" "Level" "Current" "Prompt")
+level1_prefixes=("Entry" "Dev" "Plan" "Tech" "Level" "Current" "Prompt")
 level2_prefixes=("Core" "State" "Summary")
 level3_prefixes=("Theory" "V10" "V12")
 level4_prefixes=("Model" "Emergence" "Meta")

@@ -202,7 +202,6 @@ tree.md
 │   ├── Plan_ToBeContinued.md
 │   ├── Prompt_Reentry.md
 │   ├── Prompt_StructuredSummary.md
-│   ├── Report_2024-10-28.md
 │   ├── Reward_Explained.md
 │   ├── Reward_Service.md
 │   ├── Reward_Summary.md
@@ -243,7 +242,8 @@ tree.md
 │   │   ├── Impl_Messages.md
 │   │   ├── Impl_WebSocket.md
 │   │   ├── Model_Emergency.md
-│   │   └── Plan_FrontendArchitecture.md
+│   │   ├── Plan_FrontendArchitecture.md
+│   │   └── Report_2024-10-28.md
 │   ├── combined
 │   │   ├── Combined_Backend.md
 │   │   ├── Combined_Core.md
@@ -262,7 +262,6 @@ tree.md
 │   │   ├── Combined_Model.md
 │   │   ├── Combined_Plan.md
 │   │   ├── Combined_Prompt.md
-│   │   ├── Combined_Report.md
 │   │   ├── Combined_Reward.md
 │   │   ├── Combined_Solana.md
 │   │   ├── Combined_State.md
@@ -378,7 +377,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-61 directories, 302 files
+61 directories, 301 files
 
 === File: docs/scripts/combiner.sh ===
 
@@ -393,7 +392,7 @@ combiner.sh
 
 # Define level prefixes as simple arrays
 level0_prefixes=("Solana" "Frontend" "Backend" "Deploy" "Implementation" "Data" "Error" "Reward" "Impl")
-level1_prefixes=("Entry" "Dev" "Plan" "Tech" "Report" "Level" "Current" "Prompt")
+level1_prefixes=("Entry" "Dev" "Plan" "Tech" "Level" "Current" "Prompt")
 level2_prefixes=("Core" "State" "Summary")
 level3_prefixes=("Theory" "V10" "V12")
 level4_prefixes=("Model" "Emergence" "Meta")

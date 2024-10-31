@@ -189,7 +189,6 @@
 │   ├── Plan_ToBeContinued.md
 │   ├── Prompt_Reentry.md
 │   ├── Prompt_StructuredSummary.md
-│   ├── Report_2024-10-28.md
 │   ├── Reward_Explained.md
 │   ├── Reward_Service.md
 │   ├── Reward_Summary.md
@@ -230,7 +229,8 @@
 │   │   ├── Impl_Messages.md
 │   │   ├── Impl_WebSocket.md
 │   │   ├── Model_Emergency.md
-│   │   └── Plan_FrontendArchitecture.md
+│   │   ├── Plan_FrontendArchitecture.md
+│   │   └── Report_2024-10-28.md
 │   ├── combined
 │   │   ├── Combined_Backend.md
 │   │   ├── Combined_Core.md
@@ -249,7 +249,6 @@
 │   │   ├── Combined_Model.md
 │   │   ├── Combined_Plan.md
 │   │   ├── Combined_Prompt.md
-│   │   ├── Combined_Report.md
 │   │   ├── Combined_Reward.md
 │   │   ├── Combined_Solana.md
 │   │   ├── Combined_State.md
@@ -365,4 +364,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-61 directories, 302 files
+61 directories, 301 files
