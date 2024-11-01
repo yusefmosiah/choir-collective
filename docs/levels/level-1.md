@@ -195,6 +195,25 @@ tree.md
 │   ├── Meta_ValueEvolution.md
 │   ├── Model_Metastability.md
 │   ├── Model_Recursion.md
+│   ├── Pivot_API_Architecture_Options.md
+│   ├── Pivot_Architecture.md
+│   ├── Pivot_Audio_Evolution.md
+│   ├── Pivot_Development_Phases.md
+│   ├── Pivot_ImageBind_Integration.md
+│   ├── Pivot_Knowledge_Foundation.md
+│   ├── Pivot_LanceDB_Integration.md
+│   ├── Pivot_Launch_Sequence.md
+│   ├── Pivot_Mental_Model_Relief.md
+│   ├── Pivot_Progressive_Decentralization.md
+│   ├── Pivot_Qdrant_Client.md
+│   ├── Pivot_Repository_Split.md
+│   ├── Pivot_Service_Architecture.md
+│   ├── Pivot_Service_Layer.md
+│   ├── Pivot_Swift_API_Clients.md
+│   ├── Pivot_Swift_Concurrency.md
+│   ├── Pivot_Team_Evolution.md
+│   ├── Pivot_Token_Evolution.md
+│   ├── Pivot_Two_Phase_Strategy.md
 │   ├── Plan_Checklist.md
 │   ├── Plan_FrontendChecklist.md
 │   ├── Plan_Hyperconverge.md
@@ -245,31 +264,6 @@ tree.md
 │   │   ├── Plan_FrontendArchitecture.md
 │   │   └── Report_2024-10-28.md
 │   ├── combined
-│   │   ├── Combined_Backend.md
-│   │   ├── Combined_Core.md
-│   │   ├── Combined_Current.md
-│   │   ├── Combined_Data.md
-│   │   ├── Combined_Deploy.md
-│   │   ├── Combined_Dev.md
-│   │   ├── Combined_Entry.md
-│   │   ├── Combined_Error.md
-│   │   ├── Combined_Frontend.md
-│   │   ├── Combined_Harmonic.md
-│   │   ├── Combined_Impl.md
-│   │   ├── Combined_Implementation.md
-│   │   ├── Combined_Level.md
-│   │   ├── Combined_Meta.md
-│   │   ├── Combined_Model.md
-│   │   ├── Combined_Plan.md
-│   │   ├── Combined_Prompt.md
-│   │   ├── Combined_Reward.md
-│   │   ├── Combined_Solana.md
-│   │   ├── Combined_State.md
-│   │   ├── Combined_Summary.md
-│   │   ├── Combined_Tech.md
-│   │   ├── Combined_Theory.md
-│   │   ├── Combined_V10.md
-│   │   └── Combined_V12.md
 │   ├── levels
 │   │   ├── level-1.md
 │   │   ├── level0.md
@@ -299,7 +293,6 @@ tree.md
 │       ├── requirements.txt
 │       └── utils.py
 ├── package.json
-├── pnpm-lock.yaml
 ├── postcss.config.mjs
 ├── public
 │   └── logo.png
@@ -362,8 +355,11 @@ tree.md
 │   │       └── ui-layout.tsx
 │   ├── config
 │   │   └── index.ts
+│   ├── contexts
+│   │   └── WalletContextProvider.tsx
 │   ├── hooks
 │   │   ├── useChorusCycle.ts
+│   │   ├── useSolana.ts
 │   │   ├── useThread.ts
 │   │   └── useWebSocket.ts
 │   ├── mocks
@@ -377,7 +373,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-61 directories, 301 files
+62 directories, 296 files
 
 === File: docs/scripts/combiner.sh ===
 
@@ -393,7 +389,7 @@ combiner.sh
 # Define level prefixes as simple arrays
 level0_prefixes=("Solana" "Frontend" "Backend" "Deploy" "Implementation" "Data" "Error" "Reward" "Impl")
 level1_prefixes=("Entry" "Dev" "Plan" "Tech" "Level" "Current" "Prompt")
-level2_prefixes=("Core" "State" "Summary")
+level2_prefixes=("Core" "State" "Summary" "Pivot")
 level3_prefixes=("Theory" "V10" "V12")
 level4_prefixes=("Model" "Emergence" "Meta")
 level5_prefixes=("Harmonic")

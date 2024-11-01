@@ -1,5 +1,5 @@
-import React from 'react';
-import { Prior } from '@/types';
+import React from "react";
+import { Prior } from "@/types";
 
 interface PriorPanelProps {
   priors?: Prior[];
@@ -22,8 +22,16 @@ const PriorPanel: React.FC<PriorPanelProps> = ({ priors = [] }) => {
             >
               <div className="text-sm">{prior.content}</div>
               <div className="mt-2 text-xs text-base-content/60 flex justify-between">
-                <span>Similarity: {(prior.similarity * 100).toFixed(1)}%</span>
-                <span>{new Date(prior.created_at).toLocaleDateString()}</span>
+                <div className="text-sm text-gray-500">
+                  {prior.similarity !== undefined && (
+                    <span>Similarity: {prior.similarity.toFixed(2)}</span>
+                  )}
+                  {prior.created_at && (
+                    <span>
+                      Created: {new Date(prior.created_at).toLocaleString()}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           ))

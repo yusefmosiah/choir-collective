@@ -2841,6 +2841,2953 @@ The result is a platform where:
 
 This innovative model sets a new standard for decentralized platforms, demonstrating how physical principles can create robust socioeconomic systems with sustainable token economics.
 
+=== File: docs/Pivot_API_Architecture_Options.md ===
+
+
+
+==
+Pivot_API_Architecture_Options
+==
+
+
+# Direct vs Proxied Service Access
+
+## Option 1: Direct Service Access
+
+```swift
+// Each user has their own API keys
+class ServiceManager {
+    private let qdrantKey: String  // Per-user Qdrant key
+    private let openAIKey: String  // Per-user OpenAI key
+
+    func searchVectors(_ query: Vector) async throws -> [Prior] {
+        // Direct Qdrant API call
+        let client = QdrantClient(apiKey: qdrantKey)
+        return try await client.search(query)
+    }
+
+    func generateResponse(_ prompt: String) async throws -> String {
+        // Direct OpenAI API call
+        let client = OpenAI(apiKey: openAIKey)
+        return try await client.complete(prompt)
+    }
+}
+
+Pros:
+- Lower latency (direct calls)
+- Simpler architecture
+- Less infrastructure
+
+Cons:
+- API key management complexity
+- No usage monitoring
+- Harder to implement rate limiting
+- Security concerns
+```
+
+## Option 2: Managed Proxy Service
+
+```swift
+// Use a service like LiteLLM
+class ProxyManager {
+    private let liteLLMKey: String  // One proxy key per user
+
+    func generateResponse(_ prompt: String) async throws -> String {
+        // LiteLLM handles:
+        // - API key management
+        // - Rate limiting
+        // - Cost tracking
+        // - Fallback models
+        return try await liteLLM.complete(prompt)
+    }
+}
+
+Pros:
+- Professional key management
+- Built-in monitoring
+- Automatic fallbacks
+- Usage analytics
+
+Cons:
+- Monthly service cost
+- Additional latency
+- Vendor lock-in
+```
+
+## Option 3: Custom Proxy (Recommended)
+
+```swift
+// Light FastAPI service
+class APIManager {
+    private let apiKey: String  // Single user key for our service
+
+    func searchVectors(_ query: Vector) async throws -> [Prior] {
+        // Our proxy handles:
+        // - API key rotation
+        // - Usage tracking
+        // - Rate limiting
+        // - Cost allocation
+        return try await api.post("/search", query)
+    }
+}
+
+Pros:
+- Full control over key management
+- Custom usage tracking
+- Per-user rate limiting
+- Cost monitoring
+- Security control
+
+Cons:
+- Must maintain proxy service
+- Initial setup complexity
+```
+
+## Recommendation
+
+Keep a minimal FastAPI proxy for:
+
+1. API key management
+2. Usage tracking
+3. Rate limiting
+4. Cost monitoring
+
+But make it much simpler than current version:
+
+```python
+# Simple FastAPI proxy
+@app.post("/search")
+async def search_vectors(query: Vector, user: User):
+    # Rate limiting
+    await check_rate_limit(user)
+
+    # Key management
+    api_key = get_rotating_key(service="qdrant")
+
+    # Usage tracking
+    await track_usage(user, service="qdrant")
+
+    # Actual call
+    return await qdrant.search(query, api_key)
+```
+
+This gives us:
+
+- Security control
+- Usage monitoring
+- Simple maintenance
+- Future flexibility
+
+We can always switch to direct calls or managed proxy later if needed.
+
+=== File: docs/Pivot_Architecture.md ===
+
+
+
+==
+Pivot_Architecture
+==
+
+
+# Choir iOS Architecture
+
+## Core Components
+
+1. **Thread Model**
+
+```swift
+struct Thread: Identifiable {
+    let id: UUID
+    var messages: [Message]
+    var coAuthors: Set<PublicKey>
+    var tokenBalance: UInt64
+    var currentStep: ChorusStep
+}
+```
+
+2. **Message Flow**
+
+```swift
+enum ChorusStep {
+    case action     // Initial response
+    case experience // Get priors (n=80)
+    case intention  // Analyze goal
+    case observation // Record semantic links
+    case update     // Loop decision
+    case yield      // Final response
+}
+```
+
+## Network Layer
+
+1. **WebSocket Manager**
+
+```swift
+// Using URLSessionWebSocketTask for native implementation
+class WebSocketManager: ObservableObject {
+    private var webSocket: URLSessionWebSocketTask?
+    @Published var isConnected = false
+
+    func connect() {
+        let session = URLSession(configuration: .default)
+        webSocket = session.webSocketTask(with: URL(string: "wss://...")!)
+        webSocket?.resume()
+        receiveMessage()
+    }
+
+    private func receiveMessage() {
+        webSocket?.receive { [weak self] result in
+            switch result {
+            case .success(let message):
+                self?.handleMessage(message)
+                self?.receiveMessage() // Continue listening
+            case .failure(let error):
+                self?.handleError(error)
+            }
+        }
+    }
+}
+```
+
+2. **Solana Integration**
+
+```swift
+// Using Solana.Swift for blockchain interaction
+class SolanaManager: ObservableObject {
+    private let solana: Solana
+    @Published var balance: UInt64 = 0
+
+    init() {
+        solana = Solana(router: NetworkingRouter(endpoint: .devnet))
+    }
+
+    func getBalance(account: PublicKey) async throws -> UInt64 {
+        return try await solana.api.getBalance(account: account)
+    }
+
+    func signAndSendTransaction(_ transaction: Transaction) async throws -> String {
+        // WalletConnect integration for signing
+        return try await solana.action.sendTransaction(transaction)
+    }
+}
+```
+
+3. **Wallet Integration**
+
+```swift
+// Using WalletConnect for wallet interactions
+class WalletManager: ObservableObject {
+    private let client: Client
+    @Published var isConnected = false
+    @Published var publicKey: PublicKey?
+
+    func connect() async throws {
+        // WalletConnect connection flow
+        // Returns connected wallet info
+    }
+
+    func sign(transaction: Transaction) async throws -> Signature {
+        // WalletConnect signing flow
+    }
+}
+```
+
+## View Architecture
+
+1. **Main Navigation**
+
+```swift
+struct MainView: View {
+    @StateObject var walletManager = WalletManager()
+    @StateObject var solanaManager = SolanaManager()
+
+    var body: some View {
+        TabView {
+            ThreadListView()
+                .tabItem { Label("Threads", systemImage: "list.bullet") }
+
+            MessageFlowView()
+                .tabItem { Label("Chat", systemImage: "message") }
+
+            PriorPanelView()
+                .tabItem { Label("Priors", systemImage: "doc.text") }
+        }
+        .environmentObject(walletManager)
+        .environmentObject(solanaManager)
+    }
+}
+```
+
+2. **Chat Interface**
+
+```swift
+struct MessageFlowView: View {
+    @StateObject var viewModel: MessageFlowViewModel
+    @EnvironmentObject var walletManager: WalletManager
+    @EnvironmentObject var solanaManager: SolanaManager
+
+    var body: some View {
+        VStack {
+            MessageList(messages: viewModel.messages)
+            StepIndicator(currentStep: viewModel.currentStep)
+            MessageInput(onSend: viewModel.sendMessage)
+        }
+    }
+}
+```
+
+## Dependencies
+
+```swift
+// Package.swift
+dependencies: [
+    .package(url: "https://github.com/Giancarlo-Catalano/Solana.Swift.git", from: "1.2.0"),
+    .package(url: "https://github.com/WalletConnect/WalletConnectSwift.git", from: "1.7.0")
+]
+
+// Benefits:
+// 1. Minimal external dependencies
+// 2. Native WebSocket support
+// 3. Strong type system
+// 4. Modern async/await
+// 5. SwiftUI integration
+```
+
+## Integration Points
+
+1. **Backend Communication**
+
+- WebSocket for real-time updates
+- REST API for thread management
+- Qdrant for vector search
+- LiteLLM for AI responses
+
+2. **Blockchain Integration**
+
+- Solana.Swift for RPC calls
+- WalletConnect for wallet interaction
+- Program interaction via Anchor IDL
+
+3. **State Management**
+
+- SwiftUI @StateObject for view models
+- @EnvironmentObject for global state
+- Combine for reactive updates
+- AsyncSequence for WebSocket streams
+
+=== File: docs/Pivot_Audio_Evolution.md ===
+
+
+
+==
+Pivot_Audio_Evolution
+==
+
+
+# Choir: From Text to Voice
+
+## Phase 1: Text Foundation
+```swift
+// Current text-based system
+struct TextMessage {
+    let content: String
+    let embeddings: [Float]    // Semantic meaning
+    let thread: ThreadID       // Context
+    let author: PublicKey      // Identity
+}
+
+Benefits:
+- Proven technology
+- Clear semantics
+- Easy to process
+- Fast development
+```
+
+## Phase 2: Voice Revolution
+```swift
+// Future voice system
+struct VoiceMessage {
+    let audio: AudioBuffer     // Raw waveform
+    let transcript: String     // Text mapping
+    let embeddings: [Float]    // Semantic meaning
+    let voiceprint: [Float]    // Speaker identity
+    let emotions: [Float]      // Emotional content
+
+    // Rich human interaction
+    var properties: [String: Float] {
+        "pitch": 440.0,       // Musical note A
+        "timbre": 0.8,        // Voice quality
+        "rhythm": 120.0,      // Words per minute
+        "energy": 0.9         // Emotional intensity
+    }
+}
+```
+
+## Natural Evolution
+
+1. **Text → Speech**
+```swift
+// Progressive enhancement
+class MessageEvolution {
+    // Phase 1: Text only
+    func processText(_ content: String) async throws -> Message {
+        let embeddings = try await getEmbeddings(content)
+        return TextMessage(content, embeddings)
+    }
+
+    // Phase 2: Voice enabled
+    func processVoice(_ audio: AudioBuffer) async throws -> Message {
+        let transcript = try await transcribe(audio)
+        let embeddings = try await getEmbeddings(transcript)
+        let voiceprint = try await analyzeVoice(audio)
+        return VoiceMessage(audio, transcript, embeddings, voiceprint)
+    }
+}
+```
+
+2. **Semantic Richness**
+```swift
+// Voice adds dimensions
+struct SemanticSpace {
+    // Phase 1: Text semantics
+    let meaning: [Float]      // Word embeddings
+
+    // Phase 2: Voice semantics
+    let prosody: [Float]      // Rhythm, stress, intonation
+    let emotion: [Float]      // Emotional content
+    let identity: [Float]     // Speaker characteristics
+}
+```
+
+3. **Natural Interaction**
+```swift
+// Voice interface
+class VoiceInterface {
+    // Natural conversation
+    func listen() async throws -> VoiceInput {
+        let audio = try await recordAudio()
+        let intent = try await analyzeIntent(audio)
+        return VoiceInput(audio, intent)
+    }
+
+    // Expressive response
+    func speak(_ response: AIResponse) async throws {
+        let voice = try await synthesizeVoice(response)
+        let emotion = try await addEmotion(voice)
+        try await playAudio(emotion)
+    }
+}
+```
+
+## Technical Progression
+
+1. **Foundation (Now)**
+- Text processing
+- Semantic embeddings
+- Thread context
+- Quality emergence
+
+2. **Voice Layer (Future)**
+- Speech recognition
+- Voice synthesis
+- Emotional analysis
+- Identity verification
+
+3. **Integration**
+- Multimodal understanding
+- Rich expression
+- Natural interaction
+- Human connection
+
+## Why This Works
+
+1. **Technical Reality**
+- Text is mature
+- Voice is emerging
+- Perfect timing
+- Natural progression
+
+2. **User Experience**
+- Start familiar (text)
+- Add magic (voice)
+- Keep context (threads)
+- Enhance naturally
+
+3. **Business Strategy**
+- Prove model with text
+- Build anticipation
+- Lead voice revolution
+- Create wonder
+
+=== File: docs/Pivot_Development_Phases.md ===
+
+
+
+==
+Pivot_Development_Phases
+==
+
+
+# Development Phases
+
+## Phase 1: SwiftUI Solana Foundation
+```swift
+Goals:
+- Wallet connection via WalletConnect
+- RPC connection and basic transactions
+- Account balance and airdrops (devnet)
+- Clean architecture patterns
+- Unit test foundation
+
+Dependencies:
+- Solana.Swift
+- WalletConnect
+- SwiftUI/Combine
+```
+
+## Phase 2: API Deployment & WebSocket Integration
+```python
+Goals:
+- Split out choir-api repository
+- Deploy FastAPI backend
+- WebSocket connection from iOS
+- Real-time message flow
+- Basic thread state management
+
+Stack:
+- FastAPI
+- WebSockets
+- Docker/deployment
+- iOS async/await
+```
+
+## Phase 3: Full Chorus Cycle
+```swift
+Goals:
+- Complete AI chat implementation
+- Vector search integration
+- Semantic link recording
+- Prior citation flow
+- Polish chat UI/UX
+
+Features:
+- Thread management
+- Message approvals
+- Prior citations
+- Real-time updates
+```
+
+## Phase 4: Token & Program Launch
+```rust
+Goals:
+- Mint CHOIR token
+- Deploy thread program
+- Implement reward distribution
+- Full program testing
+- Security audit
+
+Components:
+- Anchor program
+- Token distribution
+- State management
+- Testing suite
+```
+
+## Phase 5: App Store Launch
+```swift
+Goals:
+- Polish all flows
+- App Store assets
+- TestFlight beta
+- Marketing materials
+- Launch strategy
+
+Focus:
+- User experience
+- Performance
+- Edge cases
+- Error handling
+```
+
+## Phase 6: Website & Documentation
+```
+Goals:
+- Marketing site
+- Technical docs
+- API documentation
+- Community resources
+- Launch blog
+
+Stack:
+- Zola
+- Markdown
+- CI/CD
+```
+
+## Current Focus: Phase 1
+
+1. **Wallet Setup**
+```swift
+// First milestone
+class WalletManager: ObservableObject {
+    private let client: WalletConnectClient
+    @Published var isConnected: Bool
+    @Published var publicKey: PublicKey?
+
+    // Core flows:
+    func connect()
+    func disconnect()
+    func signTransaction()
+}
+```
+
+2. **RPC Integration**
+```swift
+// Second milestone
+class SolanaManager: ObservableObject {
+    private let solana: Solana
+    @Published var balance: UInt64
+
+    // Core operations:
+    func getBalance()
+    func requestAirdrop()
+    func sendTransaction()
+}
+```
+
+3. **Architecture Foundation**
+```swift
+// Clean architecture setup
+├── Core/
+│   ├── Protocols/      // Interfaces
+│   ├── Extensions/     // Swift extensions
+│   └── Utilities/      // Shared tools
+├── Features/
+│   ├── Wallet/        // Wallet connection
+│   └── Solana/        // RPC interaction
+├── UI/
+│   ├── Components/    // Reusable views
+│   └── Screens/      // Main screens
+└── Services/
+    ├── Network/      // API/WebSocket
+    └── Storage/      // Local persistence
+```
+
+This phased approach lets us:
+1. Build strong foundations
+2. Test core functionality early
+3. Maintain clean architecture
+4. Ship incrementally
+5. Validate assumptions
+6. Pivot if needed
+
+Ready to start with Phase 1?
+
+=== File: docs/Pivot_ImageBind_Integration.md ===
+
+
+
+==
+Pivot_ImageBind_Integration
+==
+
+
+# ImageBind Integration via Replicate
+
+## Service Layer Design
+```swift
+// Clean protocol for multimodal embeddings
+protocol EmbeddingService {
+    func getEmbeddings(_ input: MultiModalInput) async throws -> [Float]
+}
+
+// Input types
+enum MultiModalInput {
+    case text(String)
+    case image(URL)
+    case audio(URL)
+}
+
+// Replicate implementation
+class ReplicateEmbeddings: EmbeddingService {
+    private let apiKey: String
+    private let endpoint = "https://api.replicate.com/v1/predictions"
+
+    // Development mode - direct API calls
+    func getEmbeddings(_ input: MultiModalInput) async throws -> [Float] {
+        let prediction = try await createPrediction(input)
+        return try await waitForResult(prediction.id)
+    }
+
+    private func createPrediction(_ input: MultiModalInput) async throws -> Prediction {
+        var body: [String: Any] = [
+            "version": "789b6318d05f89143a9c3554a2e29f9165a410529ef3f2c5844fe1c03d758737"
+        ]
+
+        // Handle different input types
+        switch input {
+        case .text(let content):
+            body["input"] = ["text": content]
+        case .image(let url):
+            body["input"] = ["image": url.absoluteString]
+        case .audio(let url):
+            body["input"] = ["audio": url.absoluteString]
+        }
+
+        // API call implementation...
+    }
+}
+```
+
+## Development Usage
+```swift
+// Easy to use in development
+class MessageViewModel {
+    private let embeddings = ReplicateEmbeddings(
+        apiKey: ProcessInfo.processInfo.environment["REPLICATE_API_KEY"]!
+    )
+
+    func processMessage(_ content: String) async throws {
+        // Get text embeddings
+        let textEmbedding = try await embeddings.getEmbeddings(.text(content))
+
+        // Get image embeddings if there's an image
+        if let imageUrl = message.imageUrl {
+            let imageEmbedding = try await embeddings.getEmbeddings(.image(imageUrl))
+        }
+
+        // Get audio embeddings if there's audio
+        if let audioUrl = message.audioUrl {
+            let audioEmbedding = try await embeddings.getEmbeddings(.audio(audioUrl))
+        }
+    }
+}
+```
+
+## Production Service Layer
+```swift
+// Later we can add monitoring, caching etc
+class ProductionEmbeddings: EmbeddingService {
+    private let replicate: ReplicateEmbeddings
+    private let cache: EmbeddingCache
+    private let metrics: MetricsCollector
+
+    func getEmbeddings(_ input: MultiModalInput) async throws -> [Float] {
+        // Check cache first
+        if let cached = try await cache.get(input) {
+            return cached
+        }
+
+        // Track API usage
+        metrics.incrementCounter("embedding_api_calls")
+
+        // Get embeddings
+        let start = DispatchTime.now()
+        let result = try await replicate.getEmbeddings(input)
+        let duration = DispatchTime.now().distance(to: start)
+
+        // Track latency
+        metrics.recordLatency("embedding_duration", duration)
+
+        // Cache result
+        try await cache.set(input, result)
+
+        return result
+    }
+}
+```
+
+## Benefits
+
+1. **Development Speed**
+- No infrastructure to manage
+- Quick iteration
+- Simple API
+
+2. **Production Ready**
+- Reliable service
+- Usage based pricing
+- No maintenance overhead
+
+3. **Multimodal Support**
+- Text embeddings
+- Image embeddings
+- Audio embeddings
+- Future modalities
+
+4. **Easy Migration Path**
+- Start with direct calls
+- Add monitoring layer
+- Add caching layer
+- Scale as needed
+
+=== File: docs/Pivot_Knowledge_Foundation.md ===
+
+
+
+==
+Pivot_Knowledge_Foundation
+==
+
+
+# Knowledge Foundation Strategy
+
+## Documentation as Onboarding
+
+```swift
+struct KnowledgeBase {
+    // Core understanding
+    let foundations = [
+        "System architecture",     // How pieces fit
+        "Technical decisions",     // Why choices made
+        "Evolution strategy",      // Where we're going
+        "Implementation paths",    // How to get there
+        "Vision alignment"         // What matters
+    ]
+
+    // Expert entry points
+    let specialistDocs = [
+        "ML/AI": [
+            "ImageBind integration",
+            "Multimodal embeddings",
+            "Voice processing",
+            "Quality metrics"
+        ],
+
+        "Infrastructure": [
+            "LanceDB architecture",
+            "P2P protocols",
+            "Edge computing",
+            "State sync"
+        ],
+
+        "iOS": [
+            "SwiftUI patterns",
+            "Concurrency model",
+            "Local-first data",
+            "Audio handling"
+        ]
+    ]
+}
+```
+
+## Documentation Strategy
+
+```swift
+struct DocStrategy {
+    // Progressive detail
+    let layers = [
+        "Vision": "High-level goals and strategy",
+        "Architecture": "System design and patterns",
+        "Implementation": "Technical specifics",
+        "Evolution": "Future directions"
+    ]
+
+    // Expert acceleration
+    let benefits = [
+        "Quick onboarding",       // Fast team integration
+        "Clear direction",        // Aligned development
+        "Technical context",      // Why decisions made
+        "Future roadmap",         // Where we're going
+        "Implementation guide"    // How to build it
+    ]
+}
+```
+
+## Team Amplification
+
+```swift
+struct TeamAmplification {
+    // Knowledge transfer
+    let transfer = [
+        "Vision → Direction",     // Goals inform choices
+        "Patterns → Code",        // Designs become real
+        "Docs → Speed",          // Understanding = velocity
+        "Context → Quality"       // Why = better how
+    ]
+
+    // Collaboration enablers
+    let enablers = [
+        "Shared context",         // Everyone aligned
+        "Clear patterns",         // How to build
+        "Known tradeoffs",        // Why decisions
+        "Future vision"           // Where headed
+    ]
+}
+```
+
+## Success Patterns
+
+```swift
+struct SuccessPatterns {
+    // Documentation wins
+    let outcomes = [
+        "Faster onboarding",      // Team grows faster
+        "Better decisions",       // Context enables quality
+        "Aligned development",    // Everyone builds right
+        "Preserved knowledge",    // Nothing lost
+        "Future readiness"        // Path is clear
+    ]
+
+    // Team velocity
+    let velocity = [
+        "Clear direction",        // Know where to go
+        "Proven patterns",        // Know how to build
+        "Shared context",         // Know why choices
+        "Future vision"          // Know what's next
+    ]
+}
+```
+
+This foundation:
+
+1. Accelerates expert onboarding
+2. Preserves key decisions
+3. Aligns development
+4. Enables scaling
+5. Maintains vision
+
+=== File: docs/Pivot_LanceDB_Integration.md ===
+
+
+
+==
+Pivot_LanceDB_Integration
+==
+
+
+# LanceDB Integration
+
+## Key Advantages
+```swift
+struct LanceDBBenefits {
+    let features = [
+        "Native multimodal support",    // Text, audio, image built-in
+        "Arrow-based storage",          // Efficient columnar format
+        "Local-first",                  // Perfect for Phase 2
+        "Rust core",                    // High performance
+        "Simple deployment"             // No separate service needed
+    ]
+
+    let comparison = [
+        "Qdrant": "Vector-only, separate service",
+        "LanceDB": "Multimodal, embedded or service"
+    ]
+}
+```
+
+## Phase 1 Integration
+```swift
+// Server-side LanceDB
+class LanceDBService {
+    private let db: LanceDB
+
+    func storeMessage(_ message: Message) async throws {
+        // Store all modalities together
+        try await db.createOrAppend("messages", {
+            "id": message.id,
+            "text": message.content,
+            "text_embedding": message.textEmbedding,
+            "audio": message.audioData,
+            "audio_embedding": message.audioEmbedding,
+            "thread_id": message.threadId,
+            "timestamp": message.timestamp
+        })
+    }
+
+    func search(_ query: MultiModalQuery) async throws -> [Prior] {
+        // Search across modalities
+        return try await db.search("messages")
+            .multiModal(query)
+            .limit(80)
+            .execute()
+    }
+}
+```
+
+## Phase 2 Evolution
+```swift
+// Local-first with LanceDB
+class LocalLanceDB {
+    private let db: LanceDB
+
+    // Local storage and search
+    func localSearch(_ query: MultiModalQuery) async throws -> [Prior] {
+        return try await db.search("local_messages")
+            .multiModal(query)
+            .execute()
+    }
+
+    // P2P sync
+    func syncWithPeer(_ peer: Peer) async throws {
+        let updates = try await db.getUpdates(since: lastSync)
+        try await peer.merge(updates)
+    }
+}
+```
+
+## Migration Strategy
+```swift
+// Easy migration from Qdrant
+struct Migration {
+    // Phase 1: Direct replacement
+    let serverMigration = [
+        "Replace Qdrant service",
+        "Keep same API interface",
+        "Add multimodal support",
+        "Maintain centralized model"
+    ]
+
+    // Phase 2: Local-first evolution
+    let p2pMigration = [
+        "Deploy embedded LanceDB",
+        "Enable local search",
+        "Add P2P sync",
+        "Scale horizontally"
+    ]
+}
+```
+
+## Benefits
+
+1. **Immediate Gains**
+```swift
+let phase1 = [
+    "Simpler deployment",      // No separate vector DB
+    "Multimodal ready",        // For audio evolution
+    "Better performance",      // Arrow format
+    "Lower complexity"         // Single service
+]
+```
+
+2. **Future Ready**
+```swift
+let phase2 = [
+    "Local-first",            // Edge computing
+    "P2P ready",              // Distributed search
+    "Multimodal native",      // Voice/audio/text
+    "Efficient sync"          // Arrow-based replication
+]
+```
+
+## Implementation Path
+```swift
+struct Implementation {
+    // Start Simple
+    let phase1 = ServerLanceDB(
+        connection: "centralized",
+        mode: "service"
+    )
+
+    // Evolve Naturally
+    let phase2 = LocalLanceDB(
+        storage: "local-first",
+        sync: "p2p",
+        mode: "embedded"
+    )
+}
+```
+
+=== File: docs/Pivot_Launch_Sequence.md ===
+
+
+
+==
+Pivot_Launch_Sequence
+==
+
+
+# Choir Launch Sequence
+
+## Phase 1: Text MVP
+
+### 1. Core iOS Client
+```swift
+struct MVPFeatures {
+    // Essential UI
+    let interface = [
+        "Three-tab navigation",      // Threads, Chat, Priors
+        "Native chat experience",    // SwiftUI chat UI
+        "Thread management",         // Create, switch, archive
+        "Message composition",       // Text input, send, preview
+        "Prior citations panel"      // Prior display and selection
+    ]
+
+    // Core Flows
+    let flows = [
+        "WalletConnect integration", // Wallet connection
+        "Thread creation",          // New thread flow
+        "Message approval",         // Co-author approvals
+        "Prior citation",           // Reference existing content
+        "Token rewards"             // Stake and distribute
+    ]
+
+    // Quality Features
+    let quality = [
+        "Offline support",          // Local state persistence
+        "Error handling",           // Clean error states
+        "Loading states",           // Progress indicators
+        "Edge cases",              // Network issues, etc
+        "Analytics"                // Usage tracking
+    ]
+}
+```
+
+### 2. Service Layer
+```swift
+struct MVPInfrastructure {
+    // FastAPI Backend
+    let api = [
+        "WebSocket handling",       // Real-time updates
+        "Vector search",           // Qdrant integration
+        "LLM integration",         // OpenAI/Claude
+        "State management",        // Thread/message state
+        "Usage monitoring"         // Metrics and logging
+    ]
+
+    // Solana Integration
+    let blockchain = [
+        "Thread program",          // Anchor program
+        "Token distribution",      // Reward mechanics
+        "State transitions",       // Program logic
+        "Transaction handling",    // Client integration
+        "Testing suite"           // Program tests
+    ]
+
+    // Development Tools
+    let tools = [
+        "Local development",       // Dev environment
+        "Testing framework",       // Unit/integration tests
+        "Deployment pipeline",     // CI/CD
+        "Monitoring",             // Error tracking
+        "Documentation"           // Technical docs
+    ]
+}
+```
+
+### 3. Launch Preparation
+```swift
+struct LaunchPrep {
+    // TestFlight
+    let beta = [
+        "Initial testers",         // Core community
+        "Feedback loop",           // Issue tracking
+        "Iteration cycle",         // Quick fixes
+        "Performance tuning",      // Optimization
+        "Polish"                   // Final touches
+    ]
+
+    // Marketing
+    let marketing = [
+        "Landing page",            // Zola static site
+        "Documentation",           // Technical/user docs
+        "Social presence",         // Twitter/Discord
+        "Demo videos",            // Feature demos
+        "Press kit"               // Media assets
+    ]
+
+    // Community
+    let community = [
+        "Discord server",          // Community hub
+        "GitHub presence",         // Open source
+        "Technical blog",          // Development updates
+        "User guides",            // Documentation
+        "Support system"          // Help desk
+    ]
+}
+```
+
+## Phase 2: Infrastructure Evolution
+
+### 1. Team Building
+```swift
+struct TeamExpansion {
+    // Engineering
+    let engineering = [
+        "iOS developers",          // Native expertise
+        "Infrastructure",          // Distributed systems
+        "ML/AI",                  // Voice/embedding
+        "Protocol",               // P2P/consensus
+        "Security"                // Audit/hardening
+    ]
+
+    // Research
+    let research = [
+        "Voice processing",        // Audio models
+        "Embedding systems",       // Vector research
+        "P2P protocols",          // Network design
+        "Consensus",              // Quality emergence
+        "Economics"               // Token mechanics
+    ]
+
+    // Community
+    let community = [
+        "Developer relations",     // External devs
+        "Community management",    // User community
+        "Content strategy",       // Documentation
+        "Support",               // User success
+        "Growth"                 // Adoption
+    ]
+}
+```
+
+### 2. Technical Evolution
+```swift
+struct TechnicalRoadmap {
+    // Voice Integration
+    let voice = [
+        "Audio processing",        // Voice handling
+        "Speech recognition",      // Transcription
+        "Voice synthesis",         // Response audio
+        "Emotion detection",       // Tone analysis
+        "Voice identity"          // Speaker recognition
+    ]
+
+    // Edge Computing
+    let edge = [
+        "Local embeddings",        // On-device vectors
+        "Local search",           // Device search
+        "State sync",             // P2P sync
+        "Offline first",          // Local storage
+        "Background processing"   // Tasks
+    ]
+
+    // Protocol Development
+    let protocol = [
+        "P2P networking",         // LibP2P
+        "State consensus",        // Agreement
+        "Quality emergence",      // Collective intelligence
+        "Value distribution",     // Token flow
+        "Governance"             // Protocol evolution
+    ]
+}
+```
+
+## Success Metrics
+
+### Phase 1 Metrics
+```swift
+struct MVPMetrics {
+    let user = [
+        "Daily active users",
+        "Message volume",
+        "Thread creation",
+        "Citation rate",
+        "Token distribution"
+    ]
+
+    let technical = [
+        "Response time",
+        "Search quality",
+        "Error rate",
+        "Uptime",
+        "Transaction success"
+    ]
+}
+```
+
+### Phase 2 Metrics
+```swift
+struct EvolutionMetrics {
+    let network = [
+        "Node count",
+        "P2P connections",
+        "Search distribution",
+        "Edge compute usage",
+        "Protocol adoption"
+    ]
+
+    let value = [
+        "Token velocity",
+        "Network value",
+        "Developer adoption",
+        "Community growth",
+        "Global impact"
+    ]
+}
+```
+
+=== File: docs/Pivot_Mental_Model_Relief.md ===
+
+
+
+==
+Pivot_Mental_Model_Relief
+==
+
+
+# From React Complexity to Swift Clarity
+
+## Cognitive Load Comparison
+```swift
+// React Mental Overhead
+struct ReactMentalLoad {
+    let concepts = [
+        "Component lifecycle",     // Mount, update, unmount
+        "Hook dependencies",       // useEffect dependency arrays
+        "State management",        // useState, useContext, Redux
+        "Render cycles",          // When and why rerenders happen
+        "Memoization",           // useMemo, useCallback
+        "Virtual DOM",           // Reconciliation
+        "JSX transformation",    // Template to VDOM
+        "Build configuration"    // Webpack, Babel, TypeScript
+    ]
+
+    // Physical symptoms
+    let stress = [
+        "Neck tension",          // Hook dependency debugging
+        "Back tightness",        // Build configuration
+        "Jaw clenching",         // Render cycle debugging
+        "Mental fatigue"         // Framework complexity
+    ]
+}
+
+// SwiftUI Mental Clarity
+struct SwiftUIClarity {
+    let concepts = [
+        "View updates",          // Single source of truth
+        "State flow",           // Clear data flow
+        "Native patterns",      // Platform conventions
+        "Type safety",         // Compile-time checks
+        "Concurrency",        // Structured async/await
+        "Native performance", // Direct platform access
+        "Tool integration",  // Xcode, Instruments
+        "No build maze"     // Just Swift
+    ]
+
+    // Physical relief
+    let benefits = [
+        "Mental space",         // Clear mental model
+        "Reduced tension",      // Native patterns
+        "Better focus",         // Less context switching
+        "Natural flow"          // Platform alignment
+    ]
+}
+```
+
+## Why It Feels Better
+
+1. **Natural Alignment**
+```swift
+// SwiftUI follows platform patterns
+struct NaturalPatterns {
+    let benefits = [
+        "Mental model matches platform",
+        "Clear ownership of state",
+        "Predictable updates",
+        "Native performance"
+    ]
+}
+```
+
+2. **Reduced Complexity**
+```swift
+// Fewer layers of abstraction
+struct SimplerStack {
+    let layers = [
+        "Swift",               // Language
+        "SwiftUI",            // UI framework
+        "Native platform"      // iOS
+    ]
+    // vs React's:
+    // JavaScript/TypeScript, React,
+    // Build tools, Virtual DOM, Browser
+}
+```
+
+3. **Clear Boundaries**
+```swift
+// Well-defined responsibilities
+struct ClearResponsibilities {
+    let clarity = [
+        "Views own their layout",
+        "State owns its data",
+        "System owns performance",
+        "Tools own optimization"
+    ]
+}
+```
+
+## Reliability & Ownership
+```swift
+struct ReactFailureMode {
+    let errorSources = [
+        "Dependency conflicts",    // Package versioning hell
+        "Build tool changes",      // Webpack/Babel updates
+        "Framework updates",       // Breaking changes
+        "Third-party hooks",       // Undocumented behaviors
+        "Middleware conflicts",    // Redux/Router/Query clashes
+    ]
+
+    let mentalCost = [
+        "Self-doubt",             // "Am I using it wrong?"
+        "Time waste",             // Debugging build tools
+        "Decision fatigue",       // Package choices
+        "Learned helplessness",   // "It's always like this"
+        "Impostor syndrome"       // "Maybe I don't get it"
+    ]
+}
+
+struct SwiftClarity {
+    let errorSources = [
+        "Logic errors",           // Your actual code
+        "Type mismatches",        // Caught at compile
+        "Async flow",             // Clear ownership
+        "Memory management",      // ARC is predictable
+        "Performance"             // Your optimizations
+    ]
+
+    let mentalBenefit = [
+        "Clear ownership",        // Your code, your bugs
+        "Fast feedback",          // Compile-time catches
+        "Direct debugging",       // LLDB just works
+        "Platform trust",         // It's battle-tested
+        "Tool reliability"        // Xcode is stable
+    ]
+}
+
+// The key difference
+struct ErrorOwnership {
+    let react = "System complexity creates errors"
+    let swift = "Your code creates errors"
+
+    let implications = [
+        "React": [
+            "Errors feel random",
+            "Solutions feel fragile",
+            "Success feels lucky",
+            "Learning feels endless"
+        ],
+        "Swift": [
+            "Errors make sense",
+            "Solutions are solid",
+            "Success is earned",
+            "Learning is bounded"
+        ]
+    ]
+}
+```
+
+The fundamental relief comes from:
+1. Clear error ownership
+2. Predictable failure modes
+3. Bounded complexity
+4. Platform stability
+5. Tool reliability
+
+When something breaks:
+- In React: "What's wrong with the system?"
+- In Swift: "What's wrong with my code?"
+
+This difference in error attribution creates:
+1. Better learning (clear feedback)
+2. More confidence (bounded problems)
+3. Less stress (predictable debugging)
+4. Faster progress (no tooling detours)
+5. Real growth (actual problem-solving)
+
+=== File: docs/Pivot_Progressive_Decentralization.md ===
+
+
+
+==
+Pivot_Progressive_Decentralization
+==
+
+
+# Progressive Decentralization Strategy
+
+## Phase 1: Centralized Service Layer (Current)
+```swift
+class APIService: ChoirService {
+    // Centralized services
+    func searchPriors(_ content: String) async throws -> [Prior] {
+        // Call our Qdrant instance
+        return try await post("/search", body: content)
+    }
+}
+```
+
+## Phase 2: Hybrid Model (Mid-term)
+```swift
+class HybridService: ChoirService {
+    private let localVectors: LocalVectorDB  // On-device search
+    private let cloudService: APIService     // Cloud fallback
+
+    func searchPriors(_ content: String) async throws -> [Prior] {
+        // Try local first
+        let localResults = try await localVectors.search(content)
+
+        if localResults.count >= 80 {
+            return localResults
+        }
+
+        // Fallback to cloud for more results
+        let cloudResults = try await cloudService.searchPriors(content)
+        return merge(localResults, cloudResults)
+    }
+}
+```
+
+## Phase 3: Decentralized (Long-term)
+```swift
+class P2PService: ChoirService {
+    private let localVectors: LocalVectorDB
+    private let peerNetwork: PeerNetwork
+
+    func searchPriors(_ content: String) async throws -> [Prior] {
+        // Search strategies
+        try await withThrowingTaskGroup(of: [Prior].self) { group in
+            // Local search
+            group.addTask {
+                try await localVectors.search(content)
+            }
+
+            // Peer searches
+            let peers = await peerNetwork.getNearestPeers(10)
+            for peer in peers {
+                group.addTask {
+                    try await peer.search(content)
+                }
+            }
+
+            // Combine results
+            return try await group.reduce(into: []) { $0 += $1 }
+        }
+    }
+
+    func recordSemanticLink(_ link: SemanticLink) async throws {
+        // Store locally
+        try await localVectors.store(link)
+
+        // Share with peers
+        try await peerNetwork.broadcast(link)
+    }
+}
+```
+
+## Progressive Features
+
+1. **Vector Search**
+```swift
+// Phase 1: Central Qdrant
+let results = try await qdrant.search(vector)
+
+// Phase 2: Local + Cloud
+let local = try await localDB.search(vector)
+let cloud = try await cloudDB.search(vector)
+
+// Phase 3: P2P Network
+let results = try await peerNetwork.searchAcrossPeers(vector)
+```
+
+2. **State Management**
+```swift
+// Phase 1: WebSocket to server
+socket.send(message)
+
+// Phase 2: Local-first with sync
+await localStore.save(message)
+await cloudSync.push(message)
+
+// Phase 3: P2P sync
+await peerNetwork.broadcast(message)
+```
+
+3. **AI Processing**
+```swift
+// Phase 1: OpenAI API
+let response = try await openai.complete(prompt)
+
+// Phase 2: On-device for simple tasks
+if canProcessLocally(prompt) {
+    return try await localAI.process(prompt)
+} else {
+    return try await openai.complete(prompt)
+}
+
+// Phase 3: Distributed inference
+let results = try await peerNetwork.distributedInference(prompt)
+```
+
+## Benefits
+
+1. **Progressive Independence**
+- Start centralized for MVP
+- Add local capabilities
+- Transition to P2P
+- Users gain autonomy
+
+2. **Economic Efficiency**
+- Lower server costs
+- Shared resources
+- Network effects
+- User incentives
+
+3. **Technical Resilience**
+- No single point of failure
+- Graceful degradation
+- Network redundancy
+- Local-first data
+
+=== File: docs/Pivot_Qdrant_Client.md ===
+
+
+
+==
+Pivot_Qdrant_Client
+==
+
+
+# Qdrant Swift Client
+
+## Core Types
+
+```swift
+// Vector types
+struct Point: Codable {
+    let id: String
+    let vector: [Float]
+    let payload: Payload
+}
+
+struct Payload: Codable {
+    let content: String
+    let threadId: String
+    let timestamp: Date
+    let metadata: [String: AnyCodable]
+}
+
+// Search parameters
+struct SearchRequest: Codable {
+    let vector: [Float]
+    let limit: Int
+    let filter: Filter?
+    let withPayload: Bool = true
+    let withVector: Bool = false
+}
+
+struct Filter: Codable {
+    let must: [Condition]?
+    let should: [Condition]?
+    let mustNot: [Condition]?
+}
+```
+
+## Client Implementation
+
+```swift
+actor QdrantClient {
+    private let baseURL: URL
+    private let apiKey: String
+    private let session: URLSession
+    private let collection: String
+
+    init(url: URL, apiKey: String, collection: String) {
+        self.baseURL = url
+        self.apiKey = apiKey
+        self.collection = collection
+
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = [
+            "api-key": apiKey,
+            "Content-Type": "application/json"
+        ]
+        self.session = URLSession(configuration: config)
+    }
+
+    // Search vectors
+    func search(vector: [Float], limit: Int = 80, filter: Filter? = nil) async throws -> [Point] {
+        let endpoint = baseURL
+            .appendingPathComponent("collections")
+            .appendingPathComponent(collection)
+            .appendingPathComponent("points/search")
+
+        let request = SearchRequest(
+            vector: vector,
+            limit: limit,
+            filter: filter
+        )
+
+        return try await post(endpoint, body: request)
+    }
+
+    // Upsert points
+    func upsert(_ points: [Point]) async throws {
+        let endpoint = baseURL
+            .appendingPathComponent("collections")
+            .appendingPathComponent(collection)
+            .appendingPathComponent("points")
+
+        let request = UpsertRequest(points: points)
+        try await post(endpoint, body: request)
+    }
+
+    // Delete points
+    func delete(ids: [String]) async throws {
+        let endpoint = baseURL
+            .appendingPathComponent("collections")
+            .appendingPathComponent(collection)
+            .appendingPathComponent("points/delete")
+
+        let request = DeleteRequest(ids: ids)
+        try await post(endpoint, body: request)
+    }
+}
+```
+
+## Usage Example
+
+```swift
+// Initialize client
+let client = QdrantClient(
+    url: URL(string: "https://your-qdrant.com")!,
+    apiKey: "your-api-key",
+    collection: "messages"
+)
+
+// Search for similar vectors
+let results = try await client.search(
+    vector: embeddings,
+    limit: 80,
+    filter: Filter(
+        must: [
+            .match(field: "threadId", value: currentThreadId)
+        ]
+    )
+)
+
+// Store new message
+try await client.upsert([
+    Point(
+        id: messageId,
+        vector: embeddings,
+        payload: Payload(
+            content: messageContent,
+            threadId: threadId,
+            timestamp: Date(),
+            metadata: [
+                "author": userId,
+                "type": "message"
+            ]
+        )
+    )
+])
+```
+
+## Error Handling
+
+```swift
+enum QdrantError: Error {
+    case invalidURL
+    case networkError(Error)
+    case invalidResponse(Int)
+    case decodingError(Error)
+    case serverError(String)
+}
+
+extension QdrantClient {
+    private func handleError(_ error: Error) -> QdrantError {
+        switch error {
+        case is URLError:
+            return .networkError(error)
+        case is DecodingError:
+            return .decodingError(error)
+        default:
+            return .serverError(error.localizedDescription)
+        }
+    }
+}
+```
+
+## Testing Support
+
+```swift
+// Mock client for testing
+class MockQdrantClient: QdrantClientProtocol {
+    var mockResults: [Point] = []
+
+    func search(vector: [Float], limit: Int) async throws -> [Point] {
+        return mockResults
+    }
+
+    func upsert(_ points: [Point]) async throws {
+        // Mock upsert
+    }
+}
+```
+
+The client provides:
+
+1. Type-safe API
+2. Async/await support
+3. Error handling
+4. Testing support
+5. Full Qdrant feature set
+
+Would you like me to expand on any part of the implementation?
+
+=== File: docs/Pivot_Repository_Split.md ===
+
+
+
+==
+Pivot_Repository_Split
+==
+
+
+# Repository Split Strategy
+
+## Overview
+
+Split current monorepo into three focused repositories:
+
+```
+choir-collective/
+├── api/          -> choir-api/
+├── anchor/       -> choir-anchor/
+└── src/          -> choir-website/
+```
+
+## 1. choir-api (Python Backend)
+
+```bash
+choir-api/
+├── app/
+│   ├── chorus_cycle.py
+│   ├── database.py
+│   ├── models.py
+│   └── websocket_handler.py
+├── tests/
+├── pyproject.toml
+└── README.md
+
+Key Dependencies:
+- FastAPI
+- Qdrant
+- LiteLLM
+- WebSockets
+```
+
+## 2. choir-anchor (Solana Programs)
+
+```bash
+choir-anchor/
+├── programs/
+│   └── thread/
+│       ├── src/
+│       └── Cargo.toml
+├── tests/
+├── Anchor.toml
+└── README.md
+
+Key Dependencies:
+- Anchor
+- Solana CLI
+- Rust toolchain
+```
+
+## 3. choir-website (Static Marketing Site)
+
+Recommended: [Zola](https://www.getzola.org/)
+
+```bash
+choir-website/
+├── content/           # Markdown files
+│   ├── _index.md     # Homepage
+│   ├── about.md
+│   └── docs/
+├── templates/
+│   └── base.html
+├── static/
+│   ├── images/
+│   └── styles/
+├── config.toml
+└── README.md
+
+Benefits of Zola:
+1. Single binary (Rust-based)
+2. Lightning fast
+3. Simple markdown -> site
+4. Great templating
+5. Zero JavaScript by default
+6. Built-in syntax highlighting
+7. Hot reloading
+```
+
+## Migration Steps
+
+1. **API Split**
+
+```bash
+# Create new repo
+mkdir choir-api
+cd choir-api
+
+# Copy API files
+cp -r ../choir-collective/api/* .
+
+# Update dependencies
+poetry init
+poetry add fastapi qdrant-client litellm
+
+# Setup GitHub Actions
+mkdir -p .github/workflows
+```
+
+2. **Anchor Split**
+
+```bash
+# Create new repo
+mkdir choir-anchor
+cd choir-anchor
+
+# Copy Anchor files
+cp -r ../choir-collective/anchor/* .
+
+# Update configs
+# - Update Anchor.toml paths
+# - Update deployment scripts
+```
+
+3. **Website Creation**
+
+```bash
+# Install Zola
+brew install zola  # macOS
+apt install zola   # Ubuntu
+
+# Create new site
+zola init choir-website
+
+# Setup content structure
+mkdir -p content/docs
+mkdir -p templates/shortcodes
+```
+
+## Website Workflow
+
+1. **Content Updates**
+
+```markdown
+# content/docs/overview.md
+
++++
+title = "Overview"
+weight = 1
++++
+
+# Choir Platform
+
+Content here...
+```
+
+2. **Automatic Deployment**
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy Website
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and deploy
+        uses: shalzz/zola-deploy-action@v0.17.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+3. **Local Development**
+
+```bash
+zola serve  # Hot reloading at http://localhost:1111
+```
+
+## Benefits of Split
+
+1. **Focused Repositories**
+
+   - Clean separation of concerns
+   - Simpler CI/CD pipelines
+   - Easier to maintain
+   - Better team scaling
+
+2. **Optimized Tooling**
+
+   - Python-specific tools for API
+   - Rust/Anchor tools for programs
+   - Static site tools for website
+
+3. **Performance**
+
+   - No JavaScript bloat
+   - Fast static site
+   - Efficient deployments
+
+4. **Documentation**
+   - Marketing site from markdown
+   - Easy content updates
+   - Version controlled
+   - Automated deployment
+
+## Next Steps
+
+1. Create new repositories
+2. Setup CI/CD pipelines
+3. Migrate code and dependencies
+4. Update documentation
+5. Setup monitoring
+6. Configure deployments
+
+=== File: docs/Pivot_Service_Architecture.md ===
+
+
+
+==
+Pivot_Service_Architecture
+==
+
+
+# Service Layer Architecture
+
+## Core Protocol
+```swift
+// Single protocol defining all service interactions
+protocol ChoirService {
+    // AI/Embeddings
+    func generateResponse(_ prompt: String) async throws -> String
+    func getEmbedding(_ text: String) async throws -> [Float]
+
+    // Vector Search
+    func searchPriors(_ content: String, limit: Int) async throws -> [Prior]
+    func recordSemanticLink(_ link: SemanticLink) async throws
+
+    // Blockchain
+    func submitMessage(_ content: String, threadId: String) async throws -> String
+    func approveMessage(_ messageId: String) async throws
+    func getThreadBalance(_ threadId: String) async throws -> UInt64
+}
+```
+
+## Implementation Layers
+
+1. **Development Service**
+```swift
+// Direct service calls during development
+class DevService: ChoirService {
+    private let openAI: OpenAIClient
+    private let qdrant: QdrantClient
+    private let solana: SolanaManager
+
+    func generateResponse(_ prompt: String) async throws -> String {
+        // Direct OpenAI call
+        return try await openAI.complete(prompt)
+    }
+
+    func searchPriors(_ content: String, limit: Int) async throws -> [Prior] {
+        // Direct Qdrant search
+        let embedding = try await getEmbedding(content)
+        return try await qdrant.search(vector: embedding, limit: limit)
+    }
+}
+```
+
+2. **Production Service**
+```swift
+// Proxied calls with observability
+class APIService: ChoirService {
+    private let baseURL: URL
+    private let session: URLSession
+
+    func generateResponse(_ prompt: String) async throws -> String {
+        // Through our FastAPI proxy
+        return try await post("/ai/complete", body: prompt)
+    }
+
+    func searchPriors(_ content: String, limit: Int) async throws -> [Prior] {
+        // Proxy handles embeddings and search
+        return try await post("/search", body: [
+            "content": content,
+            "limit": limit
+        ])
+    }
+}
+```
+
+3. **Mock Service**
+```swift
+// For testing and previews
+class MockService: ChoirService {
+    var mockResponses: [String: Any] = [:]
+
+    func generateResponse(_ prompt: String) async throws -> String {
+        return "Mocked response for: \(prompt)"
+    }
+
+    func searchPriors(_ content: String, limit: Int) async throws -> [Prior] {
+        return mockPriors
+    }
+}
+```
+
+## Usage in Views
+```swift
+// Clean view models
+class ThreadViewModel: ObservableObject {
+    private let service: ChoirService
+    @Published var messages: [Message] = []
+
+    func sendMessage(_ content: String) async throws {
+        // Service handles all complexity
+        let response = try await service.generateResponse(content)
+        let priors = try await service.searchPriors(content, limit: 80)
+        let messageId = try await service.submitMessage(content, threadId: currentThread)
+
+        // Just update UI state
+        await MainActor.run {
+            self.messages.append(Message(id: messageId, content: content))
+        }
+    }
+}
+```
+
+## Benefits
+
+1. **Clean Separation**
+- UI layer just handles presentation
+- Service layer handles complexity
+- Infrastructure details hidden
+
+2. **Easy Testing**
+- Mock service for UI testing
+- Direct service for development
+- API service for production
+
+3. **Future Flexibility**
+- Can change implementations
+- Add new features easily
+- Monitor and optimize
+
+4. **Progressive Enhancement**
+- Start with direct calls
+- Add monitoring later
+- Scale up gradually
+
+=== File: docs/Pivot_Service_Layer.md ===
+
+
+
+==
+Pivot_Service_Layer
+==
+
+
+# Service Layer Design
+
+## iOS Client Abstraction
+
+```swift
+// Clean protocol for service interactions
+protocol ChoirService {
+    func generateResponse(_ prompt: String) async throws -> String
+    func searchPriors(_ content: String) async throws -> [Prior]
+    func recordSemanticLink(_ link: SemanticLink) async throws
+}
+
+// Concrete implementation that talks to our API
+class APIService: ChoirService {
+    private let baseURL: URL
+    private let session: URLSession
+
+    // Service endpoints with observability
+    func generateResponse(_ prompt: String) async throws -> String {
+        // Calls our Python API which:
+        // 1. Logs the request
+        // 2. Tracks token usage
+        // 3. Monitors latency
+        // 4. Handles rate limiting
+        return try await post("/ai/complete", body: prompt)
+    }
+
+    func searchPriors(_ content: String) async throws -> [Prior] {
+        // API handles:
+        // 1. Vector computation
+        // 2. Qdrant interaction
+        // 3. Result processing
+        // 4. Usage tracking
+        return try await post("/search", body: content)
+    }
+}
+```
+
+## Python API Enhancement
+
+```python
+# Enhanced FastAPI endpoints
+@app.post("/ai/complete")
+async def generate_response(
+    prompt: str,
+    user: User = Depends(get_current_user)
+):
+    # Observability
+    with track_operation("ai_completion", user=user.id) as op:
+        # Rate limiting
+        await check_rate_limit(user, "ai")
+
+        # Cost tracking
+        tokens = count_tokens(prompt)
+        await track_usage(user, "ai", tokens)
+
+        # Actual call
+        response = await openai.complete(prompt)
+
+        # Record metrics
+        op.record_tokens(tokens)
+        op.record_latency()
+
+        return response
+
+@app.post("/search")
+async def search_vectors(
+    content: str,
+    user: User = Depends(get_current_user)
+):
+    with track_operation("vector_search", user=user.id) as op:
+        # Vector computation
+        embedding = await get_embedding(content)
+
+        # Search and track
+        results = await qdrant.search(embedding)
+        op.record_vectors_searched(len(results))
+
+        return results
+```
+
+## Benefits
+
+1. **Clean iOS Code**
+
+```swift
+// Usage in view models
+class MessageViewModel: ObservableObject {
+    private let service: ChoirService
+
+    func sendMessage(_ content: String) async throws {
+        // Clean business logic
+        let response = try await service.generateResponse(content)
+        let priors = try await service.searchPriors(content)
+        // Process results...
+    }
+}
+```
+
+2. **Rich Observability**
+
+```python
+# Python API provides:
+- Request logging
+- Token usage tracking
+- Vector operation metrics
+- User quotas/limits
+- Cost allocation
+- Performance monitoring
+- Error tracking
+```
+
+3. **Future Flexibility**
+
+```swift
+// Easy to add new service implementations
+class MockService: ChoirService {
+    // For testing
+}
+
+class DirectService: ChoirService {
+    // Direct API calls if needed
+}
+
+class ProxyService: ChoirService {
+    // Production proxy version
+}
+```
+
+This gives us:
+
+1. Clean iOS abstractions
+2. Rich service metrics
+3. Centralized rate limiting
+4. Usage tracking
+5. Future flexibility
+
+=== File: docs/Pivot_Swift_API_Clients.md ===
+
+
+
+==
+Pivot_Swift_API_Clients
+==
+
+
+# Swift API Clients for Development
+
+## 1. OpenAI Client
+
+```swift
+actor OpenAIClient {
+    private let apiKey: String
+    private let urlSession = URLSession.shared
+
+    init(apiKey: String) {
+        self.apiKey = apiKey
+    }
+
+    func complete(_ prompt: String) async throws -> String {
+        let url = URL(string: "https://api.openai.com/v1/chat/completions")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body = ChatCompletionRequest(
+            model: "gpt-4-turbo-preview",
+            messages: [
+                .init(role: "user", content: prompt)
+            ]
+        )
+
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, _) = try await urlSession.data(for: request)
+        let response = try JSONDecoder().decode(ChatCompletionResponse.self, from: data)
+        return response.choices.first?.message.content ?? ""
+    }
+}
+```
+
+## 2. Qdrant Client
+
+```swift
+actor QdrantClient {
+    private let apiKey: String
+    private let urlSession = URLSession.shared
+    private let baseURL: URL
+
+    init(apiKey: String, url: URL) {
+        self.apiKey = apiKey
+        self.baseURL = url
+    }
+
+    func search(vector: [Float], limit: Int = 80) async throws -> [Prior] {
+        var request = URLRequest(url: baseURL.appendingPathComponent("/search"))
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+
+        let body = SearchRequest(
+            vector: vector,
+            limit: limit
+        )
+
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, _) = try await urlSession.data(for: request)
+        return try JSONDecoder().decode([Prior].self, from: data)
+    }
+}
+```
+
+## 3. Service Manager
+
+```swift
+// Central manager for development
+class ServiceManager: ObservableObject {
+    private let openAI: OpenAIClient
+    private let qdrant: QdrantClient
+
+    init() {
+        // Development keys
+        self.openAI = OpenAIClient(apiKey: ProcessInfo.processInfo.environment["OPENAI_KEY"]!)
+        self.qdrant = QdrantClient(
+            apiKey: ProcessInfo.processInfo.environment["QDRANT_KEY"]!,
+            url: URL(string: "https://your-qdrant-instance.com")!
+        )
+    }
+
+    // Chorus Cycle steps
+    func runAction(_ content: String) async throws -> String {
+        return try await openAI.complete(content)
+    }
+
+    func findPriors(_ content: String) async throws -> [Prior] {
+        let embedding = try await getEmbedding(content)
+        return try await qdrant.search(vector: embedding)
+    }
+}
+```
+
+## 4. Environment Setup
+
+```swift
+// Development configuration
+extension ProcessInfo {
+    var developmentKeys: [String: String] {
+        // Load from environment or config file
+        [
+            "OPENAI_KEY": "sk-...",
+            "QDRANT_KEY": "..."
+        ]
+    }
+}
+```
+
+## Migration to Proxy
+
+When ready to switch to the proxy:
+
+```swift
+// Just change the base URLs and auth
+class ServiceManager {
+    private let baseURL = URL(string: "https://api.choir.chat")!
+    private let authToken: String
+
+    func runAction(_ content: String) async throws -> String {
+        // Same interface, different endpoint
+        return try await post("/ai/complete", body: content)
+    }
+
+    func findPriors(_ content: String) async throws -> [Prior] {
+        // Same interface, different endpoint
+        return try await post("/search", body: content)
+    }
+}
+```
+
+## Benefits
+
+1. **Development Speed**
+
+- Direct API access
+- Quick iteration
+- Easy debugging
+
+2. **Clean Migration**
+
+- Same interfaces
+- Just change endpoints
+- No client code changes
+
+3. **Type Safety**
+
+- Swift types throughout
+- Compile-time checking
+- Clear error handling
+
+=== File: docs/Pivot_Swift_Concurrency.md ===
+
+
+
+==
+Pivot_Swift_Concurrency
+==
+
+
+# Swift Concurrency Patterns
+
+## Core Concepts
+
+1. **Async Message Processing**
+
+```swift
+actor ThreadState {
+    private var messages: [Message] = []
+    private var currentStep: ChorusStep = .action
+
+    func processMessage(_ content: String) async throws -> Message {
+        // Parallel processing with task groups
+        try await withThrowingTaskGroup(of: StepResult.self) { group in
+            // Run steps concurrently where possible
+            group.addTask { await runAction(content) }
+            group.addTask { await runExperience(content) }
+
+            // Collect and process results
+            for try await result in group {
+                handleStepResult(result)
+            }
+        }
+    }
+}
+```
+
+2. **WebSocket Streams**
+
+```swift
+class WebSocketManager {
+    // AsyncSequence for message streaming
+    var messageSequence: AsyncStream<WebSocketMessage> {
+        AsyncStream { continuation in
+            socket.receive { result in
+                switch result {
+                case .success(let message):
+                    continuation.yield(message)
+                case .failure(let error):
+                    continuation.finish()
+                }
+            }
+        }
+    }
+
+    // Async message handling
+    func listenForMessages() async {
+        for await message in messageSequence {
+            await processMessage(message)
+        }
+    }
+}
+```
+
+3. **Parallel Vector Search**
+
+```swift
+actor SearchManager {
+    func findPriors(for content: String) async throws -> [Prior] {
+        // Parallel search across embeddings
+        try await withThrowingTaskGroup(of: [Prior].self) { group in
+            // Split search into parallel tasks
+            group.addTask { try await searchEmbeddings(content) }
+            group.addTask { try await searchSemanticLinks(content) }
+
+            // Combine and rank results
+            var allPriors: [Prior] = []
+            for try await priors in group {
+                allPriors.append(contentsOf: priors)
+            }
+            return rankPriors(allPriors)
+        }
+    }
+}
+```
+
+4. **Wallet Integration**
+
+```swift
+actor WalletManager {
+    // Isolated wallet state
+    private var connection: WalletConnection?
+    private var transactions: [Transaction] = []
+
+    // Async transaction handling
+    func sendTransaction(_ tx: Transaction) async throws -> Signature {
+        try await withCheckedThrowingContinuation { continuation in
+            walletConnect.sign(tx) { result in
+                continuation.resume(with: result)
+            }
+        }
+    }
+}
+```
+
+## Benefits
+
+1. **Task Management**
+
+```swift
+// Structured concurrency with clear lifetimes
+func processThread() async throws {
+    try await withThrowingTaskGroup(of: Void.self) { group in
+        group.addTask { try await processMessages() }
+        group.addTask { try await updateState() }
+        group.addTask { try await syncWithChain() }
+    } // All tasks complete or throw here
+}
+```
+
+2. **State Safety**
+
+```swift
+// Actor prevents data races
+actor ThreadManager {
+    private var activeThreads: [Thread] = []
+
+    func addThread(_ thread: Thread) {
+        activeThreads.append(thread)
+    }
+
+    func getThread(_ id: UUID) -> Thread? {
+        activeThreads.first { $thread.id == id }
+    }
+}
+```
+
+3. **Error Handling**
+
+```swift
+// Clean error propagation
+func handleMessage() async throws {
+    do {
+        try await processMessage()
+    } catch MessageError.invalid {
+        // Handle invalid message
+    } catch WalletError.notConnected {
+        // Handle wallet error
+    } catch {
+        // Handle unknown error
+    }
+}
+```
+
+4. **Cancellation**
+
+```swift
+// Proper cleanup on cancel
+func longRunningTask() async throws {
+    try await withTaskCancellationHandler {
+        // Main task work
+    } onCancel: {
+        // Cleanup code
+    }
+}
+```
+
+## Performance Patterns
+
+1. **Task Priorities**
+
+```swift
+// Prioritize user interactions
+Task(priority: .userInitiated) {
+    await handleUserInput()
+}
+
+// Background processing
+Task(priority: .background) {
+    await processVectorSearch()
+}
+```
+
+2. **Resource Management**
+
+```swift
+// Efficient resource use
+actor ResourcePool {
+    private var connections: Set<Connection>
+
+    func withConnection<T>(_ work: (Connection) async throws -> T) async throws -> T {
+        let connection = try await acquireConnection()
+        defer { releaseConnection(connection) }
+        return try await work(connection)
+    }
+}
+```
+
+This modern concurrency model gives us:
+
+- Clean async code
+- Safe state management
+- Efficient parallelism
+- Clear error handling
+- Resource safety
+
+=== File: docs/Pivot_Team_Evolution.md ===
+
+
+
+==
+Pivot_Team_Evolution
+==
+
+
+# Team Evolution Strategy
+
+## Phase 1: Vision & Foundation (Current)
+```swift
+struct FounderRole {
+    let strengths = [
+        "Product vision",        // Big picture thinking
+        "Technical direction",   // Architecture planning
+        "Strategy",             // Evolution path
+        "Documentation",        // Knowledge capture
+        "Community building"    // Early adoption
+    ]
+
+    let deliverables = [
+        "Core iOS app",         // Text-first MVP
+        "Basic infrastructure", // Essential services
+        "Initial community",    // Early adopters
+        "Documentation",        // Technical foundation
+        "Funding strategy"      // Resource planning
+    ]
+}
+```
+
+## Phase 2: Expert Team
+```swift
+struct ExpertTeam {
+    let specialists = [
+        "ML/AI Engineer": [
+            "Multimodal embeddings",
+            "Voice processing",
+            "Model optimization",
+            "Quality metrics"
+        ],
+
+        "Infrastructure Engineer": [
+            "Distributed systems",
+            "Edge computing",
+            "P2P protocols",
+            "Performance"
+        ],
+
+        "iOS Developer": [
+            "SwiftUI mastery",
+            "Local-first data",
+            "Audio handling",
+            "Edge ML"
+        ]
+    ]
+}
+```
+
+## Role Evolution
+```swift
+struct RoleTransition {
+    let phase1 = "Vision, Direction, Strategy"
+    let phase2 = "Product, Community, Growth"
+
+    let evolution = [
+        "From": [
+            "Hands-on development",
+            "Direct implementation",
+            "Technical decisions"
+        ],
+        "To": [
+            "Team building",
+            "Vision maintenance",
+            "Strategic direction"
+        ]
+    ]
+}
+```
+
+This approach:
+1. Leverages your strengths now
+2. Builds essential foundation
+3. Identifies key hires
+4. Maintains vision
+5. Enables scaling
+
+=== File: docs/Pivot_Token_Evolution.md ===
+
+
+
+==
+Pivot_Token_Evolution
+==
+
+
+# CHOIR Token Evolution Strategy
+
+## Phase 1: Product-Market Fit
+```swift
+// Centralized value creation
+struct Phase1Value {
+    let product: ChoirApp        // iOS client
+    let service: ServiceLayer    // API infrastructure
+    let token: ChoirToken       // Initial utility token
+
+    // Value drivers
+    func demonstrate() {
+        // Clear utility value:
+        - Message approvals
+        - Thread ownership
+        - Prior citations
+        - Quality emergence
+
+        // Usage metrics:
+        - Active threads
+        - Quality content
+        - Network effects
+        - User growth
+    }
+}
+
+Outcome:
+- Product validation
+- User adoption
+- Token utility
+- Market interest
+```
+
+## Phase 2: Collective Infrastructure
+```swift
+// Decentralized value network
+struct Phase2Value {
+    let nodes: [PeerNode]        // Distributed compute
+    let knowledge: VectorSpace   // Shared embeddings
+    let consensus: Protocol      // Quality emergence
+    let token: ChoirToken       // Governance token
+
+    // Network value
+    func evolve() {
+        // Collective intelligence:
+        - P2P vector search
+        - Edge AI inference
+        - Knowledge synthesis
+        - Quality consensus
+
+        // Token mechanics:
+        - Infrastructure funding
+        - Network governance
+        - Value distribution
+        - Protocol evolution
+    }
+}
+
+Outcome:
+- Self-sustaining network
+- Collective ownership
+- Protocol governance
+- Global impact
+```
+
+## Value Flow
+1. **Phase 1 → Phase 2**
+- Product success drives token value
+- Token value funds infrastructure
+- Infrastructure enables decentralization
+- Decentralization increases value
+
+2. **Phase 2 → Phase 1**
+- Infrastructure improves product
+- Network effects drive adoption
+- Collective ownership aligns incentives
+- Value flows to quality
+
+=== File: docs/Pivot_Two_Phase_Strategy.md ===
+
+
+
+==
+Pivot_Two_Phase_Strategy
+==
+
+
+# Choir Evolution Strategy
+
+## Phase 1: Service Layer (Growth Phase)
+```swift
+// Centralized, reliable, observable
+class ServiceLayer {
+    // Fast & reliable infrastructure
+    private let openAI: OpenAIClient      // Quick AI responses
+    private let qdrant: QdrantClient      // Central vector search
+    private let fastAPI: APIService       // Clean service layer
+
+    // Rich analytics
+    private let metrics: MetricsCollector // Usage patterns
+    private let costs: CostTracker        // Economic data
+    private let quality: QualityMonitor   // Content metrics
+
+    // Business outcomes
+    func demonstrate() {
+        // Show clear value:
+        - Reliable performance
+        - Usage analytics
+        - Cost controls
+        - Quality metrics
+        - Growth patterns
+    }
+}
+
+Benefits:
+1. Fast Development
+2. Clear Metrics
+3. Quality Control
+4. Cost Management
+5. Market Validation
+```
+
+## Phase 2: Decentralized (Institution Phase)
+```swift
+// Progressive decentralization
+class DecentralizedLayer {
+    // Local-first computing
+    private let localVectors: LocalDB     // On-device search
+    private let localAI: CoreML           // Edge inference
+    private let peerNetwork: P2PNetwork   // Distributed state
+
+    // Network effects
+    private let discovery: PeerDiscovery  // Find peers
+    private let consensus: StateSync      // Agree on truth
+    private let incentives: TokenSystem   // Reward quality
+
+    // Global impact
+    func evolve() {
+        // Create lasting value:
+        - Knowledge networks
+        - Collective intelligence
+        - Economic alignment
+        - Cultural impact
+    }
+}
+
+Benefits:
+1. True Ownership
+2. Network Effects
+3. Economic Value
+4. Cultural Impact
+5. Global Scale
+```
+
+## Strategic Alignment
+
+1. **Phase 1 Enables Phase 2**
+- Build user base
+- Prove value
+- Generate revenue
+- Attract investment
+- Validate model
+
+2. **Phase 2 Amplifies Phase 1**
+- Network effects
+- Economic incentives
+- Cultural impact
+- Global reach
+- Lasting value
+
+## Success Metrics
+
+1. **Phase 1 Metrics**
+```swift
+struct ServiceMetrics {
+    let userGrowth: Int          // User adoption
+    let responseTime: Duration   // Performance
+    let costPerUser: Decimal    // Economics
+    let qualityScores: Float    // Content value
+    let retention: Float        // Stickiness
+}
+```
+
+2. **Phase 2 Metrics**
+```swift
+struct NetworkMetrics {
+    let nodeCount: Int          // Network size
+    let knowledgeValue: UInt64  // Token value
+    let peerConnections: Int    // Network density
+    let globalImpact: Float     // Cultural reach
+    let institutionalTrust: Float // Authority
+}
+```
+
+This two-phase approach lets us:
+1. Build something valuable quickly
+2. Prove the model works
+3. Generate excitement
+4. Attract resources
+5. Then transform into something revolutionary
+
 === File: docs/State_Boundaries.md ===
 
 

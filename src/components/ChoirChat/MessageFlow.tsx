@@ -1,6 +1,6 @@
-import React from 'react';
-import { Message, ChorusStep, Step, Prior } from '@/types';
-import AIResponse from '../AIResponse/AIResponse';
+import React from "react";
+import { Message, ChorusStep, Step, Prior } from "@/types";
+import AIResponse from "../AIResponse/AIResponse";
 
 // Export the interface
 export interface MessageFlowProps {
@@ -8,7 +8,7 @@ export interface MessageFlowProps {
   onMessageSelect?: (id: string | null) => void;
   selectedMessageId?: string | null;
   currentStep: ChorusStep;
-  steps: Step[];
+  getStepsForMessage: (messageId?: string) => Step[];
   priors: Prior[];
 }
 
@@ -17,7 +17,7 @@ const MessageFlow: React.FC<MessageFlowProps> = ({
   onMessageSelect,
   selectedMessageId,
   currentStep,
-  steps,
+  getStepsForMessage,
   priors,
 }) => {
   return (
@@ -26,22 +26,20 @@ const MessageFlow: React.FC<MessageFlowProps> = ({
         <div
           key={message.id}
           onClick={() => onMessageSelect?.(message.id || null)}
-          className={`cursor-pointer ${
+          className={`${
             selectedMessageId === message.id ? "ring-2 ring-primary" : ""
           }`}
         >
           {message.author === "user" ? (
-            // User message
             <div className="p-4 bg-base-300 rounded-lg">
               <div className="font-semibold text-lg">You</div>
               <div>{message.content}</div>
             </div>
           ) : (
-            // AI response
             <AIResponse
               message={message}
+              steps={getStepsForMessage(message.id)}
               currentStep={currentStep}
-              steps={steps}
               priors={priors}
             />
           )}

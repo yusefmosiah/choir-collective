@@ -6,15 +6,18 @@ export type ChorusStep =
   | "update"
   | "yield";
 
-export type Prior = {
+export interface Prior {
   id: string;
   content: string;
+  thread_id: string;
+  similarity?: number;
+  created_at?: string;
   source_message: string;
   source_thread: string;
   context: string;
   embedding: number[];
   resonance: number;
-};
+}
 
 export type ActionContent = {
   proposed_response: string;
@@ -94,12 +97,19 @@ export type ChorusState = {
   };
 };
 
+export interface Thread {
+  id: string;
+  name: string;
+  lastMessage?: string;
+  timestamp: number | Date;
+}
 export type ThreadState = {
   messages: Message[];
   current_step: ChorusStep;
   thread_id: string;
   error_state?: string;
   currentThread?: string;
+  threads: Thread[];
 };
 
 export type WebSocketMessage = {

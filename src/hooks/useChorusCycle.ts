@@ -2,176 +2,110 @@ import { useState, useCallback, useEffect } from "react";
 import {
   ChorusStep,
   ChorusState,
+  Step,
   Prior,
   Message,
-  Step,
   WebSocketMessage,
-  ActionContent,
-  ExperienceContent,
-  IntentionContent,
-  ObservationContent,
-  UpdateContent,
-  YieldContent,
 } from "@/types";
 import { useWebSocket } from "./useWebSocket";
-import { useThread } from "./useThread";
 
 export function useChorusCycle() {
+  // Track steps per message
+  const [messageSteps, setMessageSteps] = useState<Record<string, Step[]>>({});
   const [currentStep, setCurrentStep] = useState<ChorusStep>("action");
+  const [priors, setPriors] = useState<Prior[]>([]);
   const [chorusState, setChorusState] = useState<ChorusState>({
     current_step: "action",
+    current_response: undefined,
   });
-  const [steps, setSteps] = useState<Step[]>([]);
-  const [priors, setPriors] = useState<Prior[]>([]);
-  const { socket, sendMessage } = useWebSocket();
-  const { updateAIMessage } = useThread();
+  const { socket } = useWebSocket();
 
-  // Handle incoming WebSocket messages
+  // Handle chorus response events
   useEffect(() => {
-    if (!socket) return;
+    const handleChorusResponse = (event: CustomEvent) => {
+      const response = event.detail;
+      const { step, content, priors: newPriors } = response.data;
+      const messageId = response.data.message_id;
 
-    const handleMessage = (event: MessageEvent) => {
-      try {
-        const response = JSON.parse(event.data) as WebSocketMessage;
-        console.log("Received WebSocket message:", response);
+      if (!messageId) {
+        console.error("No message ID in response");
+        return;
+      }
 
-        // Handle both chorus_step and chorus_response message types
-        if (response.type === "chorus_step" || response.type === "chorus_response") {
-          const { step, content = "", priors: newPriors } = response.data;
+      // Update chorus state
+      setChorusState({
+        current_step: step as ChorusStep,
+        current_response: {
+          content: content || "",
+          loop: response.data.loop,
+          reasoning: response.data.reasoning,
+        },
+      });
 
-          if (!step) {
-            console.error("Missing step in response:", response);
-            return;
-          }
+      // Create new step
+      const newStep: Step = {
+        step: step as ChorusStep,
+        content: content || "",
+        state: {
+          status: "complete",
+          content: content || "",
+          priors: newPriors,
+        },
+      };
 
-          // Parse content based on step type
-          let parsedContent = content;
-          if (typeof content === 'object' && content !== null) {
-            switch (step) {
-              case "action":
-                parsedContent = (content as ActionContent).proposed_response;
-                break;
-              case "experience":
-                parsedContent = (content as ExperienceContent).synthesis;
-                break;
-              case "intention":
-                const intentContent = content as IntentionContent;
-                parsedContent = `Explicit: ${intentContent.explicit_intent}\nImplicit: ${intentContent.implicit_intent}`;
-                break;
-              case "observation":
-                parsedContent = (content as ObservationContent).context_analysis;
-                break;
-              case "update":
-                parsedContent = (content as UpdateContent).reasoning;
-                break;
-              case "yield":
-                parsedContent = (content as YieldContent).final_response;
-                // Update AI message when we get the final response
-                updateAIMessage((content as YieldContent).final_response);
-                break;
-            }
-          } else if (typeof content === 'string') {
-            try {
-              const contentObj = JSON.parse(content);
-              switch (step) {
-                case "action":
-                  parsedContent = contentObj.proposed_response || content;
-                  break;
-                case "experience":
-                  parsedContent = contentObj.synthesis || content;
-                  break;
-                case "intention":
-                  parsedContent = `Explicit: ${contentObj.explicit_intent}\nImplicit: ${contentObj.implicit_intent}`;
-                  break;
-                case "observation":
-                  parsedContent = contentObj.context_analysis || content;
-                  break;
-                case "update":
-                  parsedContent = contentObj.reasoning || content;
-                  break;
-                case "yield":
-                  parsedContent = contentObj.final_response || content;
-                  // Update AI message when we get the final response
-                  updateAIMessage(contentObj.final_response || content);
-                  break;
-              }
-            } catch (e) {
-              console.warn("Failed to parse step content:", e);
-            }
-          }
+      // Update steps for this specific message
+      setMessageSteps((prev) => ({
+        ...prev,
+        [messageId as string]: [...(prev[messageId as string] || []), newStep],
+      }));
 
-          // Create new step
-          const newStep: Step = {
-            step: step as ChorusStep,
-            content: parsedContent || content || "",
-            state: {
-              status: "complete",
-              content: parsedContent || content || "",
-              priors: newPriors,
-            },
-          };
+      // Update current step
+      setCurrentStep(step as ChorusStep);
 
-          // Update steps atomically
-          setSteps((prevSteps) => {
-            const stepExists = prevSteps.some((s) => s.step === step);
-            if (stepExists) {
-              return prevSteps.map((s) => (s.step === step ? newStep : s));
-            }
-            return [...prevSteps, newStep];
-          });
-
-          // Update current step
-          setCurrentStep(step as ChorusStep);
-
-          // Update priors if in EXPERIENCE step
-          if (step === "experience" && newPriors) {
-            setPriors(newPriors);
-          }
-
-          // Update chorus state
-          setChorusState((prev) => ({
-            ...prev,
-            current_step: step,
-            current_response: {
-              content: parsedContent || content || "",
-              loop: response.data.loop,
-              reasoning: response.data.reasoning,
-            },
-          }));
-
-          // Handle transition to yield step
-          if (step === "update" && response.data.loop === false) {
-            setCurrentStep("yield");
-          }
-
-          // Debug log state updates
-          console.log("State updated:", {
-            step,
-            content: parsedContent,
-            steps: newStep,
-            currentStep: step,
-            chorusState: {
-              current_step: step,
-              current_response: {
-                content: parsedContent || content || "",
-                loop: response.data.loop,
-                reasoning: response.data.reasoning,
-              },
-            },
-          });
-        }
-      } catch (error) {
-        console.error("Error handling WebSocket message:", error);
-        setChorusState((prev) => ({
-          ...prev,
-          error_state: "Failed to process message",
-        }));
+      // Update priors if in EXPERIENCE step
+      if (step === "experience" && newPriors) {
+        setPriors(newPriors);
       }
     };
 
-    socket.addEventListener("message", handleMessage);
-    return () => socket.removeEventListener("message", handleMessage);
-  }, [socket, updateAIMessage]);
+    window.addEventListener(
+      "chorus_response",
+      handleChorusResponse as EventListener
+    );
+
+    return () => {
+      window.removeEventListener(
+        "chorus_response",
+        handleChorusResponse as EventListener
+      );
+    };
+  }, []);
+
+  // Handle errors
+  useEffect(() => {
+    const handleError = (event: CustomEvent) => {
+      console.error("Chorus cycle error:", event.detail.message);
+      // Optionally update UI state to show error
+      setChorusState((prev) => ({
+        ...prev,
+        current_step: "action", // Reset to initial state
+        current_response: {
+          content: `Error: ${event.detail.message}`,
+          loop: false,
+          reasoning: "An error occurred",
+        },
+      }));
+    };
+
+    window.addEventListener("websocket_error", handleError as EventListener);
+
+    return () => {
+      window.removeEventListener(
+        "websocket_error",
+        handleError as EventListener
+      );
+    };
+  }, []);
 
   const processStep = useCallback(
     async (message: Message) => {
@@ -180,44 +114,48 @@ export function useChorusCycle() {
         return;
       }
 
-      try {
-        console.log("Starting new cycle with message:", message);
-
-        // Reset state for new cycle
-        setSteps([]);
-        setPriors([]);
-        setCurrentStep("action");
-        setChorusState({
-          current_step: "action",
-        });
-
-        // Start the Chorus Cycle
-        const wsMessage: WebSocketMessage = {
-          type: "submit_prompt",
-          data: {
-            message_id: message.id,
-            content: message.content,
-            thread_id: message.thread_id,
-          },
-        };
-
-        sendMessage(wsMessage);
-      } catch (error) {
-        console.error("Error processing step:", error);
-        setChorusState((prev) => ({
-          ...prev,
-          error_state: "Failed to process step",
-        }));
+      if (!message.id) {
+        console.error("Message has no ID");
+        return;
       }
+
+      // Reset state for new message
+      setMessageSteps((prev) => ({
+        ...prev,
+        [message.id as string]: [],
+      }));
+      setPriors([]);
+      setCurrentStep("action");
+
+      // Start the Chorus Cycle
+      const wsMessage: WebSocketMessage = {
+        type: "submit_prompt",
+        data: {
+          message_id: message.id,
+          content: message.content,
+          thread_id: message.thread_id,
+        },
+      };
+
+      socket.send(JSON.stringify(wsMessage));
     },
-    [socket, sendMessage]
+    [socket]
+  );
+
+  // Get steps for a specific message
+  const getStepsForMessage = useCallback(
+    (messageId?: string) => {
+      if (!messageId) return [];
+      return messageSteps[messageId] || [];
+    },
+    [messageSteps]
   );
 
   return {
     currentStep,
-    chorusState,
-    steps,
+    getStepsForMessage,
     priors,
     processStep,
+    chorusState,
   };
 }

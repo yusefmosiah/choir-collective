@@ -1,72 +1,62 @@
 // src/components/ChoirChat/ChoirChat.tsx
 
-import React, { useState, useRef } from "react";
-import MessageFlow from "./MessageFlow";
-import UserInput from "../UserInput/UserInput";
-import { useThread } from "@/hooks/useThread";
-import { useWebSocket } from "@/hooks/useWebSocket";
-import { useChorusCycle } from "@/hooks/useChorusCycle";
-import ThreadList from "../ThreadList/ThreadList";
-import PriorPanel from "../PriorPanel/PriorPanel";
-import { WebSocketMessage, Message } from "@/types";
+'use client';
 
-const ChoirChat: React.FC = () => {
-  const { threadState, addMessage } = useThread();
-  const { sendMessage } = useWebSocket();
-  const { currentStep, steps, priors, processStep } = useChorusCycle();
-  const [selectedMessageId, setSelectedMessageId] = useState<string | null>(null);
-  const chatContainerRef = useRef<HTMLDivElement>(null);
+import { FC, useEffect, useState } from 'react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { useSolana } from '@/hooks/useSolana';
+import MessageFlow from './MessageFlow';
+import ThreadList from '../ThreadList/ThreadList';
+import PriorPanel from '../PriorPanel/PriorPanel';
+import { useThread } from '@/hooks/useThread';
 
-  const handleNewMessage = (content: string) => {
-    const message: Message = {
-      id: crypto.randomUUID(),
-      content,
-      author: "user",
-      timestamp: Date.now(),
-      thread_id: threadState.currentThread || "",
-    };
-    addMessage(message);
+export const ChoirChat: FC = () => {
+  const { isConnected, getBalance } = useSolana();
+  const { threadState } = useThread();
+  const [balance, setBalance] = useState<number>(0);
 
-    const wsMessage: WebSocketMessage = {
-      type: "submit_prompt",
-      data: {
-        message_id: message.id,
-        content: content,
-        thread_id: threadState.currentThread || "default",
-      },
-    };
-    sendMessage(wsMessage);
-    processStep(message);
-  };
+  // Poll wallet balance
+  useEffect(() => {
+    if (isConnected) {
+      const interval = setInterval(async () => {
+        const newBalance = await getBalance();
+        setBalance(newBalance);
+      }, 10000);
+
+      // Initial balance check
+      getBalance().then(setBalance);
+
+      return () => clearInterval(interval);
+    }
+  }, [isConnected, getBalance]);
 
   return (
-    <div className="flex w-full h-full">
-      {/* Left Column - Thread List */}
-      <div className="w-64 min-w-64 bg-base-200 border-r border-base-300">
-        <ThreadList />
+    <div className="flex h-screen">
+      <div className="fixed top-4 right-4 z-10 flex flex-col gap-2">
+        <WalletMultiButton />
+        {isConnected && (
+          <div className="text-sm text-right">
+            Balance: {balance} SOL
+          </div>
+        )}
       </div>
 
-      {/* Center Column - Chat Messages with inline Chorus Cycle */}
-      <div className="flex-1 flex flex-col min-w-0 relative">
-        <div className="h-full overflow-y-auto p-4 pb-32" ref={chatContainerRef}>
+      {isConnected ? (
+        <>
+          <ThreadList />
           <MessageFlow
             messages={threadState.messages}
-            onMessageSelect={setSelectedMessageId}
-            selectedMessageId={selectedMessageId}
-            currentStep={currentStep}
-            steps={steps}
-            priors={priors}
+            currentStep={threadState.current_step}
+            getStepsForMessage={() => []}
+            priors={[]}
           />
+          <PriorPanel />
+        </>
+      ) : (
+        <div className="flex-1 flex items-center justify-center">
+          Please connect your wallet to continue
         </div>
-        <div className="fixed bottom-0 left-64 right-80 bg-base-100 border-t border-base-300 z-10">
-          <UserInput onSubmit={handleNewMessage} />
-        </div>
-      </div>
-
-      {/* Right Column - Prior Citations */}
-      <div className="w-80 min-w-80 bg-base-200 border-l border-base-300">
-        <PriorPanel />
-      </div>
+      )}
     </div>
   );
 };
