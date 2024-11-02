@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Crystallized Chorus Cycle
 
 VERSION chorus_system:
@@ -42,7 +56,7 @@ TYPE Effect =
 FUNCTION transform_state(state: ChorusState, input: Input) -> StepResult:
     # Instead of content being a liability, it becomes:
     # - Collectively owned (thread value)
-    # - Naturally protected (quantum state)
+    # - Naturally protected (harmonic pattern)
     # - Value generating (prior rewards)
     # - Identity preserving (co-authorship)
     MATCH state.current_step:

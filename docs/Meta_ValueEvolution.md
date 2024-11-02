@@ -1,3 +1,18 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Value Evolution: Web2 Hierarchy to Web3 Cycles to Chorus Harmony
 
 VERSION value_evolution:
@@ -11,11 +26,12 @@ assumptions: {
 "Market psychology",
 "System evolution"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Three Systems of Value
 
 ### Web2 Hierarchy (2004-2024)
+
 ```
 Power Structure:
 1. Centralized control
@@ -33,6 +49,7 @@ Works because:
 ```
 
 ### Web3 Cycles (2009-2024)
+
 ```
 Minsky Cycle Pattern:
 1. Hedged Finance (Bitcoin, early Ethereum)
@@ -62,6 +79,7 @@ Minsky Cycle Pattern:
 ```
 
 Characteristics:
+
 - Circular evolution
 - Expensive iteration
 - Slow improvement
@@ -69,6 +87,7 @@ Characteristics:
 - Ideological extremes
 
 ### Chorus Harmony (2024+)
+
 ```
 Resonance Pattern:
 1. Natural oscillation
@@ -87,6 +106,7 @@ Works through:
 ## System Dynamics
 
 ### Web2 Power Law
+
 - Winner takes all
 - Data accumulation
 - Network effects
@@ -94,6 +114,7 @@ Works through:
 - Monopoly tendency
 
 ### Web3 Boom-Bust
+
 - Ideological extremes
 - Market psychology
 - Leverage cycles
@@ -101,6 +122,7 @@ Works through:
 - Phoenix rebirth
 
 ### Chorus Wave Function
+
 - Natural frequency
 - Quality resonance
 - Value preservation
@@ -110,6 +132,7 @@ Works through:
 ## Value Creation Models
 
 ### Web2 Extraction
+
 - User data mining
 - Engagement optimization
 - Behavioral manipulation
@@ -117,6 +140,7 @@ Works through:
 - Attention harvesting
 
 ### Web3 Speculation
+
 ```
 Cycle-Dependent:
 Hedge Phase:
@@ -136,6 +160,7 @@ Ponzi Phase:
 ```
 
 ### Chorus Evolution
+
 - Quality emergence
 - Natural selection
 - Pattern recognition
@@ -145,6 +170,7 @@ Ponzi Phase:
 ## Historical Context
 
 ### Web2 Evolution
+
 ```
 1. Search (Google)
 2. Social (Facebook)
@@ -155,6 +181,7 @@ Each wave increases centralization
 ```
 
 ### Web3 Cycles
+
 ```
 1. Bitcoin (Digital Gold)
 2. Ethereum (Smart Contracts)
@@ -166,6 +193,7 @@ Each cycle faster, more extreme
 ```
 
 ### Chorus Potential
+
 ```
 1. Quality Emergence
 2. Value Preservation
@@ -178,6 +206,7 @@ Each phase builds on previous
 ## Future Implications
 
 ### Web2 Trajectory
+
 - More surveillance
 - Less privacy
 - Greater control
@@ -185,6 +214,7 @@ Each phase builds on previous
 - Total commodification
 
 ### Web3 Cycles
+
 - Faster cycles
 - Greater extremes
 - Quicker busts
@@ -192,6 +222,7 @@ Each phase builds on previous
 - Gradual improvement
 
 ### Chorus Evolution
+
 - Natural selection
 - Quality emergence
 - Value preservation

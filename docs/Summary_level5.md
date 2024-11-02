@@ -13,7 +13,7 @@ assumptions: {
 "Hypergraph dynamics",
 "Semantic entanglement"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Introduction
 
@@ -61,4 +61,4 @@ At Level 5, we delve into the quantum semantic foundations of Choir, exploring h
 
 ## Conclusion
 
-Level 5 presents a profound integration of quantum semantics, thoughtspace geometry, and hyperedge dynamics within Choir. By embracing these advanced concepts, we unlock deeper insights into the mechanisms of meaning-making, value distribution, and collaborative evolution in semantic networks.
+Level 5 presents a profound integration of harmonic intelligence, thoughtspace geometry, and hyperedge dynamics within Choir. By embracing these advanced concepts, we unlock deeper insights into the mechanisms of meaning-making, value distribution, and collaborative evolution in semantic networks.

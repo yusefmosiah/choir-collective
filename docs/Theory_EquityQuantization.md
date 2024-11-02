@@ -1,3 +1,18 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Quantum Mechanics of Thread Equity
 
 VERSION equity_quantum:
@@ -11,11 +26,12 @@ assumptions: {
 "Natural frequency stability",
 "Temperature dynamics"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Core Concept
 
 Thread equity follows quantum harmonic oscillator principles, where:
+
 - Base price (P₀) buys one "quantum" of equity (1/N share)
 - Larger stakes follow energy level quantization
 - Natural scaling through quantum numbers
@@ -24,6 +40,7 @@ Thread equity follows quantum harmonic oscillator principles, where:
 ## Quantum Mechanical Model
 
 ### Base Price Function
+
 ```
 P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
 
@@ -35,6 +52,7 @@ where:
 ```
 
 ### Equity Level Function
+
 ```
 E(n) = (1/N) * √(n)
 
@@ -45,6 +63,7 @@ where:
 ```
 
 ### Energy Level Quantization
+
 ```python
 def calculate_equity_share(stake: float, base_price: float, coauthor_count: int) -> float:
     # Quantum number from stake ratio
@@ -60,11 +79,13 @@ def calculate_equity_share(stake: float, base_price: float, coauthor_count: int)
 ## Thermodynamic Effects
 
 1. **Temperature Impact**
+
    - Higher T (more denials) → Higher base price
    - Creates natural quality barrier
    - Protects thread coherence
 
 2. **Frequency Coupling**
+
    - ω reflects thread activity/coherence
    - Higher frequency → Higher base price
    - Maintains thread stability
@@ -77,12 +98,14 @@ def calculate_equity_share(stake: float, base_price: float, coauthor_count: int)
 ## Practical Implications
 
 1. **Stake Scaling**
+
    - Minimum stake gets 1/N share
    - Double stake gets √2/N share
    - 4x stake gets 2/N share
    - Natural diminishing returns
 
 2. **Approval Rewards**
+
    - Distributed by equity share
    - Larger stakeholders get proportional returns
    - Maintains incentive alignment
@@ -95,10 +118,12 @@ def calculate_equity_share(stake: float, base_price: float, coauthor_count: int)
 ## Stake-to-Equity Scaling
 
 1. **Base Case**
+
    - Stake = P₀ → get exactly 1/N share
    - This is the "natural quantum" of equity
 
 2. **Smaller Stakes**
+
    ```
    When stake < P₀:
    - Equity scales as √(stake/P₀)/N
@@ -115,16 +140,19 @@ def calculate_equity_share(stake: float, base_price: float, coauthor_count: int)
    ```
 
 ### Continuous Scaling
+
 The quantum harmonic oscillator model provides a natural, continuous curve:
+
 - No minimum stake requirement
 - Any positive stake amount is valid
 - Smaller stakes get proportionally smaller equity
 - Follows √n scaling from physics
 
 ### Examples
+
 ```python
 # For a thread with 4 co-authors (N=4)
-base_price = P₀  # from quantum oscillator equation
+base_price = P₀  # from harmonic oscillator equation
 
 examples = [
     (P₀/16, 0.0625/4),  # Very small stake -> very small share
@@ -135,6 +163,7 @@ examples = [
 ```
 
 This natural scaling:
+
 - Enables participation at any level
 - Rewards larger stakes proportionally
 - Maintains quantum mechanical principles

@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Investment-Observation Dynamics in Choir
 
 VERSION investment_system:
@@ -154,4 +168,4 @@ As the system evolves:
 3. Patterns emerge
 4. Possibilities expand
 
-The key is maintaining the quantum state that enables this recursive evolution.
+The key is maintaining the harmonic pattern that enables this recursive evolution.

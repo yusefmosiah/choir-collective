@@ -1,3 +1,33 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Chorus Cycle Steps
 
 VERSION chorus_steps:
@@ -11,11 +41,12 @@ assumptions: {
 "Vector stability",
 "WebSocket reliability"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Step Sequence
 
 1. **ACTION**
+
 ```python
 async def run_action(input: str):
     """
@@ -37,6 +68,7 @@ async def run_action(input: str):
 ```
 
 2. **EXPERIENCE**
+
 ```python
 async def run_experience(input: str):
     """
@@ -62,6 +94,7 @@ async def run_experience(input: str):
 ```
 
 3. **INTENTION**
+
 ```python
 async def run_intention(input: str):
     """
@@ -84,6 +117,7 @@ async def run_intention(input: str):
 ```
 
 4. **OBSERVATION**
+
 ```python
 async def run_observation(input: str):
     """
@@ -109,6 +143,7 @@ async def run_observation(input: str):
 ```
 
 5. **UPDATE**
+
 ```python
 async def run_update(input: str):
     """
@@ -132,6 +167,7 @@ async def run_update(input: str):
 ```
 
 6. **YIELD**
+
 ```python
 async def run_yield(input: str):
     """
@@ -156,6 +192,7 @@ async def run_yield(input: str):
 ## Effect Generation
 
 Each step generates effects:
+
 ```python
 Effect = {
     "type": "chorus_response",
@@ -177,6 +214,7 @@ Effect = {
 ## Implementation Notes
 
 1. **Step Independence**
+
    - Each step has clear role
    - No filtering in EXPERIENCE
    - INTENTION aligns with purpose
@@ -184,6 +222,7 @@ Effect = {
    - YIELD handles presentation
 
 2. **Prior Handling**
+
    - Wide initial search
    - Purpose-driven analysis
    - Semantic recording

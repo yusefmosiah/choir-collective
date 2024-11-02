@@ -1,3 +1,18 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Thread Dynamics and Quantum Equity
 
 VERSION thread_dynamics:
@@ -13,11 +28,12 @@ assumptions: {
 "Temperature evolution",
 "Stake-equity correspondence"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Core Measurements
 
 1. **Thread Temperature (T)**
+
    ```python
    # Energy from denials increases temperature
    def calculate_temperature(thread: Thread) -> float:
@@ -30,6 +46,7 @@ docs_version: "0.2.2"
    ```
 
 2. **Thread Frequency (ω)**
+
    ```python
    def calculate_frequency(thread: Thread) -> float:
        """
@@ -42,6 +59,7 @@ docs_version: "0.2.2"
    ```
 
 3. **Base Price (P₀)**
+
    ```python
    def calculate_base_price(T: float, ω: float) -> float:
        """
@@ -59,6 +77,7 @@ docs_version: "0.2.2"
    ```
 
 4. **Equity Distribution**
+
    ```python
    def calculate_equity(stake: float, P₀: float, N: int) -> float:
        """
@@ -74,6 +93,7 @@ docs_version: "0.2.2"
 ## Thermodynamic Effects
 
 1. **Denial Flow**
+
    ```python
    def handle_denial(thread: Thread, stake: float):
        """Denial increases thread temperature"""
@@ -83,6 +103,7 @@ docs_version: "0.2.2"
    ```
 
 2. **Approval Flow**
+
    ```python
    def handle_approval(thread: Thread, stake: float):
        """Distribute by equity shares"""
@@ -92,6 +113,7 @@ docs_version: "0.2.2"
    ```
 
 3. **Split Decision**
+
    ```python
    def handle_split(thread: Thread, stake: float,
                    approvers: int, deniers: int):
@@ -111,6 +133,7 @@ docs_version: "0.2.2"
 ## Natural Selection Through Energy
 
 1. **Hot Threads** (High rejection rate)
+
    - Accumulate energy from denials
    - Higher base price P₀
    - Natural quality filter
@@ -136,12 +159,14 @@ examples = [
 ## Implementation Notes
 
 1. **Equity Properties**
+
    - No minimum stake requirement
    - Continuous stake-to-equity curve
    - Natural √n scaling from physics
    - Proportional reward distribution
 
 2. **Temperature Effects**
+
    - Denials increase thread temperature
    - Higher temperature raises base price
    - Creates natural quality barrier
@@ -154,6 +179,7 @@ examples = [
    - Phase-locked stability
 
 Through this quantum thermodynamic model, we create:
+
 - Natural quality emergence
 - Fair value distribution
 - Sustainable evolution

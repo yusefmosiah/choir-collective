@@ -1,3 +1,18 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Development Plan
 
 VERSION dev_plan:
@@ -11,11 +26,12 @@ assumptions: {
 "WebSocket reliability",
 "LLM capability"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Current Status
 
 ### Backend Progress
+
 - FastAPI application setup ✓
 - WebSocket handler ready ✓
 - Qdrant integration ✓
@@ -23,6 +39,7 @@ docs_version: "0.2.2"
 - Vector search working ✓
 
 ### Frontend Progress
+
 - Three-panel layout ✓
 - WebSocket connection ✓
 - Message display ✓
@@ -34,12 +51,14 @@ docs_version: "0.2.2"
 ### Phase 1: Prior Flow (Oct 29)
 
 1. **Vector Search**
+
    ```python
    # Get n=80 priors
    priors = await search_similar(input, limit=80)
    ```
 
 2. **Semantic Recording**
+
    ```python
    # Record in Qdrant
    await record_semantic_links(
@@ -57,15 +76,16 @@ docs_version: "0.2.2"
 ### Phase 2: Effect System (Oct 30)
 
 1. **Effect Types**
+
    ```typescript
    type Effect = {
      type: "chorus_response" | "error" | "state_update";
      payload: {
        step: ChorusStep;
        content: string;
-       priors?: Prior[];  // Only in EXPERIENCE
+       priors?: Prior[]; // Only in EXPERIENCE
      };
-   }
+   };
    ```
 
 2. **Effect Accumulation**
@@ -81,6 +101,7 @@ docs_version: "0.2.2"
 ### Phase 3: Step Processing (Oct 31)
 
 1. **Step Prompts**
+
    - ACTION: Beginner's mind
    - EXPERIENCE: Context integration
    - INTENTION: Goal analysis
@@ -102,6 +123,7 @@ docs_version: "0.2.2"
 ## Testing Strategy
 
 1. **Prior Flow Tests**
+
    ```python
    def test_prior_flow():
        # Test vector search
@@ -118,13 +140,14 @@ docs_version: "0.2.2"
    ```
 
 2. **Effect Tests**
+
    ```typescript
    test("effect accumulation", () => {
      const effects = [];
      // Run cycle
      expect(effects).toMatchPattern({
        experience: { priors: expect.arrayLength(80) },
-       yield: { citations: expect.any(Array) }
+       yield: { citations: expect.any(Array) },
      });
    });
    ```
@@ -141,12 +164,14 @@ docs_version: "0.2.2"
 ## Implementation Notes
 
 1. **Prior Flow**
+
    - Keep EXPERIENCE simple
    - No filtering until citations
    - Record semantic links
    - Natural integration
 
 2. **Effect System**
+
    - Clean effect types
    - Proper accumulation
    - UI synchronization
@@ -159,6 +184,7 @@ docs_version: "0.2.2"
    - Effect generation
 
 Through this approach, we'll build a system that:
+
 - Maintains prior flow integrity
 - Preserves effect coherence
 - Builds semantic knowledge

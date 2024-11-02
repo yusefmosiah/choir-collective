@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Message Flow and Prior Rendering
 
 VERSION message_system:
@@ -59,7 +73,7 @@ TYPE MessageFlow = {
 
      // Prior preview handling
      preview: {
-       hover: "Show quantum state preview",
+       hover: "Show harmonic pattern preview",
        click: "Expand resonant cavity",
        navigate: "Quantum tunnel to source"
      }

@@ -1,3 +1,18 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Choir Core Invariants
 
 VERSION core_system:
@@ -14,21 +29,23 @@ assumptions: {
 "Harmonic monitoring",
 "Quantum equity distribution"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## System Invariants
 
 1. **Thread Resonance**
+
    - Thread MUST maintain at least one coupled oscillator (co-author)
    - Sum of all equity shares MUST equal 1.0
    - Equity shares MUST follow quantum harmonic scaling (√n)
    - Only coupled oscillators MAY measure wave states (approve/deny)
 
 2. **Wave Function Integrity**
-   - Each message MUST have unique quantum state (content hash)
+
+   - Each message MUST have unique harmonic pattern (content hash)
    - Stake amount MAY be any positive value
    - Equity share MUST be proportional to √(stake/P₀)
-   - Base price P₀ MUST follow quantum oscillator equation
+   - Base price P₀ MUST follow harmonic oscillator equation
 
 3. **Energy Conservation**
    - Total system energy MUST remain constant (10 billion tokens)
@@ -39,6 +56,7 @@ docs_version: "0.2.2"
 ## State Transition Rules
 
 1. **Cavity Creation**
+
    ```python
    INVARIANT create_thread(creator, stake) -> cavity:
      cavity.oscillators = [creator]
@@ -49,6 +67,7 @@ docs_version: "0.2.2"
    ```
 
 2. **Stake Submission**
+
    ```python
    INVARIANT submit_stake(author, cavity, stake) -> packet:
      base_price = calculate_base_price(cavity.T, cavity.ω)
@@ -59,6 +78,7 @@ docs_version: "0.2.2"
    ```
 
 3. **Approval Distribution**
+
    ```python
    INVARIANT distribute_approval(cavity, stake):
      FOR EACH co_author, equity IN cavity.equity_map:
@@ -79,12 +99,14 @@ docs_version: "0.2.2"
 ## Security Properties
 
 1. **Equity Control**
+
    - Equity distribution MUST follow quantum scaling
    - Stake amount MAY be any positive value
    - Reward distribution MUST follow equity shares
    - Temperature MUST only increase from denials
 
 2. **Temporal Coherence**
+
    - Wave packets MUST collapse within 7 days
    - Equity calculations MUST use current base price
    - Temperature effects MUST be immediate
@@ -109,6 +131,7 @@ NOTE reward_distribution:
 "Must preserve energy conservation"
 
 Through these invariants, we ensure that:
+
 - Equity follows quantum mechanical principles
 - Stakes can be any positive amount
 - Rewards distribute proportionally

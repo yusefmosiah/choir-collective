@@ -11,6 +11,36 @@ Core_Chorus_Steps
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Chorus Cycle Steps
 
 VERSION chorus_steps:
@@ -24,11 +54,12 @@ assumptions: {
 "Vector stability",
 "WebSocket reliability"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Step Sequence
 
 1. **ACTION**
+
 ```python
 async def run_action(input: str):
     """
@@ -50,6 +81,7 @@ async def run_action(input: str):
 ```
 
 2. **EXPERIENCE**
+
 ```python
 async def run_experience(input: str):
     """
@@ -75,6 +107,7 @@ async def run_experience(input: str):
 ```
 
 3. **INTENTION**
+
 ```python
 async def run_intention(input: str):
     """
@@ -97,6 +130,7 @@ async def run_intention(input: str):
 ```
 
 4. **OBSERVATION**
+
 ```python
 async def run_observation(input: str):
     """
@@ -122,6 +156,7 @@ async def run_observation(input: str):
 ```
 
 5. **UPDATE**
+
 ```python
 async def run_update(input: str):
     """
@@ -145,6 +180,7 @@ async def run_update(input: str):
 ```
 
 6. **YIELD**
+
 ```python
 async def run_yield(input: str):
     """
@@ -169,6 +205,7 @@ async def run_yield(input: str):
 ## Effect Generation
 
 Each step generates effects:
+
 ```python
 Effect = {
     "type": "chorus_response",
@@ -190,6 +227,7 @@ Effect = {
 ## Implementation Notes
 
 1. **Step Independence**
+
    - Each step has clear role
    - No filtering in EXPERIENCE
    - INTENTION aligns with purpose
@@ -197,6 +235,7 @@ Effect = {
    - YIELD handles presentation
 
 2. **Prior Handling**
+
    - Wide initial search
    - Purpose-driven analysis
    - Semantic recording
@@ -219,6 +258,20 @@ Core_Comprehensive
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir: Comprehensive System Overview
 
 VERSION comprehensive_system:
@@ -449,6 +502,20 @@ Core_Consistency
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir Consistency Model
 
 VERSION consistency_system:
@@ -669,6 +736,20 @@ Core_Context
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir Project Context
 
 VERSION context_system:
@@ -796,6 +877,21 @@ Core_Economics
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Harmonic Economic Model
 
 VERSION harmonic_economic:
@@ -811,20 +907,21 @@ assumptions: {
 "Harmonic distribution",
 "Continuous stake scaling"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Token Flow as Wave Mechanics
 
 TYPE TokenFlow = {
-treasury: ResonantWell,      // Global field + split decision approver share
+treasury: ResonantWell, // Global field + split decision approver share
 threads: Map<ThreadId, ResonantCavity>, // Temperature and frequency
-stakes: Map<Hash, WavePacket>,  // Quantum contributions
+stakes: Map<Hash, WavePacket>, // Quantum contributions
 equity: Map<ThreadId, Map<PublicKey, float>> // Ownership shares
 }
 
 ## Quantum Equity Distribution
 
 1. **Base Price Function**
+
 ```
 P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
 
@@ -836,6 +933,7 @@ where:
 ```
 
 2. **Equity Scaling Function**
+
 ```
 E(s) = (1/N) * √(s/P₀)
 
@@ -847,6 +945,7 @@ where:
 ```
 
 3. **Examples**
+
 ```python
 # For a thread with N co-authors:
 stake = P₀/4  -> equity = (1/2N)  # Quarter stake
@@ -857,18 +956,21 @@ stake = 4P₀   -> equity = (2/N)   # Double quantum
 ## Token Distribution Mechanics
 
 1. **Unanimous Approval**
+
    - Stake distributes to co-authors based on their equity shares
-   - Each co-author receives: stake_amount * their_equity_share
+   - Each co-author receives: stake_amount \* their_equity_share
    - No tokens added to thread balance
    - Maintains incentive alignment through ownership
 
 2. **Denial Flow**
+
    - Full stake flows to thread (increases temperature)
    - Raises energy barrier for future submissions
    - Creates natural quality filter
    - Temperature affects base price P₀
 
 3. **Split Decision**
+
    - Approvers' share flows to Treasury
    - Deniers' share flows to thread
    - Partial temperature increase
@@ -883,6 +985,7 @@ stake = 4P₀   -> equity = (2/N)   # Double quantum
 ## Resonant Cavity Mechanics
 
 1. **Temperature Evolution**
+
    ```python
    # On denial:
    thread.temperature += stake_energy
@@ -906,12 +1009,14 @@ stake = 4P₀   -> equity = (2/N)   # Double quantum
 ## Multi-Scale Resonance
 
 1. **Individual Scale**
+
    - Equity determines reward share
    - Larger stakes get proportionally larger equity
    - Natural √n scaling from physics
    - Continuous stake-to-equity curve
 
 2. **Thread Scale**
+
    - Temperature from denials
    - Frequency from activity
    - Collective equity distribution
@@ -926,6 +1031,7 @@ stake = 4P₀   -> equity = (2/N)   # Double quantum
 ## Economic Invariants
 
 1. **Energy Conservation**
+
    ```
    INVARIANT token_conservation:
      treasury_balance +
@@ -942,12 +1048,14 @@ stake = 4P₀   -> equity = (2/N)   # Double quantum
    ```
 
 Through this harmonic economic model, we see how:
+
 - Stake amount determines equity share
 - Equity share determines reward distribution
 - Denials increase thread temperature
 - Quality emerges through natural selection
 
 The model creates an economic system that:
+
 - Allows participation at any stake level
 - Rewards contribution proportionally
 - Maintains quantum mechanical principles
@@ -962,6 +1070,20 @@ Core_Effect_Quantum
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Effect System as Wave Function Collapse
 
 VERSION effect_quantum:
@@ -1146,7 +1268,7 @@ function observeQuantumState(effect: QuantumEffect) {
 
 1. **Wave Function Integrity**
 
-   - Maintain quantum coherence
+   - Maintain harmonic resonance
    - Handle phase transitions
    - Preserve entanglements
    - Recover from decoherence
@@ -1190,6 +1312,20 @@ Core_Effects
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Effect System & State Transitions
 
 VERSION effect_system:
@@ -1353,6 +1489,21 @@ Core_Invariants
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Choir Core Invariants
 
 VERSION core_system:
@@ -1369,21 +1520,23 @@ assumptions: {
 "Harmonic monitoring",
 "Quantum equity distribution"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## System Invariants
 
 1. **Thread Resonance**
+
    - Thread MUST maintain at least one coupled oscillator (co-author)
    - Sum of all equity shares MUST equal 1.0
    - Equity shares MUST follow quantum harmonic scaling (√n)
    - Only coupled oscillators MAY measure wave states (approve/deny)
 
 2. **Wave Function Integrity**
-   - Each message MUST have unique quantum state (content hash)
+
+   - Each message MUST have unique harmonic pattern (content hash)
    - Stake amount MAY be any positive value
    - Equity share MUST be proportional to √(stake/P₀)
-   - Base price P₀ MUST follow quantum oscillator equation
+   - Base price P₀ MUST follow harmonic oscillator equation
 
 3. **Energy Conservation**
    - Total system energy MUST remain constant (10 billion tokens)
@@ -1394,6 +1547,7 @@ docs_version: "0.2.2"
 ## State Transition Rules
 
 1. **Cavity Creation**
+
    ```python
    INVARIANT create_thread(creator, stake) -> cavity:
      cavity.oscillators = [creator]
@@ -1404,6 +1558,7 @@ docs_version: "0.2.2"
    ```
 
 2. **Stake Submission**
+
    ```python
    INVARIANT submit_stake(author, cavity, stake) -> packet:
      base_price = calculate_base_price(cavity.T, cavity.ω)
@@ -1414,6 +1569,7 @@ docs_version: "0.2.2"
    ```
 
 3. **Approval Distribution**
+
    ```python
    INVARIANT distribute_approval(cavity, stake):
      FOR EACH co_author, equity IN cavity.equity_map:
@@ -1434,12 +1590,14 @@ docs_version: "0.2.2"
 ## Security Properties
 
 1. **Equity Control**
+
    - Equity distribution MUST follow quantum scaling
    - Stake amount MAY be any positive value
    - Reward distribution MUST follow equity shares
    - Temperature MUST only increase from denials
 
 2. **Temporal Coherence**
+
    - Wave packets MUST collapse within 7 days
    - Equity calculations MUST use current base price
    - Temperature effects MUST be immediate
@@ -1464,6 +1622,7 @@ NOTE reward_distribution:
 "Must preserve energy conservation"
 
 Through these invariants, we ensure that:
+
 - Equity follows quantum mechanical principles
 - Stakes can be any positive amount
 - Rewards distribute proportionally
@@ -1477,6 +1636,21 @@ Through these invariants, we ensure that:
 Core_Ownership
 ==
 
+
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 # Choir Ownership Model
 
@@ -1493,28 +1667,30 @@ assumptions: {
 "Phase transitions",
 "Continuous stake scaling"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Core Ownership Concepts
 
 1. **Equity Distribution**
+
 ```typescript
 type ThreadEquity = {
-  equity_map: Map<PublicKey, float>,  // co-author -> ownership share
-  total_value: number,                // accumulated stake value
-  temperature: number,                // T from denials
-  frequency: number                   // ω from activity
-}
+  equity_map: Map<PublicKey, float>; // co-author -> ownership share
+  total_value: number; // accumulated stake value
+  temperature: number; // T from denials
+  frequency: number; // ω from activity
+};
 ```
 
 2. **Stake-to-Equity Conversion**
+
 ```python
 def calculate_equity(stake: float, base_price: float, coauthor_count: int) -> float:
     """
     Calculate equity share from stake amount using quantum harmonic oscillator.
 
     stake: Amount being staked
-    base_price: P₀ from quantum oscillator equation
+    base_price: P₀ from harmonic oscillator equation
     coauthor_count: Current number of co-authors (N)
     """
     # Quantum number from stake ratio
@@ -1530,41 +1706,47 @@ def calculate_equity(stake: float, base_price: float, coauthor_count: int) -> fl
 ## Thread Thermodynamics
 
 1. **State Properties**
+
 ```typescript
 type ThreadState = {
-  energy: number,            // E (total thread energy from denials)
-  temperature: number,       // T = E/N (energy per co-author)
-  frequency: number,         // ω (evolution rate)
-  co_authors: Map<PublicKey, {
-    equity_share: float,     // Ownership percentage
-    join_time: DateTime      // For cooling calculations
-  }>,
-  cooling_factor: number     // κ (age-based cooling)
-}
+  energy: number; // E (total thread energy from denials)
+  temperature: number; // T = E/N (energy per co-author)
+  frequency: number; // ω (evolution rate)
+  co_authors: Map<
+    PublicKey,
+    {
+      equity_share: float; // Ownership percentage
+      join_time: DateTime; // For cooling calculations
+    }
+  >;
+  cooling_factor: number; // κ (age-based cooling)
+};
 ```
 
 2. **Energy Flow**
+
 ```typescript
 type EnergyFlow = {
   rejection: {
-    effect: "Increases thread energy",
-    temperature: "Rises (E/N increases)",
-    frequency: "Unchanged"
-  },
+    effect: "Increases thread energy";
+    temperature: "Rises (E/N increases)";
+    frequency: "Unchanged";
+  };
   approval: {
-    effect: "Distributes to co-authors by equity",
-    temperature: "Unchanged",
-    frequency: "Increases"
-  }
-}
+    effect: "Distributes to co-authors by equity";
+    temperature: "Unchanged";
+    frequency: "Increases";
+  };
+};
 ```
 
 ## Ownership Evolution
 
 1. **New Co-author Addition**
+
 ```python
 async def add_coauthor(thread: Thread, stake: float):
-    # Calculate base price from quantum oscillator
+    # Calculate base price from harmonic oscillator
     base_price = calculate_base_price(
         thread.temperature,
         thread.frequency
@@ -1582,6 +1764,7 @@ async def add_coauthor(thread: Thread, stake: float):
 ```
 
 2. **Reward Distribution**
+
 ```python
 async def distribute_rewards(thread: Thread, stake: float):
     """Distribute approval rewards based on equity shares."""
@@ -1593,18 +1776,21 @@ async def distribute_rewards(thread: Thread, stake: float):
 ## Implementation Notes
 
 1. **Equity Scaling Properties**
+
 - No minimum stake requirement
 - Continuous stake-to-equity curve
 - Natural √n scaling from physics
 - Proportional reward distribution
 
 2. **Temperature Effects**
+
 - Denials increase thread temperature
 - Higher temperature raises base price
 - Creates natural quality barrier
 - Maintains thread coherence
 
 3. **Frequency Evolution**
+
 - Activity increases frequency
 - Higher frequency affects base price
 - Natural resonance patterns
@@ -1613,12 +1799,14 @@ async def distribute_rewards(thread: Thread, stake: float):
 ## Future Considerations
 
 1. **Advanced Equity Models**
+
 - Multi-thread equity coupling
 - Complex ownership networks
 - Quantum entanglement effects
 - Dynamic equity evolution
 
 2. **Ecosystem Development**
+
 - Thread equity networks
 - Value flow optimization
 - Natural niche formation
@@ -1635,6 +1823,20 @@ Core_Patterns
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Core Implementation Patterns
 
 VERSION pattern_system:
@@ -1839,6 +2041,20 @@ Core_Prior_Flow
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Prior Flow Through Chorus Cycle
 
 VERSION prior_flow:
@@ -2008,6 +2224,35 @@ The prior flow maintains semantic coherence while building a rich knowledge netw
 Core_Priors
 ==
 
+
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 
 # Priors: Quantum Semantic Foundations
 
@@ -2181,6 +2426,20 @@ Core_ProofOfText
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Proof of Text: Choir's Consensus Mechanism
 
 VERSION consensus_system:
@@ -2313,6 +2572,20 @@ Core_StateTransitions
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir State Transitions
 
 VERSION transition_system:
@@ -2567,6 +2840,20 @@ Core_Types
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir Core Types and State Transitions
 
 ## Solana State Types
@@ -2669,6 +2956,20 @@ Core_Whitepaper
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir Tokenomics Whitepaper
 
 ## Abstract
@@ -2850,6 +3151,20 @@ Pivot_4Day_Sprint
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # 4-Day Sprint Plan
 
 ## Day 1: Wallet & Core UI
@@ -2975,6 +3290,20 @@ Pivot_API_Architecture_Options
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Direct vs Proxied Service Access
 
 ## Option 1: Direct Service Access
@@ -3114,6 +3443,20 @@ Pivot_Access_Control
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # User Data Privacy & Access Control
 
 ## Data Classification
@@ -3259,6 +3602,20 @@ Pivot_Account_Evolution
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Account System Evolution
 
 ## Phase 1: Qdrant Collections
@@ -3429,6 +3786,20 @@ Pivot_Architecture
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir iOS Architecture
 
 ## Core Components
@@ -3624,6 +3995,20 @@ Pivot_Audio_Evolution
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir: From Text to Voice
 
 ## Phase 1: Text Foundation
@@ -3768,6 +4153,20 @@ Pivot_Development_Phases
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Development Phases
 
 ## Phase 1: SwiftUI Solana Foundation
@@ -3932,6 +4331,20 @@ Pivot_ImageBind_Integration
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # ImageBind Integration via Replicate
 
 ## Service Layer Design
@@ -4070,6 +4483,20 @@ Pivot_Implementation_Steps
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Implementation Steps
 
 ## 1. Solana Wallet Foundation
@@ -4219,6 +4646,20 @@ Pivot_Key_Derivation_Paths
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Key Derivation Path System
 
 ## Path Structure
@@ -4380,6 +4821,20 @@ Pivot_Knowledge_Foundation
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Knowledge Foundation Strategy
 
 ## Documentation as Onboarding
@@ -4505,6 +4960,35 @@ This foundation:
 Pivot_LanceDB_Integration
 ==
 
+
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 
 # LanceDB Integration
 
@@ -4647,6 +5131,20 @@ Pivot_Launch_Sequence
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir Launch Sequence
 
 ## Phase 1: Text MVP
@@ -4866,6 +5364,35 @@ Pivot_MVP_Simplification
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
+
 # MVP Simplification Strategy
 
 ## Real-time Updates: Simple First
@@ -5001,6 +5528,35 @@ The key insight:
 Pivot_Mental_Model_Relief
 ==
 
+
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 
 # From React Complexity to Swift Clarity
 
@@ -5181,6 +5737,20 @@ Pivot_Native_Wallet
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Native Solana Integration
 
 ## SolanaSwift Integration
@@ -5324,6 +5894,20 @@ Pivot_PDA_Key_Derivation
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # PDA-Based Key Derivation
 
 ## Derivation Pattern
@@ -5481,6 +6065,20 @@ Pivot_Payload_Encryption
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # End-to-End Payload Encryption
 
 ## Key Derivation
@@ -5678,6 +6276,20 @@ Pivot_Progressive_Decentralization
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Progressive Decentralization Strategy
 
 ## Phase 1: Centralized Service Layer (Current)
@@ -5822,6 +6434,20 @@ Pivot_Qdrant_Client
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Qdrant Swift Client
 
 ## Core Types
@@ -6019,6 +6645,20 @@ Pivot_Rapid_Development
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Rapid Development Sequence
 
 ## 1. Core Wallet Integration (Week 1)
@@ -6146,6 +6786,217 @@ struct DailyCycle {
 
 Ready to start with the wallet integration?
 
+=== File: docs/Pivot_Report.md ===
+
+
+
+==
+Pivot_Report
+==
+
+
+# Pivot Report: Web to Native + Harmonic Vision
+
+VERSION pivot_report:
+invariants: {
+"Documentation coherence",
+"Vision clarity",
+"Implementation path"
+}
+docs_version: "0.3.0"  # Nov 1, 2024
+
+## Core Vision Shift
+
+1. **Terminology Evolution**
+   - From: Quantum Semantics/Mechanics
+   - To: Harmonic Intelligence/Wave Mechanics
+   - Why: Better reflects natural pattern emergence and resonance
+
+2. **Platform Evolution**
+   - From: Web-centric (Next.js/React)
+   - To: Apple ecosystem native (Swift/SwiftUI)
+   - Why: Superior platform capabilities, especially audio
+
+## Documentation Transformation
+
+1. **Terminology Updates**
+   - Updated core concepts to harmonic model
+   - Replaced quantum references with wave mechanics
+   - Emphasized pattern observation over state
+
+2. **Web Stack Archive**
+   - Archived React/Next.js documentation
+   - Categorized by implementation needs
+   - Created roadmap for Swift replacements
+
+## Swift Documentation Needed
+
+### UI Components
+- SwiftUI replacement for AIResponse
+- SwiftUI replacement for ChoirChat/Updates
+- SwiftUI replacement for ChorusPanel
+- SwiftUI replacement for UserInput
+- SwiftUI architecture for frontend planning
+
+### API Integration
+- Swift client architecture needed
+- Native networking layer
+- Platform integration patterns
+
+## Implementation Priorities
+
+1. **Phase 1: Core Text + Socioeconomics**
+   - Basic thread mechanics
+   - Token system integration
+   - Message approval flow
+   - Prior citations
+
+2. **Phase 1.5: LanceDB Integration**
+   - Multimodal embeddings
+   - Enhanced vector search
+   - Semantic coupling
+
+3. **Phase 2: Native Capabilities**
+   - Voice input/output
+   - Platform integration
+   - Enhanced UI/UX
+
+4. **Phase 3: Platform Features**
+   - Cross-device sync
+   - Background processing
+   - Native notifications
+
+## Documentation Status
+
+1. **Archived Web Components**
+```
+Frontend_AIResponse.md -> ui_components
+Frontend_ChoirChat.md -> ui_components
+Frontend_ChoirChat_UI.md -> ui_components
+Frontend_ChoirChat_update.md -> ui_components
+Frontend_ChorusPanel.md -> ui_components
+Frontend_UserInput.md -> ui_components
+Implementation_Dependencies.md -> api_integration
+Plan_FrontendArchitecture.md -> ui_components
+Plan_FrontendChecklist.md -> ui_components
+```
+
+2. **New Documentation Needed**
+   - SwiftUI component architecture
+   - Native client patterns
+   - Platform integration guides
+   - Audio processing documentation
+
+## Vision Alignment
+
+The pivot to native Apple platforms and Harmonic Intelligence creates:
+
+1. **Better Technical Foundation**
+   - Superior platform capabilities
+   - Native performance
+   - Rich audio integration
+   - Natural user experience
+
+2. **Clearer Mental Model**
+   - Harmonic resonance vs quantum mechanics
+   - Natural pattern emergence
+   - Wave-based value flow
+   - Collective intelligence evolution
+
+3. **Focused Development Path**
+   - iOS first, text first
+   - Clear platform priorities
+   - Natural feature evolution
+   - Community-driven expansion
+
+## Next Steps
+
+1. **Documentation**
+   - Complete Swift architecture docs
+   - Create component guidelines
+   - Update implementation guides
+   - Maintain open development
+
+2. **Implementation**
+   - Begin iOS core development
+   - Focus on text/thread mechanics
+   - Build token integration
+   - Enable prior citations
+
+3. **Community**
+   - Open source core protocol
+   - Encourage Android development
+   - Share API documentation
+   - Build developer tools
+
+The pivot represents both a technical upgrade and a conceptual clarification, setting a strong foundation for Choir's evolution as a Harmonic Intelligence platform.
+
+## Interface Architecture Evolution
+
+### Previous Web Interface
+```
+┌─ ThreadList ─┐┌─── MessageFlow ───┐┌── PriorPanel ──┐
+│             ││                    ││                │
+│ Navigation  ││    AIResponse      ││  Prior List    │
+│  • Threads  ││     • Steps        ││   • Citations  │
+│  • Search   ││     • Progress     ││   • Context    │
+│             ││                    ││                │
+│             ││    MessageInput    ││  PriorDetail   │
+│             ││     • Compose      ││   • Preview    │
+│             ││     • Submit       ││   • Navigate   │
+└─────────────┘└────────────────────┘└───────────────-┘
+```
+
+### Native Evolution Needed
+
+1. **Core Flow Components**
+   - ThreadList → NavigationView + List
+   - MessageFlow → ScrollView + LazyVStack
+   - PriorPanel → SidebarView (iPad/Mac)
+                  BottomSheet (iPhone)
+
+2. **Interaction Patterns**
+   - AIResponse
+     • Steps as cards with transitions
+     • Natural gesture navigation
+     • Spatial audio feedback
+
+   - MessageInput
+     • Voice-first with transcription
+     • Haptic feedback
+     • Keyboard optimization
+
+   - PriorPanel
+     • Quick Look previews
+     • Drag and drop support
+     • Contextual menus
+
+3. **Platform Adaptations**
+```
+┌── iPhone ──┐  ┌──── iPad ────┐  ┌──── Mac ────┐
+│ Portrait:  │  │ SplitView:   │  │ ThreeColumn:│
+│ Stack      │  │ Side-by-Side │  │ Resizable   │
+│            │  │              │  │             │
+│ Landscape: │  │ SlideOver:   │  │ Detachable: │
+│ Side-by-   │  │ Float Prior  │  │ Windows +   │
+│ Side       │  │ Panel        │  │ Spaces      │
+└───────────-┘  └──────────────┘  └────────────-┘
+```
+
+4. **Cross-Device Flow**
+   - Handoff support for threads
+   - iCloud sync for drafts
+   - Shared clipboard for citations
+   - Continuity for audio
+
+5. **Platform Integration**
+   - SharePlay for collaboration
+   - Focus modes for threads
+   - Shortcuts integration
+   - Widget support
+
+This evolution maintains the core interaction model while leveraging native platform capabilities for a more natural, efficient experience.
+
 === File: docs/Pivot_Repository_Split.md ===
 
 
@@ -6155,6 +7006,20 @@ Pivot_Repository_Split
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Repository Split Strategy
 
 ## Overview
@@ -6371,6 +7236,20 @@ Pivot_Service_Actors
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Service Actor Architecture
 
 ## Core Actors
@@ -6527,6 +7406,20 @@ Pivot_Service_Architecture
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Service Layer Architecture
 
 ## Core Protocol
@@ -6661,6 +7554,20 @@ Pivot_Service_Layer
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Service Layer Design
 
 ## iOS Client Abstraction
@@ -6807,6 +7714,20 @@ Pivot_Swift_API_Clients
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Swift API Clients for Development
 
 ## 1. OpenAI Client
@@ -6969,6 +7890,20 @@ Pivot_Swift_Concurrency
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Swift Concurrency Patterns
 
 ## Core Concepts
@@ -7174,6 +8109,20 @@ Pivot_Swift_Patterns
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Swift Design Patterns
 
 ## 1. Actor-Based Services
@@ -7346,6 +8295,20 @@ Pivot_Team_Evolution
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Team Evolution Strategy
 
 ## Phase 1: Vision & Foundation (Current)
@@ -7434,6 +8397,20 @@ Pivot_Token_Evolution
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # CHOIR Token Evolution Strategy
 
 ## Phase 1: Product-Market Fit
@@ -7521,6 +8498,20 @@ Pivot_Two_Phase_Strategy
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir Evolution Strategy
 
 ## Phase 1: Service Layer (Growth Phase)
@@ -7644,6 +8635,20 @@ Pivot_Value_Distribution
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Value Distribution Architecture
 
 ## User-Controlled Value
@@ -7768,6 +8773,20 @@ State_Boundaries
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # State Distribution Across Systems
 
 VERSION state_boundaries:
@@ -8022,6 +9041,20 @@ Summary_Current
 ==
 
 
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Recent Development Insights Summary
 
 ## Essential Questions
@@ -8102,7 +9135,7 @@ Summary_Current
    - UI for showing relationships and equity
 
 5. **Future Implications**
-   - Natural price discovery through quantum mechanics
+   - Natural price discovery through wave mechanics
    - Semantic search through link positions
    - Value flow follows quantum principles
    - Self-organizing knowledge structure
@@ -8113,7 +9146,7 @@ Summary_Current
 2. Update database schema for semantic links
 3. Add thread thermodynamics tracking
 4. Modify UI to show relationships and equity
-5. Add tests for quantum mechanics and semantic integrity
+5. Add tests for wave mechanics and semantic integrity
 
 The key realization is that both value distribution and semantic meaning follow quantum mechanical principles, creating a unified system where equity quantization and semantic links work together to enable natural evolution of knowledge and value.
 
@@ -8141,7 +9174,7 @@ assumptions: {
 "Information preservation",
 "Thoughtspace continuity"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Introduction
 
@@ -8214,7 +9247,7 @@ assumptions: {
 "Hypergraph dynamics",
 "Semantic entanglement"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Introduction
 
@@ -8262,4 +9295,4 @@ At Level 5, we delve into the quantum semantic foundations of Choir, exploring h
 
 ## Conclusion
 
-Level 5 presents a profound integration of quantum semantics, thoughtspace geometry, and hyperedge dynamics within Choir. By embracing these advanced concepts, we unlock deeper insights into the mechanisms of meaning-making, value distribution, and collaborative evolution in semantic networks.
+Level 5 presents a profound integration of harmonic intelligence, thoughtspace geometry, and hyperedge dynamics within Choir. By embracing these advanced concepts, we unlock deeper insights into the mechanisms of meaning-making, value distribution, and collaborative evolution in semantic networks.

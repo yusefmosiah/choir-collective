@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # ChorusPanel Component Specification
 
 VERSION chorus_panel_system:

@@ -1,3 +1,18 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Frontend Architecture Plan
 
 VERSION frontend_arch:
@@ -11,44 +26,49 @@ assumptions: {
 "Vector space stability",
 "State synchronization"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Core Components
 
 1. **AIResponse Component**
+
    ```typescript
    // Step visualization with prior handling
    interface AIResponseProps {
      message: Message;
      currentStep: ChorusStep;
      steps: Step[];
-     sources: Prior[];  // From EXPERIENCE step
+     sources: Prior[]; // From EXPERIENCE step
    }
    ```
 
    Key Features:
+
    - Step-by-step visualization
    - Prior display in EXPERIENCE
    - Citation rendering in YIELD
    - Loading states per step
 
 2. **PriorPanel Component**
+
    ```typescript
    // Prior display and interaction
    interface PriorPanelProps {
-     priors?: Prior[];      // From EXPERIENCE step
+     priors?: Prior[]; // From EXPERIENCE step
      onSelect?: (prior: Prior) => void;
      selectedPriors?: Prior[];
    }
    ```
 
    Key Features:
+
    - Show all priors in EXPERIENCE
    - Prior preview cards
    - Citation tooltips
    - Source navigation
 
 3. **MessageFlow Component**
+
    ```typescript
    // Message and step display
    interface MessageFlowProps {
@@ -60,6 +80,7 @@ docs_version: "0.2.2"
    ```
 
    Key Features:
+
    - Message rendering
    - Step transitions
    - Prior integration
@@ -68,17 +89,19 @@ docs_version: "0.2.2"
 ## State Management
 
 1. **Chorus Cycle State**
+
    ```typescript
    // useChorusCycle hook
    interface ChorusState {
      currentStep: ChorusStep;
      steps: Step[];
-     priors?: Prior[];     // From EXPERIENCE
+     priors?: Prior[]; // From EXPERIENCE
      effects: Effect[];
    }
    ```
 
 2. **Effect Handling**
+
    ```typescript
    // Effect processing
    type Effect = {
@@ -86,9 +109,9 @@ docs_version: "0.2.2"
      payload: {
        step: ChorusStep;
        content: string;
-       priors?: Prior[];  // Only in EXPERIENCE
+       priors?: Prior[]; // Only in EXPERIENCE
      };
-   }
+   };
    ```
 
 3. **WebSocket Integration**
@@ -104,6 +127,7 @@ docs_version: "0.2.2"
 ## UI Flow
 
 1. **Prior Flow**
+
    ```typescript
    // EXPERIENCE: Show all priors
    <PriorPanel priors={step.priors} />
@@ -136,12 +160,14 @@ docs_version: "0.2.2"
 ## Implementation Notes
 
 1. **Prior Handling**
+
    - Show all priors in EXPERIENCE
    - Enable prior preview
    - Support citation navigation
    - Track semantic links
 
 2. **Effect Processing**
+
    - Clean effect types
    - Proper accumulation
    - UI synchronization
@@ -156,12 +182,14 @@ docs_version: "0.2.2"
 ## Success Metrics
 
 1. **User Experience**
+
    - Clear step progression
    - Natural prior flow
    - Smooth transitions
    - Responsive feedback
 
 2. **Technical Quality**
+
    - Clean component hierarchy
    - Type safety
    - Effect coherence
@@ -174,6 +202,7 @@ docs_version: "0.2.2"
    - Memory management
 
 Through this architecture, we create a frontend that:
+
 - Maintains prior flow integrity
 - Preserves effect coherence
 - Enables natural citations

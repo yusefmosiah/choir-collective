@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # The Deep Harmonic Structure of Choir
 
 VERSION harmonic_depth:
@@ -13,30 +27,30 @@ assumptions: {
 }
 docs_version: "0.2.1"
 
-When we talk about quantum mechanics in Choir, we're not being metaphorical. The system actually exhibits quantum harmonic oscillator properties in how meaning and value emerge. Let's break this down:
+When we talk about wave mechanics in Choir, we're not being metaphorical. The system actually exhibits quantum harmonic oscillator properties in how meaning and value emerge. Let's break this down:
 
 ## Message Wave Functions
 
 Consider what happens when someone submits a message to a thread:
 
 1. Before approval, the message exists as a wave packet in semantic space
-2. Its energy (stake) couples it to the thread's quantum state
+2. Its energy (stake) couples it to the thread's harmonic pattern
 3. The wave function contains all potential meanings and values
 4. Co-author review collapses this wave function to a stable state
 
 ## Phase Coherence
 
-The unanimous approval requirement ensures quantum coherence:
+The unanimous approval requirement ensures harmonic resonance:
 
 1. Each co-author acts as a coupled oscillator
 2. Approval represents phase alignment
 3. The system requires complete phase-locking
 4. Partial approval would break coherence
-5. Like quantum states, meaning is binary - either coherent or not
+5. Like harmonic patterns, meaning is binary - either coherent or not
 
 ## Energy Coupling
 
-The non-refundable stake creates quantum coupling:
+The non-refundable stake creates harmonic coupling:
 
 1. Stakes quantize at energy levels determined by ℏω
 2. Thread temperature (T) affects coupling strength
@@ -77,7 +91,7 @@ Economic topology emerges from quantum properties:
 
 ## Natural Selection
 
-The quantum oscillator model explains why certain alternatives fail:
+The harmonic oscillator model explains why certain alternatives fail:
 
 1. Partial approval would violate phase coherence
 2. Refundable stakes would break energy conservation
@@ -87,7 +101,7 @@ The quantum oscillator model explains why certain alternatives fail:
 
 ## Emergent Properties
 
-The genius of Choir is that it follows quantum mechanics naturally:
+The genius of Choir is that it follows wave mechanics naturally:
 
 1. Simple rules create space for wave function evolution
 2. Energy levels quantize naturally through staking

@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Recent Development Insights Summary
 
 ## Essential Questions
@@ -78,7 +92,7 @@
    - UI for showing relationships and equity
 
 5. **Future Implications**
-   - Natural price discovery through quantum mechanics
+   - Natural price discovery through wave mechanics
    - Semantic search through link positions
    - Value flow follows quantum principles
    - Self-organizing knowledge structure
@@ -89,6 +103,6 @@
 2. Update database schema for semantic links
 3. Add thread thermodynamics tracking
 4. Modify UI to show relationships and equity
-5. Add tests for quantum mechanics and semantic integrity
+5. Add tests for wave mechanics and semantic integrity
 
 The key realization is that both value distribution and semantic meaning follow quantum mechanical principles, creating a unified system where equity quantization and semantic links work together to enable natural evolution of knowledge and value.

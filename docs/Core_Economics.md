@@ -1,3 +1,18 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+
 # Harmonic Economic Model
 
 VERSION harmonic_economic:
@@ -13,20 +28,21 @@ assumptions: {
 "Harmonic distribution",
 "Continuous stake scaling"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Token Flow as Wave Mechanics
 
 TYPE TokenFlow = {
-treasury: ResonantWell,      // Global field + split decision approver share
+treasury: ResonantWell, // Global field + split decision approver share
 threads: Map<ThreadId, ResonantCavity>, // Temperature and frequency
-stakes: Map<Hash, WavePacket>,  // Quantum contributions
+stakes: Map<Hash, WavePacket>, // Quantum contributions
 equity: Map<ThreadId, Map<PublicKey, float>> // Ownership shares
 }
 
 ## Quantum Equity Distribution
 
 1. **Base Price Function**
+
 ```
 P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
 
@@ -38,6 +54,7 @@ where:
 ```
 
 2. **Equity Scaling Function**
+
 ```
 E(s) = (1/N) * √(s/P₀)
 
@@ -49,6 +66,7 @@ where:
 ```
 
 3. **Examples**
+
 ```python
 # For a thread with N co-authors:
 stake = P₀/4  -> equity = (1/2N)  # Quarter stake
@@ -59,18 +77,21 @@ stake = 4P₀   -> equity = (2/N)   # Double quantum
 ## Token Distribution Mechanics
 
 1. **Unanimous Approval**
+
    - Stake distributes to co-authors based on their equity shares
-   - Each co-author receives: stake_amount * their_equity_share
+   - Each co-author receives: stake_amount \* their_equity_share
    - No tokens added to thread balance
    - Maintains incentive alignment through ownership
 
 2. **Denial Flow**
+
    - Full stake flows to thread (increases temperature)
    - Raises energy barrier for future submissions
    - Creates natural quality filter
    - Temperature affects base price P₀
 
 3. **Split Decision**
+
    - Approvers' share flows to Treasury
    - Deniers' share flows to thread
    - Partial temperature increase
@@ -85,6 +106,7 @@ stake = 4P₀   -> equity = (2/N)   # Double quantum
 ## Resonant Cavity Mechanics
 
 1. **Temperature Evolution**
+
    ```python
    # On denial:
    thread.temperature += stake_energy
@@ -108,12 +130,14 @@ stake = 4P₀   -> equity = (2/N)   # Double quantum
 ## Multi-Scale Resonance
 
 1. **Individual Scale**
+
    - Equity determines reward share
    - Larger stakes get proportionally larger equity
    - Natural √n scaling from physics
    - Continuous stake-to-equity curve
 
 2. **Thread Scale**
+
    - Temperature from denials
    - Frequency from activity
    - Collective equity distribution
@@ -128,6 +152,7 @@ stake = 4P₀   -> equity = (2/N)   # Double quantum
 ## Economic Invariants
 
 1. **Energy Conservation**
+
    ```
    INVARIANT token_conservation:
      treasury_balance +
@@ -144,12 +169,14 @@ stake = 4P₀   -> equity = (2/N)   # Double quantum
    ```
 
 Through this harmonic economic model, we see how:
+
 - Stake amount determines equity share
 - Equity share determines reward distribution
 - Denials increase thread temperature
 - Quality emerges through natural selection
 
 The model creates an economic system that:
+
 - Allows participation at any stake level
 - Rewards contribution proportionally
 - Maintains quantum mechanical principles

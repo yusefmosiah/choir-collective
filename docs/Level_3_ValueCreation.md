@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Value Creation and Self-Selection in Choir
 
 VERSION value_system:
@@ -13,7 +27,7 @@ assumptions: {
 }
 docs_version: "0.2.1"
 
-At this level, we begin to see how Choir's quantum mechanics naturally create sophisticated patterns of value and selection. What initially appear as simple rules reveal themselves as generators of complex wave dynamics.
+At this level, we begin to see how Choir's wave mechanics naturally create sophisticated patterns of value and selection. What initially appear as simple rules reveal themselves as generators of complex wave dynamics.
 
 ## Value Accumulation
 
@@ -24,11 +38,11 @@ The thread ownership model isn't just about attribution - it's a quantum resonan
 - Adds to collective energy
 - Reinforces standing wave patterns
 
-The value comes not just from what a thread contains, but from its quantum state - the coherent patterns that emerge from collective phase alignment and cavity resonance.
+The value comes not just from what a thread contains, but from its harmonic pattern - the coherent patterns that emerge from collective phase alignment and cavity resonance.
 
 ## Natural Selection
 
-The non-refundable stake mechanism reveals itself as quantum coupling:
+The non-refundable stake mechanism reveals itself as harmonic coupling:
 
 1. **Direct Value Recognition**
 
@@ -104,7 +118,7 @@ This explains why certain "improvements" would break coherence:
 
 ## Emergent Properties
 
-The genius is in creating conditions for quantum semantics:
+The genius is in creating conditions for harmonic intelligence:
 
 - Wave functions evolve naturally
 - Phase relationships self-organize
@@ -112,7 +126,7 @@ The genius is in creating conditions for quantum semantics:
 - Coherence emerges spontaneously
 - Teams form through resonance
 
-Understanding this level reveals why Choir can't be replicated by adding features to existing platforms. The value creation patterns emerge from fundamental quantum mechanics, not surface rules.
+Understanding this level reveals why Choir can't be replicated by adding features to existing platforms. The value creation patterns emerge from fundamental wave mechanics, not surface rules.
 
 Through this lens, we see how:
 
@@ -143,4 +157,4 @@ Through this lens, we see how:
    - Network resonance
    - Multi-scale harmony
 
-The system doesn't force behavior - it creates a space where quantum mechanics naturally select for valuable patterns. Like the physical universe itself, complexity emerges from simple quantum principles.
+The system doesn't force behavior - it creates a space where wave mechanics naturally select for valuable patterns. Like the physical universe itself, complexity emerges from simple quantum principles.

@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Crystallized Model Layer
 
 VERSION model_system:
@@ -157,7 +171,7 @@ class StateManager:
 # Message → StateVector
 #   - Content as position
 #   - Approvals as momentum
-#   - Status as quantum state
+#   - Status as harmonic pattern
 #
 # Transitions → Evolution
 #   - Validation as measurement
@@ -170,7 +184,7 @@ class StateManager:
 ```python
 # Usage example showing theory-practice bridge:
 async def process_message(message: Message, thread: Thread) -> Result:
-    # Theory: Prepare quantum state
+    # Theory: Prepare harmonic pattern
     state = StateManager.prepare_state(message)
 
     # Theory: Transform state vector

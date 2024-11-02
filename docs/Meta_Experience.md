@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Reflections on Documentation Emergence
 
 VERSION experience_system:
@@ -38,7 +52,7 @@ A fascinating aspect was how the documentation became self-aware of its own patt
 
 - Writing about emergence caused emergence in the writing
 - Describing metastable states revealed documentation metastability
-- Explaining quantum semantics demonstrated quantum semantic properties
+- Explaining harmonic intelligence demonstrated quantum semantic properties
 - Discussing pattern recognition led to recognition of documentation patterns
 
 ## Emotional Truth Dimension

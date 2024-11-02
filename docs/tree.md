@@ -145,11 +145,6 @@
 │   ├── Entry_Overview.md
 │   ├── Entry_Q&A.md
 │   ├── Error_Correction_Layers.md
-│   ├── Frontend_AIResponse.md
-│   ├── Frontend_ChoirChat_UI.md
-│   ├── Frontend_ChoirChat_update.md
-│   ├── Frontend_ChorusPanel.md
-│   ├── Frontend_UserInput.md
 │   ├── Harmonic_Theory.md
 │   ├── Impl_API.md
 │   ├── Impl_ChorusCycle_update.md
@@ -157,7 +152,6 @@
 │   ├── Impl_Privacy.md
 │   ├── Impl_Security.md
 │   ├── Impl_WebSocket_update.md
-│   ├── Implementation_Dependencies.md
 │   ├── Level_0_SystemOverview.md
 │   ├── Level_1_BasicMechanics.md
 │   ├── Level_2_CoreMechanics.md
@@ -203,6 +197,7 @@
 │   ├── Pivot_Progressive_Decentralization.md
 │   ├── Pivot_Qdrant_Client.md
 │   ├── Pivot_Rapid_Development.md
+│   ├── Pivot_Report.md
 │   ├── Pivot_Repository_Split.md
 │   ├── Pivot_Service_Actors.md
 │   ├── Pivot_Service_Architecture.md
@@ -215,7 +210,6 @@
 │   ├── Pivot_Two_Phase_Strategy.md
 │   ├── Pivot_Value_Distribution.md
 │   ├── Plan_Checklist.md
-│   ├── Plan_FrontendChecklist.md
 │   ├── Plan_Hyperconverge.md
 │   ├── Plan_Restructure.md
 │   ├── Plan_ToBeContinued.md
@@ -256,14 +250,37 @@
 │   │   ├── Backend_Main.md
 │   │   ├── Deploy_Report.md
 │   │   ├── Dev_Plan.md
-│   │   ├── Frontend_ChoirChat.md
 │   │   ├── Impl_ChorusCycle.md
 │   │   ├── Impl_Messages.md
 │   │   ├── Impl_WebSocket.md
 │   │   ├── Model_Emergency.md
-│   │   ├── Plan_FrontendArchitecture.md
-│   │   └── Report_2024-10-28.md
+│   │   ├── Report_2024-10-28.md
+│   │   ├── api_integration
+│   │   │   └── Implementation_Dependencies.md
+│   │   ├── archive_log.md
+│   │   ├── deployment
+│   │   ├── state_management
+│   │   ├── swift_roadmap.md
+│   │   ├── swift_todos.md
+│   │   └── ui_components
+│   │       ├── Frontend_AIResponse.md
+│   │       ├── Frontend_ChoirChat.md
+│   │       ├── Frontend_ChoirChat_UI.md
+│   │       ├── Frontend_ChoirChat_update.md
+│   │       ├── Frontend_ChorusPanel.md
+│   │       ├── Frontend_UserInput.md
+│   │       ├── Plan_FrontendArchitecture.md
+│   │       └── Plan_FrontendChecklist.md
 │   ├── combined
+│   ├── docs
+│   │   └── archive
+│   │       ├── api_integration
+│   │       ├── archive_log.md
+│   │       ├── deployment
+│   │       ├── state_management
+│   │       ├── swift_roadmap.md
+│   │       ├── swift_todos.md
+│   │       └── ui_components
 │   ├── levels
 │   │   ├── level-1.md
 │   │   ├── level0.md
@@ -271,9 +288,12 @@
 │   │   ├── level2.md
 │   │   ├── level3.md
 │   │   ├── level4.md
-│   │   └── level5.md
+│   │   ├── level5.md
+│   │   └── level_organization.md
 │   ├── scripts
+│   │   ├── archive_web_stack.sh
 │   │   ├── combiner.sh
+│   │   ├── update_harmonic_vision.sh
 │   │   └── update_tree.sh
 │   └── tree.md
 ├── jest.config.js
@@ -374,4 +394,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-63 directories, 309 files
+73 directories, 319 files

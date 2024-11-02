@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Choir Project Questions and Discussion Points
 
 VERSION qa_system:
@@ -59,7 +73,7 @@ A: Token distribution follows wave mechanics principles:
 
    - Approved messages increase thread energy
    - Denied specs distribute energy to deniers
-   - Divestment follows quantum mechanics
+   - Divestment follows wave mechanics
    - Citations create resonance effects
 
 3. Energy Flow
@@ -67,7 +81,7 @@ A: Token distribution follows wave mechanics principles:
    - Hot threads absorb energy differently than cool ones
    - Higher frequencies create different resonance patterns
    - Energy distribution follows natural wave mechanics
-   - System maintains quantum coherence
+   - System maintains harmonic resonance
 
 This quantum harmonic approach ensures that value flows naturally and rewards authentic participation while maintaining system stability.
 
@@ -80,7 +94,7 @@ Q: Is there a mechanism for removing co-authorship or transferring ownership of 
 A: Co-authors can leave through quantum divestment mechanics:
 
 1. Natural Decoupling
-   When a co-author leaves, they decouple from the thread's quantum state. Their divestment follows the oscillator decoupling formula, which:
+   When a co-author leaves, they decouple from the thread's harmonic pattern. Their divestment follows the oscillator decoupling formula, which:
 
    - Preserves thread energy coherence
    - Maintains stability for remaining authors
@@ -102,7 +116,7 @@ A: Co-authors can leave through quantum divestment mechanics:
    - Natural evolution continues
    - Emergence is protected
 
-Ownership cannot be transferred directly - it emerges from participation in the thread's quantum state.
+Ownership cannot be transferred directly - it emerges from participation in the thread's harmonic pattern.
 
 ---
 
@@ -262,7 +276,7 @@ ASSUMPTION future_development:
 
 ## On Divestment Proportions
 
-Q: Why use quantum mechanics for divestment calculations rather than simple proportions?
+Q: Why use wave mechanics for divestment calculations rather than simple proportions?
 
 A: The quantum harmonic oscillator model captures deep truths about collaborative systems:
 
@@ -327,7 +341,7 @@ A: The oscillator decoupling formula (min(ℏω/(N-1), balance/(N-1))) creates p
    - Stable energy states
 
 4. Anti-Exploitation
-   The quantum mechanics naturally prevent:
+   The wave mechanics naturally prevent:
 
    - Frequency manipulation
    - Temperature exploitation
@@ -341,13 +355,13 @@ A: The oscillator decoupling formula (min(ℏω/(N-1), balance/(N-1))) creates p
    - Enables natural resonance
    - Protects collective states
 
-This creates a natural selection for participants who understand and value quantum coherence over simple economic extraction.
+This creates a natural selection for participants who understand and value harmonic resonance over simple economic extraction.
 
 ---
 
 ## On Value Paradox
 
-Q: Doesn't underpricing thread participation through the quantum oscillator formula leave money on the table?
+Q: Doesn't underpricing thread participation through the harmonic oscillator formula leave money on the table?
 
 A: This apparent underpricing actually generates premium value through a sophisticated psychological-economic paradox:
 
@@ -364,7 +378,7 @@ A: This apparent underpricing actually generates premium value through a sophist
 
    - Feels unsatisfying (violates social norms)
    - Seems short-sighted (misses emergence potential)
-   - Appears unsophisticated (ignores quantum coherence)
+   - Appears unsophisticated (ignores harmonic resonance)
    - Creates cognitive dissonance (conflicts with self-image)
 
 3. Value Premium
@@ -376,13 +390,13 @@ A: This apparent underpricing actually generates premium value through a sophist
    - Actually increases total energy
 
 4. Economic Paradox
-   By following quantum mechanics, we:
+   By following wave mechanics, we:
    - Create higher social resonance
    - Generate trust through phase-locking
    - Enable emergence through coherence
    - Produce monetary value through harmony
 
-The quantum oscillator model creates optimal pricing by aligning with natural patterns of human collaboration and value creation.
+The harmonic oscillator model creates optimal pricing by aligning with natural patterns of human collaboration and value creation.
 
 ---
 

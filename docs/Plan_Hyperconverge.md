@@ -1,3 +1,17 @@
+# Choir: Harmonic Intelligence Platform
+
+VERSION harmonic_system:
+invariants: {
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
+}
+assumptions: {
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
+}
+docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
 # Development Pattern Convergence
 
 VERSION convergence_system:
@@ -47,7 +61,7 @@ YIELD:
 def calculate_equity(stake: float, base_price: float, N: int) -> float:
     """
     stake: Any positive amount
-    base_price: P₀ from quantum oscillator
+    base_price: P₀ from harmonic oscillator
     N: Current number of co-authors
     """
     return (1/N) * math.sqrt(stake/base_price)
@@ -126,7 +140,7 @@ src/
    - Implement equity calculation
    - Add stake validation
    - Update reward distribution
-   - Test quantum mechanics
+   - Test wave mechanics
 
 2. **Semantic Integration**
    - Complete link recording

@@ -13,7 +13,7 @@ assumptions: {
 "Information preservation",
 "Thoughtspace continuity"
 }
-docs_version: "0.2.2"
+docs_version: "0.3.0" # Post-alignment vision, Nov 2024
 
 ## Introduction
 
