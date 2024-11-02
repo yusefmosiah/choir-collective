@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Define level prefixes as simple arrays
-level0_prefixes=("Solana" "Frontend" "Backend" "Deploy" "Implementation" "Data" "Error" "Reward" "Impl")
+level0_prefixes=("Solana" "Frontend" "Backend" "Deploy" "Implementation" "data" "Error" "reward" "Impl")
 level1_prefixes=("e" "Entry" "Dev" "Plan" "Tech" "Level" "Current" "Prompt")
-level2_prefixes=("Core" "State" "Summary" "Pivot" "goal")
-level3_prefixes=("Theory" "V10" "V12")
+level2_prefixes=("core" "State" "Summary" "Pivot" "goal")
+level3_prefixes=("theory" "V10" "V12")
 level4_prefixes=("Model" "Emergence" "Meta")
 level5_prefixes=("Harmonic")
 

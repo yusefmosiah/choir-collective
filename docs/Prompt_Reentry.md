@@ -1,266 +1,142 @@
-# Choir: Harmonic Intelligence Platform
+# AI Model Re-Entry Guide
 
-VERSION harmonic_system:
+VERSION reentry_prompt:
 invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
+"Event coherence",
+"Pattern recognition",
+"Natural flow"
 }
 assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
+"AI model capabilities",
+"Documentation context",
+"System understanding"
 }
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# Choir System Re-Entry Guide
+docs_version: "0.3.0"
 
-VERSION reentry_guide:
-invariants: {
-"System coherence",
-"Prior flow",
-"Effect propagation"
-}
-docs_version: "0.2.1"
+You are being provided with the Choir codebase and documentation. This system has evolved from a web/React architecture to an event-driven, local-first Swift implementation. Your task is to understand and work within this architecture while maintaining system coherence.
 
-## Core Components
+## Core Architecture
 
-1. **Chorus Cycle (Backend)**
-```python
-# api/app/chorus_cycle.py
-- AEIOU-Y step sequence:
-  ACTION: Initial "beginner's mind" response
-  EXPERIENCE: Gets n=80 priors, uses for context
-  INTENTION: Analyzes in context of user's goal
-  OBSERVATION: Records semantic links in Qdrant
-  UPDATE: Loop or proceed decision
-  YIELD: Natural citation integration
+The system operates through:
 
-- Effect accumulation pattern
-- Prior flow through steps
-- JSON responses from OpenAI
-```
+Event-Driven Flow
+- Local events create waves of state change
+- Chain events provide state authority
+- Vector events handle content/embeddings
+- Events flow naturally through the system
 
-2. **Three-Panel UI (Frontend)**
-```typescript
-// src/components/ChoirChat/ChoirChat.tsx
-<div className="flex w-full h-full">
-  <ThreadList />      // Left (w-64): Navigation
-  <MessageFlow />     // Center (flex-1): Messages
-  <PriorPanel />      // Right (w-80): Priors
-</div>
-```
+Actor-Based Isolation
+- Each domain lives in its own actor
+- Actors communicate through events
+- State remains properly isolated
+- Resources cleanly managed
 
-3. **Vector Storage (Qdrant)**
-```python
-# api/app/database.py
-- Messages with embeddings
-- Semantic link recording
-- Prior search (n=80)
-- Thread organization
-```
+Local-First Design
+- SwiftData for local events
+- Chain for state authority
+- LanceDB for content/embeddings
+- Natural sync patterns
 
-## Current Development Priorities
+## Key Components
 
-1. **Prior Flow**
-   - EXPERIENCE gets priors
-   - INTENTION analyzes for user goal
-   - OBSERVATION records links
-   - YIELD integrates citations
+Chorus Cycle
+- AEIOU-Y step sequence
+- Event-driven transitions
+- Effect accumulation
+- Prior flow
+- Natural evolution
 
-2. **Effect System**
-   - Clear effect types
-   - Proper accumulation
-   - UI synchronization
-   - Error handling
+Value Creation
+- Quality emerges through events
+- Teams form through resonance
+- Value crystallizes at nodes
+- Knowledge grows naturally
+- System evolves coherently
 
-3. **State Management**
-   - Thread state
-   - Chorus state
-   - UI state
-   - WebSocket state
+Pattern Recognition
+- Events reveal patterns
+- Teams recognize value
+- Knowledge accumulates
+- Understanding grows
+- Evolution emerges
 
-## Key Files & Responsibilities
+## Development Priorities
 
-```
-api/
-├── app/
-│   ├── chorus_cycle.py   # Core cycle, effects, priors
-│   ├── database.py       # Vector storage, semantic links
-│   ├── models.py         # Data models, state types
-│   └── websocket.py      # Real-time communication
+1. Event Integrity
+- Clean event types
+- Proper handling
+- Local persistence
+- Natural flow
 
-src/
-├── components/
-│   ├── ChoirChat/        # Layout, coordination
-│   ├── AIResponse/       # Step visualization
-│   └── PriorPanel/       # Prior display
-├── hooks/
-│   ├── useThread.ts      # Thread state
-│   ├── useChorusCycle.ts # Cycle state
-│   └── useWebSocket.ts   # WebSocket state
-└── types/
-    └── index.ts          # Type definitions
-```
+2. Pattern Emergence
+- Event analysis
+- Pattern tracking
+- Value evolution
+- System growth
 
-## Data Flow Patterns
+3. State Coherence
+- Local-first state
+- Chain verification
+- Pattern recognition
+- Natural evolution
 
-1. **Prior Flow**
-```python
-# EXPERIENCE
-priors = await search_similar(input, limit=80)
-return synthesis, priors  # All priors
+## Working with the System
 
-# INTENTION
-analyze_for_user_goal(priors, intent)
+When examining code or documentation:
 
-# OBSERVATION
-record_semantic_links(input, cited_priors)
+1. Look For
+- Event patterns
+- Actor isolation
+- Local-first design
+- Natural evolution
+- System coherence
 
-# YIELD
-generate_with_citations(input, priors)
-```
+2. Maintain
+- Event integrity
+- Pattern recognition
+- Value preservation
+- Natural flow
+- System growth
 
-2. **Effect Flow**
-```typescript
-type Effect = {
-  type: "chorus_response" | "error" | "state_update";
-  payload: {
-    step: ChorusStep;
-    content: string;
-    priors?: Prior[];  // Only in EXPERIENCE
-  };
-}
-```
+3. Enable
+- Quality emergence
+- Team formation
+- Value crystallization
+- Knowledge growth
+- Pattern evolution
 
-3. **State Flow**
-```typescript
-ThreadState -> ChorusState -> WebSocket -> UI State
-```
+## Implementation Guide
 
-## Implementation Details
+When implementing features:
 
-1. **Chorus Cycle Implementation**
-```python
-# Current step functions:
-async def run_action(input: str):
-    # Initial "beginner's mind" response
-    # No priors, pure response
+1. Start with Events
+- Define event types
+- Plan event flow
+- Enable natural patterns
+- Maintain coherence
 
-async def run_experience(input: str):
-    # Get n=80 priors
-    # Use for context enrichment
-    # Return (response, all_priors)
+2. Use Actors
+- Proper isolation
+- Event-based communication
+- Resource management
+- Pattern emergence
 
-async def run_intention(input: str):
-    # Analyze in context of user's goal
-    # Consider how priors support intent
-    # No filtering yet
+3. Think Local-First
+- SwiftData for events
+- Chain for authority
+- Natural sync
+- Pattern evolution
 
-async def run_observation(input: str):
-    # Record semantic links in Qdrant
-    # Store which priors were cited
-    # Build knowledge graph
+Your role is to:
+1. Understand the event-driven patterns
+2. Maintain actor isolation
+3. Follow local-first design
+4. Enable natural evolution
+5. Preserve system coherence
 
-async def run_yield(input: str):
-    # Generate final response
-    # Natural citation integration
-    # Markdown formatting
-```
-
-2. **Effect System**
-```typescript
-// Effect accumulation
-effects = []
-while (currentStep !== "yield") {
-  const [newState, stepEffects] = await runStep(state, input)
-  effects.push(...stepEffects)
-}
-
-// Effect types
-type Effect = {
-  type: "chorus_response",
-  payload: {
-    step: ChorusStep,
-    content: string,
-    priors?: Prior[]  // Only in EXPERIENCE
-  }
-}
-```
-
-3. **Prior Flow**
-```python
-# EXPERIENCE
-priors = await search_similar(input, limit=80)
-return synthesis, priors  # All priors
-
-# INTENTION
-analyze_for_user_goal(priors, intent)
-
-# OBSERVATION
-record_semantic_links(input, cited_priors)
-
-# YIELD
-generate_with_citations(input, priors)
-```
-
-## Current Priorities
-
-1. **Prior Integration**
-   - Proper flow through cycle
-   - Natural citation integration
-   - Semantic link recording
-   - Knowledge graph building
-
-2. **Effect System**
-   - Clean effect types
-   - Proper accumulation
-   - UI synchronization
-   - Error handling
-
-3. **UI Components**
-   - Three-panel layout
-   - Step visualization
-   - Prior display
-   - Citation rendering
-
-## Next Steps
-
-1. **Immediate**
-   - Update step prompts
-   - Implement semantic recording
-   - Clean up effect types
-   - Fix prior flow
-
-2. **Short Term**
-   - Enhance citation UI
-   - Improve error handling
-   - Add loading states
-   - Polish animations
-
-3. **Medium Term**
-   - Knowledge graph visualization
-   - Enhanced search capabilities
-   - Thread analytics
-   - Performance optimization
-
-## Development Patterns
-
-1. **Documentation First**
-   - Update docs before code
-   - Clear type definitions
-   - Step documentation
-   - Flow diagrams
-
-2. **Testing Strategy**
-   - Unit test steps
-   - Integration test cycle
-   - UI component tests
-   - Effect handling tests
-
-3. **Code Organization**
-   - Clear module boundaries
-   - Consistent patterns
-   - Type safety
-   - Error handling
-
-The system is evolving toward a coherent implementation of the quantum semantic model while maintaining practical usability.
+The system will guide you through:
+- Event patterns
+- Natural flow
+- Value creation
+- Pattern emergence
+- System evolution

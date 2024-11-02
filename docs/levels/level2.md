@@ -2,270 +2,1432 @@
 
 
 
-=== File: docs/Summary_Current.md ===
+=== File: docs/core_architecture.md ===
 
 
 
 ==
-Summary_Current
+core_architecture
 ==
 
 
-# Choir: Harmonic Intelligence Platform
+# Core System Architecture
 
-VERSION harmonic_system:
+VERSION core_architecture:
 invariants: {
-"Wave resonance",
+"Event integrity",
+"Domain isolation",
+"Local-first data"
+}
+assumptions: {
+"Swift concurrency",
+"Actor isolation",
+"Event-driven flow"
+}
+docs_version: "0.3.0"
+
+## Domain Events
+
+Core event types that drive the system:
+
+```swift
+// Base event protocol
+protocol DomainEvent: Sendable {
+    var id: UUID { get }
+    var timestamp: Date { get }
+    var metadata: EventMetadata { get }
+}
+
+// Chorus cycle events
+enum ChorusEvent: DomainEvent {
+    case cycleStarted(input: String)
+    case actionGenerated(response: String, confidence: Float)
+    case priorsFound(count: Int, relevance: Float)
+    case intentionIdentified(goal: String)
+    case linksRecorded(count: Int)
+    case cycleCompleted(Response)
+
+    var id: UUID
+    var timestamp: Date
+    var metadata: EventMetadata
+}
+
+// Economic events
+enum EconomicEvent: DomainEvent {
+    case stakeDeposited(amount: TokenAmount)
+    case temperatureChanged(delta: Float)
+    case equityDistributed(shares: [PublicKey: Float])
+    case rewardsIssued(amount: TokenAmount)
+
+    var id: UUID
+    var timestamp: Date
+    var metadata: EventMetadata
+}
+
+// Knowledge events
+enum KnowledgeEvent: DomainEvent {
+    case vectorStored(embedding: [Float])
+    case citationRecorded(source: Prior, target: Message)
+    case linkStrengthened(from: Prior, to: Prior, weight: Float)
+    case graphUpdated(nodes: Int, edges: Int)
+
+    var id: UUID
+    var timestamp: Date
+    var metadata: EventMetadata
+}
+```
+
+## Event Store
+
+Thread-safe event persistence and distribution:
+
+```swift
+// Central event store
+actor EventStore {
+    private var events: [DomainEvent] = []
+    private var subscribers: [EventSubscriber] = []
+
+    // Store and distribute events
+    func append(_ event: DomainEvent) async throws {
+        events.append(event)
+
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            // Notify all subscribers
+            for subscriber in subscribers {
+                group.addTask {
+                    try await subscriber.handle(event)
+                }
+            }
+            try await group.waitForAll()
+        }
+    }
+
+    // Event replay capability
+    func replay(from: Date) async throws {
+        let relevantEvents = events.filter { $0.timestamp >= from }
+        for event in relevantEvents {
+            try await broadcast(event)
+        }
+    }
+}
+```
+
+## Event Handlers
+
+Domain-specific event processing:
+
+```swift
+// Event handling protocol
+protocol EventHandler: Actor {
+    func handle(_ event: DomainEvent) async throws
+}
+
+// Chorus cycle handler
+actor ChorusHandler: EventHandler {
+    private let cycle: ChorusCycleManager
+
+    func handle(_ event: DomainEvent) async throws {
+        guard let chorusEvent = event as? ChorusEvent else { return }
+
+        switch chorusEvent {
+        case .cycleStarted(let input):
+            try await cycle.beginCycle(input)
+        case .priorsFound(let count, let relevance):
+            try await cycle.processPriors(count, relevance)
+        case .cycleCompleted(let response):
+            try await cycle.finalizeCycle(response)
+        }
+    }
+}
+
+// Economic handler
+actor EconomicHandler: EventHandler {
+    private let engine: EconomicEngine
+
+    func handle(_ event: DomainEvent) async throws {
+        guard let economicEvent = event as? EconomicEvent else { return }
+
+        switch economicEvent {
+        case .stakeDeposited(let amount):
+            try await engine.processStake(amount)
+        case .temperatureChanged(let delta):
+            try await engine.updateTemperature(delta)
+        }
+    }
+}
+```
+
+## System Coordination
+
+Event-driven system integration:
+
+```swift
+// Central coordinator
+actor SystemCoordinator {
+    private let eventStore: EventStore
+    private let handlers: [EventHandler]
+
+    // Process user input through events
+    func processInput(_ input: String) async throws {
+        // Generate initial event
+        let startEvent = ChorusEvent.cycleStarted(input: input)
+        try await eventStore.append(startEvent)
+
+        // System evolves through event chain
+        try await withTaskCancellationHandler {
+            // Events flow through system
+            for try await event in eventStream(for: input) {
+                try await eventStore.append(event)
+            }
+        } onCancel: {
+            Task {
+                try? await cleanup(input)
+            }
+        }
+    }
+
+    // Event stream processing
+    private func eventStream(for input: String) -> AsyncStream<DomainEvent> {
+        AsyncStream { continuation in
+            // Events emerge from domain interactions
+            Task {
+                // System evolution through events
+                // Continuation completes when cycle ends
+            }
+        }
+    }
+}
+```
+
+## Analytics & Monitoring
+
+Event-based system insights:
+
+```swift
+// Analytics handler
+actor AnalyticsHandler: EventHandler {
+    func handle(_ event: DomainEvent) async throws {
+        switch event {
+        case let e as ChorusEvent:
+            try await trackChorusMetrics(e)
+        case let e as EconomicEvent:
+            try await trackEconomicMetrics(e)
+        case let e as KnowledgeEvent:
+            try await trackKnowledgeMetrics(e)
+        default:
+            break
+        }
+    }
+}
+
+// Monitoring handler
+actor MonitoringHandler: EventHandler {
+    func handle(_ event: DomainEvent) async throws {
+        // Track system health metrics
+        try await recordLatency(event)
+        try await checkThresholds(event)
+        try await updateDashboards(event)
+    }
+}
+```
+
+This architecture provides:
+1. Clear event-driven flow
+2. Domain isolation
+3. Rich system history
+4. Natural monitoring
+5. Easy extension
+
+The system ensures:
+- Event integrity
+- Domain boundaries
+- Audit capability
+- Analytics insights
+- System evolution
+
+=== File: docs/core_chorus.md ===
+
+
+
+==
+core_chorus
+==
+
+
+# Core Chorus Cycle
+
+VERSION core_chorus:
+invariants: {
+"Event sequence integrity",
+"Effect conservation",
+"Prior coherence"
+}
+assumptions: {
+"Swift concurrency",
+"Event-driven flow",
+"Local-first processing"
+}
+docs_version: "0.3.0"
+
+## Cycle Events
+
+Detailed events for each step:
+
+```swift
+// Fine-grained chorus cycle events
+enum ChorusEvent: DomainEvent {
+    // ACTION events
+    case actionStarted(input: String)
+    case actionGenerated(response: String, confidence: Float)
+    case actionCompleted(Effect)
+
+    // EXPERIENCE events
+    case priorSearchStarted(query: String)
+    case priorsFound(count: Int, relevance: Float)
+    case priorSynthesisCompleted(Effect)
+
+    // INTENTION events
+    case intentionAnalysisStarted
+    case goalIdentified(goal: String, alignment: Float)
+    case intentionEffectGenerated(Effect)
+
+    // OBSERVATION events
+    case linkRecordingStarted(priors: [Prior])
+    case linksRecorded(count: Int)
+    case observationEffectGenerated(Effect)
+
+    // UPDATE events
+    case cycleUpdateStarted
+    case loopDecided(shouldLoop: Bool, reason: String)
+    case updateEffectGenerated(Effect)
+
+    // YIELD events
+    case yieldStarted(effects: [Effect])
+    case citationsGenerated(count: Int)
+    case cycleCompleted(Response)
+
+    var id: UUID
+    var timestamp: Date
+    var metadata: EventMetadata
+}
+```
+
+## Cycle Manager
+
+Event-driven cycle coordination:
+
+```swift
+// Core cycle manager
+actor ChorusCycleManager {
+    private let eventStore: EventStore
+    private let llm: LLMActor
+    private let vectors: VectorStore
+
+    // Run cycle through event sequence
+    func runCycle(_ input: String) async throws -> Response {
+        // Start cycle
+        try await eventStore.append(.actionStarted(input: input))
+
+        // Process through steps
+        try await withTaskCancellationHandler {
+            // ACTION
+            let actionEffect = try await processAction(input)
+            try await eventStore.append(.actionCompleted(actionEffect))
+
+            // EXPERIENCE
+            let priorEffect = try await processExperience(input)
+            try await eventStore.append(.priorSynthesisCompleted(priorEffect))
+
+            // INTENTION
+            let intentionEffect = try await processIntention(input)
+            try await eventStore.append(.intentionEffectGenerated(intentionEffect))
+
+            // OBSERVATION
+            let observationEffect = try await processObservation(input)
+            try await eventStore.append(.observationEffectGenerated(observationEffect))
+
+            // UPDATE
+            let updateEffect = try await processUpdate()
+            try await eventStore.append(.updateEffectGenerated(updateEffect))
+
+            // Check for loop
+            if try await shouldContinue(updateEffect) {
+                try await eventStore.append(.loopDecided(shouldLoop: true, reason: "Update indicates continuation"))
+                return try await runCycle(input)
+            }
+
+            // YIELD
+            let response = try await processYield()
+            try await eventStore.append(.cycleCompleted(response))
+            return response
+
+        } onCancel: {
+            Task {
+                try? await cleanup()
+            }
+        }
+    }
+}
+
+// Step implementations
+extension ChorusCycleManager {
+    private func processAction(_ input: String) async throws -> Effect {
+        try await eventStore.append(.actionStarted(input: input))
+
+        let response = try await llm.complete(input)
+        let confidence = try await llm.getConfidence(response)
+
+        try await eventStore.append(.actionGenerated(
+            response: response,
+            confidence: confidence
+        ))
+
+        return Effect(type: .action, content: response)
+    }
+
+    private func processExperience(_ input: String) async throws -> Effect {
+        try await eventStore.append(.priorSearchStarted(query: input))
+
+        let priors = try await vectors.search(input, limit: 80)
+        try await eventStore.append(.priorsFound(
+            count: priors.count,
+            relevance: calculateRelevance(priors)
+        ))
+
+        let synthesis = try await synthesizePriors(input, priors)
+        return Effect(type: .experience, content: synthesis)
+    }
+
+    // Similar implementations for other steps...
+}
+```
+
+## Effect Generation
+
+Effect creation through events:
+
+```swift
+// Effect generation with event tracking
+actor EffectManager {
+    private let eventStore: EventStore
+
+    func generateEffect(
+        type: EffectType,
+        content: String
+    ) async throws -> Effect {
+        let effect = Effect(type: type, content: content)
+
+        // Record effect generation
+        try await eventStore.append(.effectGenerated(
+            type: type,
+            content: content
+        ))
+
+        return effect
+    }
+}
+```
+
+## Prior Flow
+
+Prior handling with events:
+
+```swift
+// Prior management with event tracking
+actor PriorManager {
+    private let eventStore: EventStore
+    private let vectors: VectorStore
+
+    func recordPriors(_ priors: [Prior], in message: Message) async throws {
+        try await eventStore.append(.priorRecordingStarted(
+            count: priors.count,
+            messageId: message.id
+        ))
+
+        // Store vector links
+        try await vectors.storePriors(priors)
+
+        // Record citations
+        for prior in priors {
+            try await eventStore.append(.citationRecorded(
+                source: prior,
+                target: message
+            ))
+        }
+
+        try await eventStore.append(.priorsRecorded(
+            count: priors.count,
+            messageId: message.id
+        ))
+    }
+}
+```
+
+This implementation provides:
+1. Clear event sequence
+2. Rich system history
+3. Natural monitoring
+4. Easy debugging
+5. Clean recovery
+
+The system ensures:
+- Event integrity
+- Effect tracking
+- Prior coherence
+- Cycle completion
+- Resource cleanup
+
+=== File: docs/core_core.md ===
+
+
+
+==
+core_core
+==
+
+
+# Core System Overview
+
+VERSION core_system:
+invariants: {
+"System coherence",
+"Data authority",
+"Event flow"
+}
+docs_version: "0.3.0"
+
+The Choir system is built around a clear hierarchy of truth and a natural flow of events. At its foundation, the Solana blockchain serves as the authoritative source for all ownership and economic state - thread ownership, token balances, message hashes, and co-author lists. This ensures that the economic model, with its harmonic equity distribution and thermodynamic thread evolution, has an immutable and verifiable foundation.
+
+Alongside the blockchain, LanceDB acts as the authoritative source for all content and semantic relationships. It stores the actual message content, embeddings, and the growing network of citations and semantic links. This separation of concerns allows the system to maintain both economic integrity through the blockchain and rich semantic relationships through the vector database.
+
+The AEIOU-Y chorus cycle sits at the heart of the interaction model, processing user input through a series of well-defined steps. Each step generates events that flow through the system, coordinating state updates and UI feedback. The cycle begins with pure response in the Action step, enriches it with prior knowledge in the Experience step, aligns with user intent in the Intention step, records semantic connections in the Observation step, decides on continuation in the Update step, and produces the final response in the Yield step.
+
+Events serve as the coordination mechanism between these components. When a user submits input, it triggers a cascade of events that flow through the system. The chorus cycle generates events as it processes the input. These events are used to coordinate UI updates, track system state, and maintain synchronization between components. However, these events are not the source of truth - they are merely the means by which the system coordinates updates and maintains consistency.
+
+The economic model uses harmonic principles to govern thread evolution and value distribution. Thread temperature rises with rejections and moderates with approvals, creating natural quality barriers. Equity is distributed according to harmonic formulas, ensuring fair value attribution while maintaining mathematical elegance.
+
+The knowledge system builds a growing semantic network through citations and prior references. Each message can reference previous messages as priors, creating a web of semantic relationships. These relationships are stored in LanceDB and help inform future responses through the Experience step of the chorus cycle.
+
+State management follows the natural hierarchy of truth. The chain state is authoritative for ownership and economics. The vector state is authoritative for content and semantics. Local state serves only to coordinate UI updates and handle temporary synchronization needs. This clear hierarchy ensures system consistency while enabling responsive user interaction.
+
+All of this is implemented using Swift's modern concurrency system. Actors provide thread-safe state isolation. Async/await enables clean asynchronous code. Structured concurrency through task groups ensures proper resource management. The event-driven architecture allows for loose coupling between components while maintaining system coherence.
+
+The result is a system that combines economic incentives, semantic knowledge, and natural interaction patterns into a coherent whole. The blockchain provides economic integrity. The vector database enables semantic richness. The chorus cycle creates natural interaction. Events coordinate the pieces. And Swift's concurrency model keeps it all running smoothly and safely.
+
+This architecture enables the system to evolve naturally. New event types can be added to handle new features. The semantic network grows organically through usage. The economic model creates emergent quality barriers. And the whole system maintains consistency through its clear hierarchy of truth and well-defined patterns of event flow.
+
+=== File: docs/core_economics.md ===
+
+
+
+==
+core_economics
+==
+
+
+# Core Economic Model
+
+VERSION core_economics:
+invariants: {
+"Chain state authority",
 "Energy conservation",
-"Pattern emergence"
+"Harmonic distribution"
 }
 assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
+"Swift concurrency",
+"Event-driven flow",
+"Solana source of truth"
 }
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# Recent Development Insights Summary
+docs_version: "0.3.0"
 
-## Essential Questions
+## Economic Events
 
-1. **Quantum Equity Distribution**
-   - How does the √n scaling create fair value distribution?
-   - What is the relationship between stake amount and equity share?
-   - How does base price P₀ emerge from thread thermodynamics?
-   - What role does continuous stake scaling play in the system?
+Chain-driven economic events:
 
-2. **Semantic Links as Hyperedges**
-   - How do semantic links connect multiple points in thoughtspace?
-   - What is the relationship between messages, threads, and AI responses?
-   - How does the average embedding position work?
-   - What role do semantic links play in the reward system?
+```swift
+// Economic domain events
+enum EconomicEvent: DomainEvent {
+    // Stake events (from chain)
+    case stakeDeposited(threadId: ThreadID, amount: TokenAmount)
+    case stakeWithdrawn(threadId: ThreadID, amount: TokenAmount)
 
-3. **Thread Thermodynamics**
-   - How do denials increase thread temperature?
-   - What is the relationship between temperature and base price?
-   - How does frequency emerge from thread activity?
-   - What role does energy conservation play?
+    // Temperature events (from chain)
+    case temperatureIncreased(threadId: ThreadID, delta: Float)
+    case temperatureDecreased(threadId: ThreadID, delta: Float)
 
-4. **Reward Distribution**
-   - How do rewards flow to threads based on equity shares?
-   - What are the implications of co-authors splitting rewards by equity?
-   - How does this affect thread dynamics and collaboration?
-   - What role do semantic links play in value flow?
+    // Equity events (from chain)
+    case equityDistributed(threadId: ThreadID, shares: [PublicKey: Float])
+    case equityDiluted(threadId: ThreadID, newShares: [PublicKey: Float])
 
-5. **Implementation Impact**
-   - How does this change our database schema and operations?
-   - What updates are needed to the effect system?
-   - How should the UI reflect these relationships?
-   - What new tests are needed?
+    // Reward events (from chain)
+    case rewardsIssued(amount: TokenAmount, recipients: [PublicKey])
+    case treasuryUpdated(newBalance: TokenAmount)
 
-## Key Insights
+    var id: UUID
+    var timestamp: Date
+    var metadata: EventMetadata
+}
+```
 
-1. **Quantum Equity Structure**
-   ```python
-   # Base price for 1/N share
-   P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
+## Chain State Authority
 
-   # Equity follows √n scaling
-   equity = (1/N) * √(stake/P₀)
+Solana as source of truth:
 
-   # Examples:
-   stake = P₀/4  -> equity = (1/2N)  # Quarter stake
-   stake = P₀    -> equity = (1/N)   # Base quantum
-   stake = 4P₀   -> equity = (2/N)   # Double quantum
-   ```
+```swift
+// Economic state from chain
+actor ChainStateManager {
+    private let solana: SolanaConnection
+    private let eventStore: EventStore
 
-2. **Semantic Structure**
-   ```python
-   class SemanticLink:
-       """Hyperedge in thoughtspace"""
-       def __init__(self, source, response, priors):
-           self.nodes = [source, response, *priors]
-           self.position = average_embeddings(self.nodes)
-   ```
+    // Get thread economics from chain
+    func getThreadEconomics(_ id: ThreadID) async throws -> ThreadEconomics {
+        // Get authoritative state from chain
+        let account = try await solana.getThreadAccount(id)
 
-3. **Thread Thermodynamics**
-   ```python
-   def handle_denial(thread: Thread, stake: float):
-       """Denial increases thread temperature"""
-       thread.energy += stake
-       thread.temperature = thread.energy / len(thread.co_authors)
+        return ThreadEconomics(
+            temperature: account.temperature,
+            energy: account.energy,
+            tokenBalance: account.balance,
+            equityShares: account.equityMap
+        )
+    }
 
-   def handle_approval(thread: Thread, stake: float):
-       """Distribute by equity shares"""
-       for coauthor, equity in thread.equity_map.items():
-           reward = stake * equity
-           send_tokens(coauthor, reward)
-   ```
+    // Submit economic transaction
+    func submitTransaction(_ tx: Transaction) async throws {
+        // Submit to chain first
+        let signature = try await solana.submitTransaction(tx)
 
-4. **Implementation Requirements**
-   - Quantum equity calculation system
-   - Semantic links collection in Qdrant
-   - Thread thermodynamics tracking
-   - UI for showing relationships and equity
+        // Then emit events based on transaction type
+        switch tx.instruction {
+        case .depositStake(let amount):
+            try await eventStore.append(.stakeDeposited(
+                threadId: tx.threadId,
+                amount: amount
+            ))
 
-5. **Future Implications**
-   - Natural price discovery through wave mechanics
-   - Semantic search through link positions
-   - Value flow follows quantum principles
-   - Self-organizing knowledge structure
+        case .updateTemperature(let delta):
+            try await eventStore.append(.temperatureIncreased(
+                threadId: tx.threadId,
+                delta: delta
+            ))
 
-## Next Steps
+        case .distributeEquity(let shares):
+            try await eventStore.append(.equityDistributed(
+                threadId: tx.threadId,
+                shares: shares
+            ))
+        }
+    }
+}
+```
 
-1. Implement quantum equity calculation
-2. Update database schema for semantic links
-3. Add thread thermodynamics tracking
-4. Modify UI to show relationships and equity
-5. Add tests for wave mechanics and semantic integrity
+## Harmonic Calculations
 
-The key realization is that both value distribution and semantic meaning follow quantum mechanical principles, creating a unified system where equity quantization and semantic links work together to enable natural evolution of knowledge and value.
+Pure calculation functions:
 
-=== File: docs/Summary_level4.md ===
+```swift
+// Economic calculations (pure functions)
+struct EconomicCalculator {
+    // Base price using harmonic oscillator
+    static func calculateBasePrice(
+        temperature: Double,
+        frequency: Double
+    ) -> TokenAmount {
+        // P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
+        let baseStake = Constants.baseStakeQuantum
+        let reducedPlanck = Constants.reducedPlanck
+        let boltzmann = Constants.boltzmann
+
+        let exponent = (reducedPlanck * frequency) / (boltzmann * temperature)
+        let occupation = 1.0 / (exp(exponent) - 1.0)
+
+        return baseStake * (0.5 + occupation)
+    }
+
+    // Equity share calculation
+    static func calculateEquityShare(
+        stake: TokenAmount,
+        basePrice: TokenAmount,
+        coauthorCount: Int
+    ) -> Double {
+        // E(s) = (1/N) * √(s/P₀)
+        let quantumNumber = Double(stake) / Double(basePrice)
+        let quantumShare = 1.0 / Double(coauthorCount)
+        return quantumShare * sqrt(quantumNumber)
+    }
+}
+```
+
+## Economic Handler
+
+Event-driven economic processing:
+
+```swift
+// Economic event handling
+actor EconomicHandler: EventHandler {
+    private let chain: ChainStateManager
+    private let calculator: EconomicCalculator
+
+    func handle(_ event: DomainEvent) async throws {
+        guard let economicEvent = event as? EconomicEvent else { return }
+
+        switch economicEvent {
+        case .stakeDeposited(let threadId, let amount):
+            // Calculate new equity shares
+            let thread = try await chain.getThreadEconomics(threadId)
+            let basePrice = calculator.calculateBasePrice(
+                temperature: thread.temperature,
+                frequency: thread.frequency
+            )
+            let equity = calculator.calculateEquityShare(
+                stake: amount,
+                basePrice: basePrice,
+                coauthorCount: thread.equityShares.count
+            )
+
+            // Submit equity distribution to chain
+            let tx = Transaction.distributeEquity(
+                threadId: threadId,
+                shares: [event.author: equity]
+            )
+            try await chain.submitTransaction(tx)
+
+        case .temperatureIncreased(let threadId, let delta):
+            // Update thread temperature on chain
+            let tx = Transaction.updateTemperature(
+                threadId: threadId,
+                delta: delta
+            )
+            try await chain.submitTransaction(tx)
+
+        // Handle other economic events...
+        }
+    }
+}
+```
+
+## Analytics & Monitoring
+
+Economic event tracking:
+
+```swift
+// Economic analytics
+actor EconomicAnalytics: EventHandler {
+    func handle(_ event: DomainEvent) async throws {
+        guard let economicEvent = event as? EconomicEvent else { return }
+
+        switch economicEvent {
+        case .stakeDeposited(let threadId, let amount):
+            try await trackStakeMetric(threadId, amount)
+
+        case .temperatureIncreased(let threadId, let delta):
+            try await trackTemperatureMetric(threadId, delta)
+
+        case .equityDistributed(let threadId, let shares):
+            try await trackEquityMetric(threadId, shares)
+
+        case .rewardsIssued(let amount, let recipients):
+            try await trackRewardMetric(amount, recipients)
+        }
+    }
+}
+```
+
+This implementation provides:
+1. Chain state authority
+2. Event-driven updates
+3. Pure calculations
+4. Clean analytics
+5. Proper event flow
+
+The system ensures:
+- Economic integrity
+- Harmonic distribution
+- Temperature evolution
+- Value conservation
+- Natural emergence
+
+=== File: docs/core_knowledge.md ===
 
 
 
 ==
-Summary_level4
+core_knowledge
 ==
 
 
-# Level 4: Metastable Emergence and Thoughtspace Geometry
+# Core Knowledge Architecture
 
-VERSION level4:
+VERSION core_knowledge:
 invariants: {
-"Pattern stability",
-"Evolution potential",
-"Phase coherence",
-"Hyperedge dynamics"
+"Semantic coherence",
+"Citation integrity",
+"Vector stability"
 }
 assumptions: {
-"Multiple equilibria",
-"Transition dynamics",
-"Information preservation",
-"Thoughtspace continuity"
+"Local-first vectors",
+"Multimodal embeddings",
+"Progressive enhancement"
 }
-docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+docs_version: "0.3.0"
 
-## Introduction
+## Vector Space
 
-At Level 4, we explore how metastable states in Choir enable the emergence of complex structures through the geometry of thoughtspace and the application of quantum thermodynamics. Incorporating Wolfram's ideas on hyperedges, we examine how these concepts facilitate the natural evolution of threads and knowledge networks.
+Core vector operations with proper concurrency:
 
-## Metastable Equilibria in Thoughtspace
+```swift
+// Vector operations with isolation
+actor VectorStore {
+    private let lanceDB: LanceDB
+    private let embeddings: EmbeddingActor
+    private let cache: CacheActor
 
-- **Metastability**: Threads and semantic links exist in states that are stable under normal conditions but can transition to new states when sufficient energy (e.g., collaboration, new ideas) is applied.
-- **Thoughtspace Geometry**: Represents the continuous landscape where these metastable states reside.
+    // Concurrent vector search
+    func search(_ content: String, limit: Int = 80) async throws -> [Prior] {
+        try await withThrowingTaskGroup(of: ([Prior], [Float]).self) { group in
+            // Parallel embedding and cache check
+            group.addTask {
+                async let embedding = self.embeddings.embed(content)
+                async let cached = self.cache.getPriors(content)
+                return (try await cached ?? [], try await embedding)
+            }
 
-### Hyperedges and Transition Dynamics
+            // Get result
+            guard let (cached, embedding) = try await group.next() else {
+                throw VectorError.searchFailed
+            }
 
-- **Hyperedges**: Connect multiple nodes (messages, users, threads) in thoughtspace, acting as catalysts for transitions.
-- **Quantum Thermodynamics**: Describes how energy flows within these hyperedges facilitate phase transitions in the semantic network.
+            // Return cached or search
+            if cached.count >= limit {
+                return Array(cached.prefix(limit))
+            }
 
-## Wolfram's Hypergraph Model in Choir
+            // Search with cancellation support
+            return try await withTaskCancellationHandler {
+                let results = try await lanceDB.search(
+                    vector: embedding,
+                    limit: limit
+                )
+                try await cache.store(content, results)
+                return results
+            } onCancel: {
+                Task { try? await cache.cleanup(content) }
+            }
+        }
+    }
+}
+```
 
-- **Hypergraphs**: Generalize graphs by allowing edges (hyperedges) to connect any number of nodes.
-- **Updates (Rewriting Rules)**: Correspond to interactions in Choir where semantic links are formed, and messages evolve.
-- **Emergent Geometry**: The structure of thoughtspace emerges from the network of hyperedges, similar to space-time emerging from hypergraphs in Wolfram's model.
+## Prior Management
 
-## Phase Transitions in Threads
+Thread-safe prior handling:
 
-- **Energy Barriers**: Thresholds that must be overcome for a thread to transition from one state to another (e.g., discussion to project collaboration).
-- **Semantic Links as Bridges**: Hyperedges facilitate these transitions by connecting relevant semantic entities.
+```swift
+// Prior operations with proper isolation
+actor PriorManager {
+    private let vectors: VectorStore
+    private let storage: StorageActor
+    private var activePriors: [UUID: Prior] = [:]
 
-### Thermodynamic Analogies
+    // Concurrent prior processing
+    func processPriors(for content: String) async throws -> [Prior] {
+        try await withThrowingTaskGroup(of: [Prior].self) { group in
+            // Search vectors
+            group.addTask {
+                try await self.vectors.search(content)
+            }
 
-- **Temperature**: Represents the activity level or volatility of a thread.
-- **Entropy**: Measures the diversity or uncertainty within a thread.
-- **Energy Exchange**: Collaborations and interactions result in energy flow, leading to transitions.
+            // Get metadata
+            group.addTask {
+                try await self.storage.getPriorMetadata(content)
+            }
 
-## Emergence of Complex Structures
+            // Combine results
+            var allPriors: [Prior] = []
+            for try await priors in group {
+                allPriors.append(contentsOf: priors)
+            }
 
-- **Collective Intelligence**: Emerges from the entanglement of semantic entities through hyperedges.
-- **Knowledge Networks**: Formed by the interconnected hyperedges, leading to robust and scalable structures.
-- **Resonance**: Threads align in phase coherence, enhancing collaboration and idea propagation.
+            // Store active priors
+            for prior in allPriors {
+                activePriors[prior.id] = prior
+            }
 
-## Implications for System Evolution
+            return allPriors
+        }
+    }
 
-- **Self-Organization**: The system naturally evolves towards states of higher coherence and lower free energy.
-- **Adaptive Dynamics**: Metastable states allow the system to adapt to new information and conditions without losing structural integrity.
-- **Scalability**: Hyperedge-based connections facilitate growth without increasing complexity exponentially.
+    // Citation recording with error handling
+    func recordCitation(_ source: Prior, in target: Message) async throws {
+        guard let prior = activePriors[source.id] else {
+            throw PriorError.notFound
+        }
 
-## Conclusion
+        try await withTaskCancellationHandler {
+            try await storage.recordCitation(source: prior, target: target)
+            try await vectors.updateEmbeddings(for: target)
+        } onCancel: {
+            Task {
+                try? await storage.cleanup(target.id)
+            }
+        }
+    }
+}
+```
 
-Level 4 highlights the importance of metastable emergence in Choir's thoughtspace geometry. By leveraging quantum thermodynamics and hyperedge dynamics, we gain insights into how complex structures and networks arise naturally, enabling robust collaboration and knowledge creation.
+## Semantic Network
 
-=== File: docs/Summary_level5.md ===
+Knowledge graph management:
+
+```swift
+// Semantic operations with proper isolation
+actor SemanticNetwork {
+    private let graph: GraphActor
+    private let vectors: VectorStore
+
+    // Concurrent semantic processing
+    func processSemanticLinks(_ message: Message) async throws {
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            // Update graph
+            group.addTask {
+                try await self.graph.addNode(message)
+            }
+
+            // Process citations
+            for prior in message.priors {
+                group.addTask {
+                    try await self.graph.addEdge(from: prior, to: message)
+                }
+            }
+
+            // Update embeddings
+            group.addTask {
+                try await self.vectors.updateEmbeddings(for: message)
+            }
+
+            try await group.waitForAll()
+        }
+    }
+
+    // Graph queries with cancellation
+    func findRelatedContent(_ content: String) async throws -> [Message] {
+        try await withTaskCancellationHandler {
+            let embedding = try await vectors.embed(content)
+            let nodes = try await graph.findSimilar(embedding)
+            return nodes.map(\.message)
+        } onCancel: {
+            Task { @MainActor in
+                // Clear any cached results
+            }
+        }
+    }
+}
+```
+
+## Multimodal Support
+
+Progressive enhancement for different modalities:
+
+```swift
+// Multimodal handling with isolation
+actor ModalityManager {
+    private let imageBind: ImageBindActor
+    private let vectors: VectorStore
+
+    // Process different modalities
+    func processContent(_ content: MultimodalContent) async throws -> Embedding {
+        try await withThrowingTaskGroup(of: [Float].self) { group in
+            switch content {
+            case .text(let text):
+                group.addTask {
+                    try await self.vectors.embed(text)
+                }
+
+            case .image(let image):
+                group.addTask {
+                    try await self.imageBind.embedImage(image)
+                }
+
+            case .audio(let audio):
+                group.addTask {
+                    try await self.imageBind.embedAudio(audio)
+                }
+            }
+
+            // Combine embeddings
+            var embeddings: [[Float]] = []
+            for try await embedding in group {
+                embeddings.append(embedding)
+            }
+
+            return try await combineEmbeddings(embeddings)
+        }
+    }
+}
+```
+
+## Implementation Strategy
+
+Progressive knowledge enhancement:
+
+```swift
+struct KnowledgeStrategy {
+    // Phase 1: Local vectors
+    let foundation = [
+        "Local LanceDB",
+        "Basic embeddings",
+        "Simple citations",
+        "Text only"
+    ]
+
+    // Phase 2: Enhanced vectors
+    let enhancement = [
+        "Multimodal support",
+        "Distributed search",
+        "Rich citations",
+        "Knowledge graph"
+    ]
+
+    // Phase 3: Network effects
+    let network = [
+        "P2P vector sync",
+        "Collective knowledge",
+        "Cross-modal search",
+        "Emergent patterns"
+    ]
+}
+```
+
+This knowledge architecture provides:
+1. Thread-safe vector operations
+2. Proper concurrency handling
+3. Progressive enhancement
+4. Multimodal support
+5. Local-first approach
+
+The system ensures:
+- Semantic coherence
+- Citation integrity
+- Resource efficiency
+- Knowledge emergence
+- Natural evolution
+
+=== File: docs/core_patterns.md ===
 
 
 
 ==
-Summary_level5
+core_patterns
 ==
 
 
-# Level 5: Quantum Semantics and Thoughtspace Geometry
+# Core Implementation Patterns
 
-VERSION level5:
+VERSION core_patterns:
 invariants: {
-"Wave function coherence",
-"Energy conservation",
-"Phase stability",
-"Hyperedge connectivity"
+"Source of truth clarity",
+"Event-driven coordination",
+"Actor isolation"
 }
 assumptions: {
-"Quantum harmonic oscillation",
-"Emergent spacetime in thoughtspace",
-"Hypergraph dynamics",
-"Semantic entanglement"
+"Swift concurrency",
+"Proper data hierarchy",
+"Event-based sync"
 }
-docs_version: "0.3.0" # Post-alignment vision, Nov 2024
+docs_version: "0.3.0"
 
-## Introduction
+## Source of Truth Pattern
 
-At Level 5, we delve into the quantum semantic foundations of Choir, exploring how thoughtspace geometry, quantum thermodynamics, and hyperedge structures intertwine to create a coherent and dynamic semantic network. Inspired by Wolfram's physics project, we model the deep harmonic structures that govern the evolution of meaning and value in Choir.
+Respect data authority hierarchy:
 
-## Quantum Harmonic Oscillator in Thoughtspace
+```swift
+// Chain state authority pattern
+protocol ChainStateProvider {
+    // Authoritative state
+    func getThreadState(_ id: ThreadID) async throws -> ThreadState
+    func getTokenBalance(_ owner: PublicKey) async throws -> UInt64
 
-- **Messages as Wave Functions**: Messages are represented as wave functions in thoughtspace, embodying superpositions of meanings.
-- **Energy Levels**: Stakes or contributions correspond to quantized energy levels, influencing the message's impact.
-- **Wave Function Evolution**: Interactions cause wave functions to evolve, entangle, and collapse, reflecting the dynamic nature of semantics.
+    // State transitions
+    func submitTransaction(_ tx: Transaction) async throws -> Signature
+}
 
-### Hyperedges as Quantum Interactions
+// Vector state authority pattern
+protocol VectorStateProvider {
+    // Authoritative content
+    func getMessage(_ hash: MessageHash) async throws -> Message
+    func searchPriors(_ query: String) async throws -> [Prior]
 
-- **Semantic Links (Hyperedges)**: Act as quantum interactions that entangle multiple semantic entities.
-- **Phase Coherence**: Achieved through unanimous approvals and collaborative alignment, ensuring coherent evolution of the semantic network.
+    // Content storage
+    func storeMessage(_ message: Message) async throws
+    func recordCitation(_ source: Prior, _ target: Message) async throws
+}
 
-## Emergent Thoughtspace Geometry
+// Example implementation
+actor StateManager {
+    private let chain: ChainStateProvider
+    private let vectors: VectorStateProvider
 
-- **Wolfram's Hypergraph Model**: Suggests that space and time emerge from the underlying hypergraph of relations.
-- **Semantic Spacetime**: In Choir, thoughtspace geometry emerges from the network of hyperedges connecting messages, users, threads, and AI models.
-- **Causal Relationships**: The sequence and structure of hyperedges determine the causal flow of information and ideas.
+    func processMessage(_ content: String) async throws {
+        // Store content first
+        let message = Message(content: content)
+        try await vectors.storeMessage(message)
 
-## Quantum Thermodynamics and Value Flow
+        // Then record on chain
+        let tx = Transaction.recordMessage(message.hash)
+        try await chain.submitTransaction(tx)
+    }
+}
+```
 
-- **Energy Conservation**: Value (tokens, rewards) is conserved and flows through the semantic network based on interaction dynamics.
-- **Temperature and Entropy**: Threads have temperature (activity level) and entropy (diversity), influencing their evolution and stability.
-- **Harmonic Resonance**: Threads and messages resonate through semantic alignment, creating constructive interference patterns that amplify meaning and value.
+## Event Coordination Pattern
 
-### Harmonic Bonding Curve
+Events for state synchronization:
 
-- **Pricing Function**: Derived from quantum thermodynamics, modeling how stakes and rewards are related to the system's state variables.
-- **Resonant Pricing**: Value of contributions is influenced by the resonance within the semantic network, promoting alignment and coherence.
+```swift
+// Event types by purpose
+enum SystemEvent {
+    // State sync events
+    case chainStateChanged(ThreadID)
+    case contentStored(MessageHash)
 
-## Semantic Entanglement and Knowledge Networks
+    // UI coordination events
+    case uiStateChanged(ViewState)
+    case loadingStateChanged(Bool)
 
-- **Entanglement**: Semantic entities become entangled through interactions, affecting each other's states even when separated.
-- **Hyperedge Connectivity**: Facilitates the formation of robust knowledge networks that can adapt and evolve.
-- **Emergent Properties**: Collective intelligence and understanding emerge from the complex interplay of semantic interactions.
+    // Error events
+    case errorOccurred(Error)
+    case syncFailed(reason: String)
+}
 
-## Implications for AI and Collaboration
+// Event handling pattern
+protocol EventHandler: Actor {
+    // Handle specific event types
+    func handle(_ event: SystemEvent) async throws
+}
 
-- **AI Models as Participants**: AI contributes to the semantic network, participating in the quantum semantic dynamics.
-- **Enhanced Collaboration**: Understanding these quantum semantic principles can lead to more effective collaboration between humans and AI.
-- **Innovation Potential**: The framework supports the emergence of novel ideas and solutions through the natural evolution of thoughtspace.
+// Example implementation
+actor UICoordinator: EventHandler {
+    func handle(_ event: SystemEvent) async throws {
+        switch event {
+        case .chainStateChanged(let threadId):
+            try await refreshThread(threadId)
+        case .contentStored(let hash):
+            try await refreshContent(hash)
+        }
+    }
+}
+```
 
-## Conclusion
+## Actor Isolation Pattern
 
-Level 5 presents a profound integration of harmonic intelligence, thoughtspace geometry, and hyperedge dynamics within Choir. By embracing these advanced concepts, we unlock deeper insights into the mechanisms of meaning-making, value distribution, and collaborative evolution in semantic networks.
+Clean actor boundaries:
+
+```swift
+// Domain-specific actors
+actor ThreadActor {
+    private let chain: ChainStateProvider
+    private let events: EventEmitter
+
+    func getThread(_ id: ThreadID) async throws -> Thread {
+        // Get authoritative state
+        let state = try await chain.getThreadState(id)
+
+        // Emit UI event
+        try await events.emit(.threadStateLoaded(id))
+
+        return state
+    }
+}
+
+// Resource management pattern
+actor ResourcePool {
+    private var resources: Set<Resource> = []
+
+    func withResource<T>(_ work: (Resource) async throws -> T) async throws -> T {
+        let resource = try await acquireResource()
+        defer { releaseResource(resource) }
+        return try await work(resource)
+    }
+}
+```
+
+## Error Recovery Pattern
+
+Clean error handling with events:
+
+```swift
+// Error types by source
+enum SystemError: Error {
+    // Chain errors
+    case chainUnavailable
+    case transactionFailed(reason: String)
+
+    // Vector errors
+    case contentNotFound(MessageHash)
+    case storageError(reason: String)
+
+    // Sync errors
+    case syncFailed(reason: String)
+    case stateInconsistent
+}
+
+// Recovery pattern
+actor ErrorRecovery {
+    func recover(from error: SystemError) async throws {
+        switch error {
+        case .chainUnavailable:
+            try await queueForRetry()
+        case .syncFailed:
+            try await resyncState()
+        }
+    }
+}
+```
+
+## Testing Pattern
+
+Protocol-based testing:
+
+```swift
+// Test implementations
+class MockChainProvider: ChainStateProvider {
+    var mockState: [ThreadID: ThreadState] = [:]
+
+    func getThreadState(_ id: ThreadID) async throws -> ThreadState {
+        guard let state = mockState[id] else {
+            throw SystemError.chainUnavailable
+        }
+        return state
+    }
+}
+
+// Test scenarios
+class SystemTests: XCTestCase {
+    var sut: StateManager!
+    var mockChain: MockChainProvider!
+
+    override func setUp() {
+        mockChain = MockChainProvider()
+        sut = StateManager(chain: mockChain)
+    }
+
+    func testStateSync() async throws {
+        // Given
+        let threadId = ThreadID()
+        let state = ThreadState(id: threadId)
+        mockChain.mockState[threadId] = state
+
+        // When
+        let result = try await sut.getThread(threadId)
+
+        // Then
+        XCTAssertEqual(result, state)
+    }
+}
+```
+
+These patterns ensure:
+1. Clear data authority
+2. Clean event flow
+3. Safe state sync
+4. Error resilience
+5. Testability
+
+The system maintains:
+- Source of truth clarity
+- Event-driven coordination
+- Actor isolation
+- Error recovery
+- Testing simplicity
+
+=== File: docs/core_state.md ===
+
+
+
+==
+core_state
+==
+
+
+# Core State Management
+
+VERSION core_state:
+invariants: {
+"Chain state authority",
+"Vector content authority",
+"Local coordination"
+}
+assumptions: {
+"Swift concurrency",
+"Actor isolation",
+"Event-driven sync"
+}
+docs_version: "0.3.0"
+
+## Chain State (Source of Truth)
+
+Solana program state:
+
+```swift
+// Core chain state
+actor ChainState {
+    private let solana: SolanaConnection
+    private let eventStore: LocalEventStore
+
+    // Thread state from chain
+    func getThreadState(_ id: ThreadID) async throws -> ThreadState {
+        // Get authoritative state from chain
+        let account = try await solana.getThreadAccount(id)
+
+        return ThreadState(
+            id: id,
+            coAuthors: account.coAuthors,
+            tokenBalance: account.balance,
+            messageHashes: account.messageHashes
+        )
+    }
+
+    // Submit state changes to chain
+    func submitStateChange(_ transaction: Transaction) async throws {
+        // Submit to chain first
+        let signature = try await solana.submitTransaction(transaction)
+
+        // Then emit local event for UI updates
+        try await eventStore.append(.chainStateChanged(signature))
+    }
+}
+```
+
+## Vector State (Source of Truth)
+
+LanceDB content storage:
+
+```swift
+// Vector content state
+actor VectorState {
+    private let lanceDB: LanceDB
+    private let eventStore: LocalEventStore
+
+    // Get content and embeddings
+    func getMessage(_ hash: MessageHash) async throws -> Message {
+        // Get authoritative content from LanceDB
+        let content = try await lanceDB.getMessage(hash)
+
+        // Emit local event for UI
+        try await eventStore.append(.contentLoaded(hash))
+
+        return content
+    }
+
+    // Store new content
+    func storeMessage(_ message: Message) async throws {
+        // Store in LanceDB first
+        try await lanceDB.store(message)
+
+        // Then emit local event
+        try await eventStore.append(.contentStored(message.hash))
+    }
+}
+```
+
+## Local Events (Coordination Only)
+
+Temporary state for UI and sync:
+
+```swift
+// Local event coordination
+actor LocalEventStore {
+    // Event types for local coordination
+    enum LocalEvent: Codable {
+        // UI updates
+        case contentLoaded(MessageHash)
+        case chainStateChanged(Signature)
+
+        // Sync status
+        case syncStarted
+        case syncCompleted
+        case syncFailed(Error)
+
+        // Offline queue
+        case transactionQueued(Transaction)
+        case transactionSent(Signature)
+    }
+
+    private var events: [LocalEvent] = []
+    private var subscribers: [LocalEventSubscriber] = []
+
+    // Emit coordination events
+    func append(_ event: LocalEvent) async throws {
+        events.append(event)
+
+        // Notify UI subscribers
+        for subscriber in subscribers {
+            try await subscriber.handle(event)
+        }
+
+        // Cleanup old events
+        try await pruneOldEvents()
+    }
+}
+```
+
+## UI State Management
+
+React to authoritative state changes:
+
+```swift
+@MainActor
+class ThreadViewModel: ObservableObject {
+    @Published private(set) var thread: ThreadState?
+    @Published private(set) var messages: [Message] = []
+
+    private let chainState: ChainState
+    private let vectorState: VectorState
+    private let eventStore: LocalEventStore
+
+    // Load thread state
+    func loadThread(_ id: ThreadID) async throws {
+        // Get authoritative state
+        thread = try await chainState.getThreadState(id)
+
+        // Load messages from vector DB
+        messages = try await loadMessages(thread.messageHashes)
+
+        // Subscribe to local events for updates
+        subscribeToEvents()
+    }
+
+    // Handle local events
+    private func handleEvent(_ event: LocalEvent) async {
+        switch event {
+        case .chainStateChanged:
+            // Refresh chain state
+            if let id = thread?.id {
+                thread = try? await chainState.getThreadState(id)
+            }
+        case .contentLoaded:
+            // Refresh messages if needed
+            if let hashes = thread?.messageHashes {
+                messages = try? await loadMessages(hashes)
+            }
+        }
+    }
+}
+```
+
+This implementation ensures:
+1. Chain state authority
+2. Vector content authority
+3. Local coordination
+4. Clean UI updates
+5. Proper sync
+
+The system maintains:
+- Clear data hierarchy
+- Proper authority
+- UI responsiveness
+- Sync coordination
+- Debug capability
 
 === File: docs/goal_architecture.md ===
 
