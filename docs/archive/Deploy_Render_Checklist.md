@@ -11,7 +11,8 @@ assumptions: {
 "Swift implementation",
 "Natural harmonics"
 }
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
+docs_version: "0.4.0"
+
 # Deploy Checklist for Render
 
 This checklist tracks the deployment status of the Next.js application on Render. After successful frontend deployment, we can proceed with integrating the Python backend.
@@ -36,6 +37,7 @@ This checklist tracks the deployment status of the Next.js application on Render
 ## Next.js Deployment
 
 - [x] **Create Web Service**:
+
   - [x] Click **New** and select **Web Service**
   - [x] Connect your repository
   - [x] Set root directory to `/` (project root)
@@ -43,6 +45,7 @@ This checklist tracks the deployment status of the Next.js application on Render
   - [x] Set start command: `pnpm start`
 
 - [x] **Configure Service**:
+
   - [x] **Name**: Set to `choir-collective`
   - [x] **Region**: Selected deployment region
   - [x] **Instance Type**: Chosen appropriate instance type
@@ -63,6 +66,7 @@ This checklist tracks the deployment status of the Next.js application on Render
 ## Deployment Verification
 
 - [x] **Test Application**: Verified at https://choir-collective.onrender.com/
+
   - [x] Application loads correctly over HTTPS
   - [x] All pages are accessible
   - [x] Solana integration works

@@ -115,7 +115,6 @@
 │   └── config.gypi
 ├── docker-compose.yml
 ├── docs
-│   ├── Deploy_Render_Checklist.md
 │   ├── Impl_Security.md
 │   ├── Meta_Evolution.md
 │   ├── Model_Metastability.md
@@ -259,4 +258,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-62 directories, 195 files
+62 directories, 194 files
