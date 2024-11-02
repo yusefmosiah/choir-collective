@@ -135,13 +135,6 @@ tree.md
 │   ├── Data_Engine_Vision.md
 │   ├── Deploy_Render_Checklist.md
 │   ├── Dev_Pseudocode.md
-│   ├── Entry_Business.md
-│   ├── Entry_Glossary.md
-│   ├── Entry_InverseEquity.md
-│   ├── Entry_OrganizationalPatterns.md
-│   ├── Entry_Overview.md
-│   ├── Entry_Q&A.md
-│   ├── Error_Correction_Layers.md
 │   ├── Harmonic_Theory.md
 │   ├── Impl_API.md
 │   ├── Impl_ChorusCycle_update.md
@@ -271,6 +264,14 @@ tree.md
 │   │   │   ├── Core_Types.md
 │   │   │   └── Core_Whitepaper.md
 │   │   ├── deployment
+│   │   ├── entry
+│   │   │   ├── Entry_Business.md
+│   │   │   ├── Entry_Glossary.md
+│   │   │   ├── Entry_InverseEquity.md
+│   │   │   ├── Entry_OrganizationalPatterns.md
+│   │   │   ├── Entry_Overview.md
+│   │   │   ├── Entry_Q&A.md
+│   │   │   └── Error_Correction_Layers.md
 │   │   ├── state_management
 │   │   ├── swift_roadmap.md
 │   │   ├── swift_todos.md
@@ -301,6 +302,9 @@ tree.md
 │   │       ├── swift_roadmap.md
 │   │       ├── swift_todos.md
 │   │       └── ui_components
+│   ├── e_business.md
+│   ├── e_concept.md
+│   ├── e_reference.md
 │   ├── levels
 │   │   ├── level-1.md
 │   │   ├── level0.md
@@ -414,7 +418,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-75 directories, 324 files
+76 directories, 327 files
 
 === File: docs/scripts/combiner.sh ===
 
@@ -429,7 +433,7 @@ combiner.sh
 
 # Define level prefixes as simple arrays
 level0_prefixes=("Solana" "Frontend" "Backend" "Deploy" "Implementation" "Data" "Error" "Reward" "Impl")
-level1_prefixes=("Entry" "Dev" "Plan" "Tech" "Level" "Current" "Prompt")
+level1_prefixes=("e" "Entry" "Dev" "Plan" "Tech" "Level" "Current" "Prompt")
 level2_prefixes=("Core" "State" "Summary" "Pivot")
 level3_prefixes=("Theory" "V10" "V12")
 level4_prefixes=("Model" "Emergence" "Meta")

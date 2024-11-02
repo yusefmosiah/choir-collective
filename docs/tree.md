@@ -122,13 +122,6 @@
 │   ├── Data_Engine_Vision.md
 │   ├── Deploy_Render_Checklist.md
 │   ├── Dev_Pseudocode.md
-│   ├── Entry_Business.md
-│   ├── Entry_Glossary.md
-│   ├── Entry_InverseEquity.md
-│   ├── Entry_OrganizationalPatterns.md
-│   ├── Entry_Overview.md
-│   ├── Entry_Q&A.md
-│   ├── Error_Correction_Layers.md
 │   ├── Harmonic_Theory.md
 │   ├── Impl_API.md
 │   ├── Impl_ChorusCycle_update.md
@@ -258,6 +251,14 @@
 │   │   │   ├── Core_Types.md
 │   │   │   └── Core_Whitepaper.md
 │   │   ├── deployment
+│   │   ├── entry
+│   │   │   ├── Entry_Business.md
+│   │   │   ├── Entry_Glossary.md
+│   │   │   ├── Entry_InverseEquity.md
+│   │   │   ├── Entry_OrganizationalPatterns.md
+│   │   │   ├── Entry_Overview.md
+│   │   │   ├── Entry_Q&A.md
+│   │   │   └── Error_Correction_Layers.md
 │   │   ├── state_management
 │   │   ├── swift_roadmap.md
 │   │   ├── swift_todos.md
@@ -288,6 +289,9 @@
 │   │       ├── swift_roadmap.md
 │   │       ├── swift_todos.md
 │   │       └── ui_components
+│   ├── e_business.md
+│   ├── e_concept.md
+│   ├── e_reference.md
 │   ├── levels
 │   │   ├── level-1.md
 │   │   ├── level0.md
@@ -401,4 +405,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-75 directories, 324 files
+76 directories, 327 files
