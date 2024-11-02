@@ -3,22 +3,22 @@
 VERSION core_chorus:
 invariants: {
 "Event sequence integrity",
-"Effect conservation",
-"Prior coherence"
+"Network synchronization",
+"Distributed effects"
 }
 assumptions: {
 "Swift concurrency",
-"Event-driven flow",
-"Local-first processing"
+"Service coordination",
+"Collective intelligence"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Cycle Events
 
-Detailed events for each step:
+Detailed events for distributed cycle coordination:
 
 ```swift
-// Fine-grained chorus cycle events
+// Distributed chorus cycle events
 enum ChorusEvent: DomainEvent {
     // ACTION events
     case actionStarted(input: String)
@@ -58,56 +58,61 @@ enum ChorusEvent: DomainEvent {
 
 ## Cycle Manager
 
-Event-driven cycle coordination:
+Distributed cycle coordination:
 
 ```swift
 // Core cycle manager
 actor ChorusCycleManager {
+    // Event logging
     private let eventStore: EventStore
-    private let llm: LLMActor
-    private let vectors: VectorStore
 
-    // Run cycle through event sequence
+    // Distributed services
+    private let llm: FoundationModelActor
+    private let vectors: VectorStoreActor
+    private let embeddings: EmbeddingActor
+    private let chain: ChainActor
+
+    // Run cycle through distributed system
     func runCycle(_ input: String) async throws -> Response {
         // Start cycle
         try await eventStore.append(.actionStarted(input: input))
 
-        // Process through steps
+        // Process through distributed steps
         try await withTaskCancellationHandler {
-            // ACTION
+            // ACTION - Foundation model processing
             let actionEffect = try await processAction(input)
             try await eventStore.append(.actionCompleted(actionEffect))
 
-            // EXPERIENCE
+            // EXPERIENCE - Vector search and embedding
             let priorEffect = try await processExperience(input)
             try await eventStore.append(.priorSynthesisCompleted(priorEffect))
 
-            // INTENTION
+            // INTENTION - Goal analysis
             let intentionEffect = try await processIntention(input)
             try await eventStore.append(.intentionEffectGenerated(intentionEffect))
 
-            // OBSERVATION
+            // OBSERVATION - Network knowledge update
             let observationEffect = try await processObservation(input)
             try await eventStore.append(.observationEffectGenerated(observationEffect))
 
-            // UPDATE
+            // UPDATE - System state evaluation
             let updateEffect = try await processUpdate()
             try await eventStore.append(.updateEffectGenerated(updateEffect))
 
-            // Check for loop
+            // Check for continuation
             if try await shouldContinue(updateEffect) {
                 try await eventStore.append(.loopDecided(shouldLoop: true, reason: "Update indicates continuation"))
                 return try await runCycle(input)
             }
 
-            // YIELD
+            // YIELD - Finalize across network
             let response = try await processYield()
             try await eventStore.append(.cycleCompleted(response))
             return response
 
         } onCancel: {
             Task {
-                try? await cleanup()
+                try? await cleanupDistributedResources()
             }
         }
     }
@@ -118,6 +123,7 @@ extension ChorusCycleManager {
     private func processAction(_ input: String) async throws -> Effect {
         try await eventStore.append(.actionStarted(input: input))
 
+        // Coordinate with AI service
         let response = try await llm.complete(input)
         let confidence = try await llm.getConfidence(response)
 
@@ -132,7 +138,10 @@ extension ChorusCycleManager {
     private func processExperience(_ input: String) async throws -> Effect {
         try await eventStore.append(.priorSearchStarted(query: input))
 
-        let priors = try await vectors.search(input, limit: 80)
+        // Coordinate vector search
+        let embedding = try await embeddings.embed(input)
+        let priors = try await vectors.search(embedding, limit: 80)
+
         try await eventStore.append(.priorsFound(
             count: priors.count,
             relevance: calculateRelevance(priors)
@@ -148,18 +157,26 @@ extension ChorusCycleManager {
 
 ## Effect Generation
 
-Effect creation through events:
+Distributed effect coordination:
 
 ```swift
-// Effect generation with event tracking
+// Effect generation with network coordination
 actor EffectManager {
     private let eventStore: EventStore
+    private let ai: FoundationModelActor
+    private let vectors: VectorStoreActor
 
     func generateEffect(
         type: EffectType,
         content: String
     ) async throws -> Effect {
         let effect = Effect(type: type, content: content)
+
+        // Generate embedding
+        let embedding = try await ai.embed(content)
+
+        // Store in vector database
+        try await vectors.store(embedding, metadata: effect.metadata)
 
         // Record effect generation
         try await eventStore.append(.effectGenerated(
@@ -174,13 +191,15 @@ actor EffectManager {
 
 ## Prior Flow
 
-Prior handling with events:
+Network knowledge coordination:
 
 ```swift
-// Prior management with event tracking
+// Prior management with distributed coordination
 actor PriorManager {
     private let eventStore: EventStore
-    private let vectors: VectorStore
+    private let vectors: VectorStoreActor
+    private let embeddings: EmbeddingActor
+    private var activePriors: [UUID: Prior] = [:]
 
     func recordPriors(_ priors: [Prior], in message: Message) async throws {
         try await eventStore.append(.priorRecordingStarted(
@@ -188,11 +207,11 @@ actor PriorManager {
             messageId: message.id
         ))
 
-        // Store vector links
-        try await vectors.storePriors(priors)
-
-        // Record citations
+        // Generate and store embeddings
         for prior in priors {
+            let embedding = try await embeddings.embed(prior.content)
+            try await vectors.store(embedding, metadata: prior.metadata)
+
             try await eventStore.append(.citationRecorded(
                 source: prior,
                 target: message
@@ -208,15 +227,17 @@ actor PriorManager {
 ```
 
 This implementation provides:
-1. Clear event sequence
-2. Rich system history
-3. Natural monitoring
-4. Easy debugging
-5. Clean recovery
+
+1. Distributed cycle processing
+2. Network service coordination
+3. Knowledge synchronization
+4. Effect propagation
+5. System resilience
 
 The system ensures:
-- Event integrity
-- Effect tracking
-- Prior coherence
-- Cycle completion
-- Resource cleanup
+
+- Event sequence integrity
+- Network coherence
+- Effect distribution
+- Knowledge growth
+- Resource management

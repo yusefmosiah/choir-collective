@@ -3,21 +3,22 @@
 VERSION reward_model:
 invariants: {
 "Energy conservation",
-"Value resonance",
-"Pattern emergence"
+"Network consensus",
+"Distributed rewards"
 }
 assumptions: {
 "Event-driven flow",
-"Local-first verification",
+"Network verification",
 "Chain authority"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Reward Events
 
-Value flows through natural event sequences:
+Value flows through network consensus:
 
 New Message Events
+
 ```swift
 enum MessageRewardEvent: Event {
     case messageApproved(MessageHash, TokenAmount)
@@ -27,6 +28,7 @@ enum MessageRewardEvent: Event {
 ```
 
 Prior Events
+
 ```swift
 enum PriorRewardEvent: Event {
     case priorReferenced(PriorHash, MessageHash)
@@ -36,6 +38,7 @@ enum PriorRewardEvent: Event {
 ```
 
 Treasury Events
+
 ```swift
 enum TreasuryEvent: Event {
     case splitDecisionProcessed(TokenAmount)
@@ -46,9 +49,19 @@ enum TreasuryEvent: Event {
 
 ## Value Calculation
 
-Reward value emerges through natural formulas:
+Thread stake pricing uses the quantum harmonic oscillator formula (Implemented):
 
-New Message Decay
+```
+E(n) = ℏω(n + 1/2)
+
+where:
+- n: quantum number (stake level)
+- ω: thread frequency (organization level)
+- ℏ: reduced Planck constant
+```
+
+New Message Rewards (Implemented):
+
 ```
 R(t) = R_total × k/(1 + kt)ln(1 + kT)
 
@@ -59,7 +72,8 @@ where:
 - T: Total period (4 years)
 ```
 
-Prior Value
+Prior Value (Implemented):
+
 ```
 V(p) = B_t × Q(p)/∑Q(i)
 
@@ -71,20 +85,24 @@ where:
 
 ## Event Processing
 
-Local-first reward handling:
+Network reward coordination:
 
 ```swift
 // Reward processor
 actor RewardProcessor {
     private let chain: ChainAuthority
-    private let eventLog: LocalEventLog
+    private let eventLog: EventStore
+    private let network: NetworkSyncService
 
     func process(_ event: RewardEvent) async throws {
-        // Calculate reward locally
+        // Calculate reward using implemented formulas
         let reward = try await calculate(event)
 
         // Log event
         try await eventLog.append(event)
+
+        // Get network consensus
+        try await network.proposeReward(reward)
 
         // Submit to chain
         try await submitToChain(reward)
@@ -96,15 +114,20 @@ actor RewardProcessor {
 ```
 
 Value Tracking
+
 ```swift
 // Value tracker
 actor ValueTracker {
     private var threadValues: [ThreadID: TokenAmount]
     private let eventLog: EventLog
+    private let network: NetworkSyncService
 
     func trackValue(_ event: RewardEvent) async throws {
         // Update value state
         try await updateValue(event)
+
+        // Get network consensus
+        try await network.proposeValue(event)
 
         // Log value change
         try await eventLog.append(.valueChanged(event))
@@ -115,29 +138,43 @@ actor ValueTracker {
 ## Implementation Notes
 
 1. Event Storage
+
 ```swift
-// Local event storage
+// Network event storage
 @Model
 class RewardEventLog {
     let events: [RewardEvent]
     let values: [ThreadID: TokenAmount]
     let timestamp: Date
+    let networkState: NetworkState
 
-    // Sync with chain
+    // Sync with chain and network
     func sync() async throws {
-        try await chain.verifyRewards(events)
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            group.addTask { try await self.syncChain() }
+            group.addTask { try await self.syncNetwork() }
+            try await group.waitForAll()
+        }
     }
 }
 ```
 
 2. Value Evolution
+
 ```swift
-// Value evolution
+// Network value evolution
 actor ValueManager {
     private var currentValues: [ThreadID: TokenAmount]
     private let eventLog: EventLog
+    private let network: NetworkSyncService
 
     func evolveValue(_ event: RewardEvent) async throws {
+        // Calculate using implemented formulas
+        let newValue = try await calculateValue(event)
+
+        // Get network consensus
+        try await network.proposeValue(newValue)
+
         // Update values
         try await updateValues(event)
 
@@ -148,15 +185,17 @@ actor ValueManager {
 ```
 
 This model ensures:
-1. Event-driven rewards
-2. Local-first verification
+
+1. Precise reward calculations
+2. Network consensus
 3. Chain authority
 4. Value evolution
 5. Pattern emergence
 
 The system maintains:
+
 - Energy conservation
-- Value resonance
+- Value coherence
 - Pattern recognition
-- Natural flow
+- Network flow
 - System evolution

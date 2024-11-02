@@ -35,7 +35,7 @@ assumptions: {
 "Swift implementation",
 "Natural harmonics"
 }
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
+docs_version: "0.4.0"
 
 EOH
 

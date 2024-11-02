@@ -3,21 +3,22 @@
 VERSION theory_dynamics:
 invariants: {
 "Event coherence",
-"Pattern stability",
-"Cycle integrity"
+"Network consensus",
+"Distributed learning"
 }
 assumptions: {
-"Local-first events",
-"Chain authority",
-"Natural evolution"
+"Service coordination",
+"Network dynamics",
+"Collective intelligence"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
-## Chorus Cycle Evolution
+## Core Dynamics
 
-The cycle evolves through clear event sequences:
+The system evolves through coordinated services and network consensus:
 
-Action Events
+Action Events (Implemented)
+
 ```swift
 enum ActionEvent: Event {
     case started(input: String)
@@ -25,14 +26,15 @@ enum ActionEvent: Event {
     case completed(confidence: Float)
 }
 
-// Local event tracking
+// Event tracking
 struct ActionEventLog {
     let events: [ActionEvent]
-    let stateHash: Data
+    let stateHash: Data  // For chain verification
 }
 ```
 
-Experience Events
+Experience Events (Implemented)
+
 ```swift
 enum ExperienceEvent: Event {
     case searchStarted(query: String)
@@ -41,20 +43,12 @@ enum ExperienceEvent: Event {
 }
 ```
 
-Intention Events
-```swift
-enum IntentionEvent: Event {
-    case analysisStarted
-    case goalIdentified(goal: String)
-    case alignmentMeasured(score: Float)
-}
-```
-
 ## Pattern Formation
 
-Patterns emerge through event accumulation:
+Patterns emerge through network consensus:
 
-Pattern Field
+Pattern Field (Conceptual Model)
+
 ```
 ∂P/∂t = D∇²P + f(P,E)
 
@@ -65,7 +59,11 @@ where:
 - f: nonlinear coupling
 ```
 
-Event Coupling
+This model helps us think about how patterns form and strengthen across the network.
+Could inspire future analytics for measuring pattern strength and evolution.
+
+Event Coupling (Conceptual Model)
+
 ```
 E(x,t) = ∑ᵢ Aᵢexp(ikᵢx - iωᵢt)
 
@@ -75,128 +73,130 @@ where:
 - ωᵢ: event frequencies
 ```
 
-## Metastable Evolution
+A perspective on how events interact and combine across the network.
+May guide future implementations of event processing algorithms.
 
-System evolves through metastable states:
+## Implemented Dynamics
 
-Energy Landscape
+Thread stake pricing (Implemented):
+
 ```
-V(x) = ∑ᵢ Vᵢ(x - xᵢ)²/2 + ∑ᵢⱼ Jᵢⱼ(x)
+E(n) = ℏω(n + 1/2)
 
 where:
-- Vᵢ: local potentials
-- Jᵢⱼ: coupling terms
+- n: quantum number (stake level)
+- ω: thread frequency (organization level)
+- ℏ: reduced Planck constant
 ```
 
-Phase Transitions
+New Message Rewards (Implemented):
+
 ```
-P(transition) = τ⁻¹exp(-ΔF/kT)
+R(t) = R_total × k/(1 + kt)ln(1 + kT)
 
 where:
-- τ: attempt time
-- ΔF: free energy barrier
-- k: Boltzmann constant
-- T: effective temperature
+- R_total: Total reward allocation (2.5B)
+- k: Decay constant (~2.04)
+- t: Current time
+- T: Total period (4 years)
+```
+
+Prior Value (Implemented):
+
+```
+V(p) = B_t × Q(p)/∑Q(i)
+
+where:
+- B_t: Treasury balance
+- Q(p): Prior quality score
+- ∑Q(i): Sum of all quality scores
 ```
 
 ## Event Processing
 
-Local-first event handling:
+Network event coordination:
 
 ```swift
 // Event processor
 actor EventProcessor {
-    private var currentState: SystemState
-    private let eventLog: LocalEventLog
-    private let chain: ChainVerification
+    private let network: NetworkState
+    private let eventLog: EventLog
+    private let services: [NetworkService]
 
     func process(_ event: SystemEvent) async throws {
-        // Apply event locally
-        try await apply(event)
+        // Process through network
+        try await processDistributed(event)
 
         // Log event
         try await eventLog.append(event)
 
-        // Verify chain state if needed
-        if event.requiresChainVerification {
-            try await verifyChainState()
-        }
+        // Get network consensus
+        try await network.proposeEvent(event)
 
-        // Emit pattern updates
-        try await updatePatterns(event)
+        // Update patterns
+        try await updateNetworkPatterns(event)
     }
 }
 ```
 
 Pattern Recognition
+
 ```swift
 // Pattern detector
 actor PatternDetector {
     private var patterns: [Pattern]
-    private let eventLog: LocalEventLog
+    private let eventLog: EventLog
+    private let network: NetworkSyncService
 
     func detectPatterns() async throws -> [Pattern] {
-        // Analyze event sequences
+        // Analyze network events
         let events = eventLog.events
 
         // Find resonant patterns
-        return try await findResonance(in: events)
+        return try await findNetworkPatterns(in: events)
     }
 }
-```
-
-## Semantic Evolution
-
-Knowledge network growth:
-
-Citation Field
-```
-C(x,t) = ∑ᵢⱼ wᵢⱼδ(x - xᵢ)δ(t - tⱼ)
-
-where:
-- wᵢⱼ: citation weights
-- xᵢ: semantic positions
-- tⱼ: citation times
-```
-
-Network Growth
-```
-dN/dt = αN + βC - γN²
-
-where:
-- N: network size
-- C: citation count
-- α,β,γ: growth parameters
 ```
 
 ## Implementation Notes
 
 1. Event Storage
+
 ```swift
-// Local event storage
+// Network event storage
 @Model
 class EventStore {
     let events: [Event]
     let patterns: [Pattern]
     let timestamp: Date
+    let networkState: NetworkState
 
-    // Sync with service layer
+    // Network synchronization
     func sync() async throws {
-        try await service.uploadEvents(events)
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            group.addTask { try await self.syncEvents() }
+            group.addTask { try await self.syncPatterns() }
+            try await group.waitForAll()
+        }
     }
 }
 ```
 
 2. Pattern Evolution
+
 ```swift
 // Pattern tracking
 actor PatternManager {
     private var activePatterns: [Pattern]
     private let eventLog: EventLog
+    private let network: NetworkSyncService
 
     func evolvePatterns(_ event: Event) async throws {
         // Update patterns
         try await updatePatterns(event)
+
+        // Get network consensus
+        try await network.proposePatterns(activePatterns)
 
         // Record evolution
         try await eventLog.append(.patternEvolved(activePatterns))
@@ -205,13 +205,15 @@ actor PatternManager {
 ```
 
 This dynamics model ensures:
+
 1. Event coherence
-2. Pattern stability
-3. Local-first operation
-4. Chain verification
-5. Natural evolution
+2. Network consensus
+3. Service coordination
+4. Pattern recognition
+5. System evolution
 
 The system maintains:
+
 - Event integrity
 - Pattern emergence
 - State consistency

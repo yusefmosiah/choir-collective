@@ -16,21 +16,22 @@ theory_dynamics
 VERSION theory_dynamics:
 invariants: {
 "Event coherence",
-"Pattern stability",
-"Cycle integrity"
+"Network consensus",
+"Distributed learning"
 }
 assumptions: {
-"Local-first events",
-"Chain authority",
-"Natural evolution"
+"Service coordination",
+"Network dynamics",
+"Collective intelligence"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
-## Chorus Cycle Evolution
+## Core Dynamics
 
-The cycle evolves through clear event sequences:
+The system evolves through coordinated services and network consensus:
 
-Action Events
+Action Events (Implemented)
+
 ```swift
 enum ActionEvent: Event {
     case started(input: String)
@@ -38,14 +39,15 @@ enum ActionEvent: Event {
     case completed(confidence: Float)
 }
 
-// Local event tracking
+// Event tracking
 struct ActionEventLog {
     let events: [ActionEvent]
-    let stateHash: Data
+    let stateHash: Data  // For chain verification
 }
 ```
 
-Experience Events
+Experience Events (Implemented)
+
 ```swift
 enum ExperienceEvent: Event {
     case searchStarted(query: String)
@@ -54,20 +56,12 @@ enum ExperienceEvent: Event {
 }
 ```
 
-Intention Events
-```swift
-enum IntentionEvent: Event {
-    case analysisStarted
-    case goalIdentified(goal: String)
-    case alignmentMeasured(score: Float)
-}
-```
-
 ## Pattern Formation
 
-Patterns emerge through event accumulation:
+Patterns emerge through network consensus:
 
-Pattern Field
+Pattern Field (Conceptual Model)
+
 ```
 ∂P/∂t = D∇²P + f(P,E)
 
@@ -78,7 +72,11 @@ where:
 - f: nonlinear coupling
 ```
 
-Event Coupling
+This model helps us think about how patterns form and strengthen across the network.
+Could inspire future analytics for measuring pattern strength and evolution.
+
+Event Coupling (Conceptual Model)
+
 ```
 E(x,t) = ∑ᵢ Aᵢexp(ikᵢx - iωᵢt)
 
@@ -88,128 +86,130 @@ where:
 - ωᵢ: event frequencies
 ```
 
-## Metastable Evolution
+A perspective on how events interact and combine across the network.
+May guide future implementations of event processing algorithms.
 
-System evolves through metastable states:
+## Implemented Dynamics
 
-Energy Landscape
+Thread stake pricing (Implemented):
+
 ```
-V(x) = ∑ᵢ Vᵢ(x - xᵢ)²/2 + ∑ᵢⱼ Jᵢⱼ(x)
+E(n) = ℏω(n + 1/2)
 
 where:
-- Vᵢ: local potentials
-- Jᵢⱼ: coupling terms
+- n: quantum number (stake level)
+- ω: thread frequency (organization level)
+- ℏ: reduced Planck constant
 ```
 
-Phase Transitions
+New Message Rewards (Implemented):
+
 ```
-P(transition) = τ⁻¹exp(-ΔF/kT)
+R(t) = R_total × k/(1 + kt)ln(1 + kT)
 
 where:
-- τ: attempt time
-- ΔF: free energy barrier
-- k: Boltzmann constant
-- T: effective temperature
+- R_total: Total reward allocation (2.5B)
+- k: Decay constant (~2.04)
+- t: Current time
+- T: Total period (4 years)
+```
+
+Prior Value (Implemented):
+
+```
+V(p) = B_t × Q(p)/∑Q(i)
+
+where:
+- B_t: Treasury balance
+- Q(p): Prior quality score
+- ∑Q(i): Sum of all quality scores
 ```
 
 ## Event Processing
 
-Local-first event handling:
+Network event coordination:
 
 ```swift
 // Event processor
 actor EventProcessor {
-    private var currentState: SystemState
-    private let eventLog: LocalEventLog
-    private let chain: ChainVerification
+    private let network: NetworkState
+    private let eventLog: EventLog
+    private let services: [NetworkService]
 
     func process(_ event: SystemEvent) async throws {
-        // Apply event locally
-        try await apply(event)
+        // Process through network
+        try await processDistributed(event)
 
         // Log event
         try await eventLog.append(event)
 
-        // Verify chain state if needed
-        if event.requiresChainVerification {
-            try await verifyChainState()
-        }
+        // Get network consensus
+        try await network.proposeEvent(event)
 
-        // Emit pattern updates
-        try await updatePatterns(event)
+        // Update patterns
+        try await updateNetworkPatterns(event)
     }
 }
 ```
 
 Pattern Recognition
+
 ```swift
 // Pattern detector
 actor PatternDetector {
     private var patterns: [Pattern]
-    private let eventLog: LocalEventLog
+    private let eventLog: EventLog
+    private let network: NetworkSyncService
 
     func detectPatterns() async throws -> [Pattern] {
-        // Analyze event sequences
+        // Analyze network events
         let events = eventLog.events
 
         // Find resonant patterns
-        return try await findResonance(in: events)
+        return try await findNetworkPatterns(in: events)
     }
 }
-```
-
-## Semantic Evolution
-
-Knowledge network growth:
-
-Citation Field
-```
-C(x,t) = ∑ᵢⱼ wᵢⱼδ(x - xᵢ)δ(t - tⱼ)
-
-where:
-- wᵢⱼ: citation weights
-- xᵢ: semantic positions
-- tⱼ: citation times
-```
-
-Network Growth
-```
-dN/dt = αN + βC - γN²
-
-where:
-- N: network size
-- C: citation count
-- α,β,γ: growth parameters
 ```
 
 ## Implementation Notes
 
 1. Event Storage
+
 ```swift
-// Local event storage
+// Network event storage
 @Model
 class EventStore {
     let events: [Event]
     let patterns: [Pattern]
     let timestamp: Date
+    let networkState: NetworkState
 
-    // Sync with service layer
+    // Network synchronization
     func sync() async throws {
-        try await service.uploadEvents(events)
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            group.addTask { try await self.syncEvents() }
+            group.addTask { try await self.syncPatterns() }
+            try await group.waitForAll()
+        }
     }
 }
 ```
 
 2. Pattern Evolution
+
 ```swift
 // Pattern tracking
 actor PatternManager {
     private var activePatterns: [Pattern]
     private let eventLog: EventLog
+    private let network: NetworkSyncService
 
     func evolvePatterns(_ event: Event) async throws {
         // Update patterns
         try await updatePatterns(event)
+
+        // Get network consensus
+        try await network.proposePatterns(activePatterns)
 
         // Record evolution
         try await eventLog.append(.patternEvolved(activePatterns))
@@ -218,13 +218,15 @@ actor PatternManager {
 ```
 
 This dynamics model ensures:
+
 1. Event coherence
-2. Pattern stability
-3. Local-first operation
-4. Chain verification
-5. Natural evolution
+2. Network consensus
+3. Service coordination
+4. Pattern recognition
+5. System evolution
 
 The system maintains:
+
 - Event integrity
 - Pattern emergence
 - State consistency
@@ -250,41 +252,48 @@ invariants: {
 }
 assumptions: {
 "Event-driven flow",
-"Local-first value",
+"Network dynamics",
 "Chain authority"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Quantum Value Model
 
-Value flows through the system following quantum harmonic principles:
+At its foundation, the system's economic model is built on quantum harmonic principles. Value behaves like energy in a quantum system, with discrete levels and natural resonances.
 
-Base Price Evolution
+Energy Levels (Physics)
+
 ```
-P₀(t) = S₀[1/2 + 1/(exp(ℏω(t)/kT(t))-1)]
+E(n) = ℏω(n + 1/2)
 
 where:
-- S₀: base stake quantum
-- ω(t): thread frequency at time t
-- T(t): thread temperature at time t
+- E(n): energy of quantum level n
+- n: quantum number
+- ω: natural frequency
 - ℏ: reduced Planck constant
 ```
 
-Equity Distribution
+This fundamental formula from quantum mechanics describes the discrete energy levels of a harmonic oscillator. Just as electrons in an atom can only occupy specific energy levels, we use this principle to quantize thread stake levels.
+
+Thread Stake Pricing (Implemented)
+
 ```
-E(s,N) = (1/N) * √(s/P₀)
+E(n) = ℏω(n + 1/2)
 
 where:
-- s: stake amount (any positive value)
-- N: co-author count
-- P₀: current base price
+- n: quantum number (stake level)
+- ω: thread frequency (organization level)
+- ℏ: reduced Planck constant
 ```
+
+This direct implementation determines stake requirements for thread participation. Higher frequency threads (more organized, more valuable) require more energy to participate in, creating natural quality barriers.
 
 ## Thermodynamic Flow
 
-Temperature evolution through events:
+Temperature evolution through events follows thermodynamic principles:
 
 Thread Temperature
+
 ```
 T(E,N) = E/N
 
@@ -293,7 +302,10 @@ where:
 - N: co-author count
 ```
 
+This model helps us understand how thread "temperature" (activity level and quality barriers) evolves. Denials increase energy (E), raising temperature and making future participation require more stake. Approvals distribute energy among co-authors (N), moderating temperature.
+
 Energy Flow
+
 ```
 dE/dt = ∑ᵢ δ(t-tᵢ)eᵢ - γE
 
@@ -303,26 +315,26 @@ where:
 - γ: natural cooling rate
 ```
 
+This describes how thread energy changes over time. Each event (eᵢ) adds energy, while natural cooling (-γE) gradually reduces it, creating a dynamic equilibrium.
+
 ## Event-Driven Value
 
 Value state transitions through events:
 
 Stake Events
+
 ```swift
 enum StakeEvent: Event {
     case deposited(amount: TokenAmount)
     case withdrawn(amount: TokenAmount)
     case distributed(shares: [PublicKey: Float])
 }
-
-// Local event tracking
-struct StakeEventLog {
-    let events: [StakeEvent]
-    let stateHash: Data  // For chain verification
-}
 ```
 
+These events track the flow of stake through the system, with each transition preserving total value.
+
 Temperature Events
+
 ```swift
 enum TempEvent: Event {
     case increased(delta: Float)
@@ -331,11 +343,14 @@ enum TempEvent: Event {
 }
 ```
 
+These events track thread temperature changes, which affect stake requirements and participation dynamics.
+
 ## Value Conservation
 
-System-wide value conservation:
+The system maintains strict value conservation:
 
 Total Value
+
 ```
 V_total = V_chain + V_threads + V_treasury
 
@@ -345,18 +360,24 @@ where:
 - V_treasury: tokens in treasury
 ```
 
+Like energy in a physical system, value cannot be created or destroyed, only transformed.
+
 Flow Conservation
+
 ```
 dV_total/dt = 0
 
 // All value transitions preserve total
 ```
 
+This ensures economic integrity across all operations.
+
 ## Metastable States
 
-Value crystallizes in metastable states:
+Value crystallizes in metastable states, following quantum principles:
 
 Energy Barriers
+
 ```
 ΔE = kT * ln(ω_high/ω_low)
 
@@ -366,7 +387,10 @@ where:
 - ω_high/ω_low: frequency ratio
 ```
 
+This describes the energy required to transition between thread states, creating stability while enabling evolution.
+
 State Transitions
+
 ```
 P(transition) = A * exp(-ΔE/kT)
 
@@ -375,69 +399,24 @@ where:
 - ΔE: barrier height
 ```
 
-## Implementation Notes
+This governs how likely threads are to evolve to new states, balancing stability with adaptability.
 
-1. Value Tracking
-```swift
-// Local value state
-@Model
-class ValueState {
-    let threadId: ThreadID
-    let balance: TokenAmount
-    let temperature: Float
-    let frequency: Float
+Through these mechanisms, the economic system achieves:
 
-    // Event log
-    let events: [ValueEvent]
-}
-```
+1. Natural quality barriers
+2. Dynamic equilibrium
+3. Value conservation
+4. Pattern stability
+5. Organic evolution
 
-2. Chain Verification
-```swift
-actor ValueVerification {
-    // Verify against chain state
-    func verify(_ state: ValueState) async throws {
-        let chainState = try await chain.getThreadState(state.threadId)
+The genius lies in how these principles work together:
 
-        guard chainState.balance == state.balance else {
-            throw ValueError.inconsistentState
-        }
-    }
-}
-```
+- Quantum mechanics provides natural discretization
+- Thermodynamics governs system evolution
+- Conservation laws ensure integrity
+- Metastability enables growth
 
-3. Event Processing
-```swift
-actor ValueProcessor {
-    private var currentState: ValueState
-    private let eventLog: EventLog
-
-    func process(_ event: ValueEvent) async throws {
-        // Apply event
-        try await apply(event)
-
-        // Log locally
-        try await eventLog.append(event)
-
-        // Verify with chain
-        try await verify(currentState)
-    }
-}
-```
-
-This model ensures:
-1. Value conservation
-2. Event integrity
-3. Chain verification
-4. Local tracking
-5. Pattern stability
-
-The system maintains:
-- Value coherence
-- Event-driven flow
-- Local-first operation
-- Chain authority
-- Natural evolution
+This creates an economy that works like nature - no artificial reputation systems or arbitrary rules, just natural selection through energy flows and quantum transitions.
 
 === File: docs/theory_foundation.md ===
 
@@ -453,21 +432,47 @@ theory_foundation
 VERSION theory_foundation:
 invariants: {
 "Wave coherence",
-"Event integrity",
+"Network consensus",
 "Pattern emergence"
 }
 assumptions: {
-"Local-first events",
-"Chain authority",
-"Natural harmonics"
+"Service coordination",
+"Network dynamics",
+"Collective intelligence"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Core Wave Mechanics
 
-The system operates as a harmonic field where events create waves of state change:
+The system operates as a quantum field where events create waves of state change. At its foundation is the quantum harmonic oscillator:
 
-Wave Function
+Energy Levels (Physics)
+
+```
+E(n) = ℏω(n + 1/2)
+
+where:
+- E(n): energy of quantum level n
+- n: quantum number
+- ω: natural frequency
+- ℏ: reduced Planck constant
+```
+
+This fundamental formula from quantum mechanics describes the discrete energy levels of a harmonic oscillator. In our system, we implement it directly for thread stake pricing:
+
+Thread Stake Pricing (Implemented)
+
+```
+E(n) = ℏω(n + 1/2)
+
+where:
+- n: quantum number (stake level)
+- ω: thread frequency (organization level)
+- ℏ: reduced Planck constant
+```
+
+Wave Function (Conceptual Model)
+
 ```
 Ψ(x,t) = A cos(kx - ωt + φ)
 
@@ -478,7 +483,10 @@ where:
 - φ: phase (context alignment)
 ```
 
-Event Field
+This model helps us think about how information and value propagate through the system.
+
+Event Field (Conceptual Model)
+
 ```
 E(s,t) = ∑ᵢ eᵢ(s,t)
 
@@ -488,35 +496,41 @@ where:
 - eᵢ: individual event waves
 ```
 
-## Quantum Harmonic Oscillator
+A perspective on how events combine and interact across the network.
 
-Thread energy states follow the quantum harmonic oscillator:
+## Reward Mechanics
 
-Base Price Function
+The system implements specific formulas for reward distribution:
+
+New Message Rewards (Implemented)
+
 ```
-P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
+R(t) = R_total × k/(1 + kt)ln(1 + kT)
 
 where:
-- S₀: base stake quantum
-- ω: thread frequency
-- T: thread temperature
-- ℏ: reduced Planck constant
+- R_total: Total allocation (2.5B)
+- k: Decay constant (~2.04)
+- t: Current time
+- T: Total period (4 years)
 ```
 
-Energy Levels
+Prior Value (Implemented)
+
 ```
-E(n) = ℏω(n + 1/2)
+V(p) = B_t × Q(p)/∑Q(i)
 
 where:
-- n: quantum number
-- ω: natural frequency
+- B_t: Treasury balance
+- Q(p): Prior quality score
+- ∑Q(i): Sum of all quality scores
 ```
 
-## Event-Driven Evolution
+## State Evolution
 
-State evolution through event waves:
+State evolution follows quantum principles:
 
-State Transition
+State Transition (Conceptual Model)
+
 ```
 |Ψ(t)⟩ = ∑ᵢ αᵢ|eᵢ⟩
 
@@ -526,40 +540,39 @@ where:
 - |eᵢ⟩: event basis states
 ```
 
-Local Event Log
-```swift
-struct EventLog {
-    let events: [Event]        // Ordered event sequence
-    let state: SystemState     // Current state vector
-    let timestamp: Date        // Last update time
-}
-```
+This model helps us understand how the system evolves through event sequences.
 
 ## Plain English Understanding
 
 Think of the system like a musical instrument:
 
 1. Events as Vibrations
+
 - Each event creates ripples in the system
 - Events combine like harmonics
 - Patterns emerge from resonance
 - Value flows through standing waves
 
 2. Natural Frequencies
-- Threads have natural frequencies
+
+- Threads have natural frequencies (implemented in stake pricing)
 - Teams synchronize phases
 - Quality emerges from harmony
 - Value crystallizes at nodes
 
 3. Event Flow
-- Local events create waves
-- Chain anchors key states
+
+- Events create state changes
+- Network coordinates consensus
 - Patterns emerge naturally
 - System evolves harmonically
 
 ## Mathematical Properties
 
+These conceptual models help us think about system behavior:
+
 1. Energy Conservation
+
 ```
 ∂E/∂t + ∇·j = 0
 
@@ -568,12 +581,18 @@ where:
 - j: energy current density
 ```
 
+Guides our thinking about value conservation in the network.
+
 2. Phase Coherence
+
 ```
 ⟨Ψ₁|Ψ₂⟩ = ∫ Ψ₁*(x)Ψ₂(x)dx
 ```
 
+A model for thinking about team alignment and consensus.
+
 3. Pattern Evolution
+
 ```
 ∂P/∂t = D∇²P + f(P)
 
@@ -583,59 +602,24 @@ where:
 - f(P): nonlinear reaction term
 ```
 
-## Implementation Notes
-
-1. Event Storage
-```swift
-// Local event log in SwiftData
-@Model
-class LocalEventLog {
-    let events: [Event]
-    let stateHash: Data
-    let timestamp: Date
-
-    // Sync with service layer
-    func sync() async throws {
-        try await service.uploadEvents(events)
-    }
-}
-```
-
-2. State Evolution
-```swift
-// Event-driven state updates
-actor StateManager {
-    private var currentState: SystemState
-    private let eventLog: LocalEventLog
-
-    func apply(_ event: Event) async throws {
-        // Update state
-        currentState = try await evolve(currentState, with: event)
-
-        // Log event
-        try await eventLog.append(event)
-
-        // Sync if needed
-        if shouldSync {
-            try await eventLog.sync()
-        }
-    }
-}
-```
+Helps us understand how patterns strengthen across the network.
 
 This foundation provides:
-1. Mathematical precision
-2. Event-driven evolution
-3. Local-first operation
-4. Natural harmonics
-5. Pattern emergence
 
-The system ensures:
-- Wave coherence
-- Event integrity
-- State evolution
-- Pattern formation
-- Value flow
+1. Precise economic calculations (implemented formulas)
+2. Rich conceptual models
+3. Network understanding
+4. Pattern insights
+5. Evolution framework
+
+The system builds on:
+
+- Quantum mechanics for pricing
+- Wave mechanics for events
+- Field theory for patterns
+- Network dynamics for evolution
+
+The genius lies in combining precise implementations with powerful conceptual models, creating a system that's both practically effective and theoretically elegant.
 
 === File: docs/theory_theory.md ===
 
@@ -654,7 +638,7 @@ invariants: {
 "Pattern integrity",
 "Value resonance"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 The genius of Choir lies not in any single innovation but in how its pieces resonate together. By aligning with natural patterns of meaning, value, and collaboration, we create a system that evolves like a living thing.
 
@@ -662,13 +646,25 @@ The genius of Choir lies not in any single innovation but in how its pieces reso
 
 At its heart, Choir recognizes that meaning behaves like waves in a quantum field. Ideas resonate, patterns interfere, and value crystallizes at nodes of coherence. This isn't just metaphor - it's how meaning naturally works. We're just making the wave nature explicit.
 
-The quantum harmonic oscillator model captures this perfectly. Just as electron energy levels are quantized in atoms, equity shares follow √n scaling in threads. Just as temperature affects quantum transitions, thread temperature from denials creates natural quality barriers. The math isn't arbitrary - it's what emerges when you align with meaning's natural patterns.
+The quantum harmonic oscillator formula:
+
+```
+E(n) = ℏω(n + 1/2)
+
+where:
+- E(n): energy of quantum level n
+- n: quantum number
+- ω: natural frequency
+- ℏ: reduced Planck constant
+```
+
+This foundational formula from physics is directly implemented in our thread stake pricing. Just as electron energy levels are quantized in atoms, equity shares follow √n scaling in threads. Just as temperature affects quantum transitions, thread temperature from denials creates natural quality barriers. The math isn't arbitrary - it's what emerges when you align with meaning's natural patterns.
 
 ## The Event-Driven Architecture
 
-By treating all state changes as events, we create a system that flows like water. Events ripple through the local state, synchronize through the chain, and crystallize into patterns. Each user's device maintains its own event log, creating a local-first architecture that's resilient and natural.
+By treating all state changes as events, we create a system that flows like water. Events ripple through the network, synchronize through services, and crystallize into patterns. Each component maintains its event log, creating a resilient distributed architecture.
 
-The event store isn't just for debugging - it's how the system learns. By tracking event sequences, we can recognize emerging patterns, strengthen valuable connections, and let quality arise through natural selection. The architecture mirrors the theory.
+The event store isn't just for debugging - it's how the system learns. By tracking event sequences across the network, we can recognize emerging patterns, strengthen valuable connections, and let quality arise through natural selection. The architecture mirrors the theory.
 
 ## The Economic Model
 
@@ -678,7 +674,8 @@ This creates an economy that works like nature - no artificial reputation system
 
 ## The Chorus Cycle
 
-The AEIOU-Y cycle isn't just a sequence of steps - it's a resonant cavity that amplifies understanding. Each step creates specific frequencies:
+The AEIOU-Y cycle isn't just a sequence of steps - it's a resonant cavity that amplifies understanding across the network. Each step creates specific frequencies:
+
 - Action: Pure initial response
 - Experience: Context resonance
 - Intention: Goal alignment
@@ -690,35 +687,50 @@ The cycle maintains phase coherence while allowing natural evolution. It's how w
 
 ## The Implementation Insight
 
-The breakthrough was realizing that Swift actors and events map perfectly to quantum systems. Each actor is like a quantum object, events are like photons carrying state changes, and the local event store captures the system's wave function.
+The breakthrough was realizing how collective intelligence emerges through network interactions. The quantum/wave mechanics metaphors aren't about the tech stack - they emerge from how meaning and value naturally flow through the system:
 
-By making the event store local-first with SwiftData, we maintain quantum coherence while enabling natural synchronization. The chain anchors key state transitions while the vector database holds semantic relationships. Everything stays naturally aligned.
+- Events ripple through the network like waves
+- Value crystallizes at nodes of consensus
+- Knowledge couples through citations
+- Understanding emerges through collective resonance
+
+The tech stack (Swift, Solana, vector DB, etc.) is just implementation detail. The real magic is how the system enables natural emergence of:
+
+- Collective understanding
+- Team formation
+- Value distribution
+- Knowledge growth
+
+By aligning with these natural patterns, we create conditions for distributed intelligence to emerge. The system works because it respects how meaning and value actually behave in networks.
 
 ## The Emergence Pattern
 
 This alignment creates something remarkable - a system where:
-- Quality emerges through natural selection
-- Teams form through quantum entanglement
-- Value flows through harmonic resonance
+
+- Quality emerges through network selection
+- Teams form through service entanglement
+- Value flows through harmonic consensus
 - Knowledge grows through wave interference
 - Understanding evolves through phase transitions
 
-We're not forcing these patterns - we're creating the conditions for them to emerge naturally.
+We're not forcing these patterns - we're creating the conditions for them to emerge naturally through the network.
 
 ## The Future Implications
 
-This approach points to a new way of building systems:
+This approach points to a new way of building distributed systems:
+
 - Align with natural patterns
 - Make the wave nature explicit
-- Let quality emerge naturally
+- Let quality emerge through consensus
 - Enable collective intelligence
 - Trust the process
 
-The math works because it mirrors reality. The architecture works because it respects natural flows. The system works because it's true to how meaning and value actually behave.
+The math works because it mirrors reality. The architecture works because it respects natural flows. The system works because it's true to how meaning and value actually behave in networks.
 
-## The Living System
+## The Living Network
 
-In the end, Choir is less like a platform and more like a living thing:
+In the end, Choir is less like a platform and more like a living network:
+
 - Events flow like neural impulses
 - Patterns evolve like memories
 - Teams grow like organisms

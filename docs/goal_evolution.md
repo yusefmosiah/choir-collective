@@ -11,13 +11,14 @@ assumptions: {
 "Local-first evolution",
 "Event-driven growth"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Core Evolution
 
 The platform evolves through natural phases:
 
 Text Foundation
+
 - Pure text interaction
 - Natural message flow
 - Citation patterns
@@ -25,6 +26,7 @@ Text Foundation
 - Team formation
 
 The foundation enables:
+
 - Clear communication patterns
 - Natural quality emergence
 - Team crystallization
@@ -32,6 +34,7 @@ The foundation enables:
 - Network growth
 
 Voice Enhancement
+
 - Natural voice input
 - Audio embeddings
 - Multimodal understanding
@@ -39,6 +42,7 @@ Voice Enhancement
 - Flow evolution
 
 The voice layer creates:
+
 - Richer interaction patterns
 - Natural communication flow
 - Enhanced understanding
@@ -46,6 +50,7 @@ The voice layer creates:
 - Network deepening
 
 Knowledge Evolution
+
 - Cross-modal understanding
 - Deep semantic networks
 - Pattern recognition
@@ -57,6 +62,7 @@ Knowledge Evolution
 Natural capability growth:
 
 Local Enhancement
+
 - On-device embeddings
 - Local search
 - Pattern recognition
@@ -64,6 +70,7 @@ Local Enhancement
 - Natural evolution
 
 Edge Enhancement
+
 - Distributed search
 - Pattern sharing
 - Value flow
@@ -71,6 +78,7 @@ Edge Enhancement
 - Natural scaling
 
 Network Enhancement
+
 - P2P capabilities
 - Pattern emergence
 - Value distribution
@@ -82,6 +90,7 @@ Network Enhancement
 Natural value flow evolution:
 
 Individual Value
+
 - Quality recognition
 - Pattern rewards
 - Natural incentives
@@ -89,6 +98,7 @@ Individual Value
 - Value accumulation
 
 Team Value
+
 - Collective recognition
 - Pattern strengthening
 - Natural alignment
@@ -96,6 +106,7 @@ Team Value
 - Value crystallization
 
 Network Value
+
 - Pattern emergence
 - Value flow
 - Natural coupling
@@ -107,6 +118,7 @@ Network Value
 Progressive capability emergence:
 
 Interaction Capabilities
+
 - Text to voice
 - Multimodal understanding
 - Pattern recognition
@@ -114,6 +126,7 @@ Interaction Capabilities
 - Evolution support
 
 Knowledge Capabilities
+
 - Semantic networks
 - Pattern formation
 - Value recognition
@@ -121,6 +134,7 @@ Knowledge Capabilities
 - Network effects
 
 Economic Capabilities
+
 - Value distribution
 - Pattern rewards
 - Natural incentives
@@ -132,6 +146,7 @@ Economic Capabilities
 Natural system evolution toward:
 
 Collective Intelligence
+
 - Pattern recognition
 - Value emergence
 - Natural alignment
@@ -139,6 +154,7 @@ Collective Intelligence
 - Network effects
 
 Team Formation
+
 - Natural crystallization
 - Pattern strengthening
 - Value sharing
@@ -146,6 +162,7 @@ Team Formation
 - Network formation
 
 Knowledge Networks
+
 - Pattern emergence
 - Value flow
 - Natural coupling
@@ -153,6 +170,7 @@ Knowledge Networks
 - Network intelligence
 
 This evolution enables:
+
 1. Natural capability growth
 2. Progressive enhancement
 3. Value distribution
@@ -160,6 +178,7 @@ This evolution enables:
 5. Network effects
 
 The system ensures:
+
 - Natural evolution
 - Pattern recognition
 - Value flow

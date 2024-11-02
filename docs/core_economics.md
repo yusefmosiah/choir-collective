@@ -11,7 +11,7 @@ assumptions: {
 "Event-driven flow",
 "Solana source of truth"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Economic Events
 

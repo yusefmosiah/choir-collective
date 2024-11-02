@@ -1,16 +1,3 @@
-# Level 0 Documentation
-
-
-
-=== File: docs/Deploy_Render_Checklist.md ===
-
-
-
-==
-Deploy_Render_Checklist
-==
-
-
 # Choir: Harmonic Intelligence Platform
 
 VERSION harmonic_system:

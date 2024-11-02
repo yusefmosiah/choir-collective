@@ -3,28 +3,28 @@
 VERSION core_knowledge:
 invariants: {
 "Semantic coherence",
-"Citation integrity",
-"Vector stability"
+"Network consensus",
+"Distributed learning"
 }
 assumptions: {
-"Local-first vectors",
-"Multimodal embeddings",
-"Progressive enhancement"
+"Distributed vector storage",
+"Collective embeddings",
+"Network intelligence"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Vector Space
 
-Core vector operations with proper concurrency:
+Distributed vector operations with proper concurrency:
 
 ```swift
-// Vector operations with isolation
+// Vector operations with network coordination
 actor VectorStore {
-    private let Qdrant: Qdrant
+    private let qdrant: QdrantService
     private let embeddings: EmbeddingActor
     private let cache: CacheActor
 
-    // Concurrent vector search
+    // Distributed vector search
     func search(_ content: String, limit: Int = 80) async throws -> [Prior] {
         try await withThrowingTaskGroup(of: ([Prior], [Float]).self) { group in
             // Parallel embedding and cache check
@@ -39,14 +39,14 @@ actor VectorStore {
                 throw VectorError.searchFailed
             }
 
-            // Return cached or search
+            // Return cached or search network
             if cached.count >= limit {
                 return Array(cached.prefix(limit))
             }
 
-            // Search with cancellation support
+            // Network search with cancellation support
             return try await withTaskCancellationHandler {
-                let results = try await Qdrant.search(
+                let results = try await qdrant.search(
                     vector: embedding,
                     limit: limit
                 )
@@ -62,26 +62,27 @@ actor VectorStore {
 
 ## Prior Management
 
-Thread-safe prior handling:
+Network-aware prior handling:
 
 ```swift
-// Prior operations with proper isolation
+// Prior operations with distributed coordination
 actor PriorManager {
     private let vectors: VectorStore
     private let storage: StorageActor
+    private let network: NetworkSyncService
     private var activePriors: [UUID: Prior] = [:]
 
-    // Concurrent prior processing
+    // Distributed prior processing
     func processPriors(for content: String) async throws -> [Prior] {
         try await withThrowingTaskGroup(of: [Prior].self) { group in
-            // Search vectors
+            // Network vector search
             group.addTask {
                 try await self.vectors.search(content)
             }
 
-            // Get metadata
+            // Get network metadata
             group.addTask {
-                try await self.storage.getPriorMetadata(content)
+                try await self.network.getPriorMetadata(content)
             }
 
             // Combine results
@@ -99,18 +100,24 @@ actor PriorManager {
         }
     }
 
-    // Citation recording with error handling
+    // Citation recording with network sync
     func recordCitation(_ source: Prior, in target: Message) async throws {
         guard let prior = activePriors[source.id] else {
             throw PriorError.notFound
         }
 
         try await withTaskCancellationHandler {
-            try await storage.recordCitation(source: prior, target: target)
+            // Record in network
+            try await network.recordCitation(source: prior, target: target)
+
+            // Update vector indices
             try await vectors.updateEmbeddings(for: target)
+
+            // Store locally
+            try await storage.recordCitation(source: prior, target: target)
         } onCancel: {
             Task {
-                try? await storage.cleanup(target.id)
+                try? await network.cleanup(target.id)
             }
         }
     }
@@ -119,30 +126,31 @@ actor PriorManager {
 
 ## Semantic Network
 
-Knowledge graph management:
+Distributed knowledge graph:
 
 ```swift
-// Semantic operations with proper isolation
+// Semantic operations with network coordination
 actor SemanticNetwork {
     private let graph: GraphActor
     private let vectors: VectorStore
+    private let network: NetworkSyncService
 
-    // Concurrent semantic processing
+    // Distributed semantic processing
     func processSemanticLinks(_ message: Message) async throws {
         try await withThrowingTaskGroup(of: Void.self) { group in
-            // Update graph
+            // Update network graph
             group.addTask {
-                try await self.graph.addNode(message)
+                try await self.network.addNode(message)
             }
 
-            // Process citations
+            // Process citations across network
             for prior in message.priors {
                 group.addTask {
-                    try await self.graph.addEdge(from: prior, to: message)
+                    try await self.network.addEdge(from: prior, to: message)
                 }
             }
 
-            // Update embeddings
+            // Update distributed embeddings
             group.addTask {
                 try await self.vectors.updateEmbeddings(for: message)
             }
@@ -151,11 +159,11 @@ actor SemanticNetwork {
         }
     }
 
-    // Graph queries with cancellation
+    // Network graph queries with cancellation
     func findRelatedContent(_ content: String) async throws -> [Message] {
         try await withTaskCancellationHandler {
             let embedding = try await vectors.embed(content)
-            let nodes = try await graph.findSimilar(embedding)
+            let nodes = try await network.findSimilar(embedding)
             return nodes.map(\.message)
         } onCancel: {
             Task { @MainActor in
@@ -168,15 +176,16 @@ actor SemanticNetwork {
 
 ## Multimodal Support
 
-Progressive enhancement for different modalities:
+Distributed multimodal processing:
 
 ```swift
-// Multimodal handling with isolation
+// Multimodal handling with network coordination
 actor ModalityManager {
-    private let imageBind: ImageBindActor
+    private let imageBind: ImageBindService
     private let vectors: VectorStore
+    private let network: NetworkSyncService
 
-    // Process different modalities
+    // Process different modalities across network
     func processContent(_ content: MultimodalContent) async throws -> Embedding {
         try await withThrowingTaskGroup(of: [Float].self) { group in
             switch content {
@@ -196,13 +205,13 @@ actor ModalityManager {
                 }
             }
 
-            // Combine embeddings
+            // Combine network embeddings
             var embeddings: [[Float]] = []
             for try await embedding in group {
                 embeddings.append(embedding)
             }
 
-            return try await combineEmbeddings(embeddings)
+            return try await network.combineEmbeddings(embeddings)
         }
     }
 }
@@ -210,30 +219,30 @@ actor ModalityManager {
 
 ## Implementation Strategy
 
-Progressive knowledge enhancement:
+Progressive network enhancement:
 
 ```swift
 struct KnowledgeStrategy {
-    // Phase 1: Local vectors
+    // Phase 1: Core network
     let foundation = [
-        "Local Qdrant",
-        "Basic embeddings",
-        "Simple citations",
-        "Text only"
+        "Distributed Qdrant",
+        "Network embeddings",
+        "Citation network",
+        "Text processing"
     ]
 
-    // Phase 2: Enhanced vectors
+    // Phase 2: Enhanced network
     let enhancement = [
-        "Multimodal support",
+        "Multimodal processing",
         "Distributed search",
-        "Rich citations",
+        "Network citations",
         "Knowledge graph"
     ]
 
     // Phase 3: Network effects
     let network = [
-        "P2P vector sync",
-        "Collective knowledge",
+        "Collective learning",
+        "Network intelligence",
         "Cross-modal search",
         "Emergent patterns"
     ]
@@ -241,15 +250,17 @@ struct KnowledgeStrategy {
 ```
 
 This knowledge architecture provides:
-1. Thread-safe vector operations
-2. Proper concurrency handling
+
+1. Distributed vector operations
+2. Network coordination
 3. Progressive enhancement
 4. Multimodal support
-5. Local-first approach
+5. Collective intelligence
 
 The system ensures:
+
 - Semantic coherence
-- Citation integrity
+- Network consensus
 - Resource efficiency
 - Knowledge emergence
-- Natural evolution
+- System evolution

@@ -1,7 +1,7 @@
-# Choir Documentation Levels
+# Choir Documentation Prompt
 
-## Level -1: System Infrastructure
-- Build scripts and tooling
+## Level -1: Prompts
+- Getting Started
 - Directory structure
 - Automation
 

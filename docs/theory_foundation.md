@@ -3,21 +3,47 @@
 VERSION theory_foundation:
 invariants: {
 "Wave coherence",
-"Event integrity",
+"Network consensus",
 "Pattern emergence"
 }
 assumptions: {
-"Local-first events",
-"Chain authority",
-"Natural harmonics"
+"Service coordination",
+"Network dynamics",
+"Collective intelligence"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Core Wave Mechanics
 
-The system operates as a harmonic field where events create waves of state change:
+The system operates as a quantum field where events create waves of state change. At its foundation is the quantum harmonic oscillator:
 
-Wave Function
+Energy Levels (Physics)
+
+```
+E(n) = ℏω(n + 1/2)
+
+where:
+- E(n): energy of quantum level n
+- n: quantum number
+- ω: natural frequency
+- ℏ: reduced Planck constant
+```
+
+This fundamental formula from quantum mechanics describes the discrete energy levels of a harmonic oscillator. In our system, we implement it directly for thread stake pricing:
+
+Thread Stake Pricing (Implemented)
+
+```
+E(n) = ℏω(n + 1/2)
+
+where:
+- n: quantum number (stake level)
+- ω: thread frequency (organization level)
+- ℏ: reduced Planck constant
+```
+
+Wave Function (Conceptual Model)
+
 ```
 Ψ(x,t) = A cos(kx - ωt + φ)
 
@@ -28,7 +54,10 @@ where:
 - φ: phase (context alignment)
 ```
 
-Event Field
+This model helps us think about how information and value propagate through the system.
+
+Event Field (Conceptual Model)
+
 ```
 E(s,t) = ∑ᵢ eᵢ(s,t)
 
@@ -38,35 +67,41 @@ where:
 - eᵢ: individual event waves
 ```
 
-## Quantum Harmonic Oscillator
+A perspective on how events combine and interact across the network.
 
-Thread energy states follow the quantum harmonic oscillator:
+## Reward Mechanics
 
-Base Price Function
+The system implements specific formulas for reward distribution:
+
+New Message Rewards (Implemented)
+
 ```
-P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
+R(t) = R_total × k/(1 + kt)ln(1 + kT)
 
 where:
-- S₀: base stake quantum
-- ω: thread frequency
-- T: thread temperature
-- ℏ: reduced Planck constant
+- R_total: Total allocation (2.5B)
+- k: Decay constant (~2.04)
+- t: Current time
+- T: Total period (4 years)
 ```
 
-Energy Levels
+Prior Value (Implemented)
+
 ```
-E(n) = ℏω(n + 1/2)
+V(p) = B_t × Q(p)/∑Q(i)
 
 where:
-- n: quantum number
-- ω: natural frequency
+- B_t: Treasury balance
+- Q(p): Prior quality score
+- ∑Q(i): Sum of all quality scores
 ```
 
-## Event-Driven Evolution
+## State Evolution
 
-State evolution through event waves:
+State evolution follows quantum principles:
 
-State Transition
+State Transition (Conceptual Model)
+
 ```
 |Ψ(t)⟩ = ∑ᵢ αᵢ|eᵢ⟩
 
@@ -76,40 +111,39 @@ where:
 - |eᵢ⟩: event basis states
 ```
 
-Local Event Log
-```swift
-struct EventLog {
-    let events: [Event]        // Ordered event sequence
-    let state: SystemState     // Current state vector
-    let timestamp: Date        // Last update time
-}
-```
+This model helps us understand how the system evolves through event sequences.
 
 ## Plain English Understanding
 
 Think of the system like a musical instrument:
 
 1. Events as Vibrations
+
 - Each event creates ripples in the system
 - Events combine like harmonics
 - Patterns emerge from resonance
 - Value flows through standing waves
 
 2. Natural Frequencies
-- Threads have natural frequencies
+
+- Threads have natural frequencies (implemented in stake pricing)
 - Teams synchronize phases
 - Quality emerges from harmony
 - Value crystallizes at nodes
 
 3. Event Flow
-- Local events create waves
-- Chain anchors key states
+
+- Events create state changes
+- Network coordinates consensus
 - Patterns emerge naturally
 - System evolves harmonically
 
 ## Mathematical Properties
 
+These conceptual models help us think about system behavior:
+
 1. Energy Conservation
+
 ```
 ∂E/∂t + ∇·j = 0
 
@@ -118,12 +152,18 @@ where:
 - j: energy current density
 ```
 
+Guides our thinking about value conservation in the network.
+
 2. Phase Coherence
+
 ```
 ⟨Ψ₁|Ψ₂⟩ = ∫ Ψ₁*(x)Ψ₂(x)dx
 ```
 
+A model for thinking about team alignment and consensus.
+
 3. Pattern Evolution
+
 ```
 ∂P/∂t = D∇²P + f(P)
 
@@ -133,56 +173,21 @@ where:
 - f(P): nonlinear reaction term
 ```
 
-## Implementation Notes
-
-1. Event Storage
-```swift
-// Local event log in SwiftData
-@Model
-class LocalEventLog {
-    let events: [Event]
-    let stateHash: Data
-    let timestamp: Date
-
-    // Sync with service layer
-    func sync() async throws {
-        try await service.uploadEvents(events)
-    }
-}
-```
-
-2. State Evolution
-```swift
-// Event-driven state updates
-actor StateManager {
-    private var currentState: SystemState
-    private let eventLog: LocalEventLog
-
-    func apply(_ event: Event) async throws {
-        // Update state
-        currentState = try await evolve(currentState, with: event)
-
-        // Log event
-        try await eventLog.append(event)
-
-        // Sync if needed
-        if shouldSync {
-            try await eventLog.sync()
-        }
-    }
-}
-```
+Helps us understand how patterns strengthen across the network.
 
 This foundation provides:
-1. Mathematical precision
-2. Event-driven evolution
-3. Local-first operation
-4. Natural harmonics
-5. Pattern emergence
 
-The system ensures:
-- Wave coherence
-- Event integrity
-- State evolution
-- Pattern formation
-- Value flow
+1. Precise economic calculations (implemented formulas)
+2. Rich conceptual models
+3. Network understanding
+4. Pattern insights
+5. Evolution framework
+
+The system builds on:
+
+- Quantum mechanics for pricing
+- Wave mechanics for events
+- Field theory for patterns
+- Network dynamics for evolution
+
+The genius lies in combining precise implementations with powerful conceptual models, creating a system that's both practically effective and theoretically elegant.

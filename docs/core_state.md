@@ -11,7 +11,7 @@ assumptions: {
 "Actor isolation",
 "Event-driven sync"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Chain State (Source of Truth)
 
@@ -165,6 +165,7 @@ class ThreadViewModel: ObservableObject {
 ```
 
 This implementation ensures:
+
 1. Chain state authority
 2. Vector content authority
 3. Local coordination
@@ -172,6 +173,7 @@ This implementation ensures:
 5. Proper sync
 
 The system maintains:
+
 - Clear data hierarchy
 - Proper authority
 - UI responsiveness

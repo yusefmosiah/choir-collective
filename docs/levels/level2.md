@@ -2,1432 +2,1164 @@
 
 
 
-=== File: docs/core_architecture.md ===
+=== File: docs/Impl_Security.md ===
 
 
 
 ==
-core_architecture
+Impl_Security
 ==
 
 
-# Core System Architecture
+# Security Model
 
-VERSION core_architecture:
-invariants: {
-"Event integrity",
-"Domain isolation",
-"Local-first data"
-}
-assumptions: {
-"Swift concurrency",
-"Actor isolation",
-"Event-driven flow"
-}
-docs_version: "0.3.0"
-
-## Domain Events
-
-Core event types that drive the system:
-
-```swift
-// Base event protocol
-protocol DomainEvent: Sendable {
-    var id: UUID { get }
-    var timestamp: Date { get }
-    var metadata: EventMetadata { get }
-}
-
-// Chorus cycle events
-enum ChorusEvent: DomainEvent {
-    case cycleStarted(input: String)
-    case actionGenerated(response: String, confidence: Float)
-    case priorsFound(count: Int, relevance: Float)
-    case intentionIdentified(goal: String)
-    case linksRecorded(count: Int)
-    case cycleCompleted(Response)
-
-    var id: UUID
-    var timestamp: Date
-    var metadata: EventMetadata
-}
-
-// Economic events
-enum EconomicEvent: DomainEvent {
-    case stakeDeposited(amount: TokenAmount)
-    case temperatureChanged(delta: Float)
-    case equityDistributed(shares: [PublicKey: Float])
-    case rewardsIssued(amount: TokenAmount)
-
-    var id: UUID
-    var timestamp: Date
-    var metadata: EventMetadata
-}
-
-// Knowledge events
-enum KnowledgeEvent: DomainEvent {
-    case vectorStored(embedding: [Float])
-    case citationRecorded(source: Prior, target: Message)
-    case linkStrengthened(from: Prior, to: Prior, weight: Float)
-    case graphUpdated(nodes: Int, edges: Int)
-
-    var id: UUID
-    var timestamp: Date
-    var metadata: EventMetadata
-}
-```
-
-## Event Store
-
-Thread-safe event persistence and distribution:
-
-```swift
-// Central event store
-actor EventStore {
-    private var events: [DomainEvent] = []
-    private var subscribers: [EventSubscriber] = []
-
-    // Store and distribute events
-    func append(_ event: DomainEvent) async throws {
-        events.append(event)
-
-        try await withThrowingTaskGroup(of: Void.self) { group in
-            // Notify all subscribers
-            for subscriber in subscribers {
-                group.addTask {
-                    try await subscriber.handle(event)
-                }
-            }
-            try await group.waitForAll()
-        }
-    }
-
-    // Event replay capability
-    func replay(from: Date) async throws {
-        let relevantEvents = events.filter { $0.timestamp >= from }
-        for event in relevantEvents {
-            try await broadcast(event)
-        }
-    }
-}
-```
-
-## Event Handlers
-
-Domain-specific event processing:
-
-```swift
-// Event handling protocol
-protocol EventHandler: Actor {
-    func handle(_ event: DomainEvent) async throws
-}
-
-// Chorus cycle handler
-actor ChorusHandler: EventHandler {
-    private let cycle: ChorusCycleManager
-
-    func handle(_ event: DomainEvent) async throws {
-        guard let chorusEvent = event as? ChorusEvent else { return }
-
-        switch chorusEvent {
-        case .cycleStarted(let input):
-            try await cycle.beginCycle(input)
-        case .priorsFound(let count, let relevance):
-            try await cycle.processPriors(count, relevance)
-        case .cycleCompleted(let response):
-            try await cycle.finalizeCycle(response)
-        }
-    }
-}
-
-// Economic handler
-actor EconomicHandler: EventHandler {
-    private let engine: EconomicEngine
-
-    func handle(_ event: DomainEvent) async throws {
-        guard let economicEvent = event as? EconomicEvent else { return }
-
-        switch economicEvent {
-        case .stakeDeposited(let amount):
-            try await engine.processStake(amount)
-        case .temperatureChanged(let delta):
-            try await engine.updateTemperature(delta)
-        }
-    }
-}
-```
-
-## System Coordination
-
-Event-driven system integration:
-
-```swift
-// Central coordinator
-actor SystemCoordinator {
-    private let eventStore: EventStore
-    private let handlers: [EventHandler]
-
-    // Process user input through events
-    func processInput(_ input: String) async throws {
-        // Generate initial event
-        let startEvent = ChorusEvent.cycleStarted(input: input)
-        try await eventStore.append(startEvent)
-
-        // System evolves through event chain
-        try await withTaskCancellationHandler {
-            // Events flow through system
-            for try await event in eventStream(for: input) {
-                try await eventStore.append(event)
-            }
-        } onCancel: {
-            Task {
-                try? await cleanup(input)
-            }
-        }
-    }
-
-    // Event stream processing
-    private func eventStream(for input: String) -> AsyncStream<DomainEvent> {
-        AsyncStream { continuation in
-            // Events emerge from domain interactions
-            Task {
-                // System evolution through events
-                // Continuation completes when cycle ends
-            }
-        }
-    }
-}
-```
-
-## Analytics & Monitoring
-
-Event-based system insights:
-
-```swift
-// Analytics handler
-actor AnalyticsHandler: EventHandler {
-    func handle(_ event: DomainEvent) async throws {
-        switch event {
-        case let e as ChorusEvent:
-            try await trackChorusMetrics(e)
-        case let e as EconomicEvent:
-            try await trackEconomicMetrics(e)
-        case let e as KnowledgeEvent:
-            try await trackKnowledgeMetrics(e)
-        default:
-            break
-        }
-    }
-}
-
-// Monitoring handler
-actor MonitoringHandler: EventHandler {
-    func handle(_ event: DomainEvent) async throws {
-        // Track system health metrics
-        try await recordLatency(event)
-        try await checkThresholds(event)
-        try await updateDashboards(event)
-    }
-}
-```
-
-This architecture provides:
-1. Clear event-driven flow
-2. Domain isolation
-3. Rich system history
-4. Natural monitoring
-5. Easy extension
-
-The system ensures:
-- Event integrity
-- Domain boundaries
-- Audit capability
-- Analytics insights
-- System evolution
-
-=== File: docs/core_chorus.md ===
-
-
-
-==
-core_chorus
-==
-
-
-# Core Chorus Cycle
-
-VERSION core_chorus:
-invariants: {
-"Event sequence integrity",
-"Effect conservation",
-"Prior coherence"
-}
-assumptions: {
-"Swift concurrency",
-"Event-driven flow",
-"Local-first processing"
-}
-docs_version: "0.3.0"
-
-## Cycle Events
-
-Detailed events for each step:
-
-```swift
-// Fine-grained chorus cycle events
-enum ChorusEvent: DomainEvent {
-    // ACTION events
-    case actionStarted(input: String)
-    case actionGenerated(response: String, confidence: Float)
-    case actionCompleted(Effect)
-
-    // EXPERIENCE events
-    case priorSearchStarted(query: String)
-    case priorsFound(count: Int, relevance: Float)
-    case priorSynthesisCompleted(Effect)
-
-    // INTENTION events
-    case intentionAnalysisStarted
-    case goalIdentified(goal: String, alignment: Float)
-    case intentionEffectGenerated(Effect)
-
-    // OBSERVATION events
-    case linkRecordingStarted(priors: [Prior])
-    case linksRecorded(count: Int)
-    case observationEffectGenerated(Effect)
-
-    // UPDATE events
-    case cycleUpdateStarted
-    case loopDecided(shouldLoop: Bool, reason: String)
-    case updateEffectGenerated(Effect)
-
-    // YIELD events
-    case yieldStarted(effects: [Effect])
-    case citationsGenerated(count: Int)
-    case cycleCompleted(Response)
-
-    var id: UUID
-    var timestamp: Date
-    var metadata: EventMetadata
-}
-```
-
-## Cycle Manager
-
-Event-driven cycle coordination:
-
-```swift
-// Core cycle manager
-actor ChorusCycleManager {
-    private let eventStore: EventStore
-    private let llm: LLMActor
-    private let vectors: VectorStore
-
-    // Run cycle through event sequence
-    func runCycle(_ input: String) async throws -> Response {
-        // Start cycle
-        try await eventStore.append(.actionStarted(input: input))
-
-        // Process through steps
-        try await withTaskCancellationHandler {
-            // ACTION
-            let actionEffect = try await processAction(input)
-            try await eventStore.append(.actionCompleted(actionEffect))
-
-            // EXPERIENCE
-            let priorEffect = try await processExperience(input)
-            try await eventStore.append(.priorSynthesisCompleted(priorEffect))
-
-            // INTENTION
-            let intentionEffect = try await processIntention(input)
-            try await eventStore.append(.intentionEffectGenerated(intentionEffect))
-
-            // OBSERVATION
-            let observationEffect = try await processObservation(input)
-            try await eventStore.append(.observationEffectGenerated(observationEffect))
-
-            // UPDATE
-            let updateEffect = try await processUpdate()
-            try await eventStore.append(.updateEffectGenerated(updateEffect))
-
-            // Check for loop
-            if try await shouldContinue(updateEffect) {
-                try await eventStore.append(.loopDecided(shouldLoop: true, reason: "Update indicates continuation"))
-                return try await runCycle(input)
-            }
-
-            // YIELD
-            let response = try await processYield()
-            try await eventStore.append(.cycleCompleted(response))
-            return response
-
-        } onCancel: {
-            Task {
-                try? await cleanup()
-            }
-        }
-    }
-}
-
-// Step implementations
-extension ChorusCycleManager {
-    private func processAction(_ input: String) async throws -> Effect {
-        try await eventStore.append(.actionStarted(input: input))
-
-        let response = try await llm.complete(input)
-        let confidence = try await llm.getConfidence(response)
-
-        try await eventStore.append(.actionGenerated(
-            response: response,
-            confidence: confidence
-        ))
-
-        return Effect(type: .action, content: response)
-    }
-
-    private func processExperience(_ input: String) async throws -> Effect {
-        try await eventStore.append(.priorSearchStarted(query: input))
-
-        let priors = try await vectors.search(input, limit: 80)
-        try await eventStore.append(.priorsFound(
-            count: priors.count,
-            relevance: calculateRelevance(priors)
-        ))
-
-        let synthesis = try await synthesizePriors(input, priors)
-        return Effect(type: .experience, content: synthesis)
-    }
-
-    // Similar implementations for other steps...
-}
-```
-
-## Effect Generation
-
-Effect creation through events:
-
-```swift
-// Effect generation with event tracking
-actor EffectManager {
-    private let eventStore: EventStore
-
-    func generateEffect(
-        type: EffectType,
-        content: String
-    ) async throws -> Effect {
-        let effect = Effect(type: type, content: content)
-
-        // Record effect generation
-        try await eventStore.append(.effectGenerated(
-            type: type,
-            content: content
-        ))
-
-        return effect
-    }
-}
-```
-
-## Prior Flow
-
-Prior handling with events:
-
-```swift
-// Prior management with event tracking
-actor PriorManager {
-    private let eventStore: EventStore
-    private let vectors: VectorStore
-
-    func recordPriors(_ priors: [Prior], in message: Message) async throws {
-        try await eventStore.append(.priorRecordingStarted(
-            count: priors.count,
-            messageId: message.id
-        ))
-
-        // Store vector links
-        try await vectors.storePriors(priors)
-
-        // Record citations
-        for prior in priors {
-            try await eventStore.append(.citationRecorded(
-                source: prior,
-                target: message
-            ))
-        }
-
-        try await eventStore.append(.priorsRecorded(
-            count: priors.count,
-            messageId: message.id
-        ))
-    }
-}
-```
-
-This implementation provides:
-1. Clear event sequence
-2. Rich system history
-3. Natural monitoring
-4. Easy debugging
-5. Clean recovery
-
-The system ensures:
-- Event integrity
-- Effect tracking
-- Prior coherence
-- Cycle completion
-- Resource cleanup
-
-=== File: docs/core_core.md ===
-
-
-
-==
-core_core
-==
-
-
-# Core System Overview
-
-VERSION core_system:
-invariants: {
-"System coherence",
-"Data authority",
-"Event flow"
-}
-docs_version: "0.3.0"
-
-The Choir system is built around a clear hierarchy of truth and a natural flow of events. At its foundation, the Solana blockchain serves as the authoritative source for all ownership and economic state - thread ownership, token balances, message hashes, and co-author lists. This ensures that the economic model, with its harmonic equity distribution and thermodynamic thread evolution, has an immutable and verifiable foundation.
-
-Alongside the blockchain, Qdrant acts as the authoritative source for all content and semantic relationships. It stores the actual message content, embeddings, and the growing network of citations and semantic links. This separation of concerns allows the system to maintain both economic integrity through the blockchain and rich semantic relationships through the vector database.
-
-The AEIOU-Y chorus cycle sits at the heart of the interaction model, processing user input through a series of well-defined steps. Each step generates events that flow through the system, coordinating state updates and UI feedback. The cycle begins with pure response in the Action step, enriches it with prior knowledge in the Experience step, aligns with user intent in the Intention step, records semantic connections in the Observation step, decides on continuation in the Update step, and produces the final response in the Yield step.
-
-Events serve as the coordination mechanism between these components. When a user submits input, it triggers a cascade of events that flow through the system. The chorus cycle generates events as it processes the input. These events are used to coordinate UI updates, track system state, and maintain synchronization between components. However, these events are not the source of truth - they are merely the means by which the system coordinates updates and maintains consistency.
-
-The economic model uses harmonic principles to govern thread evolution and value distribution. Thread temperature rises with rejections and moderates with approvals, creating natural quality barriers. Equity is distributed according to harmonic formulas, ensuring fair value attribution while maintaining mathematical elegance.
-
-The knowledge system builds a growing semantic network through citations and prior references. Each message can reference previous messages as priors, creating a web of semantic relationships. These relationships are stored in Qdrant and help inform future responses through the Experience step of the chorus cycle.
-
-State management follows the natural hierarchy of truth. The chain state is authoritative for ownership and economics. The vector state is authoritative for content and semantics. Local state serves only to coordinate UI updates and handle temporary synchronization needs. This clear hierarchy ensures system consistency while enabling responsive user interaction.
-
-All of this is implemented using Swift's modern concurrency system. Actors provide thread-safe state isolation. Async/await enables clean asynchronous code. Structured concurrency through task groups ensures proper resource management. The event-driven architecture allows for loose coupling between components while maintaining system coherence.
-
-The result is a system that combines economic incentives, semantic knowledge, and natural interaction patterns into a coherent whole. The blockchain provides economic integrity. The vector database enables semantic richness. The chorus cycle creates natural interaction. Events coordinate the pieces. And Swift's concurrency model keeps it all running smoothly and safely.
-
-This architecture enables the system to evolve naturally. New event types can be added to handle new features. The semantic network grows organically through usage. The economic model creates emergent quality barriers. And the whole system maintains consistency through its clear hierarchy of truth and well-defined patterns of event flow.
-
-=== File: docs/core_economics.md ===
-
-
-
-==
-core_economics
-==
-
-
-# Core Economic Model
-
-VERSION core_economics:
+VERSION security_model:
 invariants: {
 "Chain state authority",
-"Energy conservation",
-"Harmonic distribution"
+"Event integrity",
+"Natural boundaries"
 }
 assumptions: {
-"Swift concurrency",
-"Event-driven flow",
-"Solana source of truth"
+"Local-first verification",
+"Event-driven security",
+"Natural isolation"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
-## Economic Events
+## Security Foundations
 
-Chain-driven economic events:
+The security model follows natural system boundaries and flows:
 
-```swift
-// Economic domain events
-enum EconomicEvent: DomainEvent {
-    // Stake events (from chain)
-    case stakeDeposited(threadId: ThreadID, amount: TokenAmount)
-    case stakeWithdrawn(threadId: ThreadID, amount: TokenAmount)
+Chain Authority
 
-    // Temperature events (from chain)
-    case temperatureIncreased(threadId: ThreadID, delta: Float)
-    case temperatureDecreased(threadId: ThreadID, delta: Float)
+- Solana state is authoritative for ownership and tokens
+- Thread ownership through PDAs
+- Token custody through program accounts
+- Co-author lists verified on-chain
+- Message hashes anchored to chain
 
-    // Equity events (from chain)
-    case equityDistributed(threadId: ThreadID, shares: [PublicKey: Float])
-    case equityDiluted(threadId: ThreadID, newShares: [PublicKey: Float])
+Local Verification
 
-    // Reward events (from chain)
-    case rewardsIssued(amount: TokenAmount, recipients: [PublicKey])
-    case treasuryUpdated(newBalance: TokenAmount)
+- Content integrity through local verification
+- Event flow tracking for security
+- State consistency checks
+- Access pattern monitoring
+- Natural boundary enforcement
 
-    var id: UUID
-    var timestamp: Date
-    var metadata: EventMetadata
-}
-```
+Event Integrity
 
-## Chain State Authority
+- Security events flow naturally
+- State transitions tracked
+- Access patterns recorded
+- Boundaries maintained
+- Recovery enabled
 
-Solana as source of truth:
+## Security Boundaries
 
-```swift
-// Economic state from chain
-actor ChainStateManager {
-    private let solana: SolanaConnection
-    private let eventStore: EventStore
+Natural system boundaries emerge from:
 
-    // Get thread economics from chain
-    func getThreadEconomics(_ id: ThreadID) async throws -> ThreadEconomics {
-        // Get authoritative state from chain
-        let account = try await solana.getThreadAccount(id)
+State Authority
 
-        return ThreadEconomics(
-            temperature: account.temperature,
-            energy: account.energy,
-            tokenBalance: account.balance,
-            equityShares: account.equityMap
-        )
-    }
+- Chain state for ownership/tokens
+- Vector state for content/embeddings
+- Local state for coordination
+- Clear authority hierarchy
+- Natural state flow
 
-    // Submit economic transaction
-    func submitTransaction(_ tx: Transaction) async throws {
-        // Submit to chain first
-        let signature = try await solana.submitTransaction(tx)
+Access Patterns
 
-        // Then emit events based on transaction type
-        switch tx.instruction {
-        case .depositStake(let amount):
-            try await eventStore.append(.stakeDeposited(
-                threadId: tx.threadId,
-                amount: amount
-            ))
+- Co-author access through chain verification
+- Content access through local verification
+- Event access through natural flow
+- Resource access through isolation
+- Pattern emergence through usage
 
-        case .updateTemperature(let delta):
-            try await eventStore.append(.temperatureIncreased(
-                threadId: tx.threadId,
-                delta: delta
-            ))
+Isolation Boundaries
 
-        case .distributeEquity(let shares):
-            try await eventStore.append(.equityDistributed(
-                threadId: tx.threadId,
-                shares: shares
-            ))
-        }
-    }
-}
-```
+- Natural component isolation
+- Event-driven interaction
+- Clean state separation
+- Resource containment
+- Pattern-based security
 
-## Harmonic Calculations
+## Security Flows
 
-Pure calculation functions:
+Security follows natural system flows:
 
-```swift
-// Economic calculations (pure functions)
-struct EconomicCalculator {
-    // Base price using harmonic oscillator
-    static func calculateBasePrice(
-        temperature: Double,
-        frequency: Double
-    ) -> TokenAmount {
-        // P₀ = S₀[1/2 + 1/(exp(ℏω/kT)-1)]
-        let baseStake = Constants.baseStakeQuantum
-        let reducedPlanck = Constants.reducedPlanck
-        let boltzmann = Constants.boltzmann
+Verification Flow
 
-        let exponent = (reducedPlanck * frequency) / (boltzmann * temperature)
-        let occupation = 1.0 / (exp(exponent) - 1.0)
+- Chain state verification
+- Local state validation
+- Event integrity checks
+- Access pattern verification
+- Natural flow monitoring
 
-        return baseStake * (0.5 + occupation)
-    }
+Access Flow
 
-    // Equity share calculation
-    static func calculateEquityShare(
-        stake: TokenAmount,
-        basePrice: TokenAmount,
-        coauthorCount: Int
-    ) -> Double {
-        // E(s) = (1/N) * √(s/P₀)
-        let quantumNumber = Double(stake) / Double(basePrice)
-        let quantumShare = 1.0 / Double(coauthorCount)
-        return quantumShare * sqrt(quantumNumber)
-    }
-}
-```
+- Chain-verified ownership
+- Content access rights
+- Event access patterns
+- Resource allocation
+- Natural restrictions
 
-## Economic Handler
+Recovery Flow
 
-Event-driven economic processing:
+- State inconsistency detection
+- Event flow recovery
+- Access pattern restoration
+- Resource reallocation
+- Natural healing
 
-```swift
-// Economic event handling
-actor EconomicHandler: EventHandler {
-    private let chain: ChainStateManager
-    private let calculator: EconomicCalculator
+## Security Properties
 
-    func handle(_ event: DomainEvent) async throws {
-        guard let economicEvent = event as? EconomicEvent else { return }
+The system maintains natural security properties:
 
-        switch economicEvent {
-        case .stakeDeposited(let threadId, let amount):
-            // Calculate new equity shares
-            let thread = try await chain.getThreadEconomics(threadId)
-            let basePrice = calculator.calculateBasePrice(
-                temperature: thread.temperature,
-                frequency: thread.frequency
-            )
-            let equity = calculator.calculateEquityShare(
-                stake: amount,
-                basePrice: basePrice,
-                coauthorCount: thread.equityShares.count
-            )
+State Integrity
 
-            // Submit equity distribution to chain
-            let tx = Transaction.distributeEquity(
-                threadId: threadId,
-                shares: [event.author: equity]
-            )
-            try await chain.submitTransaction(tx)
+- Chain state remains authoritative
+- Local state stays consistent
+- Events flow cleanly
+- Patterns emerge naturally
+- Boundaries hold
 
-        case .temperatureIncreased(let threadId, let delta):
-            // Update thread temperature on chain
-            let tx = Transaction.updateTemperature(
-                threadId: threadId,
-                delta: delta
-            )
-            try await chain.submitTransaction(tx)
+Access Control
 
-        // Handle other economic events...
-        }
-    }
-}
-```
+- Ownership verified on-chain
+- Content access controlled locally
+- Events flow appropriately
+- Resources properly isolated
+- Patterns respected
 
-## Analytics & Monitoring
+Recovery Capability
 
-Economic event tracking:
+- State recovery through events
+- Access pattern restoration
+- Boundary enforcement
+- Resource reallocation
+- Natural system healing
 
-```swift
-// Economic analytics
-actor EconomicAnalytics: EventHandler {
-    func handle(_ event: DomainEvent) async throws {
-        guard let economicEvent = event as? EconomicEvent else { return }
+## Recovery Patterns
 
-        switch economicEvent {
-        case .stakeDeposited(let threadId, let amount):
-            try await trackStakeMetric(threadId, amount)
+Recovery follows natural system patterns:
 
-        case .temperatureIncreased(let threadId, let delta):
-            try await trackTemperatureMetric(threadId, delta)
+State Recovery
 
-        case .equityDistributed(let threadId, let shares):
-            try await trackEquityMetric(threadId, shares)
+- Chain state as foundation
+- Event replay for consistency
+- Pattern restoration
+- Boundary reestablishment
+- Natural healing flow
 
-        case .rewardsIssued(let amount, let recipients):
-            try await trackRewardMetric(amount, recipients)
-        }
-    }
-}
-```
+Access Recovery
 
-This implementation provides:
-1. Chain state authority
-2. Event-driven updates
-3. Pure calculations
-4. Clean analytics
-5. Proper event flow
+- Chain verification reset
+- Access pattern restoration
+- Event flow reestablishment
+- Resource reallocation
+- Pattern emergence
+
+System Healing
+
+- Natural boundary restoration
+- Event flow recovery
+- State consistency
+- Pattern reemergence
+- Flow reestablishment
+
+This security model provides:
+
+1. Clear authority boundaries
+2. Natural state verification
+3. Clean event flows
+4. Pattern-based security
+5. Natural recovery
 
 The system ensures:
-- Economic integrity
-- Harmonic distribution
-- Temperature evolution
-- Value conservation
-- Natural emergence
 
-=== File: docs/core_knowledge.md ===
+- Chain state authority
+- Event integrity
+- Natural boundaries
+- Clean recovery
+- Pattern emergence
+
+=== File: docs/State_Boundaries.md ===
 
 
 
 ==
-core_knowledge
+State_Boundaries
 ==
 
 
-# Core Knowledge Architecture
+# Choir: Harmonic Intelligence Platform
 
-VERSION core_knowledge:
+VERSION harmonic_system:
 invariants: {
-"Semantic coherence",
-"Citation integrity",
-"Vector stability"
+"Wave resonance",
+"Energy conservation",
+"Pattern emergence"
 }
 assumptions: {
-"Local-first vectors",
-"Multimodal embeddings",
-"Progressive enhancement"
+"Apple ecosystem excellence",
+"Swift implementation",
+"Natural harmonics"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
-## Vector Space
+# State Distribution Across Systems
 
-Core vector operations with proper concurrency:
+VERSION state_boundaries:
+invariants: {
+"Clear ownership of state",
+"Consistent data flow",
+"Verifiable boundaries"
+}
+assumptions: {
+"System availability",
+"Network reliability",
+"Cache coherence"
+}
+docs_version: "0.2.1"
+
+## 1. Solana State (Source of Truth for Ownership)
+
+TYPE SolanaState = {
+thread: {
+co_authors: Set<PublicKey>, // Thread ownership
+token_balance: u64, // Thread value
+content_hashes: Set<Hash>, // Content verification
+created_at: i64 // Thread timestamp
+},
+
+approvals: {
+pending: Map<Hash, Set<PublicKey>>, // Active votes
+decisions: Map<Hash, Decision>, // Final outcomes
+expiry: Map<Hash, i64> // Timeout tracking
+},
+
+tokens: {
+stakes: Map<Hash, TokenAmount>, // Locked stakes
+thread_balances: Map<ThreadId, TokenAmount>, // Thread energy
+treasury: {
+balance: TokenAmount, // Treasury reserve
+citation_rewards: TokenAmount, // Allocated for citations
+new_message_rewards: TokenAmount // Decaying reward pool
+}
+}
+}
+
+## 2. Qdrant State (Source of Truth for Content)
+
+TYPE QdrantState = {
+content: {
+messages: Map<Hash, String>, // Raw content
+embeddings: Map<Hash, Vector>, // Semantic vectors
+metadata: Map<Hash, Metadata> // Content properties
+},
+
+indices: {
+semantic: VectorIndex, // Similarity search
+temporal: TimeIndex, // Time-based access
+author: AuthorIndex // Creator lookup
+},
+
+search: {
+filters: Set<Filter>, // Access control
+rankings: Map<Hash, Score>, // Relevance scores
+cache: Map<Query, Results> // Search optimization
+}
+}
+
+## 3. Backend State (Session and Cache Management)
+
+TYPE BackendState = {
+session: {
+connections: Map<ClientId, WebSocket>, // Active clients
+subscriptions: Map<ThreadId, Set<ClientId>>, // Room membership
+heartbeats: Map<ClientId, Timestamp> // Connection health
+},
+
+cache: {
+threads: Map<ThreadId, ThreadCache>, // Hot thread data
+messages: Map<Hash, MessageCache>, // Recent messages
+users: Map<PublicKey, UserCache> // Active user data
+},
+
+websocket: {
+rooms: Map<ThreadId, Room>, // Chat rooms
+events: Queue<Event>, // Message queue
+state: Map<ClientId, ClientState> // Connection state
+}
+}
+
+## 4. Frontend State (UI and Optimistic Updates)
+
+TYPE FrontendState = {
+ui: {
+threads: Map<ThreadId, ThreadUI>, // Thread display
+messages: Map<Hash, MessageUI>, // Message display
+notifications: Queue<Notification> // User alerts
+},
+
+optimistic: {
+pending: Map<Hash, OptimisticUpdate>, // Unconfirmed changes
+rollbacks: Map<Hash, RollbackState>, // Recovery data
+conflicts: Set<StateConflict> // Sync issues
+},
+
+local: {
+wallet: WalletState, // Connection state
+preferences: UserPreferences, // Settings
+drafts: Map<ThreadId, Draft> // Unsent messages
+}
+}
+
+## State Flow Patterns
+
+1. **Ownership Flow**
+
+   ```
+   Solana -> Backend -> Frontend
+   PROPERTY: ownership_flow
+     solana.thread.co_authors = backend.cache.thread.co_authors
+     backend.cache.thread.co_authors = frontend.ui.thread.co_authors
+   ```
+
+2. **Content Flow**
+
+   ```
+   Frontend -> Backend -> Qdrant
+   PROPERTY: content_flow
+     frontend.messages[hash].content = backend.cache.messages[hash].content
+     backend.cache.messages[hash].content = qdrant.content.messages[hash]
+   ```
+
+3. **Token Flow**
+   ```
+   Solana -> Backend -> Frontend
+   PROPERTY: token_flow
+     solana.tokens.balances = backend.cache.tokens
+     backend.cache.tokens = frontend.ui.balances
+   ```
+
+## Token Flow Boundaries
+
+0. **Approval Flow**
+
+   ```
+      Stake -> Approvers
+   PROPERTY: approval_flow
+     // Direct distribution to approvers
+     FOR approver IN approvers:
+       approver.balance += stake_amount / approvers.len()
+     verify_temperature_decrease()
+     verify_frequency_increase()
+   ```
+
+1. **Rejection Flow**
+
+   ```
+      Stake -> Thread Balance
+   PROPERTY: rejection_flow
+     thread.token_balance += stake_amount
+     verify_thread_temperature_update()
+   ```
+
+2. **Split Decision Flow**
+
+   ```
+      Stake -> {Treasury, Thread}
+   PROPERTY: split_decision_flow
+     approver_share = (stake * approver_count) / total_voters
+     denier_share = stake - approver_share
+
+     treasury.balance += approver_share  // Approvers' share to Treasury
+     thread.token_balance += denier_share  // Deniers' share to thread
+     verify_energy_conservation()
+   ```
+
+3. **New Message Rewards**
+
+   ```
+   Treasury -> Authors
+   PROPERTY: reward_flow
+     // Logarithmic decay over 4 years
+     reward = calculate_decaying_reward(time)
+     verify_reward_distribution()
+   ```
+
+4. **Citation Rewards**
+   ```
+      Treasury -> Thread
+   PROPERTY: prior_reward_flow
+     // Quality-weighted thread rewards
+     reward = calculate_prior_reward(quality_score, treasury_state)
+     thread.token_balance += reward
+     verify_thread_resonance_increase()
+   ```
+
+## Boundary Enforcement
+
+1. **State Authority**
+
+   ```
+   RULE state_ownership:
+     ownership_changes MUST originate from Solana
+     content_changes MUST flow through Qdrant
+     session_state MUST be managed by Backend
+     ui_state MUST be managed by Frontend
+   ```
+
+2. **Update Propagation**
+
+   ```
+   SEQUENCE state_update:
+     1. Update authoritative source
+     2. Await confirmation
+     3. Propagate to dependent systems
+     4. Verify consistency
+   ```
+
+3. **Conflict Resolution**
+   ```
+   FUNCTION resolve_conflict(conflict: StateConflict):
+     MATCH conflict:
+       OwnershipConflict -> use_solana_state()
+       ContentConflict -> use_qdrant_state()
+       CacheConflict -> rebuild_cache()
+       UIConflict -> refresh_frontend()
+   ```
+
+## Monitoring and Verification
+
+1. **Health Checks**
+
+   ```
+   FUNCTION verify_boundaries():
+     check_solana_consistency()
+     verify_qdrant_integrity()
+     validate_cache_coherence()
+     confirm_ui_state()
+   ```
+
+2. **Metrics Collection**
+   ```
+   MEASURE boundary_health:
+     state_sync_delay
+     propagation_time
+     conflict_rate
+     recovery_success
+   ```
+
+=== File: docs/data_engine_model.md ===
+
+
+
+==
+data_engine_model
+==
+
+
+# Data Engine Model
+
+VERSION data_engine:
+invariants: {
+"Event integrity",
+"Network consensus",
+"Distributed learning"
+}
+assumptions: {
+"Distributed processing",
+"Network synchronization",
+"Collective intelligence"
+}
+docs_version: "0.4.0"
+
+## Core Engine Model
+
+Data flows through distributed event sequences:
+
+Network Events
+
+- Service coordination
+- State synchronization
+- Pattern recognition
+- Knowledge distribution
+- System evolution
+
+Chain Events
+
+- Consensus verification
+- Value distribution
+- Pattern anchoring
+- State authority
+- Network evolution
+
+Vector Events
+
+- Distributed storage
+- Pattern matching
+- Citation tracking
+- Knowledge coupling
+- Network growth
+
+AI Model Events
 
 ```swift
-// Vector operations with isolation
-actor VectorStore {
-    private let Qdrant: Qdrant
-    private let embeddings: EmbeddingActor
-    private let cache: CacheActor
+enum ModelEvent: Event {
+    // Generation events
+    case generationStarted(prompt: String, serviceId: UUID)
+    case responseGenerated(content: String, modelId: String)
+    case confidenceCalculated(score: Float, metadata: AIMetadata)
 
-    // Concurrent vector search
-    func search(_ content: String, limit: Int = 80) async throws -> [Prior] {
-        try await withThrowingTaskGroup(of: ([Prior], [Float]).self) { group in
-            // Parallel embedding and cache check
-            group.addTask {
-                async let embedding = self.embeddings.embed(content)
-                async let cached = self.cache.getPriors(content)
-                return (try await cached ?? [], try await embedding)
-            }
+    // Analysis events
+    case priorRelevanceAnalyzed(score: Float, networkId: UUID)
+    case citationQualityMeasured(score: Float, graphId: UUID)
+    case patternRecognized(pattern: Pattern, confidence: Float)
 
-            // Get result
-            guard let (cached, embedding) = try await group.next() else {
-                throw VectorError.searchFailed
-            }
-
-            // Return cached or search
-            if cached.count >= limit {
-                return Array(cached.prefix(limit))
-            }
-
-            // Search with cancellation support
-            return try await withTaskCancellationHandler {
-                let results = try await Qdrant.search(
-                    vector: embedding,
-                    limit: limit
-                )
-                try await cache.store(content, results)
-                return results
-            } onCancel: {
-                Task { try? await cache.cleanup(content) }
-            }
-        }
-    }
+    // Learning events
+    case feedbackReceived(rating: Float, context: NetworkContext)
+    case patternStrengthened(weight: Float, distribution: [NodeID: Float])
+    case contextUpdated(embedding: [Float], networkState: NetworkState)
 }
 ```
 
-## Prior Management
-
-Thread-safe prior handling:
+Embedding Events
 
 ```swift
-// Prior operations with proper isolation
-actor PriorManager {
-    private let vectors: VectorStore
-    private let storage: StorageActor
-    private var activePriors: [UUID: Prior] = [:]
+enum EmbeddingEvent: Event {
+    // Content events
+    case contentReceived(text: String, sourceId: UUID)
+    case embeddingGenerated([Float], modelId: String)
+    case vectorStored(hash: Hash, nodeId: UUID)
 
-    // Concurrent prior processing
-    func processPriors(for content: String) async throws -> [Prior] {
-        try await withThrowingTaskGroup(of: [Prior].self) { group in
-            // Search vectors
-            group.addTask {
-                try await self.vectors.search(content)
-            }
+    // Search events
+    case similaritySearchStarted(query: String, networkScope: SearchScope)
+    case priorsFound(count: Int, relevance: Float, distribution: [NodeID: Float])
+    case resultsReturned([Prior], networkContext: NetworkContext)
 
-            // Get metadata
-            group.addTask {
-                try await self.storage.getPriorMetadata(content)
-            }
-
-            // Combine results
-            var allPriors: [Prior] = []
-            for try await priors in group {
-                allPriors.append(contentsOf: priors)
-            }
-
-            // Store active priors
-            for prior in allPriors {
-                activePriors[prior.id] = prior
-            }
-
-            return allPriors
-        }
-    }
-
-    // Citation recording with error handling
-    func recordCitation(_ source: Prior, in target: Message) async throws {
-        guard let prior = activePriors[source.id] else {
-            throw PriorError.notFound
-        }
-
-        try await withTaskCancellationHandler {
-            try await storage.recordCitation(source: prior, target: target)
-            try await vectors.updateEmbeddings(for: target)
-        } onCancel: {
-            Task {
-                try? await storage.cleanup(target.id)
-            }
-        }
-    }
+    // Pattern events
+    case patternDetected(Pattern, confidence: Float)
+    case clusterFormed(centroid: [Float], members: Set<NodeID>)
+    case topologyUpdated(Graph, version: UInt64)
 }
 ```
 
-## Semantic Network
+## Value Crystallization
 
-Knowledge graph management:
+Value emerges through network consensus:
+
+Pattern Formation
+
+```
+∂P/∂t = D∇²P + f(P,N)
+
+where:
+- P: pattern field
+- D: diffusion coefficient
+- f(P,N): network coupling
+- N: network state
+```
+
+Value Flow
+
+```
+V(x,t) = ∑ᵢ Aᵢexp(ikᵢx - iωᵢt) * N(x,t)
+
+where:
+- Aᵢ: value amplitudes
+- kᵢ: pattern wavenumbers
+- ωᵢ: value frequencies
+- N(x,t): network state
+```
+
+Knowledge Coupling
+
+```
+K(x₁,x₂) = ∫ Ψ*(x₁)Ψ(x₂)dx * C(x₁,x₂)
+
+where:
+- Ψ: knowledge wave function
+- x₁,x₂: semantic positions
+- C(x₁,x₂): network coupling
+```
+
+## Pattern Evolution
+
+Natural pattern emergence through network:
+
+Quality Patterns
+
+- Network resonance
+- Team formation
+- Value accumulation
+- Knowledge growth
+- System evolution
+
+Team Patterns
+
+- Network crystallization
+- Pattern recognition
+- Value sharing
+- Knowledge coupling
+- Organic growth
+
+Knowledge Patterns
+
+- Citation networks
+- Semantic coupling
+- Pattern strengthening
+- Value flow
+- Network topology
+
+## Implementation Notes
+
+1. Event Storage
 
 ```swift
-// Semantic operations with proper isolation
-actor SemanticNetwork {
-    private let graph: GraphActor
-    private let vectors: VectorStore
+// Distributed event storage
+@Model
+class EngineEventLog {
+    let events: [EngineEvent]
+    let patterns: [Pattern]
+    let timestamp: Date
+    let networkState: NetworkState
 
-    // Concurrent semantic processing
-    func processSemanticLinks(_ message: Message) async throws {
+    // Network synchronization
+    func sync() async throws {
         try await withThrowingTaskGroup(of: Void.self) { group in
-            // Update graph
-            group.addTask {
-                try await self.graph.addNode(message)
-            }
-
-            // Process citations
-            for prior in message.priors {
-                group.addTask {
-                    try await self.graph.addEdge(from: prior, to: message)
-                }
-            }
-
-            // Update embeddings
-            group.addTask {
-                try await self.vectors.updateEmbeddings(for: message)
-            }
-
+            group.addTask { try await self.syncEvents() }
+            group.addTask { try await self.syncPatterns() }
+            group.addTask { try await self.syncState() }
             try await group.waitForAll()
         }
     }
-
-    // Graph queries with cancellation
-    func findRelatedContent(_ content: String) async throws -> [Message] {
-        try await withTaskCancellationHandler {
-            let embedding = try await vectors.embed(content)
-            let nodes = try await graph.findSimilar(embedding)
-            return nodes.map(\.message)
-        } onCancel: {
-            Task { @MainActor in
-                // Clear any cached results
-            }
-        }
-    }
 }
 ```
 
-## Multimodal Support
-
-Progressive enhancement for different modalities:
+2. Pattern Recognition
 
 ```swift
-// Multimodal handling with isolation
-actor ModalityManager {
-    private let imageBind: ImageBindActor
-    private let vectors: VectorStore
+// Network pattern tracking
+actor PatternTracker {
+    private var patterns: [Pattern]
+    private let eventLog: EventLog
+    private let llm: FoundationModelActor
+    private let embeddings: EmbeddingActor
+    private let network: NetworkSyncService
 
-    // Process different modalities
-    func processContent(_ content: MultimodalContent) async throws -> Embedding {
-        try await withThrowingTaskGroup(of: [Float].self) { group in
-            switch content {
-            case .text(let text):
-                group.addTask {
-                    try await self.vectors.embed(text)
-                }
+    func trackPattern(_ event: EngineEvent) async throws {
+        // Distributed analysis
+        let analysis = try await llm.analyzePattern(event)
+        let embedding = try await embeddings.embed(event)
 
-            case .image(let image):
-                group.addTask {
-                    try await self.imageBind.embedImage(image)
-                }
+        // Network consensus
+        try await network.proposePattern(event, analysis, embedding)
 
-            case .audio(let audio):
-                group.addTask {
-                    try await self.imageBind.embedAudio(audio)
-                }
-            }
+        // Update patterns
+        try await updatePatterns(event, analysis, embedding)
 
-            // Combine embeddings
-            var embeddings: [[Float]] = []
-            for try await embedding in group {
-                embeddings.append(embedding)
-            }
-
-            return try await combineEmbeddings(embeddings)
+        // Share if valuable
+        if event.pattern.isValuable {
+            try await network.broadcast(event)
         }
     }
 }
 ```
+
+3. Value Evolution
+
+```swift
+// Network value tracking
+actor ValueTracker {
+    private var values: [PatternID: Value]
+    private let eventLog: EventLog
+    private let llm: FoundationModelActor
+    private let network: NetworkSyncService
+
+    func evolveValue(_ event: EngineEvent) async throws {
+        // Distributed valuation
+        let value = try await llm.calculateValue(event)
+
+        // Network consensus
+        try await network.proposeValue(value)
+
+        // Update values
+        try await updateValues(event, value)
+
+        // Record evolution
+        try await eventLog.append(.valueEvolved(values))
+    }
+}
+```
+
+This model enables:
+
+1. Distributed data flow
+2. Network consensus
+3. Value crystallization
+4. Knowledge growth
+5. System evolution
+
+The engine ensures:
+
+- Event integrity
+- Pattern recognition
+- Value preservation
+- Knowledge coupling
+- Network growth
+
+=== File: docs/e_business.md ===
+
+
+
+==
+e_business
+==
+
+
+# Choir Business Model
+
+Choir's business model aligns with its natural principles - value flows efficiently, quality emerges organically, and growth happens sustainably. Rather than extracting value through advertising or data mining, we enable and strengthen natural value creation.
+
+## Core Revenue Model
+
+The platform operates on a simple freemium model that grows with teams:
+
+Free Tier - The Foundation
+- Thread participation and co-authorship
+- Basic message submission and approval
+- Thread visibility to co-authors
+- Standard resource allocation
+- Natural team formation
+
+Premium Tier ($30/month / $200/yr) - Enhanced Flow
+- Bonus rewards
+- Increased resource allocation
+- Priority message processing
+- Advanced team analytics
+- Enhanced privacy controls
+- Growing yearly benefits
+
+The key is that premium features amplify natural value creation rather than restricting basic functionality.
+
+## Value Creation Layers
+
+The platform enables value creation at multiple scales:
+
+Individual Layer
+- Immediate recognition of quality contributions
+- Direct rewards for good judgment
+- Natural reputation through participation
+- Growing resource allocations
+
+Team Layer
+- Collective value accumulation in threads
+- Shared success through citations
+- Natural team formation
+- Enhanced capabilities through premium features
+
+Network Layer
+- Knowledge network formation
+- Cross-thread value flows
+- Ecosystem development
+- Emergent collective intelligence
+
+## Resource Dynamics
+
+Resource allocation follows natural principles:
+
+Processing Resources
+- AI model access scales with usage
+- Premium members get priority
+- Teams share growing allocations
+- Natural load balancing
+
+Storage Resources
+- Thread history preservation
+- Growing team allocations
+- Premium backup options
+- Natural archival patterns
+
+Network Resources
+- Real-time updates
+- Priority synchronization
+- Enhanced team features
+- Natural flow optimization
+
+## Growth Mechanics
+
+The platform grows through natural amplification:
+
+Quality Emergence
+- Better contributions attract attention
+- Teams form around quality
+- Value accumulates naturally
+- Growth follows genuine patterns
+
+Network Effects
+- Teams strengthen threads
+- Threads strengthen networks
+- Networks attract participation
+- Value flows efficiently
+
+Resource Evolution
+- Individual allocations grow yearly
+- Team capabilities expand
+- Network capacity increases
+- Natural scaling patterns
+
+## Business Sustainability
+
+Revenue streams align with value creation:
+
+Direct Revenue
+- Premium subscriptions
+- Team features
+- Enhanced capabilities
+- Growing allocations
+
+Indirect Value
+- Quality content dataset
+- Knowledge network formation
+- Team collaboration patterns
+- Collective intelligence emergence
+
+System Health
+- Sustainable resource usage
+- Natural load distribution
+- Efficient value flow
+- Organic growth patterns
+
+## Future Evolution
+
+The business model will evolve naturally:
+
+Team Features
+- Enhanced collaboration tools
+- Advanced analytics
+- Custom workflows
+- Natural team support
+
+Knowledge Tools
+- Network visualization
+- Pattern recognition
+- Insight emergence
+- Collective intelligence
+
+Resource Growth
+- Expanding allocations
+- New capabilities
+- Team-specific features
+- Natural evolution
 
 ## Implementation Strategy
 
-Progressive knowledge enhancement:
+Development follows natural patterns:
 
-```swift
-struct KnowledgeStrategy {
-    // Phase 1: Local vectors
-    let foundation = [
-        "Local Qdrant",
-        "Basic embeddings",
-        "Simple citations",
-        "Text only"
-    ]
+Phase 1: Foundation
+- Core functionality
+- Basic premium features
+- Natural team support
+- Essential analytics
 
-    // Phase 2: Enhanced vectors
-    let enhancement = [
-        "Multimodal support",
-        "Distributed search",
-        "Rich citations",
-        "Knowledge graph"
-    ]
+Phase 2: Enhancement
+- Advanced team features
+- Network tools
+- Enhanced analytics
+- Growing capabilities
 
-    // Phase 3: Network effects
-    let network = [
-        "P2P vector sync",
-        "Collective knowledge",
-        "Cross-modal search",
-        "Emergent patterns"
-    ]
-}
-```
+Phase 3: Evolution
+- Custom team solutions
+- Network intelligence
+- Emergent features
+- Natural expansion
 
-This knowledge architecture provides:
-1. Thread-safe vector operations
-2. Proper concurrency handling
-3. Progressive enhancement
-4. Multimodal support
-5. Local-first approach
+## Success Metrics
 
-The system ensures:
-- Semantic coherence
-- Citation integrity
+We measure success through natural indicators:
+
+Quality Metrics
+- Team formation rate
+- Citation patterns
+- Value accumulation
+- Natural growth
+
+Health Metrics
 - Resource efficiency
-- Knowledge emergence
-- Natural evolution
+- Value flow patterns
+- System coherence
+- Sustainable growth
 
-=== File: docs/core_patterns.md ===
+Evolution Metrics
+- Feature emergence
+- Capability growth
+- Network effects
+- Natural scaling
 
+Through this model, Choir maintains sustainable business operations while enabling natural value creation at all scales. We grow by strengthening the natural flows of quality, collaboration, and collective intelligence.
 
+Join us in building a platform where business success aligns perfectly with user value creation - where growth comes from enabling natural patterns of collaboration and knowledge sharing rather than artificial engagement metrics or data extraction.
 
-==
-core_patterns
-==
-
-
-# Core Implementation Patterns
-
-VERSION core_patterns:
-invariants: {
-"Source of truth clarity",
-"Event-driven coordination",
-"Actor isolation"
-}
-assumptions: {
-"Swift concurrency",
-"Proper data hierarchy",
-"Event-based sync"
-}
-docs_version: "0.3.0"
-
-## Source of Truth Pattern
-
-Respect data authority hierarchy:
-
-```swift
-// Chain state authority pattern
-protocol ChainStateProvider {
-    // Authoritative state
-    func getThreadState(_ id: ThreadID) async throws -> ThreadState
-    func getTokenBalance(_ owner: PublicKey) async throws -> UInt64
-
-    // State transitions
-    func submitTransaction(_ tx: Transaction) async throws -> Signature
-}
-
-// Vector state authority pattern
-protocol VectorStateProvider {
-    // Authoritative content
-    func getMessage(_ hash: MessageHash) async throws -> Message
-    func searchPriors(_ query: String) async throws -> [Prior]
-
-    // Content storage
-    func storeMessage(_ message: Message) async throws
-    func recordCitation(_ source: Prior, _ target: Message) async throws
-}
-
-// Example implementation
-actor StateManager {
-    private let chain: ChainStateProvider
-    private let vectors: VectorStateProvider
-
-    func processMessage(_ content: String) async throws {
-        // Store content first
-        let message = Message(content: content)
-        try await vectors.storeMessage(message)
-
-        // Then record on chain
-        let tx = Transaction.recordMessage(message.hash)
-        try await chain.submitTransaction(tx)
-    }
-}
-```
-
-## Event Coordination Pattern
-
-Events for state synchronization:
-
-```swift
-// Event types by purpose
-enum SystemEvent {
-    // State sync events
-    case chainStateChanged(ThreadID)
-    case contentStored(MessageHash)
-
-    // UI coordination events
-    case uiStateChanged(ViewState)
-    case loadingStateChanged(Bool)
-
-    // Error events
-    case errorOccurred(Error)
-    case syncFailed(reason: String)
-}
-
-// Event handling pattern
-protocol EventHandler: Actor {
-    // Handle specific event types
-    func handle(_ event: SystemEvent) async throws
-}
-
-// Example implementation
-actor UICoordinator: EventHandler {
-    func handle(_ event: SystemEvent) async throws {
-        switch event {
-        case .chainStateChanged(let threadId):
-            try await refreshThread(threadId)
-        case .contentStored(let hash):
-            try await refreshContent(hash)
-        }
-    }
-}
-```
-
-## Actor Isolation Pattern
-
-Clean actor boundaries:
-
-```swift
-// Domain-specific actors
-actor ThreadActor {
-    private let chain: ChainStateProvider
-    private let events: EventEmitter
-
-    func getThread(_ id: ThreadID) async throws -> Thread {
-        // Get authoritative state
-        let state = try await chain.getThreadState(id)
-
-        // Emit UI event
-        try await events.emit(.threadStateLoaded(id))
-
-        return state
-    }
-}
-
-// Resource management pattern
-actor ResourcePool {
-    private var resources: Set<Resource> = []
-
-    func withResource<T>(_ work: (Resource) async throws -> T) async throws -> T {
-        let resource = try await acquireResource()
-        defer { releaseResource(resource) }
-        return try await work(resource)
-    }
-}
-```
-
-## Error Recovery Pattern
-
-Clean error handling with events:
-
-```swift
-// Error types by source
-enum SystemError: Error {
-    // Chain errors
-    case chainUnavailable
-    case transactionFailed(reason: String)
-
-    // Vector errors
-    case contentNotFound(MessageHash)
-    case storageError(reason: String)
-
-    // Sync errors
-    case syncFailed(reason: String)
-    case stateInconsistent
-}
-
-// Recovery pattern
-actor ErrorRecovery {
-    func recover(from error: SystemError) async throws {
-        switch error {
-        case .chainUnavailable:
-            try await queueForRetry()
-        case .syncFailed:
-            try await resyncState()
-        }
-    }
-}
-```
-
-## Testing Pattern
-
-Protocol-based testing:
-
-```swift
-// Test implementations
-class MockChainProvider: ChainStateProvider {
-    var mockState: [ThreadID: ThreadState] = [:]
-
-    func getThreadState(_ id: ThreadID) async throws -> ThreadState {
-        guard let state = mockState[id] else {
-            throw SystemError.chainUnavailable
-        }
-        return state
-    }
-}
-
-// Test scenarios
-class SystemTests: XCTestCase {
-    var sut: StateManager!
-    var mockChain: MockChainProvider!
-
-    override func setUp() {
-        mockChain = MockChainProvider()
-        sut = StateManager(chain: mockChain)
-    }
-
-    func testStateSync() async throws {
-        // Given
-        let threadId = ThreadID()
-        let state = ThreadState(id: threadId)
-        mockChain.mockState[threadId] = state
-
-        // When
-        let result = try await sut.getThread(threadId)
-
-        // Then
-        XCTAssertEqual(result, state)
-    }
-}
-```
-
-These patterns ensure:
-1. Clear data authority
-2. Clean event flow
-3. Safe state sync
-4. Error resilience
-5. Testability
-
-The system maintains:
-- Source of truth clarity
-- Event-driven coordination
-- Actor isolation
-- Error recovery
-- Testing simplicity
-
-=== File: docs/core_state.md ===
+=== File: docs/e_concept.md ===
 
 
 
 ==
-core_state
+e_concept
 ==
 
 
-# Core State Management
+# Choir: Harmonic Intelligence Platform
 
-VERSION core_state:
-invariants: {
-"Chain state authority",
-"Vector content authority",
-"Local coordination"
-}
-assumptions: {
-"Swift concurrency",
-"Actor isolation",
-"Event-driven sync"
-}
-docs_version: "0.3.0"
+At its heart, Choir is a new kind of communication platform where value flows like energy through a natural system. Just as rivers find their paths and crystals form their patterns, quality content and collaborative teams emerge through natural principles rather than forced rules.
 
-## Chain State (Source of Truth)
+## Natural Value Flow
 
-Solana program state:
+The platform operates on three fundamental flows:
 
-```swift
-// Core chain state
-actor ChainState {
-    private let solana: SolanaConnection
-    private let eventStore: LocalEventStore
+1. Individual Recognition
+When someone contributes valuable insight, the recognition is immediate and tangible. Like a clear note resonating through a concert hall, quality contributions naturally attract attention and rewards. The system doesn't need arbitrary upvotes or likes - value recognition happens through natural participation and stake.
 
-    // Thread state from chain
-    func getThreadState(_ id: ThreadID) async throws -> ThreadState {
-        // Get authoritative state from chain
-        let account = try await solana.getThreadAccount(id)
+2. Team Crystallization
+As valuable conversations develop, they naturally attract compatible minds. Like crystals forming in solution, teams emerge not through top-down organization but through natural alignment of interests and capabilities. The thread becomes a shared space that accumulates value for all participants.
 
-        return ThreadState(
-            id: id,
-            coAuthors: account.coAuthors,
-            tokenBalance: account.balance,
-            messageHashes: account.messageHashes
-        )
-    }
+3. Knowledge Networks
+When threads reference each other, they create flows of value between communities. Like a network of streams feeding into rivers and eventually oceans, knowledge and value flow through the system, creating rich ecosystems of understanding. Each citation strengthens both source and destination.
 
-    // Submit state changes to chain
-    func submitStateChange(_ transaction: Transaction) async throws {
-        // Submit to chain first
-        let signature = try await solana.submitTransaction(transaction)
+## Harmonic Evolution
 
-        // Then emit local event for UI updates
-        try await eventStore.append(.chainStateChanged(signature))
-    }
-}
-```
+The system evolves through natural phases:
 
-## Vector State (Source of Truth)
+Early Stage - Like a hot spring, new threads bubble with activity and possibility. The energy is high, stakes are elevated, and participation requires confidence. This natural barrier ensures quality from the start.
 
-Qdrant content storage:
+Maturation - As threads find their rhythm, they "cool" into more stable states. Like a river finding its course, the flow becomes more predictable. Stakes moderate, making participation more accessible while maintaining quality through established patterns.
 
-```swift
-// Vector content state
-actor VectorState {
-    private let Qdrant: Qdrant
-    private let eventStore: LocalEventStore
+Crystallization - Mature threads develop clear structures, like crystalline formations. Teams coalesce around valuable patterns, knowledge networks form clear topologies, and value accumulates in stable, beautiful ways.
 
-    // Get content and embeddings
-    func getMessage(_ hash: MessageHash) async throws -> Message {
-        // Get authoritative content from Qdrant
-        let content = try await Qdrant.getMessage(hash)
+## Value Accumulation
 
-        // Emit local event for UI
-        try await eventStore.append(.contentLoaded(hash))
+Unlike traditional platforms that extract value, Choir creates spaces where value naturally accumulates:
 
-        return content
-    }
+Thread Value
+- Each thread acts as a resonant cavity, accumulating energy through quality interactions
+- Denials strengthen the thread itself rather than being wasted
+- Teams share in their thread's growing value
+- Natural incentives align toward quality
 
-    // Store new content
-    func storeMessage(_ message: Message) async throws {
-        // Store in Qdrant first
-        try await Qdrant.store(message)
+Network Value
+- Citations create value flows between threads
+- Knowledge networks emerge organically
+- Teams build on each others' work
+- System-wide coherence develops naturally
 
-        // Then emit local event
-        try await eventStore.append(.contentStored(message.hash))
-    }
-}
-```
+Treasury Value
+- Split decisions feed the treasury
+- Treasury funds ongoing citations
+- Creates sustainable value flow
+- Enables perpetual rewards
 
-## Local Events (Coordination Only)
+## Natural Selection
 
-Temporary state for UI and sync:
+Quality emerges through natural principles:
 
-```swift
-// Local event coordination
-actor LocalEventStore {
-    // Event types for local coordination
-    enum LocalEvent: Codable {
-        // UI updates
-        case contentLoaded(MessageHash)
-        case chainStateChanged(Signature)
+Temperature Dynamics
+- Hot threads (high activity) naturally filter for quality through elevated stakes
+- Cool threads (stable patterns) enable accessible exploration
+- Natural cooling creates sustainable evolution
+- No artificial reputation systems needed
 
-        // Sync status
-        case syncStarted
-        case syncCompleted
-        case syncFailed(Error)
+Frequency Effects
+- Higher frequency indicates better organization
+- Teams strengthen thread coherence
+- Natural resonance attracts participation
+- Communities crystallize around value
 
-        // Offline queue
-        case transactionQueued(Transaction)
-        case transactionSent(Signature)
-    }
+Energy Conservation
+- Total system energy (value) is conserved
+- Flows find efficient paths
+- Waste is minimized
+- Growth is sustainable
 
-    private var events: [LocalEvent] = []
-    private var subscribers: [LocalEventSubscriber] = []
+## Future Vision
 
-    // Emit coordination events
-    func append(_ event: LocalEvent) async throws {
-        events.append(event)
+Choir enables a new kind of collaborative intelligence:
 
-        // Notify UI subscribers
-        for subscriber in subscribers {
-            try await subscriber.handle(event)
-        }
+Natural Teams
+- Form around resonant ideas
+- Share in collective value
+- Build on each other's work
+- Evolve sustainably
 
-        // Cleanup old events
-        try await pruneOldEvents()
-    }
-}
-```
+Knowledge Networks
+- Connect naturally through citations
+- Strengthen through use
+- Create emergent insights
+- Enable collective intelligence
 
-## UI State Management
+Value Creation
+- Emerges from natural patterns
+- Accumulates in stable forms
+- Flows efficiently
+- Benefits all participants
 
-React to authoritative state changes:
+The result is a platform that works with nature rather than against it - enabling genuine collaboration, sustainable value creation, and the emergence of new forms of collective intelligence.
 
-```swift
-@MainActor
-class ThreadViewModel: ObservableObject {
-    @Published private(set) var thread: ThreadState?
-    @Published private(set) var messages: [Message] = []
+This is just the beginning. As the system evolves, we'll discover new patterns of collaboration, new forms of value creation, and new ways for teams to work together. The key is that we're not forcing these patterns - we're creating the conditions for them to emerge naturally.
 
-    private let chainState: ChainState
-    private let vectorState: VectorState
-    private let eventStore: LocalEventStore
+Join us in building a platform where quality emerges through natural principles, teams form through genuine alignment, and value flows to those who create it. Together, we can enable new forms of collective intelligence that benefit everyone.
 
-    // Load thread state
-    func loadThread(_ id: ThreadID) async throws {
-        // Get authoritative state
-        thread = try await chainState.getThreadState(id)
+=== File: docs/e_reference.md ===
 
-        // Load messages from vector DB
-        messages = try await loadMessages(thread.messageHashes)
 
-        // Subscribe to local events for updates
-        subscribeToEvents()
-    }
 
-    // Handle local events
-    private func handleEvent(_ event: LocalEvent) async {
-        switch event {
-        case .chainStateChanged:
-            // Refresh chain state
-            if let id = thread?.id {
-                thread = try? await chainState.getThreadState(id)
-            }
-        case .contentLoaded:
-            // Refresh messages if needed
-            if let hashes = thread?.messageHashes {
-                messages = try? await loadMessages(hashes)
-            }
-        }
-    }
-}
-```
+==
+e_reference
+==
 
-This implementation ensures:
-1. Chain state authority
-2. Vector content authority
-3. Local coordination
-4. Clean UI updates
-5. Proper sync
 
-The system maintains:
-- Clear data hierarchy
-- Proper authority
-- UI responsiveness
-- Sync coordination
-- Debug capability
+# Choir Reference Guide
+
+## Core Concepts
+
+Thread
+A collaborative space where value accumulates naturally through quality conversations. Like a resonant cavity, each thread develops its own energy state and natural frequency through participation.
+
+Co-author
+A thread participant with approval rights. Co-authors emerge naturally when their contributions are recognized through unanimous approval. They guide the thread's evolution and share in its growing value.
+
+Message
+A contribution to a thread that requires unanimous co-author approval to become public. Like a wave, each message has potential energy (stake) that transforms into different forms based on the approval outcome.
+
+Premium Status
+Enhanced platform capabilities including doubled rewards on both new messages and prior citations. This amplification of natural value flows rewards serious participants while strengthening team formation.
+
+## Value Flows
+
+Stake
+Energy committed when submitting a message. The amount varies with thread temperature - hotter threads require higher stakes, creating natural quality filters.
+
+Approval Flow
+When all co-authors approve a message:
+- Stake distributes to approvers
+- Message becomes public
+- Contributor becomes co-author
+- Thread frequency increases
+
+Denial Flow
+When any co-author denies a message:
+- Stake strengthens thread
+- Thread temperature increases
+- Quality barrier rises naturally
+- Energy conserves in thread
+
+Split Decision
+When approvals are mixed:
+- Approvers' share flows to Treasury
+- Deniers' share strengthens thread
+- Temperature evolves naturally
+- System maintains balance
+
+## Natural Patterns
+
+Temperature
+A thread's energy state that affects stake requirements:
+- Hot threads (high activity) = higher stakes
+- Cool threads (stable) = lower stakes
+- Natural cooling over time
+- Quality emerges through thermodynamics
+
+Frequency
+A thread's organizational coherence:
+- Higher frequency = better organization
+- Co-authors strengthen coherence
+- Teams resonate naturally
+- Value accumulates stably
+
+Citation Network
+How knowledge flows between threads:
+- Citations create value flows
+- Prior rewards strengthen connections
+- Networks emerge naturally
+- Collective intelligence grows
+
+## Common Questions
+
+Q: Why do stake requirements vary?
+A: Thread temperature creates natural quality filters. Like physical systems, "hotter" threads require more energy to participate, naturally selecting for quality while "cooler" threads enable exploration.
+
+Q: How do teams form?
+A: Teams crystallize naturally around valuable threads through shared participation and success. Like molecules finding stable arrangements, teams emerge from genuine alignment rather than forced structure.
+
+Q: Why are premium rewards doubled?
+A: Premium status amplifies natural value flows, rewarding serious participants who strengthen the system. Doubled rewards on both new messages and prior citations create stronger incentives for quality contribution while maintaining natural patterns.
+
+Q: How does thread value accumulate?
+A: Threads accumulate value through:
+- Quality contributions
+- Denial energy
+- Citation rewards
+- Natural resonance
+This creates sustainable value growth that benefits all participants.
+
+Q: What makes citations valuable?
+A: Citations create knowledge flows between threads, strengthening both source and destination. The Treasury funds perpetual citation rewards, enabling sustainable value flow through the knowledge network.
+
+## Best Practices
+
+Quality Emergence
+- Contribute authentically
+- Judge carefully
+- Build on prior work
+- Let patterns emerge
+
+Team Formation
+- Find resonant threads
+- Participate genuinely
+- Share in success
+- Grow naturally
+
+Value Creation
+- Focus on quality
+- Strengthen connections
+- Enable emergence
+- Trust the process
+
+## Technical Terms
+
+Thread ID
+Unique identifier for each thread cavity
+
+Message Hash
+Unique fingerprint verifying message integrity
+
+Token Amount
+Quantized unit of platform energy
+
+Treasury
+System reserve enabling perpetual rewards
+
+## Platform States
+
+Thread States
+- Creating (formation)
+- Active (participation)
+- Voting (message evaluation)
+- Processing (state transition)
+
+Message States
+- Pending (awaiting approval)
+- Approved (public)
+- Denied (rejected)
+- Processing (transitioning)
+
+User States
+- Basic (standard participation)
+- Premium (enhanced rewards)
+- Active (in thread)
+- Transitioning (state change)
+
+Through these patterns and practices, Choir enables natural collaboration, sustainable value creation, and the emergence of collective intelligence.
 
 === File: docs/goal_architecture.md ===
 
@@ -1442,44 +1174,48 @@ goal_architecture
 
 VERSION architecture_vision:
 invariants: {
-"Event integrity",
-"Actor isolation",
-"Chain authority"
+"Network consensus",
+"Service coordination",
+"Distributed intelligence"
 }
 assumptions: {
 "Swift concurrency",
-"Local-first design",
-"Natural flow"
+"Distributed processing",
+"Collective learning"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Core Architecture
 
-The system operates through natural event flows and clear authority boundaries:
+The system operates as a distributed intelligence network:
 
-Event Foundation
-- Events capture all system changes
-- State transitions flow as events
-- Components communicate via events
-- Security verifies through events
-- Recovery enabled by event history
+Network Foundation
 
-Actor Isolation
-- Each domain lives in its own actor
-- Actors communicate through events
-- State remains properly isolated
-- Resources cleanly managed
-- Patterns emerge naturally
+- Distributed service coordination
+- Network state consensus
+- Cross-service communication
+- Collective intelligence
+- System-wide learning
+
+Service Isolation
+
+- AI service orchestration
+- Vector database clustering
+- Blockchain consensus
+- Network synchronization
+- Pattern emergence
 
 Chain Authority
-- Solana state authoritative for:
+
+- Solana consensus for:
   - Thread ownership
   - Token balances
   - Message hashes
   - Co-author lists
 
-Local Authority
-- Qdrant authoritative for:
+Network Intelligence
+
+- Vector database for:
   - Message content
   - Embeddings
   - Citations
@@ -1487,117 +1223,131 @@ Local Authority
 
 ## Event Flow
 
-Events flow naturally through system boundaries:
+Events coordinate distributed system state:
 
-State Events
-- Chain state changes
-- Content updates
-- Local coordination
-- UI updates
-- System health
+Service Events
+
+- AI model coordination
+- Vector store synchronization
+- Chain consensus
+- Network health
+- System metrics
 
 Economic Events
-- Stake deposits
-- Temperature changes
+
+- Stake consensus
+- Temperature propagation
 - Equity distribution
-- Reward issuance
+- Reward calculation
 - Value flow
 
 Knowledge Events
-- Content storage
-- Citation recording
+
+- Content distribution
+- Citation network
 - Link strengthening
 - Pattern emergence
 - Network growth
 
 ## System Boundaries
 
-Clear domain separation through:
+Clear service domain separation:
 
 State Authority
-- Chain state for ownership/tokens
-- Vector state for content/embeddings
-- Local state for coordination
-- Event state for flow
-- Pattern state for emergence
+
+- Chain consensus for ownership
+- Vector consensus for content
+- Event synchronization
+- Network coordination
+- Pattern distribution
 
 Resource Boundaries
-- Actor isolation for safety
-- Event flow for coordination
-- State isolation for clarity
-- Resource management for efficiency
-- Pattern emergence for evolution
+
+- Service isolation
+- Network coordination
+- State consensus
+- Resource management
+- Pattern emergence
 
 Security Boundaries
-- Chain verification
-- Event integrity
-- Actor isolation
-- Pattern validation
-- Natural flow
 
-## Natural Patterns
+- Network verification
+- Event integrity
+- Service isolation
+- Pattern validation
+- Consensus flow
+
+## Network Patterns
 
 System patterns emerge through:
 
 Event Flow
-- State changes flow naturally
-- Components coordinate through events
-- Patterns emerge from flow
-- Recovery enabled by history
-- Evolution guided by events
 
-Actor Organization
+- State changes propagate
+- Services coordinate
+- Patterns emerge
+- Recovery enabled
+- Evolution guided
+
+Service Organization
+
 - Natural domain separation
-- Clean state isolation
+- Clean service isolation
 - Event-based communication
-- Resource containment
+- Resource management
 - Pattern-based structure
 
 Value Distribution
-- Chain-based ownership
+
+- Chain-based consensus
 - Event-driven rewards
 - Pattern-based value
-- Natural flow
+- Network flow
 - Emergent worth
 
 ## Implementation Foundation
 
-Built on natural foundations:
+Built on distributed foundations:
 
 Swift Concurrency
-- Actor-based isolation
+
+- Actor-based services
 - Structured concurrency
 - Async/await flow
 - Resource safety
 - Pattern support
 
-Local First
-- Chain authority respected
-- Content locally verified
-- Events locally tracked
-- Patterns locally recognized
-- Evolution locally enabled
+Network First
+
+- Service coordination
+- Content distribution
+- Event synchronization
+- Pattern recognition
+- System evolution
 
 Event Driven
-- Natural state flow
-- Clean coordination
+
+- Network state flow
+- Service coordination
 - Pattern emergence
 - Value distribution
 - System evolution
 
 This architecture enables:
-1. Clear authority boundaries
-2. Natural event flow
-3. Clean actor isolation
+
+1. Network consensus
+2. Service coordination
+3. Clean isolation
 4. Pattern emergence
 5. System evolution
 
 The system ensures:
-- State integrity
-- Event coherence
+
+- State coherence
+- Event integrity
 - Resource safety
 - Pattern recognition
-- Natural growth
+- Network growth
 
 === File: docs/goal_evolution.md ===
 
@@ -1621,13 +1371,14 @@ assumptions: {
 "Local-first evolution",
 "Event-driven growth"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Core Evolution
 
 The platform evolves through natural phases:
 
 Text Foundation
+
 - Pure text interaction
 - Natural message flow
 - Citation patterns
@@ -1635,6 +1386,7 @@ Text Foundation
 - Team formation
 
 The foundation enables:
+
 - Clear communication patterns
 - Natural quality emergence
 - Team crystallization
@@ -1642,6 +1394,7 @@ The foundation enables:
 - Network growth
 
 Voice Enhancement
+
 - Natural voice input
 - Audio embeddings
 - Multimodal understanding
@@ -1649,6 +1402,7 @@ Voice Enhancement
 - Flow evolution
 
 The voice layer creates:
+
 - Richer interaction patterns
 - Natural communication flow
 - Enhanced understanding
@@ -1656,6 +1410,7 @@ The voice layer creates:
 - Network deepening
 
 Knowledge Evolution
+
 - Cross-modal understanding
 - Deep semantic networks
 - Pattern recognition
@@ -1667,6 +1422,7 @@ Knowledge Evolution
 Natural capability growth:
 
 Local Enhancement
+
 - On-device embeddings
 - Local search
 - Pattern recognition
@@ -1674,6 +1430,7 @@ Local Enhancement
 - Natural evolution
 
 Edge Enhancement
+
 - Distributed search
 - Pattern sharing
 - Value flow
@@ -1681,6 +1438,7 @@ Edge Enhancement
 - Natural scaling
 
 Network Enhancement
+
 - P2P capabilities
 - Pattern emergence
 - Value distribution
@@ -1692,6 +1450,7 @@ Network Enhancement
 Natural value flow evolution:
 
 Individual Value
+
 - Quality recognition
 - Pattern rewards
 - Natural incentives
@@ -1699,6 +1458,7 @@ Individual Value
 - Value accumulation
 
 Team Value
+
 - Collective recognition
 - Pattern strengthening
 - Natural alignment
@@ -1706,6 +1466,7 @@ Team Value
 - Value crystallization
 
 Network Value
+
 - Pattern emergence
 - Value flow
 - Natural coupling
@@ -1717,6 +1478,7 @@ Network Value
 Progressive capability emergence:
 
 Interaction Capabilities
+
 - Text to voice
 - Multimodal understanding
 - Pattern recognition
@@ -1724,6 +1486,7 @@ Interaction Capabilities
 - Evolution support
 
 Knowledge Capabilities
+
 - Semantic networks
 - Pattern formation
 - Value recognition
@@ -1731,6 +1494,7 @@ Knowledge Capabilities
 - Network effects
 
 Economic Capabilities
+
 - Value distribution
 - Pattern rewards
 - Natural incentives
@@ -1742,6 +1506,7 @@ Economic Capabilities
 Natural system evolution toward:
 
 Collective Intelligence
+
 - Pattern recognition
 - Value emergence
 - Natural alignment
@@ -1749,6 +1514,7 @@ Collective Intelligence
 - Network effects
 
 Team Formation
+
 - Natural crystallization
 - Pattern strengthening
 - Value sharing
@@ -1756,6 +1522,7 @@ Team Formation
 - Network formation
 
 Knowledge Networks
+
 - Pattern emergence
 - Value flow
 - Natural coupling
@@ -1763,6 +1530,7 @@ Knowledge Networks
 - Network intelligence
 
 This evolution enables:
+
 1. Natural capability growth
 2. Progressive enhancement
 3. Value distribution
@@ -1770,6 +1538,7 @@ This evolution enables:
 5. Network effects
 
 The system ensures:
+
 - Natural evolution
 - Pattern recognition
 - Value flow
@@ -1798,13 +1567,14 @@ assumptions: {
 "Actor isolation",
 "Event-driven flow"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Development Phases
 
 Natural system evolution through clear phases:
 
 Foundation Phase
+
 - Core event system
 - Actor isolation
 - Local storage
@@ -1812,6 +1582,7 @@ Foundation Phase
 - Basic UI
 
 The foundation establishes:
+
 - Event-driven patterns
 - Actor boundaries
 - State authority
@@ -1819,6 +1590,7 @@ The foundation establishes:
 - Testing patterns
 
 Knowledge Phase
+
 - Vector storage
 - Prior system
 - Citation network
@@ -1826,6 +1598,7 @@ Knowledge Phase
 - Pattern recognition
 
 The knowledge layer enables:
+
 - Content organization
 - Natural citations
 - Link formation
@@ -1833,6 +1606,7 @@ The knowledge layer enables:
 - Network growth
 
 Economic Phase
+
 - Token integration
 - Temperature evolution
 - Equity distribution
@@ -1840,6 +1614,7 @@ Economic Phase
 - Pattern rewards
 
 The economic layer creates:
+
 - Natural incentives
 - Value recognition
 - Team formation
@@ -1851,6 +1626,7 @@ The economic layer creates:
 Core patterns that guide development:
 
 Event Patterns
+
 - Clear event types
 - Natural event flow
 - State transitions
@@ -1858,6 +1634,7 @@ Event Patterns
 - System evolution
 
 Actor Patterns
+
 - Domain isolation
 - Resource safety
 - Event handling
@@ -1865,6 +1642,7 @@ Actor Patterns
 - Natural boundaries
 
 Testing Patterns
+
 - Event verification
 - Actor isolation
 - State consistency
@@ -1876,6 +1654,7 @@ Testing Patterns
 Clean resource handling through:
 
 State Resources
+
 - Chain state authority
 - Vector state integrity
 - Local state efficiency
@@ -1883,6 +1662,7 @@ State Resources
 - Pattern state emergence
 
 Memory Resources
+
 - Actor isolation
 - Event efficiency
 - State management
@@ -1890,6 +1670,7 @@ Memory Resources
 - Natural cleanup
 
 Network Resources
+
 - Chain interaction
 - Content synchronization
 - Event distribution
@@ -1901,6 +1682,7 @@ Network Resources
 Comprehensive testing through:
 
 Unit Testing
+
 - Actor isolation
 - Event handling
 - State transitions
@@ -1908,6 +1690,7 @@ Unit Testing
 - Resource management
 
 Integration Testing
+
 - Event flow
 - Actor communication
 - State consistency
@@ -1915,6 +1698,7 @@ Integration Testing
 - System coherence
 
 System Testing
+
 - End-to-end flow
 - Resource efficiency
 - Pattern emergence
@@ -1926,6 +1710,7 @@ System Testing
 Natural implementation flow:
 
 Pattern Recognition
+
 - Identify core patterns
 - Establish boundaries
 - Enable flow
@@ -1933,6 +1718,7 @@ Pattern Recognition
 - Guide evolution
 
 Resource Optimization
+
 - Efficient state management
 - Clean event flow
 - Actor isolation
@@ -1940,6 +1726,7 @@ Resource Optimization
 - Natural growth
 
 Quality Emergence
+
 - Clear patterns
 - Clean implementation
 - Natural flow
@@ -1947,6 +1734,7 @@ Quality Emergence
 - System evolution
 
 This strategy enables:
+
 1. Clear development phases
 2. Clean implementation patterns
 3. Efficient resource use
@@ -1954,8 +1742,220 @@ This strategy enables:
 5. Natural system evolution
 
 The implementation ensures:
+
 - Pattern clarity
 - Resource efficiency
 - System quality
 - Natural growth
 - Sustainable evolution
+
+=== File: docs/reward_model.md ===
+
+
+
+==
+reward_model
+==
+
+
+# Reward System Model
+
+VERSION reward_model:
+invariants: {
+"Energy conservation",
+"Network consensus",
+"Distributed rewards"
+}
+assumptions: {
+"Event-driven flow",
+"Network verification",
+"Chain authority"
+}
+docs_version: "0.4.0"
+
+## Reward Events
+
+Value flows through network consensus:
+
+New Message Events
+
+```swift
+enum MessageRewardEvent: Event {
+    case messageApproved(MessageHash, TokenAmount)
+    case rewardCalculated(TokenAmount, TimeDecay)
+    case rewardDistributed(PublicKey, TokenAmount)
+}
+```
+
+Prior Events
+
+```swift
+enum PriorRewardEvent: Event {
+    case priorReferenced(PriorHash, MessageHash)
+    case valueCalculated(TokenAmount, Relevance)
+    case rewardIssued(PublicKey, TokenAmount)
+}
+```
+
+Treasury Events
+
+```swift
+enum TreasuryEvent: Event {
+    case splitDecisionProcessed(TokenAmount)
+    case priorRewardFunded(TokenAmount)
+    case balanceUpdated(TokenAmount)
+}
+```
+
+## Value Calculation
+
+Thread stake pricing uses the quantum harmonic oscillator formula (Implemented):
+
+```
+E(n) = ℏω(n + 1/2)
+
+where:
+- n: quantum number (stake level)
+- ω: thread frequency (organization level)
+- ℏ: reduced Planck constant
+```
+
+New Message Rewards (Implemented):
+
+```
+R(t) = R_total × k/(1 + kt)ln(1 + kT)
+
+where:
+- R_total: Total reward allocation (2.5B)
+- k: Decay constant (~2.04)
+- t: Current time
+- T: Total period (4 years)
+```
+
+Prior Value (Implemented):
+
+```
+V(p) = B_t × Q(p)/∑Q(i)
+
+where:
+- B_t: Treasury balance
+- Q(p): Prior quality score
+- ∑Q(i): Sum of all quality scores
+```
+
+## Event Processing
+
+Network reward coordination:
+
+```swift
+// Reward processor
+actor RewardProcessor {
+    private let chain: ChainAuthority
+    private let eventLog: EventStore
+    private let network: NetworkSyncService
+
+    func process(_ event: RewardEvent) async throws {
+        // Calculate reward using implemented formulas
+        let reward = try await calculate(event)
+
+        // Log event
+        try await eventLog.append(event)
+
+        // Get network consensus
+        try await network.proposeReward(reward)
+
+        // Submit to chain
+        try await submitToChain(reward)
+
+        // Emit value update
+        try await updateValue(event)
+    }
+}
+```
+
+Value Tracking
+
+```swift
+// Value tracker
+actor ValueTracker {
+    private var threadValues: [ThreadID: TokenAmount]
+    private let eventLog: EventLog
+    private let network: NetworkSyncService
+
+    func trackValue(_ event: RewardEvent) async throws {
+        // Update value state
+        try await updateValue(event)
+
+        // Get network consensus
+        try await network.proposeValue(event)
+
+        // Log value change
+        try await eventLog.append(.valueChanged(event))
+    }
+}
+```
+
+## Implementation Notes
+
+1. Event Storage
+
+```swift
+// Network event storage
+@Model
+class RewardEventLog {
+    let events: [RewardEvent]
+    let values: [ThreadID: TokenAmount]
+    let timestamp: Date
+    let networkState: NetworkState
+
+    // Sync with chain and network
+    func sync() async throws {
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            group.addTask { try await self.syncChain() }
+            group.addTask { try await self.syncNetwork() }
+            try await group.waitForAll()
+        }
+    }
+}
+```
+
+2. Value Evolution
+
+```swift
+// Network value evolution
+actor ValueManager {
+    private var currentValues: [ThreadID: TokenAmount]
+    private let eventLog: EventLog
+    private let network: NetworkSyncService
+
+    func evolveValue(_ event: RewardEvent) async throws {
+        // Calculate using implemented formulas
+        let newValue = try await calculateValue(event)
+
+        // Get network consensus
+        try await network.proposeValue(newValue)
+
+        // Update values
+        try await updateValues(event)
+
+        // Record evolution
+        try await eventLog.append(.valueEvolved(currentValues))
+    }
+}
+```
+
+This model ensures:
+
+1. Precise reward calculations
+2. Network consensus
+3. Chain authority
+4. Value evolution
+5. Pattern emergence
+
+The system maintains:
+
+- Energy conservation
+- Value coherence
+- Pattern recognition
+- Network flow
+- System evolution

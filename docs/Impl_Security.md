@@ -11,13 +11,14 @@ assumptions: {
 "Event-driven security",
 "Natural isolation"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Security Foundations
 
 The security model follows natural system boundaries and flows:
 
 Chain Authority
+
 - Solana state is authoritative for ownership and tokens
 - Thread ownership through PDAs
 - Token custody through program accounts
@@ -25,6 +26,7 @@ Chain Authority
 - Message hashes anchored to chain
 
 Local Verification
+
 - Content integrity through local verification
 - Event flow tracking for security
 - State consistency checks
@@ -32,6 +34,7 @@ Local Verification
 - Natural boundary enforcement
 
 Event Integrity
+
 - Security events flow naturally
 - State transitions tracked
 - Access patterns recorded
@@ -43,6 +46,7 @@ Event Integrity
 Natural system boundaries emerge from:
 
 State Authority
+
 - Chain state for ownership/tokens
 - Vector state for content/embeddings
 - Local state for coordination
@@ -50,6 +54,7 @@ State Authority
 - Natural state flow
 
 Access Patterns
+
 - Co-author access through chain verification
 - Content access through local verification
 - Event access through natural flow
@@ -57,6 +62,7 @@ Access Patterns
 - Pattern emergence through usage
 
 Isolation Boundaries
+
 - Natural component isolation
 - Event-driven interaction
 - Clean state separation
@@ -68,6 +74,7 @@ Isolation Boundaries
 Security follows natural system flows:
 
 Verification Flow
+
 - Chain state verification
 - Local state validation
 - Event integrity checks
@@ -75,6 +82,7 @@ Verification Flow
 - Natural flow monitoring
 
 Access Flow
+
 - Chain-verified ownership
 - Content access rights
 - Event access patterns
@@ -82,6 +90,7 @@ Access Flow
 - Natural restrictions
 
 Recovery Flow
+
 - State inconsistency detection
 - Event flow recovery
 - Access pattern restoration
@@ -93,6 +102,7 @@ Recovery Flow
 The system maintains natural security properties:
 
 State Integrity
+
 - Chain state remains authoritative
 - Local state stays consistent
 - Events flow cleanly
@@ -100,6 +110,7 @@ State Integrity
 - Boundaries hold
 
 Access Control
+
 - Ownership verified on-chain
 - Content access controlled locally
 - Events flow appropriately
@@ -107,6 +118,7 @@ Access Control
 - Patterns respected
 
 Recovery Capability
+
 - State recovery through events
 - Access pattern restoration
 - Boundary enforcement
@@ -118,6 +130,7 @@ Recovery Capability
 Recovery follows natural system patterns:
 
 State Recovery
+
 - Chain state as foundation
 - Event replay for consistency
 - Pattern restoration
@@ -125,6 +138,7 @@ State Recovery
 - Natural healing flow
 
 Access Recovery
+
 - Chain verification reset
 - Access pattern restoration
 - Event flow reestablishment
@@ -132,6 +146,7 @@ Access Recovery
 - Pattern emergence
 
 System Healing
+
 - Natural boundary restoration
 - Event flow recovery
 - State consistency
@@ -139,6 +154,7 @@ System Healing
 - Flow reestablishment
 
 This security model provides:
+
 1. Clear authority boundaries
 2. Natural state verification
 3. Clean event flows
@@ -146,6 +162,7 @@ This security model provides:
 5. Natural recovery
 
 The system ensures:
+
 - Chain state authority
 - Event integrity
 - Natural boundaries

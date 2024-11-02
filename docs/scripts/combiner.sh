@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Define level prefixes as simple arrays
-level0_prefixes=("Solana" "Frontend" "Backend" "Deploy" "Implementation" "data" "Error" "reward" "Impl")
-level1_prefixes=("e" "Entry" "Dev" "Plan" "Tech" "Level" "Current" "Prompt")
-level2_prefixes=("core" "State" "Summary" "Pivot" "goal")
+level0_prefixes=("Solana" "Frontend" "Backend" "Deploy" "Implementation")
+level1_prefixes=("Entry" "Dev" "Plan" "Tech" "Level" "Current" "core")
+level2_prefixes=("State" "Summary" "Pivot" "goal" "e" "data" "Error" "reward" "Impl")
 level3_prefixes=("theory" "V10" "V12")
 level4_prefixes=("Model" "Emergence" "Meta")
 level5_prefixes=("harmonic")
@@ -42,7 +42,8 @@ process_level() {
 
     # Special handling for level -1 (system files)
     if [ "$level" -eq -1 ]; then
-        for special_file in "docs/tree.md" "docs/scripts/combiner.sh" "docs/scripts/update_tree.sh"; do
+        # for special_file in "docs/getting_started.md" "docs/tree.md" "docs/scripts/combiner.sh" "docs/scripts/update_tree.sh"; do
+        for special_file in  "docs/prompt_getting_started.md" "docs/prompt_reentry.md" "docs/prompt_organization.md" "docs/prompt_summary_prompt.md"; do
             if [ -f "$special_file" ]; then
                 echo -e "\n=== File: $special_file ===\n" >> "$output_file"
                 add_separator "$(basename "$special_file")" >> "$output_file"

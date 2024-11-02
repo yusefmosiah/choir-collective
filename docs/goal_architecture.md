@@ -2,44 +2,48 @@
 
 VERSION architecture_vision:
 invariants: {
-"Event integrity",
-"Actor isolation",
-"Chain authority"
+"Network consensus",
+"Service coordination",
+"Distributed intelligence"
 }
 assumptions: {
 "Swift concurrency",
-"Local-first design",
-"Natural flow"
+"Distributed processing",
+"Collective learning"
 }
-docs_version: "0.3.0"
+docs_version: "0.4.0"
 
 ## Core Architecture
 
-The system operates through natural event flows and clear authority boundaries:
+The system operates as a distributed intelligence network:
 
-Event Foundation
-- Events capture all system changes
-- State transitions flow as events
-- Components communicate via events
-- Security verifies through events
-- Recovery enabled by event history
+Network Foundation
 
-Actor Isolation
-- Each domain lives in its own actor
-- Actors communicate through events
-- State remains properly isolated
-- Resources cleanly managed
-- Patterns emerge naturally
+- Distributed service coordination
+- Network state consensus
+- Cross-service communication
+- Collective intelligence
+- System-wide learning
+
+Service Isolation
+
+- AI service orchestration
+- Vector database clustering
+- Blockchain consensus
+- Network synchronization
+- Pattern emergence
 
 Chain Authority
-- Solana state authoritative for:
+
+- Solana consensus for:
   - Thread ownership
   - Token balances
   - Message hashes
   - Co-author lists
 
-Local Authority
-- Qdrant authoritative for:
+Network Intelligence
+
+- Vector database for:
   - Message content
   - Embeddings
   - Citations
@@ -47,114 +51,128 @@ Local Authority
 
 ## Event Flow
 
-Events flow naturally through system boundaries:
+Events coordinate distributed system state:
 
-State Events
-- Chain state changes
-- Content updates
-- Local coordination
-- UI updates
-- System health
+Service Events
+
+- AI model coordination
+- Vector store synchronization
+- Chain consensus
+- Network health
+- System metrics
 
 Economic Events
-- Stake deposits
-- Temperature changes
+
+- Stake consensus
+- Temperature propagation
 - Equity distribution
-- Reward issuance
+- Reward calculation
 - Value flow
 
 Knowledge Events
-- Content storage
-- Citation recording
+
+- Content distribution
+- Citation network
 - Link strengthening
 - Pattern emergence
 - Network growth
 
 ## System Boundaries
 
-Clear domain separation through:
+Clear service domain separation:
 
 State Authority
-- Chain state for ownership/tokens
-- Vector state for content/embeddings
-- Local state for coordination
-- Event state for flow
-- Pattern state for emergence
+
+- Chain consensus for ownership
+- Vector consensus for content
+- Event synchronization
+- Network coordination
+- Pattern distribution
 
 Resource Boundaries
-- Actor isolation for safety
-- Event flow for coordination
-- State isolation for clarity
-- Resource management for efficiency
-- Pattern emergence for evolution
+
+- Service isolation
+- Network coordination
+- State consensus
+- Resource management
+- Pattern emergence
 
 Security Boundaries
-- Chain verification
-- Event integrity
-- Actor isolation
-- Pattern validation
-- Natural flow
 
-## Natural Patterns
+- Network verification
+- Event integrity
+- Service isolation
+- Pattern validation
+- Consensus flow
+
+## Network Patterns
 
 System patterns emerge through:
 
 Event Flow
-- State changes flow naturally
-- Components coordinate through events
-- Patterns emerge from flow
-- Recovery enabled by history
-- Evolution guided by events
 
-Actor Organization
+- State changes propagate
+- Services coordinate
+- Patterns emerge
+- Recovery enabled
+- Evolution guided
+
+Service Organization
+
 - Natural domain separation
-- Clean state isolation
+- Clean service isolation
 - Event-based communication
-- Resource containment
+- Resource management
 - Pattern-based structure
 
 Value Distribution
-- Chain-based ownership
+
+- Chain-based consensus
 - Event-driven rewards
 - Pattern-based value
-- Natural flow
+- Network flow
 - Emergent worth
 
 ## Implementation Foundation
 
-Built on natural foundations:
+Built on distributed foundations:
 
 Swift Concurrency
-- Actor-based isolation
+
+- Actor-based services
 - Structured concurrency
 - Async/await flow
 - Resource safety
 - Pattern support
 
-Local First
-- Chain authority respected
-- Content locally verified
-- Events locally tracked
-- Patterns locally recognized
-- Evolution locally enabled
+Network First
+
+- Service coordination
+- Content distribution
+- Event synchronization
+- Pattern recognition
+- System evolution
 
 Event Driven
-- Natural state flow
-- Clean coordination
+
+- Network state flow
+- Service coordination
 - Pattern emergence
 - Value distribution
 - System evolution
 
 This architecture enables:
-1. Clear authority boundaries
-2. Natural event flow
-3. Clean actor isolation
+
+1. Network consensus
+2. Service coordination
+3. Clean isolation
 4. Pattern emergence
 5. System evolution
 
 The system ensures:
-- State integrity
-- Event coherence
+
+- State coherence
+- Event integrity
 - Resource safety
 - Pattern recognition
-- Natural growth
+- Network growth
