@@ -1,16 +1,3 @@
-# Level 5 Documentation
-
-
-
-=== File: docs/harmonic_intelligence.md ===
-
-
-
-==
-harmonic_intelligence
-==
-
-
 # Harmonic Intelligence Platform
 
 VERSION harmonic_system:

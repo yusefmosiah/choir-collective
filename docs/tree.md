@@ -135,6 +135,7 @@
 │   ├── goal_architecture.md
 │   ├── goal_evolution.md
 │   ├── goal_implementation.md
+│   ├── harmonic_intelligence.md
 │   ├── levels
 │   │   ├── level-1.md
 │   │   ├── level0.md
@@ -253,4 +254,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-62 directories, 189 files
+62 directories, 190 files

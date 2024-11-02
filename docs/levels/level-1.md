@@ -148,6 +148,7 @@ tree.md
 │   ├── goal_architecture.md
 │   ├── goal_evolution.md
 │   ├── goal_implementation.md
+│   ├── harmonic_intelligence.md
 │   ├── levels
 │   │   ├── level-1.md
 │   │   ├── level0.md
@@ -266,7 +267,7 @@ tree.md
 ├── tailwind.config.ts
 └── tsconfig.json
 
-62 directories, 189 files
+62 directories, 190 files
 
 === File: docs/scripts/combiner.sh ===
 
@@ -285,7 +286,7 @@ level1_prefixes=("e" "Entry" "Dev" "Plan" "Tech" "Level" "Current" "Prompt")
 level2_prefixes=("core" "State" "Summary" "Pivot" "goal")
 level3_prefixes=("theory" "V10" "V12")
 level4_prefixes=("Model" "Emergence" "Meta")
-level5_prefixes=("Harmonic")
+level5_prefixes=("harmonic")
 
 # Function to add separator and header
 add_separator() {

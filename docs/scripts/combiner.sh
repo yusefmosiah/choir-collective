@@ -6,7 +6,7 @@ level1_prefixes=("e" "Entry" "Dev" "Plan" "Tech" "Level" "Current" "Prompt")
 level2_prefixes=("core" "State" "Summary" "Pivot" "goal")
 level3_prefixes=("theory" "V10" "V12")
 level4_prefixes=("Model" "Emergence" "Meta")
-level5_prefixes=("Harmonic")
+level5_prefixes=("harmonic")
 
 # Function to add separator and header
 add_separator() {
