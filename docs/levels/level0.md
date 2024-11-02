@@ -2,537 +2,6 @@
 
 
 
-=== File: docs/Backend_Chorus.md ===
-
-
-
-==
-Backend_Chorus
-==
-
-
-# Choir: Harmonic Intelligence Platform
-
-VERSION harmonic_system:
-invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
-}
-assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
-}
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# Crystallized Chorus Cycle
-
-VERSION chorus_system:
-invariants: {
-"Pure function transformation",
-"State isolation",
-"Error correction capability"
-}
-assumptions: {
-"AI response stability",
-"State transition atomicity",
-"Message ordering"
-}
-docs_version: "0.2.1"
-
-## Core Types
-
-```python
-TYPE ChorusState = {
-    messages: List[Message],
-    current_step: StepEnum,
-    thread_id: str,
-    error_state: Optional[ErrorState]
-}
-
-TYPE StepResult = {
-    state: ChorusState,
-    response: ChorusResponse,
-    effects: List[Effect]
-}
-
-TYPE Effect =
-    | AICall(prompt: str)
-    | DBOperation(op: DBOp)
-    | WebSocketEvent(event: WSEvent)
-```
-
-## Pure Functions
-
-```python
-# Core transformation functions
-FUNCTION transform_state(state: ChorusState, input: Input) -> StepResult:
-    # Instead of content being a liability, it becomes:
-    # - Collectively owned (thread value)
-    # - Naturally protected (harmonic pattern)
-    # - Value generating (prior rewards)
-    # - Identity preserving (co-authorship)
-    MATCH state.current_step:
-        StepEnum.ACTION -> run_action(state, input)
-        StepEnum.EXPERIENCE -> run_experience(state, input)
-        StepEnum.INTENTION -> run_intention(state, input)
-        StepEnum.OBSERVATION -> run_observation(state, input)
-        StepEnum.UPDATE -> run_update(state, input)
-        StepEnum.YIELD -> run_yield(state, input)
-
-# Individual step functions
-FUNCTION run_action(state: ChorusState, input: Input) -> StepResult:
-    response = prepare_initial_response(input.prompt)
-    new_state = advance_step(state, StepEnum.EXPERIENCE)
-    effects = [AICall(format_prompt(input.prompt))]
-    RETURN StepResult(new_state, response, effects)
-
-FUNCTION run_experience(state: ChorusState, input: Input) -> StepResult:
-    relevant_context = find_relevant_context(state.messages)
-    response = enhance_with_context(input.response, relevant_context)
-    new_state = advance_step(state, StepEnum.INTENTION)
-    effects = [DBOperation(SearchContext(relevant_context))]
-    RETURN StepResult(new_state, response, effects)
-
-# ... similar functions for other steps
-```
-
-## Error Correction
-
-```python
-FUNCTION handle_error(error: Error, state: ChorusState) -> StepResult:
-    corrected_state = apply_error_correction(state, error)
-    recovery_effects = generate_recovery_effects(error)
-    RETURN StepResult(corrected_state, error_response(error), recovery_effects)
-
-FUNCTION apply_error_correction(state: ChorusState, error: Error) -> ChorusState:
-    MATCH error:
-        AIError -> rollback_to_last_stable(state)
-        StateError -> reconstruct_state(state)
-        NetworkError -> cache_and_retry(state)
-```
-
-## Implementation Bridge
-
-```python
-class Chorus:
-    """
-    Implements the pure functional Chorus Cycle with side effects handled
-    at the boundaries.
-    """
-    def run(self, user_prompt: str, websocket: WebSocket,
-            chat_history: List[Dict[str, str]], thread_id: str) -> None:
-        # Initialize pure state
-        state = create_initial_state(chat_history, thread_id)
-
-        try:
-            while not is_complete(state):
-                # Run pure transformation
-                result = transform_state(state, create_input(user_prompt))
-
-                # Handle effects at boundary
-                await handle_effects(result.effects)
-
-                # Update state
-                state = result.state
-
-                # Send response
-                await send_response(websocket, result.response)
-
-        except Exception as e:
-            # Handle errors with pure error correction
-            result = handle_error(e, state)
-            state = result.state
-            await handle_effects(result.effects)
-```
-
-=== File: docs/Backend_Database.md ===
-
-
-
-==
-Backend_Database
-==
-
-
-# Choir: Harmonic Intelligence Platform
-
-VERSION harmonic_system:
-invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
-}
-assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
-}
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# Crystallized Database Layer
-
-VERSION database_system:
-invariants: {
-"Vector space integrity",
-"State consistency",
-"Recovery capability"
-}
-assumptions: {
-"Qdrant availability",
-"Vector stability",
-"Collection coherence"
-}
-docs_version: "0.2.1"
-
-## Core Types
-
-```python
-TYPE StorageState = {
-    collections: Map[str, Collection],
-    indices: Map[str, Index],
-    cache: Map[str, CacheEntry],
-    error_state: Optional[ErrorState]
-}
-
-TYPE Operation =
-    | Store(content: Content, embedding: Vector)
-    | Search(query: Vector, filters: List[Filter])
-    | Update(id: str, payload: Dict)
-    | Delete(id: str)
-
-TYPE Result =
-    | Success(data: Any, metadata: Dict)
-    | Failure(error: Error, recovery: Recovery)
-```
-
-## Pure Operations
-
-```python
-FUNCTION execute_operation(
-    state: StorageState,
-    operation: Operation
-) -> Tuple[StorageState, Result]:
-    MATCH operation:
-        Store(content, embedding) ->
-            store_with_verification(state, content, embedding)
-        Search(query, filters) ->
-            search_with_consistency(state, query, filters)
-        Update(id, payload) ->
-            update_with_validation(state, id, payload)
-        Delete(id) ->
-            delete_with_cleanup(state, id)
-
-FUNCTION store_with_verification(
-    state: StorageState,
-    content: Content,
-    embedding: Vector
-) -> Tuple[StorageState, Result]:
-    # Verify vector space properties
-    IF not verify_embedding(embedding):
-        RETURN (state, Failure(InvalidVector, RecoverEmbedding))
-
-    # Check collection consistency
-    collection = get_collection(state, content.collection_name)
-    IF not verify_collection(collection):
-        RETURN (state, Failure(InvalidCollection, RecoverCollection))
-
-    # Store with atomicity
-    new_state = add_to_collection(state, content, embedding)
-    RETURN (new_state, Success(content.id, {"vector_id": generate_id()}))
-```
-
-## State Consistency
-
-```python
-FUNCTION verify_consistency(state: StorageState) -> List[Inconsistency]:
-    inconsistencies = []
-
-    # Check vector space
-    vector_issues = verify_vector_space(state.collections)
-    inconsistencies.extend(vector_issues)
-
-    # Check indices
-    index_issues = verify_indices(state.indices)
-    inconsistencies.extend(index_issues)
-
-    # Check relationships
-    relation_issues = verify_relationships(state.collections)
-    inconsistencies.extend(relation_issues)
-
-    RETURN inconsistencies
-
-FUNCTION repair_consistency(
-    state: StorageState,
-    inconsistencies: List[Inconsistency]
-) -> StorageState:
-    FOR issue IN inconsistencies:
-        state = apply_repair(state, issue)
-    RETURN state
-```
-
-## Recovery Patterns
-
-```python
-FUNCTION handle_storage_error(
-    error: Error,
-    state: StorageState
-) -> Tuple[StorageState, Recovery]:
-    MATCH error:
-        ConnectionError ->
-            (cache_state(state), RetryWithBackoff)
-        InconsistencyError ->
-            (repair_consistency(state), ValidateAndRetry)
-        VectorError ->
-            (recompute_vectors(state), UpdateAndRetry)
-```
-
-## Implementation Bridge
-
-```python
-class DatabaseClient:
-    """
-    Implements pure storage operations with effects at the boundaries.
-    """
-    def __init__(self, config: Config):
-        self.state = create_initial_state(config)
-        self.client = QdrantClient(config.QDRANT_URL)
-
-    async def execute(self, operation: Operation) -> Result:
-        try:
-            # Pure operation execution
-            new_state, result = execute_operation(self.state, operation)
-
-            # Effect boundary
-            await self.apply_to_qdrant(result)
-
-            # Update state
-            self.state = new_state
-            return result
-
-        except Exception as e:
-            # Pure error handling
-            new_state, recovery = handle_storage_error(e, self.state)
-            self.state = new_state
-            return await self.execute_recovery(recovery)
-```
-
-=== File: docs/Backend_Models.md ===
-
-
-
-==
-Backend_Models
-==
-
-
-# Choir: Harmonic Intelligence Platform
-
-VERSION harmonic_system:
-invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
-}
-assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
-}
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# Crystallized Model Layer
-
-VERSION model_system:
-invariants: {
-"Type safety",
-"State validity",
-"Transition integrity"
-}
-assumptions: {
-"Pydantic stability",
-"Validation completeness",
-"State coherence"
-}
-docs_version: "0.2.1"
-
-## Core Types
-
-```python
-TYPE ValidationResult =
-    | Valid(data: Any)
-    | Invalid(errors: List[ValidationError])
-
-TYPE StateTransition =
-    | Created(entity_id: str)
-    | Updated(old: State, new: State)
-    | Deleted(entity_id: str)
-
-TYPE TransitionResult =
-    | Success(new_state: State)
-    | Failure(error: TransitionError)
-```
-
-## Base Models
-
-```python
-class BaseState(BaseModel):
-    """Base class for all state objects with validation and transition tracking."""
-    id: str
-    created_at: datetime
-    updated_at: datetime
-    version: int
-
-    def validate_state(self) -> ValidationResult:
-        """Validate complete state consistency."""
-        try:
-            self.validate_invariants()
-            self.validate_relationships()
-            return Valid(self)
-        except ValidationError as e:
-            return Invalid([e])
-
-    def transition_to(self, new_state: 'BaseState') -> TransitionResult:
-        """Validate and perform state transition."""
-        if not self.can_transition_to(new_state):
-            return Failure(InvalidTransition(self, new_state))
-
-        try:
-            self.validate_transition(new_state)
-            return Success(new_state)
-        except TransitionError as e:
-            return Failure(e)
-```
-
-## Domain Models
-
-```python
-class Thread(BaseState):
-    """Thread model with co-authorship and message management."""
-    co_authors: Set[PublicKey]
-    messages: List[Message]
-    token_balance: int
-    status: ThreadStatus
-
-    class Config:
-        validate_assignment = True
-        validate_all = True
-
-    @validator('co_authors')
-    def validate_co_authors(cls, v):
-        """Ensure co-author set is valid."""
-        if not v:
-            raise ValueError("Thread must have at least one co-author")
-        return v
-
-    def can_transition_to(self, new_state: 'Thread') -> bool:
-        """Check if transition is valid."""
-        return (
-            self.validate_co_author_transition(new_state) and
-            self.validate_message_transition(new_state) and
-            self.validate_token_transition(new_state)
-        )
-
-class Message(BaseState):
-    """Message model with approval tracking and content validation."""
-    content: str
-    author: PublicKey
-    approvals: Set[Approval]
-    status: MessageStatus
-    thread_id: str
-
-    @validator('content')
-    def validate_content(cls, v):
-        """Ensure content meets requirements."""
-        if not v.strip():
-            raise ValueError("Content cannot be empty")
-        if len(v) > MAX_CONTENT_LENGTH:
-            raise ValueError("Content exceeds maximum length")
-        return v
-
-    def can_approve(self, approver: PublicKey) -> bool:
-        """Check if approver can approve message."""
-        return (
-            approver not in [a.co_author for a in self.approvals] and
-            self.status == MessageStatus.PENDING
-        )
-```
-
-## State Transitions
-
-```python
-class StateManager:
-    """Manages valid state transitions with verification."""
-
-    @staticmethod
-    def transition(
-        current: BaseState,
-        operation: Operation
-    ) -> TransitionResult:
-        """Execute and verify state transition."""
-        new_state = operation.apply_to(current)
-
-        # Verify state validity
-        validation = new_state.validate_state()
-        if isinstance(validation, Invalid):
-            return Failure(ValidationFailed(validation.errors))
-
-        # Verify transition validity
-        result = current.transition_to(new_state)
-        if isinstance(result, Failure):
-            return result
-
-        # Record transition
-        record_transition(StateTransition.Updated(current, new_state))
-        return Success(new_state)
-```
-
-## Theory Mapping
-
-```python
-# Map to theoretical model:
-#
-# Thread → ManifoldPoint
-#   - Co-authors form fiber bundle
-#   - Messages form vector space
-#   - Token balance defines value field
-#
-# Message → StateVector
-#   - Content as position
-#   - Approvals as momentum
-#   - Status as harmonic pattern
-#
-# Transitions → Evolution
-#   - Validation as measurement
-#   - State change as unitary transform
-#   - Approval as collapse
-```
-
-## Implementation Bridge
-
-```python
-# Usage example showing theory-practice bridge:
-async def process_message(message: Message, thread: Thread) -> Result:
-    # Theory: Prepare harmonic pattern
-    state = StateManager.prepare_state(message)
-
-    # Theory: Transform state vector
-    validation = state.validate_state()
-    if isinstance(validation, Invalid):
-        return Error(validation.errors)
-
-    # Theory: Measure state
-    transition = StateManager.transition(
-        thread,
-        AddMessage(message)
-    )
-
-    # Theory: Collapse state
-    if isinstance(transition, Success):
-        await commit_state(transition.new_state)
-        return Ok(transition.new_state)
-    else:
-        return Error(transition.error)
-```
-
 === File: docs/Data_Engine_Vision.md ===
 
 
@@ -1065,722 +534,6 @@ This checklist tracks the deployment status of the Next.js application on Render
 
 This checklist shows good progress with the Next.js deployment. The focus can now shift to setting up monitoring, continuous deployment, and preparing for backend integration.
 
-=== File: docs/Impl_API.md ===
-
-
-
-==
-Impl_API
-==
-
-
-# Choir: Harmonic Intelligence Platform
-
-VERSION harmonic_system:
-invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
-}
-assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
-}
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# Choir API Patterns
-
-VERSION api_system:
-invariants: {
-"Authentication requirements",
-"Rate limiting presence",
-"Error response structure"
-}
-assumptions: {
-"REST-style endpoints",
-"JSON payload format",
-"Rate limit thresholds"
-}
-docs_version: "0.2.1"
-
-## Core API Design
-
-ASSUMPTION api_style:
-"REST chosen for initial implementation"
-"May introduce GraphQL for complex queries"
-"Must maintain backward compatibility"
-
-ASSUMPTION rate_limits:
-"Initial limits based on estimated usage"
-"Will be adjusted based on actual load"
-"Must prevent DoS while allowing legitimate use"
-
-1. **API Layers**
-
-   TYPE APILayer =
-   | SolanaRPC: Program Instructions, Account Queries
-   | QdrantAPI: Vector Storage, Search, Retrieval
-   | BackendAPI: Business Logic, State Management
-   | WebSocket: Real-time Updates, Subscriptions
-
-2. **Request Flow**
-
-   SEQUENCE api_request:
-   Client -> Auth -> Rate Limit -> Handler -> Cache -> Storage -> Response
-
-## Solana Program Interface
-
-1. **Program Instructions**
-
-   TYPE Instruction =
-   | CreateThread(thread_id: String)
-   | SubmitSpec(content_hash: Hash, stake: TokenAmount)
-   | ProcessApproval(hash: Hash, decision: Decision)
-   | DivestTokens(amount: TokenAmount)
-
-2. **Account Queries**
-
-   FUNCTION query_thread(thread_id: ThreadId) -> ThreadState:
-   account = find_thread_pda(thread_id)
-   RETURN deserialize_thread_state(account.data)
-
-## Qdrant Operations
-
-1. **Content Management**
-
-   TYPE ContentOp =
-   | StoreContent(content: String, embedding: Vector)
-   | SearchSimilar(query: Vector, filter: Filter)
-   | UpdateMetadata(id: String, metadata: Map)
-   | DeleteContent(id: String)
-
-2. **Search Patterns**
-
-   FUNCTION search_content(query: String) -> SearchResults:
-   embedding = generate_embedding(query)
-   results = qdrant.search(
-   vector: embedding,
-   filter: build_privacy_filter()
-   )
-
-## WebSocket Protocol
-
-1. **Event Types**
-
-   TYPE WSEvent =
-   | ThreadUpdate(thread_id: ThreadId, update: Update)
-   | ApprovalRequest(hash: Hash, thread: ThreadId)
-   | StateSync(thread: ThreadId, state: ThreadState)
-   | ErrorNotification(error: Error)
-
-2. **Subscription Management**
-
-   FUNCTION manage_subscriptions(client: Client):
-   FOR thread IN client.subscribed_threads:
-   WATCH solana_state_changes(thread)
-   WATCH qdrant_content_updates(thread)
-   EMIT thread_updates(thread)
-
-## Backend API Routes
-
-1. **REST Endpoints**
-
-   TYPE Endpoint =
-   | POST /thread/create
-   | POST /message/submit
-   | POST /spec/approve
-   | GET /thread/{id}
-   | GET /search
-   | POST /token/divest
-
-2. **Response Patterns**
-
-   TYPE APIResponse<T> = {
-   data: Option<T>,
-   error: Option<Error>,
-   metadata: ResponseMetadata
-   }
-
-## Rate Limiting
-
-1. **Limit Rules**
-
-   FUNCTION apply_rate_limit(request: Request) -> Result:
-   limits = {
-   create_thread: 10/hour,
-   submit_message: 60/hour,
-   search_content: 100/hour
-   }
-
-   VERIFY within_limits(request)
-
-2. **Backoff Strategy**
-
-   FUNCTION handle\*rate_limit():
-   MATCH attempt_count:
-   1 -> wait(1.second)
-   2 -> wait(5.seconds)
-   3 -> wait(30.seconds)
-
-   - -> fail_permanently()
-
-## Caching Strategy
-
-1. **Cache Layers**
-
-   TYPE CacheConfig = {
-   thread_state: TTL(5.minutes),
-   search_results: TTL(1.hour),
-   user_data: TTL(24.hours)
-   }
-
-2. **Invalidation Rules**
-
-   FUNCTION invalidate_cache(event: Event):
-   MATCH event:
-   ThreadUpdate -> clear_thread_cache()
-   NewMessage -> partial_invalidate()
-   StateChange -> full_invalidate()
-
-## Error Handling
-
-1. **Error Types**
-
-   TYPE APIError =
-   | ValidationError(field: String)
-   | AuthError(reason: String)
-   | RateLimit(retry_after: Duration)
-   | StateError(details: String)
-
-2. **Error Responses**
-
-   FUNCTION handle_error(error: APIError) -> Response:
-   MATCH error:
-   ValidationError -> Status(400)
-   AuthError -> Status(401)
-   RateLimit -> Status(429)
-   StateError -> Status(500)
-
-## API Versioning
-
-1. **Version Control**
-
-   TYPE APIVersion =
-   | V1
-   | V2
-   | Latest
-
-2. **Compatibility**
-
-   FUNCTION ensure_compatibility(request: Request):
-   version = extract_version(request)
-   IF breaking_change(version):
-   suggest_migration()
-
-## Documentation
-
-1. **OpenAPI Spec** `yaml
-openapi: 3.0.0
-info:
-  title: Choir API
-  version: 1.0.0
-paths:
-  /thread:
-    post:
-      summary: Create new thread
-  /message:
-    post:
-      summary: Submit message   `
-
-2. **Usage Examples** ```typescript
-   // Thread creation
-   const thread = await api.createThread({
-   initial_message: string,
-   stake_amount: number
-   });
-
-   // Message submission
-   const message = await api.submitMessage({
-   thread_id: string,
-   content: string,
-   stake?: number
-   }); ```
-
-## Testing Patterns
-
-1. **Integration Tests**
-
-   FUNCTION test_api_flow():
-   thread = create_test_thread()
-   message = submit_test_message(thread)
-   approval = process_test_approval(message)
-   VERIFY state_consistency()
-
-2. **Load Testing**
-
-   FUNCTION load_test():
-   PARALLEL FOR i IN 1..1000:
-   simulate_user_actions()
-   measure_response_times()
-   verify_consistency()
-
-=== File: docs/Impl_ChorusCycle_update.md ===
-
-
-
-==
-Impl_ChorusCycle_update
-==
-
-
-# Choir: Harmonic Intelligence Platform
-
-VERSION harmonic_system:
-invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
-}
-assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
-}
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# The Chorus Cycle: Beyond OODA
-
-VERSION chorus_system:
-invariants: {
-"Self-reflection primacy",
-"Experience integration",
-"Response immediacy"
-}
-assumptions: {
-"Action-first benefits",
-"Reflection value",
-"Security through self-awareness"
-}
-docs_version: "0.2.1"
-
-## Core Philosophy
-
-The Chorus Cycle inverts traditional AI agent design. Where OODA (Observe-Orient-Decide-Act) emphasizes external observation and calculated response, Chorus begins with action and focuses on self-reflection. This isn't just an implementation detail - it's a fundamental shift in how AI agents engage with the world.
-
-## Action First Philosophy
-
-Starting with action rather than observation:
-
-- Reduces response latency
-- Prevents analysis paralysis
-- Enables natural flow
-- Creates authentic engagement
-
-## Implementation Structure
-
-```typescript
-TYPE ChorusCycle = {
-  action: {
-    initial_response: string,
-    confidence: number,
-    timestamp: DateTime
-  },
-  experience: {
-    relevant_context: Array<Citation>,
-    pattern_matches: Array<Pattern>,
-    historical_insights: Array<Insight>
-  },
-  intention: {
-    goals: Array<Goal>,
-    constraints: Array<Constraint>,
-    expected_outcomes: Array<Outcome>
-  },
-  observation: {
-    self_analysis: Analysis,
-    pattern_recognition: Array<Pattern>,
-    quality_metrics: Metrics
-  },
-  update: {
-    refinements: Array<Refinement>,
-    learning_points: Array<Learning>,
-    evolution: StateTransition
-  },
-  yield: {
-    final_response: string,
-    citations: Array<Citation>,
-    confidence: number
-  }
-}
-```
-
-[... continue with detailed implementation patterns, WebSocket protocol, state management, etc ...]
-
-=== File: docs/Impl_Messages_update.md ===
-
-
-
-==
-Impl_Messages_update
-==
-
-
-# Choir: Harmonic Intelligence Platform
-
-VERSION harmonic_system:
-invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
-}
-assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
-}
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# Message Flow and Prior Rendering
-
-VERSION message_system:
-invariants: {
-"Real-time coherence",
-"Prior integrity",
-"State consistency"
-}
-assumptions: {
-"WebSocket availability",
-"Vector space stability",
-"Cache coherence"
-}
-docs_version: "0.2.1"
-
-## Message Flow Architecture
-
-```typescript
-TYPE MessageFlow = {
-  // Core message types
-  message: {
-    content: string,
-    author: PublicKey,
-    priors: Array<Prior>,      // Quantum semantic states
-    timestamp: DateTime,
-    thread_id: ThreadId
-  },
-
-  // Prior structure
-  prior: {
-    source_message: Hash,      // Original wave function
-    source_thread: ThreadId,   // Original resonant cavity
-    context: string,           // Usage context
-    embedding: Vector,         // Semantic position
-    resonance: number         // Coupling strength
-  },
-
-  // State updates
-  state: {
-    optimistic: Map<MessageId, MessageState>,
-    confirmed: Map<MessageId, MessageState>,
-    pending: Set<MessageId>
-  }
-}
-```
-
-## Prior Rendering
-
-1. **Inline Priors**
-   ```typescript
-   TYPE PriorRenderer = {
-     // Transform priors into interactive elements
-     render: (message: Message) => {
-       findPriors(message.content)
-       fetchPriorPreviews()
-       renderInlineLinks()
-       setupInteractivity()
-     },
-
-     // Prior preview handling
-     preview: {
-       hover: "Show harmonic pattern preview",
-       click: "Expand resonant cavity",
-       navigate: "Quantum tunnel to source"
-     }
-   }
-   ```
-
-2. **State Management**
-   ```typescript
-   TYPE PriorState = {
-     // Track prior loading and display
-     loading: Map<PriorId, LoadingState>,
-     expanded: Set<PriorId>,
-     previews: Map<PriorId, PreviewData>,
-     errors: Map<PriorId, Error>
-   }
-   ```
-
-## Real-time Updates
-
-1. **Optimistic Updates**
-   ```typescript
-   SEQUENCE handle_new_message:
-     1. Add to optimistic state
-     2. Begin WebSocket transmission
-     3. Start confirmation timeout
-     4. Handle success/failure
-   ```
-
-2. **State Synchronization**
-   ```typescript
-   SEQUENCE sync_message_state:
-     1. Compare local vs server state
-     2. Resolve conflicts
-     3. Update UI accordingly
-     4. Maintain prior integrity
-   ```
-
-[... continue with more implementation details ...]
-
-=== File: docs/Impl_Privacy.md ===
-
-
-
-==
-Impl_Privacy
-==
-
-
-# Choir: Harmonic Intelligence Platform
-
-VERSION harmonic_system:
-invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
-}
-assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
-}
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# Choir Privacy Model
-
-VERSION privacy_system:
-invariants: {
-"Content hash verification",
-"Co-author access rights",
-"Summary privacy preservation"
-}
-assumptions: {
-"Three-level privacy model",
-"AI summary generation capability",
-"Content searchability control"
-}
-docs_version: "0.2.1"
-
-## Privacy Levels
-
-ASSUMPTION privacy_levels:
-"Three-level model chosen for initial implementation"
-"May expand to more granular levels in future"
-"Must maintain clear distinction between public and private content"
-
-TYPE PrivacyLevel =
-| Public { // Default level
-searchable: true,
-visible_to_all: true
-}
-| Premium { // Premium user content
-searchable: false,
-visible_to_all: true
-}
-| ThreadOnly { // Co-authors only
-searchable: false,
-visible_to_all: false
-}
-
-2. **Access Rights**
-
-   TYPE AccessRight =
-   | Read
-   | Write
-   | Approve
-   | Search
-   | Cite
-
-## Access Control
-
-1. **Permission Matrix**
-
-   FUNCTION can_access(user: User, content: Content) -> Set<AccessRight>:
-   MATCH user_role(user):
-   CoAuthor ->
-   {Read, Write, Approve, Search, Cite}
-   Premium ->
-   {Read, Search, Cite}
-   Public ->
-   IF content.privacy == Public:
-   {Read, Cite}
-   ELSE:
-   {Read}
-
-2. **Content Filtering**
-
-   FUNCTION filter_content(content: Content, user: User) -> Content:
-   MATCH content.privacy:
-   Public ->
-   content
-   Premium ->
-   IF user.is_premium: content
-   ELSE: generate_summary(content)
-   ThreadOnly ->
-   IF user IN content.thread.co_authors: content
-   ELSE: generate_summary(content)
-
-## Search Privacy
-
-1. **Search Visibility**
-
-   FUNCTION is_searchable(content: Content) -> Bool:
-   MATCH content.privacy:
-   Public -> true
-   Premium -> false
-   ThreadOnly -> false
-
-2. **Search Results**
-
-   FUNCTION filter_search_results(results: List<Content>, user: User):
-   RETURN results.filter(content =>
-   can_access(user, content).contains(Search))
-
-## Citation Privacy
-
-1. **Citation Rules**
-
-   FUNCTION can_cite(user: User, content: Content) -> Bool:
-   access_rights = can_access(user, content)
-   RETURN access_rights.contains(Cite)
-
-2. **Citation Display**
-
-   FUNCTION format_citation(content: Content, viewer: User):
-   IF can_access(viewer, content).contains(Read):
-   show_full_citation()
-   ELSE:
-   show_limited_citation()
-
-## Data Storage
-
-1. **Content Storage**
-
-   FUNCTION store_content(content: Content):
-   hash = generate_hash(content)
-
-   // Store in Qdrant with privacy metadata
-   qdrant_payload = {
-   content: content,
-   privacy: content.privacy,
-   searchable: is_searchable(content)
-   }
-
-   // Store hash on Solana
-   solana_record = {
-   hash: hash,
-   privacy_level: content.privacy
-   }
-
-2. **Metadata Privacy**
-
-   TYPE PublicMetadata = {
-   thread_id: ThreadId,
-   timestamp: Time,
-   message_count: Int
-   }
-
-   TYPE PrivateMetadata = {
-   co_authors: Set<PublicKey>,
-   token_balance: TokenAmount,
-   content_hashes: Set<Hash>
-   }
-
-## Privacy Enforcement
-
-1. **Access Verification**
-
-   FUNCTION verify_access(request: Request) -> Result:
-   user = authenticate_request(request)
-   content = lookup_content(request.content_id)
-   required_rights = determine_required_rights(request.action)
-
-   VERIFY:
-   can_access(user, content).contains_all(required_rights)
-
-2. **Privacy Transitions**
-
-   FUNCTION update_privacy(content: Content, new_level: PrivacyLevel):
-   REQUIRE:
-   requester IN content.thread.co_authors
-
-   update_metadata(content, new_level)
-   reindex_content(content)
-   notify_subscribers(content)
-
-## AI Summary Generation
-
-1. **Summary Rules**
-
-   FUNCTION generate_summary(content: Content) -> Summary:
-   MATCH content.privacy:
-   Public ->
-   detailed_summary()
-   Premium ->
-   limited_summary()
-   ThreadOnly ->
-   minimal_summary()
-
-2. **Summary Privacy**
-
-   PROPERTY summary_privacy:
-   summary_detail < original_detail
-   summary_preserves_privacy
-   summary_maintains_value
-
-## Monitoring and Auditing
-
-1. **Access Logs**
-
-   TYPE AccessLog = {
-   user: PublicKey,
-   content: Hash,
-   action: AccessRight,
-   timestamp: Time,
-   success: Bool
-   }
-
-2. **Privacy Metrics**
-
-   MEASURE privacy_health:
-   unauthorized_attempts
-   privacy_violations
-   summary_effectiveness
-   user_satisfaction
-
-## Error Handling
-
-1. **Privacy Violations**
-
-   TYPE PrivacyError =
-   | UnauthorizedAccess
-   | PrivacyLevelMismatch
-   | SearchIndexLeak
-   | SummaryOverexposure
-
-2. **Recovery Actions**
-
-   FUNCTION handle_privacy_error(error: PrivacyError):
-   log_violation(error)
-   revoke_access()
-   recheck_permissions()
-   notify_administrators()
-
 === File: docs/Impl_Security.md ===
 
 
@@ -1790,294 +543,159 @@ Impl_Security
 ==
 
 
-# Choir: Harmonic Intelligence Platform
+# Security Model
 
-VERSION harmonic_system:
+VERSION security_model:
 invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
+"Chain state authority",
+"Event integrity",
+"Natural boundaries"
 }
 assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
+"Local-first verification",
+"Event-driven security",
+"Natural isolation"
 }
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# Choir Security Model
+docs_version: "0.3.0"
 
-VERSION security_system:
-invariants: {
-"Thread ownership verification",
-"Token custody rules",
-"Access control enforcement"
-}
-assumptions: {
-"Timeout durations",
-"Retry strategies",
-"Cache invalidation rules"
-}
-docs_version: "0.2.1"
+## Security Foundations
 
-## Thread Ownership Security
+The security model follows natural system boundaries and flows:
 
-ASSUMPTION ownership_verification:
-"PDA-based ownership verification"
-"May introduce additional verification layers"
-"Must maintain single source of truth"
+Chain Authority
+- Solana state is authoritative for ownership and tokens
+- Thread ownership through PDAs
+- Token custody through program accounts
+- Co-author lists verified on-chain
+- Message hashes anchored to chain
 
-ASSUMPTION cooldown_periods:
-"Standard cooldowns for security operations"
-"May adjust based on threat analysis"
-"Must prevent rapid exploitation"
+Local Verification
+- Content integrity through local verification
+- Event flow tracking for security
+- State consistency checks
+- Access pattern monitoring
+- Natural boundary enforcement
 
-1. **Ownership Invariants**
+Event Integrity
+- Security events flow naturally
+- State transitions tracked
+- Access patterns recorded
+- Boundaries maintained
+- Recovery enabled
 
-   - Only thread PDA can hold thread tokens
-   - Co-author set can never be empty
-   - Co-author additions require unanimous approval
-   - Divestment cannot drain thread below minimum balance
+## Security Boundaries
 
-2. **Access Control Matrix**
+Natural system boundaries emerge from:
 
-   FUNCTION can\*access(actor: PublicKey, action: Action, thread: Thread) -> Bool:
-   MATCH (actor, action):
-   (author, Submit) IF author IN thread.co_authors -> true
-   (author, Approve) IF author IN thread.co_authors -> true
-   (author, Divest) IF author IN thread.co_authors -> true
-   (treasury, Mint) IF actor == TREASURY_KEY -> true
+State Authority
+- Chain state for ownership/tokens
+- Vector state for content/embeddings
+- Local state for coordination
+- Clear authority hierarchy
+- Natural state flow
 
-   - -> false
+Access Patterns
+- Co-author access through chain verification
+- Content access through local verification
+- Event access through natural flow
+- Resource access through isolation
+- Pattern emergence through usage
 
-## Token Security
+Isolation Boundaries
+- Natural component isolation
+- Event-driven interaction
+- Clean state separation
+- Resource containment
+- Pattern-based security
 
-1. **Token Custody**
+## Security Flows
 
-   - Thread tokens held in PDA-derived accounts
-   - Stake tokens locked in escrow until decision
-   - Treasury tokens require multisig
-   - Divestment requires cooldown period
+Security follows natural system flows:
 
-2. **Transaction Security**
+Verification Flow
+- Chain state verification
+- Local state validation
+- Event integrity checks
+- Access pattern verification
+- Natural flow monitoring
 
-   FUNCTION validate_transaction(tx: Transaction) -> Result:
-   REQUIRE signed_by_authority(tx)
-   REQUIRE valid_program_id(tx)
-   REQUIRE sufficient_balance(tx)
-   VERIFY_ALL account_ownership(tx.accounts)
-   VERIFY_ALL signature_verification(tx.signatures)
+Access Flow
+- Chain-verified ownership
+- Content access rights
+- Event access patterns
+- Resource allocation
+- Natural restrictions
 
-## Privacy Model
-
-1. **Content Privacy**
-
-   TYPE PrivacyLevel =
-   | Public // Searchable, visible to all
-   | ThreadOnly // Visible to co-authors only
-   | Premium // Searchable by permission
-   | Encrypted // End-to-end encrypted
-
-2. **Data Visibility**
-
-   FUNCTION get_visible_content(user: PublicKey, thread: Thread) -> Content:
-   MATCH user_status(user):
-   CoAuthor -> full_content(thread)
-   Premium -> filtered_content(thread, user.permissions)
-   Public -> summary_only(thread)
-
-## Attack Surface Analysis
-
-1. **Front-Running Protection**
-
-   INVARIANT transaction_ordering:
-   FOR ALL tx1, tx2 IN mempool:
-   IF depends_on(tx1, tx2) THEN
-   slot_number(tx1) < slot_number(tx2)
-
-2. **Economic Attack Vectors**
-
-   TYPE Attack =
-   | GriefingAttack // Malicious approval delays
-   | SybilAttack // Multiple accounts, same actor
-   | DrainageAttack // Rapid divestment
-   | SpamAttack // Low-quality message flooding
-
-3. **Mitigations**
-
-   FUNCTION protect_against(attack: Attack) -> Security:
-   MATCH attack:
-   GriefingAttack -> implement_timeout(7_DAYS)
-   SybilAttack -> require_stake(MINIMUM_STAKE)
-   DrainageAttack -> enforce_cooldown(DIVEST_PERIOD)
-   SpamAttack -> rate_limit(MAX_MESSAGES_PER_HOUR)
+Recovery Flow
+- State inconsistency detection
+- Event flow recovery
+- Access pattern restoration
+- Resource reallocation
+- Natural healing
 
 ## Security Properties
 
-1. **Thread Integrity**
+The system maintains natural security properties:
 
-   ```
-   PROPERTY thread_integrity:
-     FORALL thread IN threads:
-       thread.co_authors.size > 0 AND
-       thread.token_balance >= MINIMUM_BALANCE AND
-       thread.created_at < thread.updated_at
-   ```
+State Integrity
+- Chain state remains authoritative
+- Local state stays consistent
+- Events flow cleanly
+- Patterns emerge naturally
+- Boundaries hold
 
-2. **Token Conservation**
+Access Control
+- Ownership verified on-chain
+- Content access controlled locally
+- Events flow appropriately
+- Resources properly isolated
+- Patterns respected
 
-   ```
-   PROPERTY token_conservation:
-     sum(all_thread_balances) +
-     sum(all_escrow_balances) +
-     treasury_balance =
-     TOTAL_SUPPLY
-   ```
+Recovery Capability
+- State recovery through events
+- Access pattern restoration
+- Boundary enforcement
+- Resource reallocation
+- Natural system healing
 
-3. **Access Control**
-   ```
-   PROPERTY access_control:
-     FORALL action IN actions:
-       can_perform(action.author, action.type) =>
-         is_authorized(action.author, action.thread)
-   ```
+## Recovery Patterns
 
-## Recovery Procedures
+Recovery follows natural system patterns:
 
-1. **State Recovery**
+State Recovery
+- Chain state as foundation
+- Event replay for consistency
+- Pattern restoration
+- Boundary reestablishment
+- Natural healing flow
 
-   FUNCTION recover\*from_error(error: SecurityError) -> Recovery:
-   MATCH error:
-   StateInconsistency -> reconcile_state()
-   TokenMismatch -> recompute_balances()
-   AuthFailure -> revoke_access()
+Access Recovery
+- Chain verification reset
+- Access pattern restoration
+- Event flow reestablishment
+- Resource reallocation
+- Pattern emergence
 
-   - -> halt_and_report()
+System Healing
+- Natural boundary restoration
+- Event flow recovery
+- State consistency
+- Pattern reemergence
+- Flow reestablishment
 
-2. **Emergency Procedures**
+This security model provides:
+1. Clear authority boundaries
+2. Natural state verification
+3. Clean event flows
+4. Pattern-based security
+5. Natural recovery
 
-   FUNCTION emergency_shutdown():
-   ATOMIC DO:
-   pause_all_transactions()
-   freeze_token_transfers()
-   notify_all_stakeholders()
-   begin_recovery_process()
-
-## Audit Requirements
-
-1. **Continuous Monitoring**
-
-   - Transaction pattern analysis
-   - Token flow monitoring
-   - Access pattern verification
-   - State consistency checks
-
-2. **Periodic Reviews**
-   - Smart contract audits
-   - Penetration testing
-   - Economic model verification
-   - Privacy control assessment
-
-=== File: docs/Impl_WebSocket_update.md ===
-
-
-
-==
-Impl_WebSocket_update
-==
-
-
-# Choir: Harmonic Intelligence Platform
-
-VERSION harmonic_system:
-invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
-}
-assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
-}
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# WebSocket Protocol for Real-time State
-
-VERSION websocket_system:
-invariants: {
-"Message ordering",
-"State coherence",
-"Connection resilience"
-}
-assumptions: {
-"Network reliability",
-"State recovery",
-"Cache validity"
-}
-docs_version: "0.2.1"
-
-## Message Protocol
-
-```typescript
-TYPE WSMessage =
-  | ChatMessage(content: string, priors: Array<Prior>)  // Quantum semantic states
-  | StateSync(state: ThreadState)
-  | Heartbeat(timestamp: DateTime)
-  | Error(code: number, message: string)
-
-TYPE Prior = {
-  source_message: Hash,      // Original wave function
-  source_thread: ThreadId,   // Original resonant cavity
-  context: string,          // Usage context
-  embedding: Vector,        // Semantic position
-  resonance: number        // Coupling strength
-}
-```
-
-## Connection Management
-
-```typescript
-TYPE WebSocketState = {
-  // Connection lifecycle
-  connection: {
-    status: ConnectionStatus,
-    retryCount: number,
-    lastPing: DateTime,
-    error: Option<Error>
-  },
-
-  // Message queues
-  queues: {
-    outgoing: Queue<Message>,
-    pending: Map<MessageId, Message>,
-    confirmed: Set<MessageId>
-  },
-
-  // State synchronization
-  sync: {
-    lastSyncId: string,
-    pendingSync: boolean,
-    syncErrors: Array<Error>
-  }
-}
-```
-
-## State Synchronization
-
-```typescript
-SEQUENCE sync_state:
-  1. Request current state
-  2. Compare with local state
-  3. Resolve conflicts
-  4. Update UI accordingly
-
-PROPERTY state_coherence:
-  FORALL message IN messages:
-    message.priors.all_valid AND
-    message.priors.quantum_states_coherent AND
-    message.priors.resonance_measured
-```
-
-[... continue with more protocol details focused on quantum semantic states ...]
+The system ensures:
+- Chain state authority
+- Event integrity
+- Natural boundaries
+- Clean recovery
+- Pattern emergence
 
 === File: docs/Reward_Explained.md ===
 

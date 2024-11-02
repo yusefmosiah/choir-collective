@@ -1,186 +1,153 @@
-# Choir: Harmonic Intelligence Platform
+# Security Model
 
-VERSION harmonic_system:
+VERSION security_model:
 invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
+"Chain state authority",
+"Event integrity",
+"Natural boundaries"
 }
 assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
+"Local-first verification",
+"Event-driven security",
+"Natural isolation"
 }
-docs_version: "0.3.0"  # Post-alignment vision, Nov 2024
-# Choir Security Model
+docs_version: "0.3.0"
 
-VERSION security_system:
-invariants: {
-"Thread ownership verification",
-"Token custody rules",
-"Access control enforcement"
-}
-assumptions: {
-"Timeout durations",
-"Retry strategies",
-"Cache invalidation rules"
-}
-docs_version: "0.2.1"
+## Security Foundations
 
-## Thread Ownership Security
+The security model follows natural system boundaries and flows:
 
-ASSUMPTION ownership_verification:
-"PDA-based ownership verification"
-"May introduce additional verification layers"
-"Must maintain single source of truth"
+Chain Authority
+- Solana state is authoritative for ownership and tokens
+- Thread ownership through PDAs
+- Token custody through program accounts
+- Co-author lists verified on-chain
+- Message hashes anchored to chain
 
-ASSUMPTION cooldown_periods:
-"Standard cooldowns for security operations"
-"May adjust based on threat analysis"
-"Must prevent rapid exploitation"
+Local Verification
+- Content integrity through local verification
+- Event flow tracking for security
+- State consistency checks
+- Access pattern monitoring
+- Natural boundary enforcement
 
-1. **Ownership Invariants**
+Event Integrity
+- Security events flow naturally
+- State transitions tracked
+- Access patterns recorded
+- Boundaries maintained
+- Recovery enabled
 
-   - Only thread PDA can hold thread tokens
-   - Co-author set can never be empty
-   - Co-author additions require unanimous approval
-   - Divestment cannot drain thread below minimum balance
+## Security Boundaries
 
-2. **Access Control Matrix**
+Natural system boundaries emerge from:
 
-   FUNCTION can\*access(actor: PublicKey, action: Action, thread: Thread) -> Bool:
-   MATCH (actor, action):
-   (author, Submit) IF author IN thread.co_authors -> true
-   (author, Approve) IF author IN thread.co_authors -> true
-   (author, Divest) IF author IN thread.co_authors -> true
-   (treasury, Mint) IF actor == TREASURY_KEY -> true
+State Authority
+- Chain state for ownership/tokens
+- Vector state for content/embeddings
+- Local state for coordination
+- Clear authority hierarchy
+- Natural state flow
 
-   - -> false
+Access Patterns
+- Co-author access through chain verification
+- Content access through local verification
+- Event access through natural flow
+- Resource access through isolation
+- Pattern emergence through usage
 
-## Token Security
+Isolation Boundaries
+- Natural component isolation
+- Event-driven interaction
+- Clean state separation
+- Resource containment
+- Pattern-based security
 
-1. **Token Custody**
+## Security Flows
 
-   - Thread tokens held in PDA-derived accounts
-   - Stake tokens locked in escrow until decision
-   - Treasury tokens require multisig
-   - Divestment requires cooldown period
+Security follows natural system flows:
 
-2. **Transaction Security**
+Verification Flow
+- Chain state verification
+- Local state validation
+- Event integrity checks
+- Access pattern verification
+- Natural flow monitoring
 
-   FUNCTION validate_transaction(tx: Transaction) -> Result:
-   REQUIRE signed_by_authority(tx)
-   REQUIRE valid_program_id(tx)
-   REQUIRE sufficient_balance(tx)
-   VERIFY_ALL account_ownership(tx.accounts)
-   VERIFY_ALL signature_verification(tx.signatures)
+Access Flow
+- Chain-verified ownership
+- Content access rights
+- Event access patterns
+- Resource allocation
+- Natural restrictions
 
-## Privacy Model
-
-1. **Content Privacy**
-
-   TYPE PrivacyLevel =
-   | Public // Searchable, visible to all
-   | ThreadOnly // Visible to co-authors only
-   | Premium // Searchable by permission
-   | Encrypted // End-to-end encrypted
-
-2. **Data Visibility**
-
-   FUNCTION get_visible_content(user: PublicKey, thread: Thread) -> Content:
-   MATCH user_status(user):
-   CoAuthor -> full_content(thread)
-   Premium -> filtered_content(thread, user.permissions)
-   Public -> summary_only(thread)
-
-## Attack Surface Analysis
-
-1. **Front-Running Protection**
-
-   INVARIANT transaction_ordering:
-   FOR ALL tx1, tx2 IN mempool:
-   IF depends_on(tx1, tx2) THEN
-   slot_number(tx1) < slot_number(tx2)
-
-2. **Economic Attack Vectors**
-
-   TYPE Attack =
-   | GriefingAttack // Malicious approval delays
-   | SybilAttack // Multiple accounts, same actor
-   | DrainageAttack // Rapid divestment
-   | SpamAttack // Low-quality message flooding
-
-3. **Mitigations**
-
-   FUNCTION protect_against(attack: Attack) -> Security:
-   MATCH attack:
-   GriefingAttack -> implement_timeout(7_DAYS)
-   SybilAttack -> require_stake(MINIMUM_STAKE)
-   DrainageAttack -> enforce_cooldown(DIVEST_PERIOD)
-   SpamAttack -> rate_limit(MAX_MESSAGES_PER_HOUR)
+Recovery Flow
+- State inconsistency detection
+- Event flow recovery
+- Access pattern restoration
+- Resource reallocation
+- Natural healing
 
 ## Security Properties
 
-1. **Thread Integrity**
+The system maintains natural security properties:
 
-   ```
-   PROPERTY thread_integrity:
-     FORALL thread IN threads:
-       thread.co_authors.size > 0 AND
-       thread.token_balance >= MINIMUM_BALANCE AND
-       thread.created_at < thread.updated_at
-   ```
+State Integrity
+- Chain state remains authoritative
+- Local state stays consistent
+- Events flow cleanly
+- Patterns emerge naturally
+- Boundaries hold
 
-2. **Token Conservation**
+Access Control
+- Ownership verified on-chain
+- Content access controlled locally
+- Events flow appropriately
+- Resources properly isolated
+- Patterns respected
 
-   ```
-   PROPERTY token_conservation:
-     sum(all_thread_balances) +
-     sum(all_escrow_balances) +
-     treasury_balance =
-     TOTAL_SUPPLY
-   ```
+Recovery Capability
+- State recovery through events
+- Access pattern restoration
+- Boundary enforcement
+- Resource reallocation
+- Natural system healing
 
-3. **Access Control**
-   ```
-   PROPERTY access_control:
-     FORALL action IN actions:
-       can_perform(action.author, action.type) =>
-         is_authorized(action.author, action.thread)
-   ```
+## Recovery Patterns
 
-## Recovery Procedures
+Recovery follows natural system patterns:
 
-1. **State Recovery**
+State Recovery
+- Chain state as foundation
+- Event replay for consistency
+- Pattern restoration
+- Boundary reestablishment
+- Natural healing flow
 
-   FUNCTION recover\*from_error(error: SecurityError) -> Recovery:
-   MATCH error:
-   StateInconsistency -> reconcile_state()
-   TokenMismatch -> recompute_balances()
-   AuthFailure -> revoke_access()
+Access Recovery
+- Chain verification reset
+- Access pattern restoration
+- Event flow reestablishment
+- Resource reallocation
+- Pattern emergence
 
-   - -> halt_and_report()
+System Healing
+- Natural boundary restoration
+- Event flow recovery
+- State consistency
+- Pattern reemergence
+- Flow reestablishment
 
-2. **Emergency Procedures**
+This security model provides:
+1. Clear authority boundaries
+2. Natural state verification
+3. Clean event flows
+4. Pattern-based security
+5. Natural recovery
 
-   FUNCTION emergency_shutdown():
-   ATOMIC DO:
-   pause_all_transactions()
-   freeze_token_transfers()
-   notify_all_stakeholders()
-   begin_recovery_process()
-
-## Audit Requirements
-
-1. **Continuous Monitoring**
-
-   - Transaction pattern analysis
-   - Token flow monitoring
-   - Access pattern verification
-   - State consistency checks
-
-2. **Periodic Reviews**
-   - Smart contract audits
-   - Penetration testing
-   - Economic model verification
-   - Privacy control assessment
+The system ensures:
+- Chain state authority
+- Event integrity
+- Natural boundaries
+- Clean recovery
+- Pattern emergence
