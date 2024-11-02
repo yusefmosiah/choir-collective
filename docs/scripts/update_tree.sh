@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Get the tree output, excluding venv and node_modules
-tree_output=$(tree -I 'venv|node_modules|target')
+tree_output=$(tree -I 'venv|node_modules|target|archive')
 
 # Create a temporary file with the new content
 cat > docs/tree.md.tmp << EOL
 # Choir-Collective Directory Structure
-## Output of $ tree -I 'venv|node_modules|target' | pbcopy
+## Output of $ tree -I 'venv|node_modules|target|archive' | pbcopy
 
 $tree_output
 EOL
