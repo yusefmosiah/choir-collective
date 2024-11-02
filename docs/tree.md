@@ -182,25 +182,38 @@
 │   ├── Meta_ValueEvolution.md
 │   ├── Model_Metastability.md
 │   ├── Model_Recursion.md
+│   ├── Pivot_4Day_Sprint.md
 │   ├── Pivot_API_Architecture_Options.md
+│   ├── Pivot_Access_Control.md
+│   ├── Pivot_Account_Evolution.md
 │   ├── Pivot_Architecture.md
 │   ├── Pivot_Audio_Evolution.md
 │   ├── Pivot_Development_Phases.md
 │   ├── Pivot_ImageBind_Integration.md
+│   ├── Pivot_Implementation_Steps.md
+│   ├── Pivot_Key_Derivation_Paths.md
 │   ├── Pivot_Knowledge_Foundation.md
 │   ├── Pivot_LanceDB_Integration.md
 │   ├── Pivot_Launch_Sequence.md
+│   ├── Pivot_MVP_Simplification.md
 │   ├── Pivot_Mental_Model_Relief.md
+│   ├── Pivot_Native_Wallet.md
+│   ├── Pivot_PDA_Key_Derivation.md
+│   ├── Pivot_Payload_Encryption.md
 │   ├── Pivot_Progressive_Decentralization.md
 │   ├── Pivot_Qdrant_Client.md
+│   ├── Pivot_Rapid_Development.md
 │   ├── Pivot_Repository_Split.md
+│   ├── Pivot_Service_Actors.md
 │   ├── Pivot_Service_Architecture.md
 │   ├── Pivot_Service_Layer.md
 │   ├── Pivot_Swift_API_Clients.md
 │   ├── Pivot_Swift_Concurrency.md
+│   ├── Pivot_Swift_Patterns.md
 │   ├── Pivot_Team_Evolution.md
 │   ├── Pivot_Token_Evolution.md
 │   ├── Pivot_Two_Phase_Strategy.md
+│   ├── Pivot_Value_Distribution.md
 │   ├── Plan_Checklist.md
 │   ├── Plan_FrontendChecklist.md
 │   ├── Plan_Hyperconverge.md
@@ -313,6 +326,7 @@
 │   │   │   └── MessageFlow.tsx
 │   │   ├── ChorusPanel
 │   │   │   └── ChorusPanel.tsx
+│   │   ├── MessageFlow
 │   │   ├── PriorCard
 │   │   │   └── PriorCard.tsx
 │   │   ├── PriorPanel
@@ -360,4 +374,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-62 directories, 296 files
+63 directories, 309 files

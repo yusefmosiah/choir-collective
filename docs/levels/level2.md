@@ -2841,6 +2841,131 @@ The result is a platform where:
 
 This innovative model sets a new standard for decentralized platforms, demonstrating how physical principles can create robust socioeconomic systems with sustainable token economics.
 
+=== File: docs/Pivot_4Day_Sprint.md ===
+
+
+
+==
+Pivot_4Day_Sprint
+==
+
+
+# 4-Day Sprint Plan
+
+## Day 1: Wallet & Core UI
+```swift
+// Morning: SolanaSwift Setup
+struct WalletSetup {
+    let tasks = [
+        "Add SolanaSwift",       // 1 hour
+        "Basic WalletActor",     // 1 hour
+        "Secure Enclave flow",   // 1 hour
+        "Balance display"        // 30 min
+    ]
+}
+
+// Afternoon: Core UI
+struct UISetup {
+    let tasks = [
+        "TabView setup",         // 30 min
+        "ThreadList view",       // 1 hour
+        "MessageFlow view",      // 1 hour
+        "Basic navigation"       // 1 hour
+    ]
+}
+```
+
+## Day 2: Chat & Storage
+```swift
+// Morning: Chat Implementation
+struct ChatSetup {
+    let tasks = [
+        "Message models",        // 30 min
+        "Chat bubbles",         // 1 hour
+        "Input handling",       // 1 hour
+        "Thread creation"       // 1 hour
+    ]
+}
+
+// Afternoon: Qdrant Integration
+struct StorageSetup {
+    let tasks = [
+        "Qdrant client",        // 1 hour
+        "Collections setup",    // 1 hour
+        "Basic search",        // 1 hour
+        "Message storage"      // 30 min
+    ]
+}
+```
+
+## Day 3: AI & Priors
+```swift
+// Morning: AI Integration
+struct AISetup {
+    let tasks = [
+        "OpenAI client",        // 1 hour
+        "Chorus steps",         // 2 hours
+        "Response handling",    // 1 hour
+    ]
+}
+
+// Afternoon: Prior System
+struct PriorSetup {
+    let tasks = [
+        "Prior display",        // 1 hour
+        "Citation flow",        // 1 hour
+        "Vector search",       // 1 hour
+        "Link recording"       // 1 hour
+    ]
+}
+```
+
+## Day 4: Polish & Ship
+```swift
+// Morning: Core Features
+struct PolishTasks {
+    let tasks = [
+        "Error handling",       // 1 hour
+        "Loading states",       // 1 hour
+        "Offline support",      // 1 hour
+        "Basic encryption"      // 1 hour
+    ]
+}
+
+// Afternoon: Ship
+struct ShipTasks {
+    let tasks = [
+        "TestFlight setup",     // 30 min
+        "Basic docs",          // 1 hour
+        "Bug fixes",           // 2 hours
+        "Initial release"      // 30 min
+    ]
+}
+```
+
+## Key Success Factors
+```swift
+struct SpeedFactors {
+    let enablers = [
+        "AI pair programming",  // Rapid code generation
+        "Swift patterns",       // Copy-paste patterns
+        "No yak shaving",      // Skip nice-to-haves
+        "Focus on core",       // MVP features only
+        "Quick iterations"     // Ship often
+    ]
+
+    let process = [
+        "Morning planning",     // 15min plan
+        "2-hour sprints",      // Focus blocks
+        "Quick reviews",       // 15min checks
+        "Evening ship",        // Daily TestFlight
+        "Night planning"       // Next day prep
+    ]
+}
+```
+
+Ready to start the sprint?
+
 === File: docs/Pivot_API_Architecture_Options.md ===
 
 
@@ -2979,6 +3104,321 @@ This gives us:
 - Future flexibility
 
 We can always switch to direct calls or managed proxy later if needed.
+
+=== File: docs/Pivot_Access_Control.md ===
+
+
+
+==
+Pivot_Access_Control
+==
+
+
+# User Data Privacy & Access Control
+
+## Data Classification
+
+```swift
+struct DataPrivacy {
+    // Public Data
+    let public = [
+        "Thread titles",          // Visible to all
+        "Message counts",         // Basic stats
+        "Public citations",       // Referenced priors
+        "Token balances",         // On-chain anyway
+        "Approval history"        // Public actions
+    ]
+
+    // Protected Data
+    let protected = [
+        "Message content",        // Private by default
+        "Thread messages",        // Access controlled
+        "User profiles",          // Basic info
+        "Vector embeddings",      // Semantic data
+        "Prior relationships"     // Citation graph
+    ]
+
+    // Private Data
+    let private = [
+        "Draft messages",         // Unsent content
+        "Personal notes",         // User annotations
+        "Search history",         // Query patterns
+        "Reading patterns",       // Usage data
+        "Device info"            // Technical data
+    ]
+}
+```
+
+## Access Control
+
+```swift
+// Qdrant collection access rules
+struct AccessControl {
+    // Thread Access
+    func canAccessThread(_ threadId: UUID, user: PublicKey) async -> Bool {
+        let thread = await getThread(threadId)
+        return thread.isPublic ||                  // Public thread
+               thread.creator == user ||           // Thread creator
+               thread.coAuthors.contains(user) ||  // Co-author
+               thread.hasApprovedAccess(user)      // Granted access
+    }
+
+    // Message Access
+    func canAccessMessage(_ messageId: UUID, user: PublicKey) async -> Bool {
+        let message = await getMessage(messageId)
+        return await canAccessThread(message.threadId, user: user)
+    }
+
+    // Search Scope
+    func searchFilter(user: PublicKey) -> Filter {
+        Filter {
+            Should {
+                // Public threads
+                FieldCondition("isPublic", .equals, true)
+
+                // User's own threads
+                FieldCondition("creator", .equals, user)
+
+                // Co-authored threads
+                FieldCondition("coAuthors", .contains, user)
+
+                // Granted access
+                FieldCondition("accessList", .contains, user)
+            }
+        }
+    }
+}
+```
+
+## Implementation
+
+```swift
+// API Layer protection
+class APIService {
+    // Protected search
+    func searchVectors(_ query: Vector, user: PublicKey) async throws -> [Prior] {
+        // Apply access filter
+        let filter = AccessControl.searchFilter(user: user)
+
+        // Search only accessible content
+        return try await qdrant.search(
+            vector: query,
+            filter: filter,
+            limit: 80
+        )
+    }
+
+    // Protected thread access
+    func getThread(_ id: UUID, user: PublicKey) async throws -> Thread {
+        guard await AccessControl.canAccessThread(id, user: user) else {
+            throw AccessError.unauthorized
+        }
+        return try await qdrant.get(collection: "threads", id: id)
+    }
+}
+```
+
+## Security Patterns
+
+```swift
+struct SecurityPatterns {
+    // Request Validation
+    let validation = [
+        "Signature verification",  // Wallet signed request
+        "Access scope check",      // Permission validation
+        "Rate limiting",          // Request throttling
+        "Input sanitization",     // Query validation
+        "Audit logging"           // Access tracking
+    ]
+
+    // Data Protection
+    let protection = [
+        "Collection isolation",    // Separate storage
+        "Query filtering",        // Access scoping
+        "Result sanitization",    // Data cleaning
+        "Error masking",         // Safe errors
+        "Access logging"         // Audit trail
+    ]
+}
+```
+
+Key principles:
+
+1. Default to private
+2. Explicit access grants
+3. Verify every request
+4. Filter all queries
+5. Log access patterns
+
+=== File: docs/Pivot_Account_Evolution.md ===
+
+
+
+==
+Pivot_Account_Evolution
+==
+
+
+# Account System Evolution
+
+## Phase 1: Qdrant Collections
+
+```swift
+// Initial data model in Qdrant
+struct Collections {
+    // Users collection
+    let users = Collection(
+        name: "users",
+        schema: [
+            "id": "PublicKey",           // Solana address
+            "display_name": "String",     // User name
+            "avatar_url": "String?",      // Profile image
+            "created_at": "Date",         // Join date
+            "embedding": "[Float]"        // User embedding
+        ]
+    )
+
+    // Threads collection
+    let threads = Collection(
+        name: "threads",
+        schema: [
+            "id": "UUID",                // Thread ID
+            "creator": "PublicKey",      // Thread creator
+            "title": "String",           // Thread title
+            "created_at": "Date",        // Creation date
+            "embedding": "[Float]",      // Thread embedding
+            "state": "ThreadState"       // Current state
+        ]
+    )
+
+    // Messages collection
+    let messages = Collection(
+        name: "messages",
+        schema: [
+            "id": "UUID",               // Message ID
+            "thread_id": "UUID",        // Parent thread
+            "author": "PublicKey",      // Message author
+            "content": "String",        // Message text
+            "embedding": "[Float]",     // Message embedding
+            "created_at": "Date",       // Timestamp
+            "priors": "[UUID]"         // Prior citations
+        ]
+    )
+}
+```
+
+## Phase 2: Hybrid State
+
+```swift
+// Bridge between Qdrant and Solana
+struct HybridState {
+    // Thread program state
+    let onChain = [
+        "thread_id": "UUID",          // Thread identifier
+        "creator": "PublicKey",       // Thread creator
+        "co_authors": "[PublicKey]",  // Approved authors
+        "stake": "u64",              // Token stake
+        "state": "ThreadState"       // Program state
+    ]
+
+    // Rich content in Qdrant
+    let offChain = [
+        "messages": "[Message]",      // Full messages
+        "embeddings": "[Float]",      // Vector data
+        "metadata": "JSON",          // Extra data
+        "priors": "[Citation]"      // Prior links
+    ]
+}
+```
+
+## Implementation
+
+1. **User Management**
+
+```swift
+class UserManager {
+    private let qdrant: QdrantClient
+    private let solana: SolanaSwift
+
+    // Phase 1: Qdrant only
+    func createUser(wallet: PublicKey) async throws {
+        let user = User(
+            id: wallet,
+            created_at: Date()
+        )
+        try await qdrant.upsert("users", points: [user])
+    }
+
+    // Phase 2: Hybrid
+    func getUser(wallet: PublicKey) async throws -> User {
+        let onChain = try await solana.getBalance(wallet)
+        let offChain = try await qdrant.get("users", id: wallet)
+        return User(onChain: onChain, offChain: offChain)
+    }
+}
+```
+
+2. **Thread Management**
+
+```swift
+class ThreadManager {
+    // Phase 1: Qdrant storage
+    func createThread(creator: PublicKey) async throws -> UUID {
+        let thread = Thread(
+            id: UUID(),
+            creator: creator,
+            created_at: Date()
+        )
+        try await qdrant.upsert("threads", points: [thread])
+        return thread.id
+    }
+
+    // Phase 2: Program creation
+    func createThreadProgram(creator: PublicKey) async throws -> UUID {
+        let threadId = UUID()
+        // Create Solana program instance
+        let program = try await solana.createThread(
+            creator: creator,
+            threadId: threadId
+        )
+        // Store rich data
+        try await qdrant.upsert("threads", points: [
+            Thread(id: threadId, program: program)
+        ])
+        return threadId
+    }
+}
+```
+
+## Migration Path
+
+```swift
+struct Migration {
+    // Phase 1: Simple storage
+    let initial = [
+        "User profiles in Qdrant",
+        "Thread metadata in Qdrant",
+        "Messages in Qdrant",
+        "Simple wallet auth"
+    ]
+
+    // Phase 2: Program integration
+    let evolution = [
+        "Thread programs on Solana",
+        "Token staking/rewards",
+        "On-chain governance",
+        "Distributed ownership"
+    ]
+}
+```
+
+The key benefits:
+
+1. Start simple with Qdrant
+2. Add Solana features gradually
+3. Keep rich data searchable
+4. Enable token mechanics
+5. Natural evolution path
 
 === File: docs/Pivot_Architecture.md ===
 
@@ -3621,6 +4061,316 @@ class ProductionEmbeddings: EmbeddingService {
 - Add caching layer
 - Scale as needed
 
+=== File: docs/Pivot_Implementation_Steps.md ===
+
+
+
+==
+Pivot_Implementation_Steps
+==
+
+
+# Implementation Steps
+
+## 1. Solana Wallet Foundation
+```swift
+// First milestone: Basic wallet integration
+struct WalletMilestone {
+    let steps = [
+        "Setup SolanaSwift",      // Add dependency
+        "Create WalletActor",     // Actor-based wallet
+        "Secure Enclave flow",    // Key management
+        "Basic transactions",     // Send/receive SOL
+        "Error handling"          // User feedback
+    ]
+
+    let deliverables = [
+        "Create wallet",          // Generate keys
+        "Import wallet",          // Restore flow
+        "View balance",          // Account info
+        "Send SOL",             // Basic transfer
+        "Request airdrop"       // Devnet testing
+    ]
+}
+```
+
+## 2. Chat Interface
+```swift
+// Second milestone: Basic chat functionality
+struct ChatMilestone {
+    let features = [
+        "Thread creation",       // Start new chats
+        "Message composition",   // Send messages
+        "Message display",       // Chat bubbles
+        "Thread list",          // Chat history
+        "Loading states"        // UX polish
+    ]
+
+    let architecture = [
+        "ThreadActor",          // Thread management
+        "MessageActor",         // Message handling
+        "UIState",             // View updates
+        "Error handling",      // User feedback
+        "Offline support"      // Local storage
+    ]
+}
+```
+
+## 3. Chorus Cycle
+```swift
+// Third milestone: AI integration
+struct ChorusMilestone {
+    let steps = [
+        "Action step",          // Initial response
+        "Experience step",      // Prior search
+        "Intention step",       // Goal analysis
+        "Observation step",     // Link recording
+        "Update/Yield steps"    // Cycle completion
+    ]
+
+    let infrastructure = [
+        "LLM integration",      // OpenAI/Claude
+        "Vector search",        // Qdrant setup
+        "State machine",        // Step management
+        "Progress tracking",    // UI feedback
+        "Error recovery"        // Graceful failures
+    ]
+}
+```
+
+## 4. Token Economics
+```swift
+// Fourth milestone: Token integration
+struct TokenMilestone {
+    let features = [
+        "Mint CHOIR token",     // Token creation
+        "Reward distribution",  // Token allocation
+        "Stake mechanics",      // Token locking
+        "Citation rewards",     // Prior incentives
+        "Quality scoring"       // Value metrics
+    ]
+
+    let infrastructure = [
+        "Token program",        // Solana program
+        "Reward logic",        // Distribution rules
+        "Wallet integration",  // Token handling
+        "Transaction UI",      // Token operations
+        "Balance display"      // Token accounting
+    ]
+}
+```
+
+## 5. Premium Features
+```swift
+// Fifth milestone: Monetization
+struct PremiumMilestone {
+    let features = [
+        "Private threads",      // Encrypted chats
+        "Vector privacy",       // Search privacy
+        "Enhanced rewards",     // Higher earnings
+        "Priority support",     // Fast response
+        "Advanced analytics"    // Usage insights
+    ]
+
+    let infrastructure = [
+        "In-app purchase",      // StoreKit
+        "Feature flags",        // Premium control
+        "Privacy system",       // Access control
+        "Analytics",           // Usage tracking
+        "Support system"       // User assistance
+    ]
+}
+```
+
+## Immediate Next Steps
+```swift
+// Start with WalletActor
+actor WalletActor {
+    private let solana: Solana
+    private let secureEnclave: SecureEnclave
+
+    // Core functionality
+    func createWallet() async throws -> Account
+    func importWallet(_ phrase: String) async throws -> Account
+    func getBalance() async throws -> UInt64
+    func sendTransaction(_ tx: Transaction) async throws -> Signature
+}
+
+// Then build ThreadActor
+actor ThreadActor {
+    private let wallet: WalletActor
+    private let storage: StorageActor
+
+    // Basic chat
+    func createThread() async throws -> Thread
+    func sendMessage(_ content: String) async throws
+    func getMessages() async throws -> [Message]
+}
+```
+
+Ready to start with the WalletActor implementation?
+
+=== File: docs/Pivot_Key_Derivation_Paths.md ===
+
+
+
+==
+Pivot_Key_Derivation_Paths
+==
+
+
+# Key Derivation Path System
+
+## Path Structure
+
+```swift
+struct DerivationPath {
+    // BIP-44 style paths for Solana
+    let paths = [
+        "m/44'/501'/0'/0'",           // Base Solana path
+        "m/44'/501'/0'/1'",           // Thread encryption
+        "m/44'/501'/0'/2'",           // Message encryption
+        "m/44'/501'/0'/3'"            // Shared secrets
+    ]
+
+    // Purpose-specific paths
+    enum Purpose: UInt32 {
+        case wallet = 0        // Standard wallet
+        case threads = 1       // Thread keys
+        case messages = 2      // Message keys
+        case shared = 3        // Shared secrets
+
+        var path: String {
+            "m/44'/501'/0'/\(rawValue)'"
+        }
+    }
+}
+```
+
+## Key Management
+
+```swift
+class KeyManager {
+    private let masterKey: Ed25519HDKey  // From wallet
+
+    // Thread-specific key
+    func deriveThreadKey(threadId: UUID) -> Ed25519Key {
+        let path = DerivationPath.Purpose.threads.path
+        let seed = "\(path)/\(threadId)"
+        return masterKey.derive(path: seed)
+    }
+
+    // Message-specific key
+    func deriveMessageKey(messageId: UUID) -> Ed25519Key {
+        let path = DerivationPath.Purpose.messages.path
+        let seed = "\(path)/\(messageId)"
+        return masterKey.derive(path: seed)
+    }
+
+    // Shared secret derivation
+    func deriveSharedKey(
+        threadId: UUID,
+        participants: [PublicKey]
+    ) -> Ed25519Key {
+        let path = DerivationPath.Purpose.shared.path
+        let participantString = participants
+            .sorted()
+            .map { $0.toBase58() }
+            .joined(separator: ":")
+
+        let seed = "\(path)/\(threadId)/\(participantString)"
+        return masterKey.derive(path: seed)
+    }
+}
+```
+
+## Key Recovery
+
+```swift
+struct KeyRecovery {
+    // All keys are recoverable from:
+    let requirements = [
+        "Wallet seed phrase",     // Master key source
+        "Thread ID",              // Thread context
+        "Participant list",       // For shared keys
+        "Derivation path"         // Key purpose
+    ]
+
+    // Recovery process
+    func recoverKeys(wallet: HDWallet) -> KeySet {
+        KeySet(
+            threadKeys: recoverThreadKeys(wallet),
+            messageKeys: recoverMessageKeys(wallet),
+            sharedKeys: recoverSharedKeys(wallet)
+        )
+    }
+}
+```
+
+## Security Properties
+
+```swift
+struct SecurityProperties {
+    let properties = [
+        "Deterministic": [
+            "Same inputs → Same keys",
+            "No state to store",
+            "Full recoverability",
+            "Cross-device sync"
+        ],
+
+        "Isolated": [
+            "Different purposes → Different paths",
+            "Thread isolation",
+            "Message isolation",
+            "Forward secrecy"
+        ],
+
+        "Hierarchical": [
+            "Master key controls all",
+            "Sub-keys can't derive up",
+            "Clean key rotation",
+            "Selective disclosure"
+        ]
+    ]
+}
+```
+
+## Implementation
+
+```swift
+// Usage example
+class SecureThread {
+    private let keyManager: KeyManager
+
+    func encryptMessage(_ content: String) async throws -> EncryptedMessage {
+        // For single-author thread
+        let key = keyManager.deriveThreadKey(threadId)
+        return try await encrypt(content, with: key)
+    }
+
+    func encryptSharedMessage(
+        _ content: String,
+        participants: [PublicKey]
+    ) async throws -> EncryptedMessage {
+        // For multi-author thread
+        let key = keyManager.deriveSharedKey(
+            threadId,
+            participants: participants
+        )
+        return try await encrypt(content, with: key)
+    }
+}
+```
+
+Benefits:
+
+1. No key storage needed
+2. Deterministic recovery
+3. Clean key isolation
+4. Forward secrecy
+5. Cross-device sync
+
 === File: docs/Pivot_Knowledge_Foundation.md ===
 
 
@@ -4107,6 +4857,142 @@ struct EvolutionMetrics {
 }
 ```
 
+=== File: docs/Pivot_MVP_Simplification.md ===
+
+
+
+==
+Pivot_MVP_Simplification
+==
+
+
+# MVP Simplification Strategy
+
+## Real-time Updates: Simple First
+
+```swift
+struct RealTimeOptions {
+    // Phase 1: Simple Polling
+    let polling = [
+        "Pros": [
+            "Dead simple to implement",
+            "No connection management",
+            "Works everywhere",
+            "Easy to debug",
+            "No state to maintain"
+        ],
+        "Cons": [
+            "Higher latency (1-3s)",
+            "More server requests",
+            "Less efficient"
+        ]
+    ]
+
+    // Phase 2: Server-Sent Events
+    let sse = [
+        "Pros": [
+            "One-way streaming",
+            "Native browser support",
+            "Simple server impl",
+            "Auto-reconnect",
+            "HTTP compatible"
+        ],
+        "Cons": [
+            "One-way only",
+            "No binary support"
+        ]
+    ]
+
+    // Phase 3: WebSockets (Future)
+    let websockets = [
+        "When needed": [
+            "Real-time collaboration",
+            "Binary data (voice)",
+            "Complex state sync",
+            "P2P coordination",
+            "High frequency updates"
+        ]
+    ]
+}
+```
+
+## Implementation
+
+```swift
+// Phase 1: Simple Polling
+class ThreadPoller {
+    private let interval: TimeInterval = 2.0  // 2 second poll
+
+    func startPolling() async {
+        while true {
+            do {
+                let updates = try await fetchUpdates()
+                handleUpdates(updates)
+                try await Task.sleep(nanoseconds: UInt64(interval * 1_000_000_000))
+            } catch {
+                // Simple error handling
+                continue
+            }
+        }
+    }
+}
+
+// Phase 2: SSE When Ready
+class EventSource {
+    func connect() {
+        let url = URL(string: "https://api.choir.chat/events")!
+        let source = URLSession.shared.streamTask(with: url)
+        source.resume()
+        // Handle events...
+    }
+}
+```
+
+## Benefits
+
+1. **Development Speed**
+
+```swift
+let simplificationBenefits = [
+    "Faster MVP",              // Simpler architecture
+    "Less infrastructure",     // HTTP only
+    "Easier debugging",        // Clear request/response
+    "Lower complexity",        // No connection state
+    "Focus on core features"   // Chat/threads/priors
+]
+```
+
+2. **User Experience**
+
+```swift
+let userImpact = [
+    "2s latency acceptable",   // Chat is async anyway
+    "Reliable updates",        // Simple retry logic
+    "Clear loading states",    // Request/response model
+    "Predictable behavior",    // HTTP semantics
+    "Battery friendly"         // Controlled polling
+]
+```
+
+3. **Future Evolution**
+
+```swift
+let evolutionPath = [
+    "Start": "HTTP Polling",
+    "Next": "Server-Sent Events",
+    "Later": "WebSockets",
+    "When": "Real-time features needed"
+]
+```
+
+The key insight:
+
+1. Chat is naturally async
+2. 2s latency is fine for MVP
+3. Simple HTTP is reliable
+4. Easy to implement/debug
+5. Can evolve when needed
+
 === File: docs/Pivot_Mental_Model_Relief.md ===
 
 
@@ -4285,6 +5171,503 @@ This difference in error attribution creates:
 3. Less stress (predictable debugging)
 4. Faster progress (no tooling detours)
 5. Real growth (actual problem-solving)
+
+=== File: docs/Pivot_Native_Wallet.md ===
+
+
+
+==
+Pivot_Native_Wallet
+==
+
+
+# Native Solana Integration
+
+## SolanaSwift Integration
+
+```swift
+// Using p2p.org's SolanaSwift library
+struct WalletIntegration {
+    let benefits = [
+        "Native performance",      // Swift-native client
+        "Clean async/await",       // Modern Swift concurrency
+        "Type safety",            // Swift type system
+        "Better UX",              // No browser extension
+        "Offline support"         // Local key management
+    ]
+
+    let features = [
+        "Key management",         // Generate/store keypairs
+        "Transaction signing",    // Native signing
+        "RPC integration",       // Solana JSON RPC
+        "Token support",         // SPL tokens
+        "Program interaction"    // Anchor integration
+    ]
+}
+```
+
+## Implementation
+
+```swift
+// Core wallet functionality
+class WalletManager: ObservableObject {
+    private let solana: Solana
+    @Published var account: Account?
+
+    init() {
+        // Initialize with devnet
+        solana = Solana(router: NetworkingRouter(endpoint: .devnet))
+    }
+
+    // Create new account
+    func createAccount() async throws {
+        account = try await KeyPair(network: .devnet)
+    }
+
+    // Restore from seed
+    func restoreAccount(phrases: [String]) async throws {
+        account = try await KeyPair(
+            phrases: phrases,
+            network: .devnet
+        )
+    }
+
+    // Send transaction
+    func sendTransaction(_ transaction: Transaction) async throws -> String {
+        try await solana.action.sendTransaction(transaction)
+    }
+}
+```
+
+## Benefits Over Web Wallets
+
+1. **User Experience**
+
+```swift
+struct UXBenefits {
+    let improvements = [
+        "No browser extension",   // Native integration
+        "Faster interaction",     // Direct signing
+        "Better security",        // iOS keychain
+        "Offline support",        // Local keys
+        "Native UI"              // System patterns
+    ]
+}
+```
+
+2. **Developer Experience**
+
+```swift
+struct DXBenefits {
+    let improvements = [
+        "Type safety",           // Swift types
+        "Async/await",          // Clean concurrency
+        "Better testing",       // Native testing
+        "Simpler stack",       // No adapters
+        "Direct debugging"     // Native tools
+    ]
+}
+```
+
+3. **Technical Benefits**
+
+```swift
+struct TechnicalBenefits {
+    let advantages = [
+        "Performance",          // Native speed
+        "Reliability",         // No browser issues
+        "Security",           // iOS security
+        "Battery life",      // More efficient
+        "Integration"       // System features
+    ]
+}
+```
+
+## Migration Path
+
+```swift
+struct Implementation {
+    // Phase 1: Basic Integration
+    let initial = [
+        "Account creation",
+        "Transaction signing",
+        "Balance checking",
+        "Token transfers",
+        "Program calls"
+    ]
+
+    // Phase 2: Advanced Features
+    let advanced = [
+        "Multi-wallet support",
+        "Hardware wallet integration",
+        "Advanced transactions",
+        "Token management",
+        "Deep program integration"
+    ]
+}
+```
+
+The key win is:
+
+1. Better user experience
+2. Simpler architecture
+3. Native performance
+4. Enhanced security
+5. Future flexibility
+
+=== File: docs/Pivot_PDA_Key_Derivation.md ===
+
+
+
+==
+Pivot_PDA_Key_Derivation
+==
+
+
+# PDA-Based Key Derivation
+
+## Derivation Pattern
+```swift
+struct PDASeed {
+    // PDA seeds for different purposes
+    static func threadSeed(threadId: String) -> [Buffer] {
+        [
+            Buffer("thread"),     // Discriminator
+            Buffer(threadId),     // Thread identifier
+            Buffer("encryption")  // Purpose
+        ]
+    }
+
+    static func messageSeed(messageId: String) -> [Buffer] {
+        [
+            Buffer("message"),    // Discriminator
+            Buffer(messageId),    // Message identifier
+            Buffer("encryption")  // Purpose
+        ]
+    }
+
+    static func sharedSeed(
+        threadId: String,
+        participants: [PublicKey]
+    ) -> [Buffer] {
+        [
+            Buffer("shared"),     // Discriminator
+            Buffer(threadId),     // Thread identifier
+            Buffer(participants   // Sorted participants
+                .sorted()
+                .map { $0.toBase58() }
+                .joined(separator: ":")
+            ),
+            Buffer("encryption")  // Purpose
+        ]
+    }
+}
+```
+
+## Key Generation
+```swift
+class PDAKeyManager {
+    private let programId: PublicKey  // Thread program
+
+    // Thread encryption key
+    func deriveThreadKey(threadId: String) -> (PublicKey, UInt8) {
+        PublicKey.findProgramAddress(
+            seeds: PDASeed.threadSeed(threadId: threadId),
+            programId: programId
+        )
+    }
+
+    // Message encryption key
+    func deriveMessageKey(messageId: String) -> (PublicKey, UInt8) {
+        PublicKey.findProgramAddress(
+            seeds: PDASeed.messageSeed(messageId: messageId),
+            programId: programId
+        )
+    }
+
+    // Shared encryption key
+    func deriveSharedKey(
+        threadId: String,
+        participants: [PublicKey]
+    ) -> (PublicKey, UInt8) {
+        PublicKey.findProgramAddress(
+            seeds: PDASeed.sharedSeed(
+                threadId: threadId,
+                participants: participants
+            ),
+            programId: programId
+        )
+    }
+}
+```
+
+## Benefits
+
+1. **Solana Native**
+```swift
+let benefits = [
+    "Deterministic",         // Same inputs -> Same key
+    "Program controlled",    // Only program can sign
+    "On-chain verifiable",   // Part of program state
+    "Zero storage",         // Derived on demand
+    "Cross-client"          // Works everywhere
+]
+```
+
+2. **Security Properties**
+```swift
+let security = [
+    "Program scoped",        // Tied to program ID
+    "Purpose bound",         // Discriminator prefixed
+    "Collision resistant",   // Bump seed ensures
+    "Identity linked",       // Thread/user bound
+    "Audit friendly"        // Clear derivation
+]
+```
+
+3. **Implementation**
+```swift
+// Usage in encryption
+class ThreadEncryption {
+    private let pdaKeys: PDAKeyManager
+
+    func encryptMessage(
+        content: String,
+        threadId: String
+    ) async throws -> EncryptedMessage {
+        // Get encryption key from PDA
+        let (key, _) = pdaKeys.deriveThreadKey(threadId)
+
+        // Use for encryption
+        return try await encrypt(
+            content: content,
+            key: key.toBytes()
+        )
+    }
+
+    func encryptShared(
+        content: String,
+        threadId: String,
+        participants: [PublicKey]
+    ) async throws -> EncryptedMessage {
+        // Get shared key from PDA
+        let (key, _) = pdaKeys.deriveSharedKey(
+            threadId: threadId,
+            participants: participants
+        )
+
+        // Use for encryption
+        return try await encrypt(
+            content: content,
+            key: key.toBytes()
+        )
+    }
+}
+```
+
+The key insight is:
+1. PDAs are perfect for key derivation
+2. Program controls access
+3. Zero key storage needed
+4. Native to Solana
+5. Cross-client compatible
+
+=== File: docs/Pivot_Payload_Encryption.md ===
+
+
+
+==
+Pivot_Payload_Encryption
+==
+
+
+# End-to-End Payload Encryption
+
+## Key Derivation
+
+```swift
+struct KeyDerivation {
+    // Single-author threads
+    func deriveThreadKey(wallet: Keypair, threadId: UUID) -> SecretKey {
+        // Derive unique key for each thread
+        let seed = hmacSHA256(
+            key: wallet.privateKey,
+            message: "thread:\(threadId)"
+        )
+        return SecretKey(seed: seed)
+    }
+
+    // Multi-author threads
+    func deriveSharedSecret(
+        myKey: Keypair,
+        theirPublicKey: PublicKey,
+        threadId: UUID
+    ) -> SecretKey {
+        // ECDH key agreement
+        let sharedPoint = ed25519.multiply(
+            myKey.privateKey,
+            theirPublicKey
+        )
+
+        // Derive thread-specific key
+        return hmacSHA256(
+            key: sharedPoint.bytes,
+            message: "thread:\(threadId)"
+        )
+    }
+}
+```
+
+## Payload Encryption
+
+```swift
+struct EncryptedPayload: Codable {
+    let ciphertext: Data      // Encrypted content
+    let nonce: Data          // Unique IV
+    let authors: [PublicKey] // For key recovery
+}
+
+class PayloadEncryption {
+    // Encrypt for single author
+    func encrypt(
+        payload: Payload,
+        wallet: Keypair,
+        threadId: UUID
+    ) async throws -> EncryptedPayload {
+        let key = deriveThreadKey(wallet: wallet, threadId: threadId)
+        let nonce = generateNonce()
+
+        let ciphertext = try await encrypt(
+            payload: payload,
+            key: key,
+            nonce: nonce
+        )
+
+        return EncryptedPayload(
+            ciphertext: ciphertext,
+            nonce: nonce,
+            authors: [wallet.publicKey]
+        )
+    }
+
+    // Encrypt for multiple authors
+    func encryptShared(
+        payload: Payload,
+        authors: [PublicKey],
+        wallet: Keypair,
+        threadId: UUID
+    ) async throws -> EncryptedPayload {
+        // Generate shared secrets with each co-author
+        let sharedKeys = try await authors.map { author in
+            deriveSharedSecret(
+                myKey: wallet,
+                theirPublicKey: author,
+                threadId: threadId
+            )
+        }
+
+        // Combine keys
+        let threadKey = combineKeys(sharedKeys)
+        let nonce = generateNonce()
+
+        let ciphertext = try await encrypt(
+            payload: payload,
+            key: threadKey,
+            nonce: nonce
+        )
+
+        return EncryptedPayload(
+            ciphertext: ciphertext,
+            nonce: nonce,
+            authors: authors
+        )
+    }
+}
+```
+
+## Qdrant Integration
+
+```swift
+// Store encrypted payloads
+class SecureQdrantClient {
+    func upsertMessage(
+        content: String,
+        threadId: UUID,
+        wallet: Keypair
+    ) async throws {
+        // Get thread authors
+        let thread = try await getThread(threadId)
+
+        // Create payload
+        let payload = MessagePayload(
+            content: content,
+            timestamp: Date()
+        )
+
+        // Encrypt based on authors
+        let encrypted = if thread.authors.count > 1 {
+            try await PayloadEncryption.encryptShared(
+                payload: payload,
+                authors: thread.authors,
+                wallet: wallet,
+                threadId: threadId
+            )
+        } else {
+            try await PayloadEncryption.encrypt(
+                payload: payload,
+                wallet: wallet,
+                threadId: threadId
+            )
+        }
+
+        // Store in Qdrant
+        try await qdrant.upsert(
+            collection: "messages",
+            points: [
+                Point(
+                    id: UUID(),
+                    vector: embeddings,
+                    payload: encrypted
+                )
+            ]
+        )
+    }
+}
+```
+
+## Security Properties
+
+1. **Thread Isolation**
+
+```swift
+let security = [
+    "Per-thread keys",      // Unique key per thread
+    "Forward secrecy",      // New keys can't decrypt old
+    "Key separation",       // Thread keys independent
+    "Access control",       // Only authors can decrypt
+    "Audit trail"          // Author list preserved
+]
+```
+
+2. **Key Management**
+
+```swift
+let keyManagement = [
+    "Deterministic",       // Keys derived from wallet
+    "No key storage",      // Keys generated on demand
+    "No key exchange",     // ECDH for shared secrets
+    "No central trust",    // End-to-end encryption
+    "Key recovery"         // Via any thread author
+]
+```
+
+The benefits:
+
+1. End-to-end encryption
+2. No additional key management
+3. Natural access control
+4. Thread isolation
+5. Co-author support
 
 === File: docs/Pivot_Progressive_Decentralization.md ===
 
@@ -4627,6 +6010,142 @@ The client provides:
 
 Would you like me to expand on any part of the implementation?
 
+=== File: docs/Pivot_Rapid_Development.md ===
+
+
+
+==
+Pivot_Rapid_Development
+==
+
+
+# Rapid Development Sequence
+
+## 1. Core Wallet Integration (Week 1)
+```swift
+struct WalletMilestone {
+    let steps = [
+        "Setup SolanaSwift",     // Basic dependency
+        "Secure Enclave flow",   // Key management
+        "Balance display",       // Account info
+        "Error handling",        // User feedback
+        "UI polish"             // Native feel
+    ]
+
+    // Deliverable: Working wallet tab
+    let outcome = [
+        "Create/import wallet",
+        "View SOL balance",
+        "Clean UI/UX",
+        "Error states",
+        "Network switching"
+    ]
+}
+```
+
+## 2. Basic Chat (Week 2)
+```swift
+struct ChatMilestone {
+    let steps = [
+        "Thread list UI",        // Basic list view
+        "Message UI",           // Chat bubbles
+        "Local storage",        // CoreData/SQLite
+        "Message polling",      // Simple HTTP
+        "Basic encryption"      // PDA-based keys
+    ]
+
+    // Deliverable: Working chat
+    let outcome = [
+        "Create threads",
+        "Send messages",
+        "View history",
+        "Basic privacy",
+        "Offline support"
+    ]
+}
+```
+
+## 3. AI Integration (Week 3)
+```swift
+struct AIMilestone {
+    let steps = [
+        "OpenAI client",        // Direct API calls
+        "Qdrant setup",         // Vector storage
+        "Chorus flow",          // Basic AEIOU-Y
+        "Prior display",        // Citation UI
+        "Error recovery"        // Graceful failures
+    ]
+
+    // Deliverable: Working AI
+    let outcome = [
+        "AI responses",
+        "Prior search",
+        "Citation flow",
+        "Progress display",
+        "Error handling"
+    ]
+}
+```
+
+## 4. Polish & Ship (Week 4)
+```swift
+struct ShipMilestone {
+    let steps = [
+        "TestFlight setup",     // Distribution
+        "Analytics",           // Basic metrics
+        "Documentation",       // User guides
+        "Marketing site",      // Zola static
+        "Support system"       // Help desk
+    ]
+
+    // Deliverable: Beta release
+    let outcome = [
+        "TestFlight build",
+        "Landing page",
+        "User docs",
+        "Feedback loop",
+        "Support flow"
+    ]
+}
+```
+
+## Later Enhancements
+```swift
+struct Enhancements {
+    let features = [
+        "Thread program",       // Solana integration
+        "Token rewards",        // Economic incentives
+        "Voice messages",       // Audio support
+        "P2P features",        // Decentralization
+        "Premium tier"         // Monetization
+    ]
+}
+```
+
+## Development Flow
+```swift
+// Daily cycle
+struct DailyCycle {
+    let morning = [
+        "Code review",          // Previous work
+        "Priority tasks",       // Next features
+        "Testing",             // Quality check
+        "Documentation",       // Knowledge capture
+        "Ship increment"       // Daily progress
+    ]
+
+    let evening = [
+        "Progress review",      // What worked
+        "Blocker check",       // Any issues
+        "Next day prep",       // Tomorrow's plan
+        "Documentation",       // Update docs
+        "GitHub sync"          // Code backup
+    ]
+}
+```
+
+Ready to start with the wallet integration?
+
 === File: docs/Pivot_Repository_Split.md ===
 
 
@@ -4842,6 +6361,162 @@ zola serve  # Hot reloading at http://localhost:1111
 4. Update documentation
 5. Setup monitoring
 6. Configure deployments
+
+=== File: docs/Pivot_Service_Actors.md ===
+
+
+
+==
+Pivot_Service_Actors
+==
+
+
+# Service Actor Architecture
+
+## Core Actors
+```swift
+// Main coordinator
+actor ChoirActor {
+    private let solana: SolanaActor
+    private let vectors: EmbeddingActor
+    private let llm: LLMActor
+    private let db: QdrantActor
+
+    // Coordinated operations
+    func processMessage(_ content: String) async throws -> Message {
+        // Parallel operations
+        async let embedding = vectors.embed(content)
+        async let response = llm.generate(content)
+
+        // Search with embedding
+        let priors = try await db.search(
+            vector: try await embedding
+        )
+
+        // Store message with embedding
+        let message = Message(
+            content: content,
+            embedding: try await embedding,
+            response: try await response,
+            priors: priors
+        )
+
+        try await db.store(message)
+        return message
+    }
+}
+
+// Solana operations
+actor SolanaActor {
+    private let secureEnclave: SecureEnclave
+    private let solana: SolanaSwift
+
+    func signAndSend(_ tx: Transaction) async throws -> Signature {
+        let signed = try await secureEnclave.sign(tx)
+        return try await solana.sendTransaction(signed)
+    }
+
+    func getBalance() async throws -> UInt64 {
+        try await solana.getBalance(wallet.publicKey)
+    }
+}
+
+// Embedding generation
+actor EmbeddingActor {
+    private let imageBind: ImageBind
+    private let cache: EmbeddingCache
+
+    func embed(_ content: String) async throws -> [Float] {
+        // Check cache
+        if let cached = try await cache.get(content) {
+            return cached
+        }
+
+        // Generate new
+        let embedding = try await imageBind.embed(content)
+        try await cache.set(content, embedding)
+        return embedding
+    }
+}
+
+// LLM interactions
+actor LLMActor {
+    private let openAI: OpenAIClient
+    private let history: MessageHistory
+
+    func generate(_ prompt: String) async throws -> String {
+        let context = try await history.getRelevant(prompt)
+        return try await openAI.complete(prompt, context)
+    }
+}
+
+// Vector storage
+actor QdrantActor {
+    private let db: QdrantClient
+    private let encryption: EncryptionManager
+
+    func search(vector: [Float]) async throws -> [Prior] {
+        let results = try await db.search(vector)
+        return try await decrypt(results)
+    }
+
+    func store(_ message: Message) async throws {
+        let encrypted = try await encrypt(message)
+        try await db.store(encrypted)
+    }
+}
+```
+
+## Benefits
+
+1. **Isolation & Safety**
+```swift
+let benefits = [
+    "State isolation",        // Each service owns its state
+    "Concurrent access",      // Safe parallel operations
+    "Resource management",    // Clean resource lifecycles
+    "Error boundaries",       // Clear error ownership
+    "Performance control"     // Fine-grained optimization
+]
+```
+
+2. **Coordination Patterns**
+```swift
+// Task groups for parallel ops
+func processInParallel() async throws {
+    try await withThrowingTaskGroup(of: Void.self) { group in
+        group.addTask { try await solana.process() }
+        group.addTask { try await vectors.process() }
+        group.addTask { try await llm.process() }
+        group.addTask { try await db.process() }
+    }
+}
+```
+
+3. **Resource Management**
+```swift
+// Each actor manages its resources
+actor ServiceActor {
+    private var resources: Set<Resource> = []
+
+    func acquire() async throws -> Resource {
+        let resource = try await Resource()
+        resources.insert(resource)
+        return resource
+    }
+
+    func release(_ resource: Resource) {
+        resources.remove(resource)
+    }
+}
+```
+
+This architecture:
+1. Prevents data races
+2. Enables concurrency
+3. Isolates failures
+4. Manages resources
+5. Scales cleanly
 
 === File: docs/Pivot_Service_Architecture.md ===
 
@@ -5490,6 +7165,178 @@ This modern concurrency model gives us:
 - Clear error handling
 - Resource safety
 
+=== File: docs/Pivot_Swift_Patterns.md ===
+
+
+
+==
+Pivot_Swift_Patterns
+==
+
+
+# Swift Design Patterns
+
+## 1. Actor-Based Services
+```swift
+// Thread-safe service layer
+actor ThreadService {
+    private var activeThreads: [UUID: Thread] = [:]
+    private let storage: StorageActor
+
+    func createThread(_ title: String) async throws -> Thread {
+        let thread = Thread(title: title)
+        activeThreads[thread.id] = thread
+        try await storage.save(thread)
+        return thread
+    }
+}
+```
+
+## 2. Observable View Models
+```swift
+// Clean UI state management
+@MainActor
+class ThreadViewModel: ObservableObject {
+    @Published private(set) var threads: [Thread] = []
+    private let service: ThreadService
+
+    func loadThreads() async {
+        let newThreads = try? await service.getThreads()
+        await MainActor.run { threads = newThreads ?? [] }
+    }
+}
+```
+
+## 3. Protocol-Based Dependencies
+```swift
+// Swappable implementations
+protocol StorageService {
+    func save(_ thread: Thread) async throws
+    func load(id: UUID) async throws -> Thread
+}
+
+// Easy to swap implementations
+class LiveStorage: StorageService { /* Real storage */ }
+class MockStorage: StorageService { /* Test storage */ }
+```
+
+## 4. Result Builders
+```swift
+// Declarative filters
+@resultBuilder
+struct FilterBuilder {
+    static func buildBlock(_ components: Filter...) -> [Filter] {
+        components
+    }
+}
+
+func search(@FilterBuilder _ filters: () -> [Filter]) {
+    let query = buildQuery(filters())
+}
+
+// Usage
+search {
+    Filter.equals("threadId", threadId)
+    Filter.greaterThan("date", startDate)
+}
+```
+
+## 5. Property Wrappers
+```swift
+// Reusable property behaviors
+@propertyWrapper
+struct Encrypted {
+    private var value: String
+
+    var wrappedValue: String {
+        get { decrypt(value) }
+        set { value = encrypt(newValue) }
+    }
+}
+
+// Usage
+struct Message {
+    @Encrypted var content: String
+}
+```
+
+## 6. Type-Safe Enums
+```swift
+// State modeling
+enum ThreadState {
+    case loading
+    case loaded([Message])
+    case error(Error)
+
+    var isLoading: Bool {
+        if case .loading = self { return true }
+        return false
+    }
+}
+```
+
+## 7. Async Sequences
+```swift
+// Stream handling
+class MessageStream: AsyncSequence {
+    typealias Element = Message
+
+    func makeAsyncIterator() -> AsyncStream<Message>.AsyncIterator {
+        // Stream implementation
+    }
+}
+
+// Usage
+for await message in messageStream {
+    await handleMessage(message)
+}
+```
+
+## 8. Error Handling
+```swift
+// Domain-specific errors
+enum ThreadError: Error {
+    case notFound(UUID)
+    case accessDenied(reason: String)
+    case networkError(underlying: Error)
+}
+
+// Clean error propagation
+func getThread(_ id: UUID) async throws -> Thread {
+    do {
+        return try await storage.load(id)
+    } catch {
+        throw ThreadError.notFound(id)
+    }
+}
+```
+
+## Benefits
+
+1. **Code Organization**
+- Clear responsibilities
+- Consistent structure
+- Easy to navigate
+- Simple to test
+
+2. **Type Safety**
+- Compile-time checks
+- Clear interfaces
+- Error handling
+- State modeling
+
+3. **Concurrency**
+- Actor isolation
+- Async/await
+- MainActor UI
+- Stream processing
+
+4. **Testability**
+- Protocol abstractions
+- Mock implementations
+- Isolated tests
+- Clear dependencies
+
 === File: docs/Pivot_Team_Evolution.md ===
 
 
@@ -5787,6 +7634,130 @@ This two-phase approach lets us:
 3. Generate excitement
 4. Attract resources
 5. Then transform into something revolutionary
+
+=== File: docs/Pivot_Value_Distribution.md ===
+
+
+
+==
+Pivot_Value_Distribution
+==
+
+
+# Value Distribution Architecture
+
+## User-Controlled Value
+
+```swift
+struct ValueArchitecture {
+    // Secure Enclave + Solana
+    let userControl = [
+        "Key ownership",         // Private keys in Secure Enclave
+        "Local encryption",      // User-controlled privacy
+        "Asset custody",         // Direct token ownership
+        "Data sovereignty",      // Encrypted user data
+        "Identity control"       // Self-sovereign identity
+    ]
+
+    // Progressive Ownership
+    let distribution = [
+        "Early users",          // Higher initial rewards
+        "Quality content",      // Merit-based tokens
+        "Network effects",      // Value from connections
+        "Data contributions",   // Embeddings as assets
+        "Protocol stake"        // Governance rights
+    ]
+}
+```
+
+## Data Engine Value
+
+```swift
+struct DataValue {
+    // Network Effects
+    let networkValue = [
+        "Semantic links",       // Knowledge connections
+        "Citation graphs",      // Value attribution
+        "Quality emergence",    // Collective intelligence
+        "User relationships",   // Social graph
+        "Content flows"         // Information paths
+    ]
+
+    // Asset Creation
+    let assetTypes = [
+        "Thread ownership",     // Valuable conversations
+        "Prior citations",      // Knowledge references
+        "Quality ratings",      // Reputation scores
+        "Network position",     // Graph centrality
+        "Protocol tokens"       // Governance stake
+    ]
+}
+```
+
+## Technical Integration
+
+```swift
+// Secure value custody
+class ValueCustody {
+    // Local security
+    private let secureEnclave = SecureEnclave()
+    private let keychain = Keychain()
+
+    // Network bridge
+    private let solana = SolanaSwift()
+
+    func createValue() async throws {
+        // Generate in Secure Enclave
+        let keys = try await secureEnclave.generateKeys()
+
+        // Bridge to network
+        let wallet = try await solana.importWallet(keys)
+
+        // Receive value
+        try await wallet.receiveTokens()
+    }
+}
+```
+
+## Economic Alignment
+
+```swift
+struct Incentives {
+    // Early Users
+    let earlyValue = [
+        "Higher token rewards",    // More tokens per action
+        "Network position",        // Early graph centrality
+        "Protocol influence",      // Early governance weight
+        "Data ownership",          // Original content value
+        "Community status"         // Founding member benefits
+    ]
+
+    // Long-term Value
+    let sustainableValue = [
+        "Quality rewards",         // Ongoing merit tokens
+        "Citation income",         // Value from references
+        "Network growth",          // Rising token value
+        "Protocol evolution",      // Governance participation
+        "Data marketplace"         // Knowledge economy
+    ]
+}
+```
+
+The key insight:
+
+1. Users own their value (keys)
+2. Network effects create value
+3. Early users get more value
+4. Quality creates lasting value
+5. Protocol distributes control
+
+This creates:
+
+1. User-aligned incentives
+2. Natural network effects
+3. Quality-driven growth
+4. Sustainable economics
+5. Distributed ownership
 
 === File: docs/State_Boundaries.md ===
 
