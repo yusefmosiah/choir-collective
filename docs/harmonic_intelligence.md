@@ -44,7 +44,7 @@ The implementation mirrors these natural patterns:
 Event Foundation
 - SwiftData captures local waves
 - Chain provides state authority
-- LanceDB couples semantic space
+- Qdrant couples semantic space
 - Events flow naturally
 
 Actor Isolation

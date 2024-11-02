@@ -49,18 +49,18 @@ actor ChainState {
 
 ## Vector State (Source of Truth)
 
-LanceDB content storage:
+Qdrant content storage:
 
 ```swift
 // Vector content state
 actor VectorState {
-    private let lanceDB: LanceDB
+    private let Qdrant: Qdrant
     private let eventStore: LocalEventStore
 
     // Get content and embeddings
     func getMessage(_ hash: MessageHash) async throws -> Message {
-        // Get authoritative content from LanceDB
-        let content = try await lanceDB.getMessage(hash)
+        // Get authoritative content from Qdrant
+        let content = try await Qdrant.getMessage(hash)
 
         // Emit local event for UI
         try await eventStore.append(.contentLoaded(hash))
@@ -70,8 +70,8 @@ actor VectorState {
 
     // Store new content
     func storeMessage(_ message: Message) async throws {
-        // Store in LanceDB first
-        try await lanceDB.store(message)
+        // Store in Qdrant first
+        try await Qdrant.store(message)
 
         // Then emit local event
         try await eventStore.append(.contentStored(message.hash))

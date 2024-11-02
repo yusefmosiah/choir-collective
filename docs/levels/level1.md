@@ -204,7 +204,7 @@ Actor-Based Isolation
 Local-First Design
 - SwiftData for local events
 - Chain for state authority
-- LanceDB for content/embeddings
+- Qdrant for content/embeddings
 - Natural sync patterns
 
 ## Key Components

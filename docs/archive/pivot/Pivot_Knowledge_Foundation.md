@@ -37,7 +37,7 @@ struct KnowledgeBase {
         ],
 
         "Infrastructure": [
-            "LanceDB architecture",
+            "Qdrant architecture",
             "P2P protocols",
             "Edge computing",
             "State sync"

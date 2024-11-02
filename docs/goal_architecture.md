@@ -39,7 +39,7 @@ Chain Authority
   - Co-author lists
 
 Local Authority
-- LanceDB authoritative for:
+- Qdrant authoritative for:
   - Message content
   - Embeddings
   - Citations

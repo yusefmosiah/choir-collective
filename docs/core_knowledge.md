@@ -20,7 +20,7 @@ Core vector operations with proper concurrency:
 ```swift
 // Vector operations with isolation
 actor VectorStore {
-    private let lanceDB: LanceDB
+    private let Qdrant: Qdrant
     private let embeddings: EmbeddingActor
     private let cache: CacheActor
 
@@ -46,7 +46,7 @@ actor VectorStore {
 
             // Search with cancellation support
             return try await withTaskCancellationHandler {
-                let results = try await lanceDB.search(
+                let results = try await Qdrant.search(
                     vector: embedding,
                     limit: limit
                 )
@@ -216,7 +216,7 @@ Progressive knowledge enhancement:
 struct KnowledgeStrategy {
     // Phase 1: Local vectors
     let foundation = [
-        "Local LanceDB",
+        "Local Qdrant",
         "Basic embeddings",
         "Simple citations",
         "Text only"
