@@ -118,22 +118,6 @@
 │   ├── Backend_Chorus.md
 │   ├── Backend_Database.md
 │   ├── Backend_Models.md
-│   ├── Core_Chorus_Steps.md
-│   ├── Core_Comprehensive.md
-│   ├── Core_Consistency.md
-│   ├── Core_Context.md
-│   ├── Core_Economics.md
-│   ├── Core_Effect_Quantum.md
-│   ├── Core_Effects.md
-│   ├── Core_Invariants.md
-│   ├── Core_Ownership.md
-│   ├── Core_Patterns.md
-│   ├── Core_Prior_Flow.md
-│   ├── Core_Priors.md
-│   ├── Core_ProofOfText.md
-│   ├── Core_StateTransitions.md
-│   ├── Core_Types.md
-│   ├── Core_Whitepaper.md
 │   ├── Current_Summary.md
 │   ├── Data_Engine_Vision.md
 │   ├── Deploy_Render_Checklist.md
@@ -258,6 +242,21 @@
 │   │   ├── api_integration
 │   │   │   └── Implementation_Dependencies.md
 │   │   ├── archive_log.md
+│   │   ├── core
+│   │   │   ├── Core_Chorus_Steps.md
+│   │   │   ├── Core_Comprehensive.md
+│   │   │   ├── Core_Consistency.md
+│   │   │   ├── Core_Context.md
+│   │   │   ├── Core_Effect_Quantum.md
+│   │   │   ├── Core_Effects.md
+│   │   │   ├── Core_Invariants.md
+│   │   │   ├── Core_Ownership.md
+│   │   │   ├── Core_Prior_Flow.md
+│   │   │   ├── Core_Priors.md
+│   │   │   ├── Core_ProofOfText.md
+│   │   │   ├── Core_StateTransitions.md
+│   │   │   ├── Core_Types.md
+│   │   │   └── Core_Whitepaper.md
 │   │   ├── deployment
 │   │   ├── state_management
 │   │   ├── swift_roadmap.md
@@ -272,6 +271,14 @@
 │   │       ├── Plan_FrontendArchitecture.md
 │   │       └── Plan_FrontendChecklist.md
 │   ├── combined
+│   ├── core
+│   │   ├── core_architecture.md
+│   │   ├── core_chorus.md
+│   │   ├── core_core.md
+│   │   ├── core_economics.md
+│   │   ├── core_knowledge.md
+│   │   ├── core_patterns.md
+│   │   └── core_state.md
 │   ├── docs
 │   │   └── archive
 │   │       ├── api_integration
@@ -394,4 +401,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-73 directories, 319 files
+75 directories, 324 files
