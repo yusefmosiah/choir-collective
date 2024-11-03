@@ -116,9 +116,9 @@
 ├── docker-compose.yml
 ├── docs
 │   ├── Deploy_Render_Checklist.md
-│   ├── Harmonic_Theory.md
 │   ├── Impl_Security.md
 │   ├── Meta_Evolution.md
+│   ├── Model_Foundation_Evolution.md
 │   ├── Model_Metastability.md
 │   ├── Model_Recursion.md
 │   ├── State_Boundaries.md
@@ -131,9 +131,11 @@
 │   ├── core_knowledge.md
 │   ├── core_patterns.md
 │   ├── core_state.md
+│   ├── core_state_transitions.md
 │   ├── data_engine_model.md
 │   ├── e_business.md
 │   ├── e_concept.md
+│   ├── e_questions.md
 │   ├── e_reference.md
 │   ├── goal_architecture.md
 │   ├── goal_evolution.md
@@ -158,9 +160,12 @@
 │   │   ├── combiner.sh
 │   │   ├── update_harmonic_vision.sh
 │   │   └── update_tree.sh
+│   ├── theory_choir_harmonics.md
 │   ├── theory_dynamics.md
 │   ├── theory_economics.md
 │   ├── theory_foundation.md
+│   ├── theory_harmonic_intelligence.md
+│   ├── theory_oscillator_cooling.md
 │   ├── theory_theory.md
 │   └── tree.md
 ├── jest.config.js
@@ -261,4 +266,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-62 directories, 197 files
+62 directories, 202 files

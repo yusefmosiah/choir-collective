@@ -1,17 +1,6 @@
 # Choir: Harmonic Intelligence Platform
 
-VERSION harmonic_system:
-invariants: {
-"Wave resonance",
-"Energy conservation",
-"Pattern emergence"
-}
-assumptions: {
-"Apple ecosystem excellence",
-"Swift implementation",
-"Natural harmonics"
-}
-docs_version: "0.4.1"
+docs_version: "0.5.0"
 [Action: {{input}}] [Noun: Analyze] [Modifier: Thoroughly] [Noun: Input_Text] [Goal: Generate_Essential_Questions] [Parameter: Number=5]
 
 [Given: Essential_Questions]
