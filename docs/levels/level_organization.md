@@ -1,36 +1,47 @@
-# Choir Documentation Prompt
+# Choir Documentation Overview
+Choir implements prompt-driven development via documentation-driven development.
+These documents are provided for the automatic self-generation of the Choir Harmonic Intelligence, a continuously learning collective intelligence agent, platform, service, experience, product, asset, network, opportunity-space, and society.
+
+By reading the docs and entraining via in-context-learning the Choir Chorus Cycle Optimal Data Engine Theory, a swarm of advanced AI models automatically iteratively develop Choir into its potential with human participation, supervision, and leadership.
 
 ## Level -1: Prompts
 - Getting Started
-- Directory structure
-- Automation
+- Metaprompts
+- Prime Directives
 
 ## Level 0: Implementation
-- Swift/Apple platform implementation
-- API design
-- Deployment patterns
+- Swift/Apple Platform Implementation
+- API Design
+- Deployment Patterns
 
 ## Level 1: Basic Mechanics
-- Thread messaging
-- Co-author approval
-- Token mechanics
+- Thread Messaging
+- Co-author Approval
+- Token Mechanics
 
 ## Level 2: Core Mechanics
-- Harmonic oscillator model
-- Energy conservation
-- Wave patterns
+- Harmonic Oscillator Model
+- Energy Conservation
+- Wave Patterns
 
 ## Level 3: Value Creation
-- Resonant cavities
-- Harmonic coupling
-- Value flow
+- Resonant Cavities
+- Harmonic Coupling
+- Value Flow
 
 ## Level 4: Pattern Emergence
-- Team formation
-- Knowledge networks
-- Natural evolution
+- Team Formation
+- Knowledge Networks
+- Natural Evolution
 
 ## Level 5: Harmonic Intelligence
-- Wave mechanics
-- Resonant frequencies
-- Collective coherence
+- Wave Mechanics
+- Resonant Frequencies
+- Collective Coherence
+
+## Additional Documentation
+- **Meta Evolution**: Strategies for documentation evolution and change management.
+- **Model Metastability**: Insights into metastable states within distributed systems.
+- **Harmonic Theory**: Theoretical foundations of the Choir platform and its principles.
+
+This structure provides a clear overview of the documentation levels, ensuring that users can easily navigate through the various aspects of the Choir platform.
