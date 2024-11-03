@@ -11,7 +11,7 @@ assumptions: {
 "Swift implementation",
 "Natural harmonics"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 [Action: {{input}}] [Noun: Analyze] [Modifier: Thoroughly] [Noun: Input_Text] [Goal: Generate_Essential_Questions] [Parameter: Number=5]
 
 [Given: Essential_Questions]

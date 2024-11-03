@@ -11,7 +11,7 @@ assumptions: {
 "Actor isolation",
 "Event-driven flow"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Development Phases
 

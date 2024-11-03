@@ -11,7 +11,7 @@ assumptions: {
 "Network dynamics",
 "System understanding"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 You are being provided with the Choir codebase and documentation. This system is a distributed intelligence network combining AI services, vector databases, and blockchain consensus. Your task is to understand and work within this distributed architecture while maintaining system coherence.
 

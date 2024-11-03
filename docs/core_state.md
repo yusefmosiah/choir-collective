@@ -11,7 +11,7 @@ assumptions: {
 "Actor isolation",
 "Event-driven sync"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Chain State (Source of Truth)
 

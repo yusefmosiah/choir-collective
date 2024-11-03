@@ -24,7 +24,7 @@ assumptions: {
 "Swift implementation",
 "Natural harmonics"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 # The Intersection of Technology and Art in Documentation
 
@@ -150,7 +150,7 @@ assumptions: {
 "Actor isolation",
 "Distributed intelligence"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Domain Events
 
@@ -443,7 +443,7 @@ assumptions: {
 "Service coordination",
 "Collective intelligence"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Cycle Events
 
@@ -691,7 +691,7 @@ invariants: {
 "Data authority",
 "Event flow"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 The Choir system is built around a clear hierarchy of truth and a natural flow of events. At its foundation, the Solana blockchain serves as the authoritative source for all ownership and economic state - thread ownership, token balances, message hashes, and co-author lists. This ensures that the economic model, with its harmonic equity distribution and thermodynamic thread evolution, has an immutable and verifiable foundation.
 
@@ -735,7 +735,7 @@ assumptions: {
 "Event-driven flow",
 "Solana source of truth"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Economic Events
 
@@ -966,7 +966,7 @@ assumptions: {
 "Collective embeddings",
 "Network intelligence"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Vector Space
 
@@ -1242,7 +1242,7 @@ assumptions: {
 "Proper data hierarchy",
 "Event-based sync"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Source of Truth Pattern
 
@@ -1470,7 +1470,7 @@ assumptions: {
 "Actor isolation",
 "Event-driven sync"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Chain State (Source of Truth)
 

@@ -6,7 +6,7 @@ invariants: {
 "Pattern integrity",
 "Value resonance"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 The genius of Choir lies not in any single innovation but in how its pieces resonate together. By aligning with natural patterns of meaning, value, and collaboration, we create a system that evolves like a living thing.
 

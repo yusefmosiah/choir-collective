@@ -11,7 +11,7 @@ assumptions: {
 "Event-driven security",
 "Natural isolation"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Security Foundations
 

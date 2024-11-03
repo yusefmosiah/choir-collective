@@ -6,7 +6,7 @@ invariants: {
 "Data authority",
 "Event flow"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 The Choir system is built around a clear hierarchy of truth and a natural flow of events. At its foundation, the Solana blockchain serves as the authoritative source for all ownership and economic state - thread ownership, token balances, message hashes, and co-author lists. This ensures that the economic model, with its harmonic equity distribution and thermodynamic thread evolution, has an immutable and verifiable foundation.
 

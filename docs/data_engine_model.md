@@ -11,7 +11,7 @@ assumptions: {
 "Network synchronization",
 "Collective intelligence"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Core Engine Model
 

@@ -115,6 +115,8 @@
 │   └── config.gypi
 ├── docker-compose.yml
 ├── docs
+│   ├── Deploy_Render_Checklist.md
+│   ├── Harmonic_Theory.md
 │   ├── Impl_Security.md
 │   ├── Meta_Evolution.md
 │   ├── Model_Metastability.md
@@ -149,6 +151,7 @@
 │   ├── prompt_getting_started.md
 │   ├── prompt_reentry.md
 │   ├── prompt_summary_prompt.md
+│   ├── prompt_wake_up.md
 │   ├── reward_model.md
 │   ├── scripts
 │   │   ├── archive_web_stack.sh
@@ -258,4 +261,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-62 directories, 194 files
+62 directories, 197 files

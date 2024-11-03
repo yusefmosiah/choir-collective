@@ -11,7 +11,7 @@ assumptions: {
 "Local-first evolution",
 "Event-driven growth"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Core Evolution
 

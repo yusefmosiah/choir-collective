@@ -35,7 +35,7 @@ assumptions: {
 "Swift implementation",
 "Natural harmonics"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 EOH
 

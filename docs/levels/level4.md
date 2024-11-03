@@ -24,7 +24,7 @@ assumptions: {
 "Swift implementation",
 "Natural harmonics"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 # Documentation Evolution Strategy
 
 ## Documentation Layers
@@ -177,7 +177,7 @@ assumptions: {
 "Swift implementation",
 "Natural harmonics"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 # Metastability in Distributed Systems
 
@@ -192,7 +192,7 @@ assumptions: {
 "Network catalysts",
 "Pattern persistence"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Metastable Network States
 
@@ -357,7 +357,7 @@ assumptions: {
 "Swift implementation",
 "Natural harmonics"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 # Recursive Properties of the Documentation System
 

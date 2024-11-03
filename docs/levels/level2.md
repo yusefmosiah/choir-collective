@@ -24,7 +24,7 @@ assumptions: {
 "Event-driven security",
 "Natural isolation"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Security Foundations
 
@@ -204,7 +204,7 @@ assumptions: {
 "Swift implementation",
 "Natural harmonics"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 # State Distribution Across Systems
 
@@ -473,7 +473,7 @@ assumptions: {
 "Network synchronization",
 "Collective intelligence"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Core Engine Model
 
@@ -1183,7 +1183,7 @@ assumptions: {
 "Distributed processing",
 "Collective learning"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Core Architecture
 
@@ -1371,7 +1371,7 @@ assumptions: {
 "Local-first evolution",
 "Event-driven growth"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Core Evolution
 
@@ -1567,7 +1567,7 @@ assumptions: {
 "Actor isolation",
 "Event-driven flow"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Development Phases
 
@@ -1771,7 +1771,7 @@ assumptions: {
 "Network verification",
 "Chain authority"
 }
-docs_version: "0.4.0"
+docs_version: "0.4.1"
 
 ## Reward Events
 
