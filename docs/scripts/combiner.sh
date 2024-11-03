@@ -40,10 +40,12 @@ process_level() {
     echo "# Level ${level} Documentation" > "$output_file"
     echo -e "\n" >> "$output_file"
 
+    SPECIAL_FILES=("docs/prompt_wake_up.md" "docs/prompt_getting_started.md" "docs/prompt_reentry.md" "docs/prompt_organization.md" "docs/prompt_summary_prompt.md" "docs/prompt_chorus_cycle.md")
+
     # Special handling for level -1 (system files)
     if [ "$level" -eq -1 ]; then
         # for special_file in "docs/getting_started.md" "docs/tree.md" "docs/scripts/combiner.sh" "docs/scripts/update_tree.sh"; do
-        for special_file in  "docs/prompt_wake_up.md" "docs/prompt_getting_started.md" "docs/prompt_reentry.md" "docs/prompt_organization.md" "docs/prompt_summary_prompt.md"; do
+        for special_file in "${SPECIAL_FILES[@]}"; do
             if [ -f "$special_file" ]; then
                 echo -e "\n=== File: $special_file ===\n" >> "$output_file"
                 add_separator "$(basename "$special_file")" >> "$output_file"

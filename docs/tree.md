@@ -147,6 +147,7 @@
 │   │   ├── level4.md
 │   │   ├── level5.md
 │   │   └── level_organization.md
+│   ├── prompt_chorus_cycle.md
 │   ├── prompt_getting_started.md
 │   ├── prompt_reentry.md
 │   ├── prompt_summary_prompt.md
@@ -263,4 +264,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-62 directories, 199 files
+62 directories, 200 files
