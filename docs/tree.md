@@ -120,9 +120,6 @@
 │   ├── Meta_Evolution.md
 │   ├── Model_Foundation_Evolution.md
 │   ├── Model_Metastability.md
-│   ├── Model_Recursion.md
-│   ├── State_Boundaries.md
-│   ├── Tech_Arts_Intersection.md
 │   ├── combined
 │   ├── core_architecture.md
 │   ├── core_chorus.md
@@ -266,4 +263,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-62 directories, 202 files
+62 directories, 199 files
