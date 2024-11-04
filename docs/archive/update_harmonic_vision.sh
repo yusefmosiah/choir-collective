@@ -1,4 +1,3 @@
-#!/bin/bash
 # docs/scripts/update_harmonic_vision.sh
 
 # Use arrays for search and replace patterns
