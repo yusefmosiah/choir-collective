@@ -11,38 +11,41 @@ assumptions: {
 "Actor isolation",
 "Event-driven sync"
 }
-docs_version: "0.4.1"
+docs_version: "0.4.2"
 
 ## Chain State (Source of Truth)
 
-Solana program state:
+Blockchain program state:
 
 ```swift
 // Core chain state
 actor ChainState {
-    private let solana: SolanaConnection
+    private let web3: Web3
     private let eventStore: LocalEventStore
 
     // Thread state from chain
     func getThreadState(_ id: ThreadID) async throws -> ThreadState {
         // Get authoritative state from chain
-        let account = try await solana.getThreadAccount(id)
+        let contract = try await web3.contract(at: threadContractAddress)
+        let state = try await contract.method("getThread", parameters: [id]).call()
 
         return ThreadState(
             id: id,
-            coAuthors: account.coAuthors,
-            tokenBalance: account.balance,
-            messageHashes: account.messageHashes
+            coAuthors: state.coAuthors,
+            tokenBalance: state.balance,
+            temperature: state.temperature,
+            frequency: state.frequency,
+            messageHashes: state.messageHashes
         )
     }
 
     // Submit state changes to chain
     func submitStateChange(_ transaction: Transaction) async throws {
         // Submit to chain first
-        let signature = try await solana.submitTransaction(transaction)
+        let hash = try await web3.eth.sendRawTransaction(transaction)
 
         // Then emit local event for UI updates
-        try await eventStore.append(.chainStateChanged(signature))
+        try await eventStore.append(.chainStateChanged(hash))
     }
 }
 ```
@@ -54,13 +57,13 @@ Qdrant content storage:
 ```swift
 // Vector content state
 actor VectorState {
-    private let Qdrant: Qdrant
+    private let qdrant: Qdrant
     private let eventStore: LocalEventStore
 
     // Get content and embeddings
     func getMessage(_ hash: MessageHash) async throws -> Message {
         // Get authoritative content from Qdrant
-        let content = try await Qdrant.getMessage(hash)
+        let content = try await qdrant.getMessage(hash)
 
         // Emit local event for UI
         try await eventStore.append(.contentLoaded(hash))
@@ -71,7 +74,7 @@ actor VectorState {
     // Store new content
     func storeMessage(_ message: Message) async throws {
         // Store in Qdrant first
-        try await Qdrant.store(message)
+        try await qdrant.store(message)
 
         // Then emit local event
         try await eventStore.append(.contentStored(message.hash))
@@ -90,7 +93,7 @@ actor LocalEventStore {
     enum LocalEvent: Codable {
         // UI updates
         case contentLoaded(MessageHash)
-        case chainStateChanged(Signature)
+        case chainStateChanged(TxHash)
 
         // Sync status
         case syncStarted
@@ -99,7 +102,7 @@ actor LocalEventStore {
 
         // Offline queue
         case transactionQueued(Transaction)
-        case transactionSent(Signature)
+        case transactionSent(TxHash)
     }
 
     private var events: [LocalEvent] = []
@@ -164,18 +167,61 @@ class ThreadViewModel: ObservableObject {
 }
 ```
 
+## State Verification
+
+```swift
+// State verification
+actor StateVerifier {
+    private let chain: ChainState
+    private let vectors: VectorState
+
+    func verifyStateConsistency() async throws {
+        // Verify chain state integrity
+        let threads = try await chain.getAllThreads()
+        for thread in threads {
+            try await verifyThreadState(thread)
+        }
+
+        // Verify vector state integrity
+        let messages = try await vectors.getAllMessages()
+        for message in messages {
+            try await verifyMessageState(message)
+        }
+
+        // Verify cross-state consistency
+        try await verifyStateAlignment()
+    }
+
+    private func verifyThreadState(_ thread: ThreadState) async throws {
+        // Verify thermodynamic properties
+        guard thread.temperature > 0 else {
+            throw StateError.invalidTemperature
+        }
+        guard thread.frequency > 0 else {
+            throw StateError.invalidFrequency
+        }
+
+        // Verify energy conservation
+        let energy = thread.tokenBalance + thread.coAuthors.map { $0.balance }.sum()
+        guard energy == thread.initialEnergy else {
+            throw StateError.energyConservationViolated
+        }
+    }
+}
+```
+
 This implementation ensures:
 
-1. Chain state authority
-2. Vector content authority
+1. Clear authority hierarchy
+2. Clean state transitions
 3. Local coordination
-4. Clean UI updates
-5. Proper sync
+4. UI responsiveness
+5. State verification
 
 The system maintains:
 
-- Clear data hierarchy
-- Proper authority
-- UI responsiveness
-- Sync coordination
-- Debug capability
+- Source of truth clarity
+- Event-driven updates
+- Actor isolation
+- State consistency
+- System coherence

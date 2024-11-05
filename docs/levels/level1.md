@@ -24,7 +24,7 @@ assumptions: {
 "Actor isolation",
 "Distributed intelligence"
 }
-docs_version: "0.4.1"
+docs_version: "0.4.2"
 
 ## Domain Events
 
@@ -56,7 +56,7 @@ enum ChorusEvent: DomainEvent {
 enum EconomicEvent: DomainEvent {
     case stakeDeposited(amount: TokenAmount)
     case temperatureChanged(delta: Float)
-    case equityDistributed(shares: [PublicKey: Float])
+    case equityDistributed(shares: [Address: Float])
     case rewardsIssued(amount: TokenAmount)
 
     var id: UUID
@@ -64,16 +64,34 @@ enum EconomicEvent: DomainEvent {
     var metadata: EventMetadata
 }
 
-// Knowledge events
-enum KnowledgeEvent: DomainEvent {
-    case vectorStored(embedding: [Float])
-    case citationRecorded(source: Prior, target: Message)
-    case linkStrengthened(from: Prior, to: Prior, weight: Float)
-    case graphUpdated(nodes: Int, edges: Int)
+// Chain service updated for EVM
+actor ChainService {
+    private let web3: Web3  // Using web3.swift
+    private let eventStore: EventStore
 
-    var id: UUID
-    var timestamp: Date
-    var metadata: EventMetadata
+    // Update chain interactions for EVM
+    func submitTransaction(_ tx: Transaction) async throws -> TxHash {
+        // Submit to EVM chain
+        let hash = try await web3.eth.sendRawTransaction(tx)
+
+        // Emit local event
+        try await eventStore.append(.chainStateChanged(hash))
+
+        return hash
+    }
+
+    func getThreadState(_ id: ThreadID) async throws -> ThreadState {
+        // Get state from EVM smart contract
+        let contract = try await web3.contract(at: threadContractAddress)
+        let state = try await contract.method("getThread", parameters: [id]).call()
+
+        return ThreadState(
+            id: id,
+            coAuthors: state.coAuthors,
+            tokenBalance: state.balance,
+            messageHashes: state.messageHashes
+        )
+    }
 }
 ```
 
@@ -565,9 +583,9 @@ invariants: {
 "Data authority",
 "Event flow"
 }
-docs_version: "0.4.1"
+docs_version: "0.4.2"
 
-The Choir system is built around a clear hierarchy of truth and a natural flow of events. At its foundation, the Solana blockchain serves as the authoritative source for all ownership and economic state - thread ownership, token balances, message hashes, and co-author lists. This ensures that the economic model, with its harmonic equity distribution and thermodynamic thread evolution, has an immutable and verifiable foundation.
+The Choir system is built around a clear hierarchy of truth and a natural flow of events. At its foundation, the blockchain serves as the authoritative source for all ownership and economic state - thread ownership, token balances, message hashes, and co-author lists. This ensures that the economic model, with its harmonic equity distribution and thermodynamic thread evolution, has an immutable and verifiable foundation.
 
 Alongside the blockchain, Qdrant acts as the authoritative source for all content and semantic relationships. It stores the actual message content, embeddings, and the growing network of citations and semantic links. This separation of concerns allows the system to maintain both economic integrity through the blockchain and rich semantic relationships through the vector database.
 
@@ -607,9 +625,9 @@ invariants: {
 assumptions: {
 "Swift concurrency",
 "Event-driven flow",
-"Solana source of truth"
+"EVM integration"
 }
-docs_version: "0.4.1"
+docs_version: "0.4.2"
 
 ## Economic Events
 
@@ -627,11 +645,11 @@ enum EconomicEvent: DomainEvent {
     case temperatureDecreased(threadId: ThreadID, delta: Float)
 
     // Equity events (from chain)
-    case equityDistributed(threadId: ThreadID, shares: [PublicKey: Float])
-    case equityDiluted(threadId: ThreadID, newShares: [PublicKey: Float])
+    case equityDistributed(threadId: ThreadID, shares: [Address: Float])
+    case equityDiluted(threadId: ThreadID, newShares: [Address: Float])
 
     // Reward events (from chain)
-    case rewardsIssued(amount: TokenAmount, recipients: [PublicKey])
+    case rewardsIssued(amount: TokenAmount, recipients: [Address])
     case treasuryUpdated(newBalance: TokenAmount)
 
     var id: UUID
@@ -642,34 +660,35 @@ enum EconomicEvent: DomainEvent {
 
 ## Chain State Authority
 
-Solana as source of truth:
+EVM as source of truth:
 
 ```swift
 // Economic state from chain
 actor ChainStateManager {
-    private let solana: SolanaConnection
+    private let web3: Web3
     private let eventStore: EventStore
 
     // Get thread economics from chain
     func getThreadEconomics(_ id: ThreadID) async throws -> ThreadEconomics {
-        // Get authoritative state from chain
-        let account = try await solana.getThreadAccount(id)
+        // Get authoritative state from smart contract
+        let contract = try await web3.contract(at: threadContractAddress)
+        let state = try await contract.method("getThread", parameters: [id]).call()
 
         return ThreadEconomics(
-            temperature: account.temperature,
-            energy: account.energy,
-            tokenBalance: account.balance,
-            equityShares: account.equityMap
+            temperature: state.temperature,
+            energy: state.energy,
+            tokenBalance: state.balance,
+            equityShares: state.equityMap
         )
     }
 
     // Submit economic transaction
     func submitTransaction(_ tx: Transaction) async throws {
         // Submit to chain first
-        let signature = try await solana.submitTransaction(tx)
+        let hash = try await web3.eth.sendRawTransaction(tx)
 
         // Then emit events based on transaction type
-        switch tx.instruction {
+        switch tx.data {
         case .depositStake(let amount):
             try await eventStore.append(.stakeDeposited(
                 threadId: tx.threadId,
@@ -1344,38 +1363,41 @@ assumptions: {
 "Actor isolation",
 "Event-driven sync"
 }
-docs_version: "0.4.1"
+docs_version: "0.4.2"
 
 ## Chain State (Source of Truth)
 
-Solana program state:
+Blockchain program state:
 
 ```swift
 // Core chain state
 actor ChainState {
-    private let solana: SolanaConnection
+    private let web3: Web3
     private let eventStore: LocalEventStore
 
     // Thread state from chain
     func getThreadState(_ id: ThreadID) async throws -> ThreadState {
         // Get authoritative state from chain
-        let account = try await solana.getThreadAccount(id)
+        let contract = try await web3.contract(at: threadContractAddress)
+        let state = try await contract.method("getThread", parameters: [id]).call()
 
         return ThreadState(
             id: id,
-            coAuthors: account.coAuthors,
-            tokenBalance: account.balance,
-            messageHashes: account.messageHashes
+            coAuthors: state.coAuthors,
+            tokenBalance: state.balance,
+            temperature: state.temperature,
+            frequency: state.frequency,
+            messageHashes: state.messageHashes
         )
     }
 
     // Submit state changes to chain
     func submitStateChange(_ transaction: Transaction) async throws {
         // Submit to chain first
-        let signature = try await solana.submitTransaction(transaction)
+        let hash = try await web3.eth.sendRawTransaction(transaction)
 
         // Then emit local event for UI updates
-        try await eventStore.append(.chainStateChanged(signature))
+        try await eventStore.append(.chainStateChanged(hash))
     }
 }
 ```
@@ -1387,13 +1409,13 @@ Qdrant content storage:
 ```swift
 // Vector content state
 actor VectorState {
-    private let Qdrant: Qdrant
+    private let qdrant: Qdrant
     private let eventStore: LocalEventStore
 
     // Get content and embeddings
     func getMessage(_ hash: MessageHash) async throws -> Message {
         // Get authoritative content from Qdrant
-        let content = try await Qdrant.getMessage(hash)
+        let content = try await qdrant.getMessage(hash)
 
         // Emit local event for UI
         try await eventStore.append(.contentLoaded(hash))
@@ -1404,7 +1426,7 @@ actor VectorState {
     // Store new content
     func storeMessage(_ message: Message) async throws {
         // Store in Qdrant first
-        try await Qdrant.store(message)
+        try await qdrant.store(message)
 
         // Then emit local event
         try await eventStore.append(.contentStored(message.hash))
@@ -1423,7 +1445,7 @@ actor LocalEventStore {
     enum LocalEvent: Codable {
         // UI updates
         case contentLoaded(MessageHash)
-        case chainStateChanged(Signature)
+        case chainStateChanged(TxHash)
 
         // Sync status
         case syncStarted
@@ -1432,7 +1454,7 @@ actor LocalEventStore {
 
         // Offline queue
         case transactionQueued(Transaction)
-        case transactionSent(Signature)
+        case transactionSent(TxHash)
     }
 
     private var events: [LocalEvent] = []
@@ -1497,21 +1519,64 @@ class ThreadViewModel: ObservableObject {
 }
 ```
 
+## State Verification
+
+```swift
+// State verification
+actor StateVerifier {
+    private let chain: ChainState
+    private let vectors: VectorState
+
+    func verifyStateConsistency() async throws {
+        // Verify chain state integrity
+        let threads = try await chain.getAllThreads()
+        for thread in threads {
+            try await verifyThreadState(thread)
+        }
+
+        // Verify vector state integrity
+        let messages = try await vectors.getAllMessages()
+        for message in messages {
+            try await verifyMessageState(message)
+        }
+
+        // Verify cross-state consistency
+        try await verifyStateAlignment()
+    }
+
+    private func verifyThreadState(_ thread: ThreadState) async throws {
+        // Verify thermodynamic properties
+        guard thread.temperature > 0 else {
+            throw StateError.invalidTemperature
+        }
+        guard thread.frequency > 0 else {
+            throw StateError.invalidFrequency
+        }
+
+        // Verify energy conservation
+        let energy = thread.tokenBalance + thread.coAuthors.map { $0.balance }.sum()
+        guard energy == thread.initialEnergy else {
+            throw StateError.energyConservationViolated
+        }
+    }
+}
+```
+
 This implementation ensures:
 
-1. Chain state authority
-2. Vector content authority
+1. Clear authority hierarchy
+2. Clean state transitions
 3. Local coordination
-4. Clean UI updates
-5. Proper sync
+4. UI responsiveness
+5. State verification
 
 The system maintains:
 
-- Clear data hierarchy
-- Proper authority
-- UI responsiveness
-- Sync coordination
-- Debug capability
+- Source of truth clarity
+- Event-driven updates
+- Actor isolation
+- State consistency
+- System coherence
 
 === File: docs/core_state_transitions.md ===
 
@@ -1535,237 +1600,248 @@ assumptions: {
 "Phase stability",
 "Heat flow patterns"
 }
-docs_version: "0.5.0"
+docs_version: "0.5.1"
 
 ## Core State Transitions
 
 ### 1. Thread Creation
 
-```swift
-func createThread(creator: PublicKey, threadID: UUID) throws -> Thread {
-    // Initial Thermodynamic State
-    let threadPDA = derivePDA(seed: [THREAD_SEED, threadID])
-    let initialState = Thread(
-        coAuthors: [creator],          // N = 1
-        energy: 0,                     // E = 0
-        temperature: T0,               // Initial temperature
-        frequency: ω0,                 // Initial frequency
-        createdAt: Date()
-    )
+Initial state creation follows quantum principles:
 
-    emit(ThreadCreated(threadID: threadID, creator: creator, initialState: initialState))
-    return threadPDA
+```swift
+struct ThreadState {
+    let coAuthors: [Address]
+    let energy: UInt256      // Total thread energy
+    let temperature: UInt256  // E/N ratio
+    let frequency: UInt256    // Organizational coherence
+    let messageHashes: [Hash]
+    let createdAt: UInt256
+}
+
+func createThread(creator: Address) -> ThreadState {
+    return ThreadState(
+        coAuthors: [creator],
+        energy: 0,            // Ground state
+        temperature: T0,      // Initial temperature
+        frequency: ω0,        // Initial frequency
+        messageHashes: [],
+        createdAt: timestamp
+    )
 }
 ```
 
 ### 2. Message Submission
 
+Message submission follows energy quantization:
+
 ```swift
-func submitMessage(author: PublicKey, threadID: UUID, content: String) throws -> Hash {
-    let thread = getThreadState(threadID)
+func submitMessage(content: String, thread: ThreadState) -> MessageSubmission {
+    // Energy Requirements using quantum harmonic oscillator
+    let ω = thread.frequency
+    let T = thread.temperature
+    let requiredStake = calculateStakeRequirement(ω, T)
 
-    // Energy Requirements using quantum harmonic oscillator formula
-    let ω = calculateFrequency(thread)
-    let T = calculateTemperature(thread)
-    let requiredStake = calculateStakeRequirement(thread, ω, T)
+    // E(n) = ℏω(n + 1/2)
+    let messageHash = hash(content)
 
-    switch checkAuthorStatus(author, threadID) {
-    case .notCoAuthor:
-        verifyStakeAmount(requiredStake)
-        createSpec(threadID, author, contentHash, requiredStake)
-    case .coAuthor:
-        storeMessage(threadID, contentHash)
-        updateFrequency(thread)
-    }
+    return MessageSubmission(
+        hash: messageHash,
+        stake: requiredStake,
+        energy: calculateEnergy(thread.frequency, thread.tokenBalance)
+    )
 }
 ```
 
 ### 3. Approval Processing
 
+State evolution through approval decisions:
+
 ```swift
-func processApproval(decision: Decision) throws {
+enum ApprovalOutcome {
+    case reject     // Temperature increases
+    case split      // Energy splits between treasury and thread
+    case approve    // Energy distributes to approvers
+}
+
+func processApproval(decision: ApprovalOutcome, thread: inout ThreadState) {
     switch decision {
     case .reject:
-        // Temperature increases
-        thread.energy += stakeAmount // Stake flows to thread
+        // Temperature increases through energy conservation
+        thread.energy += stakeAmount
         thread.temperature = thread.energy / thread.coAuthors.count
-        // Frequency unchanged
 
-    case .splitDecision:
-        // Calculate shares based on voter counts
-        let totalVoters = decision.approvers.count + decision.deniers.count
-        let approverShare = (stakeAmount * decision.approvers.count) / totalVoters
+    case .split(let approvers, let deniers):
+        // Energy splits according to vote distribution
+        let totalVoters = approvers.count + deniers.count
+        let approverShare = (stakeAmount * approvers.count) / totalVoters
         let denierShare = stakeAmount - approverShare
 
-        // Approvers' share to Treasury
-        treasury.balance += approverShare
-        // Deniers' share to thread
+        // Distribute energy
+        treasury += approverShare
         thread.energy += denierShare
-        // Temperature updated from new thread energy
         thread.temperature = thread.energy / thread.coAuthors.count
 
     case .approve:
-        // Distribute stake to approvers
-        distributeToApprovers(stakeAmount)
-        addCoAuthor(author)
-        // Temperature moderates through co-author addition
+        // Energy distributes while preserving total
+        distributeEnergy(stakeAmount, to: approvers)
+        thread.coAuthors.append(author)
         thread.temperature = thread.energy / thread.coAuthors.count
-        // Frequency increases
-        thread.frequency = calculateFrequency(thread)
+        thread.frequency = calculateNewFrequency(thread)
     }
+}
+```
+
+### 4. Temperature Evolution
+
+Natural cooling follows thermodynamic principles:
+
+```swift
+func evolveTemperature(thread: inout ThreadState, timeDelta: UInt256) {
+    // T = T0/√(1 + t/τ)
+    let coolingFactor = sqrt(1000 + timeDelta / 86400)
+    thread.temperature = (thread.temperature * 1000) / coolingFactor
+}
+```
+
+### 5. Frequency Management
+
+Frequency evolution through collective organization:
+
+```swift
+func updateFrequency(thread: inout ThreadState) {
+    let messageMode = thread.messageRate / sqrt(thread.coAuthors.count)
+    let valueMode = log(1 + thread.energy / thread.coAuthors.count)
+    let coupling = 1.0 / thread.coAuthors.count
+
+    thread.frequency = sqrt(
+        (messageMode² + valueMode²) / 2.0 +
+        coupling * thread.coAuthors.count
+    )
 }
 ```
 
 ## Reward State Transitions
 
-### 1. New Message Reward
+### 1. New Message Rewards
+
+Message rewards follow time-based decay:
 
 ```swift
-func processNewMessageReward(message: Message) throws {
-    // Calculate time-based reward using decay function
-    let elapsed = currentTime - programStart
-    let reward = calculateDecayReward(elapsed, messageVolume)
+func processNewMessageReward(message: Message, timestamp: UInt256) -> TokenAmount {
+    // R(t) = R_total × k/(1 + kt)ln(1 + kT)
+    let k = 204    // 2.04 scaled by 100
+    let t = timestamp - LAUNCH_TIME
+    let T = 4 years
 
-    // Distribute to author
-    distributeToAuthor(message.author, reward)
+    let reward = (TOTAL_SUPPLY * k * log(1 + k * T)) /
+        ((1 + k * t) * 1000)
 
-    // Update state
-    updateDistributedTotal(reward)
-    updateRemainingAllocation(reward)
-    emitRewardEvent(message, reward)
+    return TokenAmount(reward)
 }
 ```
 
-### 2. Prior Reward
+### 2. Prior Citation Rewards
+
+Prior rewards strengthen thread coupling:
 
 ```swift
 func processPriorReward(
-    sourceThread: Thread,
-    targetThread: Thread,
+    sourceThread: ThreadState,
+    targetThread: ThreadState,
     priorHash: Hash,
-    qualityScore: Double
-) throws {
-    // Verify prior exists and is public
-    require(sourceThread.messages.contains(priorHash))
-    require(isMessagePublic(priorHash))
+    qualityScore: UInt256
+) -> TokenAmount {
+    // Verify citation validity
+    require(sourceThread.messageHashes.contains(priorHash))
 
-    // Check cooldown period
-    require(elapsedSinceLastReward(priorHash) >= COOLDOWN)
+    // Calculate reward using treasury balance
+    // V(p) = B_t × Q(p)/∑Q(i)
+    let reward = (treasury.balance * qualityScore) / TOTAL_QUALITY
 
-    // Calculate thread reward
-    let reward = calculatePriorReward(qualityScore, treasury.balance)
+    // Update thread coupling
+    strengthenThreadCoupling(sourceThread, targetThread)
 
-    // Transfer from treasury to thread
-    transferFromTreasury(reward, to: targetThread)
+    return TokenAmount(reward)
+}
 
-    // Update state
-    updatePriorRecord(priorHash, reward)
-    updateTreasuryBalance(reward)
-    emitPriorEvent(sourceThread, targetThread, reward)
+func strengthenThreadCoupling(_ source: inout ThreadState, _ target: inout ThreadState) {
+    // Citations strengthen both threads through frequency coupling
+    let couplingFactor = 50 // 0.05 in fixed point
+    source.frequency += (target.frequency * couplingFactor) / 1000
+    target.frequency += (source.frequency * couplingFactor) / 1000
 }
 ```
 
-## Reward Properties
+### 3. Treasury Management
 
-### 1. New Message Conservation
-
-```
-PROPERTY new_message_conservation:
-  FORALL reward IN new_message_rewards:
-    reward <= remaining_allocation AND
-    total_distributed + reward <= TOTAL_ALLOCATION AND
-    follows_decay_curve(reward)
-```
-
-### 2. Prior Reward Stability
-
-```
-PROPERTY prior_reward_stability:
-  FORALL reward IN prior_rewards:
-    reward <= treasury.balance AND
-    respects_cooldown(reward) AND
-    strengthens_thread_cavity(reward)
-```
-
-## Combined State Evolution
-
-The system maintains coherence across all state transitions:
-
-1. **Message Flow**
-   - Submission → Approval/Denial → Reward
-   - Each stage preserves invariants
-   - Energy conserved throughout
-   - Phase relationships maintained
-
-2. **Value Flow**
-   - Individual rewards (approvals, new messages)
-   - Collective rewards (denials, prior rewards)
-   - Treasury coupling (split decisions)
-   - System-wide coherence
-
-3. **Reward Flow**
-   - Time-based decay (new messages)
-   - Quality-weighted distribution (priors)
-   - Treasury sustainability
-   - Thread cavity strengthening
-
-## State Verification
+Treasury balance evolution:
 
 ```swift
-func verifyThermodynamicState(thread: Thread) throws -> Bool {
-    guard thread.energy >= 0 else { throw ThermodynamicError.energyConservationViolation }
-    guard thread.temperature > 0 else { throw ThermodynamicError.temperatureInstability }
-    guard thread.frequency > 0 else { throw ThermodynamicError.frequencyDecoherence }
-    guard energyConserved(thread) else { throw ThermodynamicError.energyConservationViolation }
-    return true
+func updateTreasury(event: RewardEvent) {
+    switch event {
+    case .splitDecision(let approverShare):
+        treasury.balance += approverShare
+
+    case .priorReward(let amount):
+        treasury.balance -= amount
+
+    case .systemReward(let amount):
+        treasury.balance += amount
+    }
+
+    // Verify treasury remains solvent
+    require(treasury.balance >= MINIMUM_BALANCE)
 }
 ```
 
-## Temperature Evolution
+## System Properties
+
+### 1. Energy Conservation
 
 ```swift
-func evolveTemperature(thread: Thread, timeDelta: TimeInterval) {
-    // Natural cooling over time
-    let coolingFactor = 1 + sqrt(timeDelta / (86400) * Double(thread.coAuthors.count))
-    thread.temperature /= coolingFactor
+property EnergyConservation {
+    invariant: totalSystemEnergy == constant
+    where: totalSystemEnergy = threads.sum(\.energy) + treasury
 }
 ```
 
-## Frequency Management
+### 2. Temperature Stability
 
 ```swift
-func updateFrequency(thread: Thread) {
-    let messageMode = thread.messageRate / sqrt(Double(thread.coAuthors.count))
-    let valueMode = log(1 + thread.energy / Double(thread.coAuthors.count))
-    let coupling = 1.0 / Double(thread.coAuthors.count)
+property TemperatureStability {
+    invariant: thread.temperature > 0
+    invariant: thread.temperature == thread.energy / thread.coAuthors.count
+}
+```
 
-    thread.frequency = sqrt(
-        (pow(messageMode, 2) + pow(valueMode, 2)) / 2.0 +
-        coupling * Double(thread.coAuthors.count)
-    )
+### 3. Frequency Coherence
+
+```swift
+property FrequencyCoherence {
+    invariant: thread.frequency > 0
+    invariant: thread.frequency increases with organization
 }
 ```
 
 ## Error Handling
 
 ```swift
-enum ThermodynamicError: Error {
+enum StateTransitionError {
     case energyConservationViolation
     case temperatureInstability
     case frequencyDecoherence
     case phaseTransitionFailure
 }
 
-func handleError(_ error: ThermodynamicError) -> Recovery {
-    switch error {
-    case .energyConservationViolation:
-        recomputeEnergy()
-    case .temperatureInstability:
-        stabilizeTemperature()
-    case .frequencyDecoherence:
-        realignFrequency()
-    case .phaseTransitionFailure:
-        reverseTransition()
+func verifyStateTransition(from: ThreadState, to: ThreadState) throws {
+    guard to.energy >= 0 else {
+        throw StateTransitionError.energyConservationViolation
+    }
+    guard to.temperature > 0 else {
+        throw StateTransitionError.temperatureInstability
+    }
+    guard to.frequency > 0 else {
+        throw StateTransitionError.frequencyDecoherence
     }
 }
 ```
@@ -1773,13 +1849,27 @@ func handleError(_ error: ThermodynamicError) -> Recovery {
 ## Monitoring Points
 
 1. **Thermodynamic Health**
-   - Energy conservation
-   - Temperature stability
-   - Frequency coherence
-   - Phase transition success
+   - Energy conservation across transitions
+   - Temperature evolution patterns
+   - Frequency stability metrics
+   - Phase transition success rates
 
-2. **Performance Metrics**
+2. **System Metrics**
    - Heat flow efficiency
-   - Frequency stability
-   - Phase transition speed
-   - System entropy
+   - Organization coherence
+   - Value distribution patterns
+   - Network effects
+
+This model ensures:
+- Pure state transition logic
+- Energy conservation
+- Natural evolution
+- System stability
+- Pattern emergence
+
+The system maintains:
+- Thermodynamic principles
+- Phase relationships
+- Value coherence
+- Natural selection
+- Collective organization

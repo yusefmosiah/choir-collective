@@ -49,14 +49,16 @@
 │   ├── requirements.txt
 │   └── tests
 │       └── test_main.py
+├── contracts
+│   ├── ChoirToken.sol
+│   ├── MessageApproval.sol
+│   └── Thread.sol
 ├── docker-compose.yml
 ├── docs
-│   ├── Deploy_Render_Checklist.md
 │   ├── Impl_Security.md
 │   ├── Meta_Evolution.md
 │   ├── Model_Foundation_Evolution.md
 │   ├── Model_Metastability.md
-│   ├── Prompt_Reentry.md
 │   ├── core_architecture.md
 │   ├── core_chorus.md
 │   ├── core_core.md
@@ -85,6 +87,7 @@
 │   │   └── level_organization.md
 │   ├── prompt_chorus_cycle.md
 │   ├── prompt_getting_started.md
+│   ├── prompt_reentry.md
 │   ├── prompt_summary_prompt.md
 │   ├── prompt_wake_up.md
 │   ├── reward_model.md
@@ -186,4 +189,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-49 directories, 135 files
+50 directories, 137 files

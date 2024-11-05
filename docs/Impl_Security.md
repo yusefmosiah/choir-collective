@@ -19,7 +19,7 @@ The security model follows natural system boundaries and flows:
 
 Chain Authority
 
-- Solana state is authoritative for ownership and tokens
+- Blockchain state is authoritative for ownership and tokens
 - Thread ownership through PDAs
 - Token custody through program accounts
 - Co-author lists verified on-chain

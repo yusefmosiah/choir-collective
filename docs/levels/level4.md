@@ -41,7 +41,7 @@ docs_version: "0.4.1"
    - System boundaries
    - State ownership
    - Integration points
-   - Example: "Solana owns ownership state, Qdrant owns content"
+   - Example: "Blockchain owns ownership state, Qdrant owns content"
 
 3. **Implementation Layer**
    - Specific flows

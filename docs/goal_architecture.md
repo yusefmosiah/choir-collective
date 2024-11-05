@@ -35,7 +35,7 @@ Service Isolation
 
 Chain Authority
 
-- Solana consensus for:
+- Blockchain consensus for:
   - Thread ownership
   - Token balances
   - Message hashes

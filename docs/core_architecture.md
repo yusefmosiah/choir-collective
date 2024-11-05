@@ -11,7 +11,7 @@ assumptions: {
 "Actor isolation",
 "Distributed intelligence"
 }
-docs_version: "0.4.1"
+docs_version: "0.4.2"
 
 ## Domain Events
 
@@ -43,7 +43,7 @@ enum ChorusEvent: DomainEvent {
 enum EconomicEvent: DomainEvent {
     case stakeDeposited(amount: TokenAmount)
     case temperatureChanged(delta: Float)
-    case equityDistributed(shares: [PublicKey: Float])
+    case equityDistributed(shares: [Address: Float])
     case rewardsIssued(amount: TokenAmount)
 
     var id: UUID
@@ -51,16 +51,34 @@ enum EconomicEvent: DomainEvent {
     var metadata: EventMetadata
 }
 
-// Knowledge events
-enum KnowledgeEvent: DomainEvent {
-    case vectorStored(embedding: [Float])
-    case citationRecorded(source: Prior, target: Message)
-    case linkStrengthened(from: Prior, to: Prior, weight: Float)
-    case graphUpdated(nodes: Int, edges: Int)
+// Chain service updated for EVM
+actor ChainService {
+    private let web3: Web3  // Using web3.swift
+    private let eventStore: EventStore
 
-    var id: UUID
-    var timestamp: Date
-    var metadata: EventMetadata
+    // Update chain interactions for EVM
+    func submitTransaction(_ tx: Transaction) async throws -> TxHash {
+        // Submit to EVM chain
+        let hash = try await web3.eth.sendRawTransaction(tx)
+
+        // Emit local event
+        try await eventStore.append(.chainStateChanged(hash))
+
+        return hash
+    }
+
+    func getThreadState(_ id: ThreadID) async throws -> ThreadState {
+        // Get state from EVM smart contract
+        let contract = try await web3.contract(at: threadContractAddress)
+        let state = try await contract.method("getThread", parameters: [id]).call()
+
+        return ThreadState(
+            id: id,
+            coAuthors: state.coAuthors,
+            tokenBalance: state.balance,
+            messageHashes: state.messageHashes
+        )
+    }
 }
 ```
 

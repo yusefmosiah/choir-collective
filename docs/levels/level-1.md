@@ -81,7 +81,7 @@ prompt_getting_started.md
 ```swift
 // Package.swift
 dependencies: [
-    .package(url: "https://github.com/p2p-org/solana-swift", from: "5.0.0")
+    .package(url: "https://github.com/argentlabs/web3.swift", from: "1.1.0")
 ]
 ```
 

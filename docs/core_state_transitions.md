@@ -11,237 +11,248 @@ assumptions: {
 "Phase stability",
 "Heat flow patterns"
 }
-docs_version: "0.5.0"
+docs_version: "0.5.1"
 
 ## Core State Transitions
 
 ### 1. Thread Creation
 
-```swift
-func createThread(creator: PublicKey, threadID: UUID) throws -> Thread {
-    // Initial Thermodynamic State
-    let threadPDA = derivePDA(seed: [THREAD_SEED, threadID])
-    let initialState = Thread(
-        coAuthors: [creator],          // N = 1
-        energy: 0,                     // E = 0
-        temperature: T0,               // Initial temperature
-        frequency: ω0,                 // Initial frequency
-        createdAt: Date()
-    )
+Initial state creation follows quantum principles:
 
-    emit(ThreadCreated(threadID: threadID, creator: creator, initialState: initialState))
-    return threadPDA
+```swift
+struct ThreadState {
+    let coAuthors: [Address]
+    let energy: UInt256      // Total thread energy
+    let temperature: UInt256  // E/N ratio
+    let frequency: UInt256    // Organizational coherence
+    let messageHashes: [Hash]
+    let createdAt: UInt256
+}
+
+func createThread(creator: Address) -> ThreadState {
+    return ThreadState(
+        coAuthors: [creator],
+        energy: 0,            // Ground state
+        temperature: T0,      // Initial temperature
+        frequency: ω0,        // Initial frequency
+        messageHashes: [],
+        createdAt: timestamp
+    )
 }
 ```
 
 ### 2. Message Submission
 
+Message submission follows energy quantization:
+
 ```swift
-func submitMessage(author: PublicKey, threadID: UUID, content: String) throws -> Hash {
-    let thread = getThreadState(threadID)
+func submitMessage(content: String, thread: ThreadState) -> MessageSubmission {
+    // Energy Requirements using quantum harmonic oscillator
+    let ω = thread.frequency
+    let T = thread.temperature
+    let requiredStake = calculateStakeRequirement(ω, T)
 
-    // Energy Requirements using quantum harmonic oscillator formula
-    let ω = calculateFrequency(thread)
-    let T = calculateTemperature(thread)
-    let requiredStake = calculateStakeRequirement(thread, ω, T)
+    // E(n) = ℏω(n + 1/2)
+    let messageHash = hash(content)
 
-    switch checkAuthorStatus(author, threadID) {
-    case .notCoAuthor:
-        verifyStakeAmount(requiredStake)
-        createSpec(threadID, author, contentHash, requiredStake)
-    case .coAuthor:
-        storeMessage(threadID, contentHash)
-        updateFrequency(thread)
-    }
+    return MessageSubmission(
+        hash: messageHash,
+        stake: requiredStake,
+        energy: calculateEnergy(thread.frequency, thread.tokenBalance)
+    )
 }
 ```
 
 ### 3. Approval Processing
 
+State evolution through approval decisions:
+
 ```swift
-func processApproval(decision: Decision) throws {
+enum ApprovalOutcome {
+    case reject     // Temperature increases
+    case split      // Energy splits between treasury and thread
+    case approve    // Energy distributes to approvers
+}
+
+func processApproval(decision: ApprovalOutcome, thread: inout ThreadState) {
     switch decision {
     case .reject:
-        // Temperature increases
-        thread.energy += stakeAmount // Stake flows to thread
+        // Temperature increases through energy conservation
+        thread.energy += stakeAmount
         thread.temperature = thread.energy / thread.coAuthors.count
-        // Frequency unchanged
 
-    case .splitDecision:
-        // Calculate shares based on voter counts
-        let totalVoters = decision.approvers.count + decision.deniers.count
-        let approverShare = (stakeAmount * decision.approvers.count) / totalVoters
+    case .split(let approvers, let deniers):
+        // Energy splits according to vote distribution
+        let totalVoters = approvers.count + deniers.count
+        let approverShare = (stakeAmount * approvers.count) / totalVoters
         let denierShare = stakeAmount - approverShare
 
-        // Approvers' share to Treasury
-        treasury.balance += approverShare
-        // Deniers' share to thread
+        // Distribute energy
+        treasury += approverShare
         thread.energy += denierShare
-        // Temperature updated from new thread energy
         thread.temperature = thread.energy / thread.coAuthors.count
 
     case .approve:
-        // Distribute stake to approvers
-        distributeToApprovers(stakeAmount)
-        addCoAuthor(author)
-        // Temperature moderates through co-author addition
+        // Energy distributes while preserving total
+        distributeEnergy(stakeAmount, to: approvers)
+        thread.coAuthors.append(author)
         thread.temperature = thread.energy / thread.coAuthors.count
-        // Frequency increases
-        thread.frequency = calculateFrequency(thread)
+        thread.frequency = calculateNewFrequency(thread)
     }
+}
+```
+
+### 4. Temperature Evolution
+
+Natural cooling follows thermodynamic principles:
+
+```swift
+func evolveTemperature(thread: inout ThreadState, timeDelta: UInt256) {
+    // T = T0/√(1 + t/τ)
+    let coolingFactor = sqrt(1000 + timeDelta / 86400)
+    thread.temperature = (thread.temperature * 1000) / coolingFactor
+}
+```
+
+### 5. Frequency Management
+
+Frequency evolution through collective organization:
+
+```swift
+func updateFrequency(thread: inout ThreadState) {
+    let messageMode = thread.messageRate / sqrt(thread.coAuthors.count)
+    let valueMode = log(1 + thread.energy / thread.coAuthors.count)
+    let coupling = 1.0 / thread.coAuthors.count
+
+    thread.frequency = sqrt(
+        (messageMode² + valueMode²) / 2.0 +
+        coupling * thread.coAuthors.count
+    )
 }
 ```
 
 ## Reward State Transitions
 
-### 1. New Message Reward
+### 1. New Message Rewards
+
+Message rewards follow time-based decay:
 
 ```swift
-func processNewMessageReward(message: Message) throws {
-    // Calculate time-based reward using decay function
-    let elapsed = currentTime - programStart
-    let reward = calculateDecayReward(elapsed, messageVolume)
+func processNewMessageReward(message: Message, timestamp: UInt256) -> TokenAmount {
+    // R(t) = R_total × k/(1 + kt)ln(1 + kT)
+    let k = 204    // 2.04 scaled by 100
+    let t = timestamp - LAUNCH_TIME
+    let T = 4 years
 
-    // Distribute to author
-    distributeToAuthor(message.author, reward)
+    let reward = (TOTAL_SUPPLY * k * log(1 + k * T)) /
+        ((1 + k * t) * 1000)
 
-    // Update state
-    updateDistributedTotal(reward)
-    updateRemainingAllocation(reward)
-    emitRewardEvent(message, reward)
+    return TokenAmount(reward)
 }
 ```
 
-### 2. Prior Reward
+### 2. Prior Citation Rewards
+
+Prior rewards strengthen thread coupling:
 
 ```swift
 func processPriorReward(
-    sourceThread: Thread,
-    targetThread: Thread,
+    sourceThread: ThreadState,
+    targetThread: ThreadState,
     priorHash: Hash,
-    qualityScore: Double
-) throws {
-    // Verify prior exists and is public
-    require(sourceThread.messages.contains(priorHash))
-    require(isMessagePublic(priorHash))
+    qualityScore: UInt256
+) -> TokenAmount {
+    // Verify citation validity
+    require(sourceThread.messageHashes.contains(priorHash))
 
-    // Check cooldown period
-    require(elapsedSinceLastReward(priorHash) >= COOLDOWN)
+    // Calculate reward using treasury balance
+    // V(p) = B_t × Q(p)/∑Q(i)
+    let reward = (treasury.balance * qualityScore) / TOTAL_QUALITY
 
-    // Calculate thread reward
-    let reward = calculatePriorReward(qualityScore, treasury.balance)
+    // Update thread coupling
+    strengthenThreadCoupling(sourceThread, targetThread)
 
-    // Transfer from treasury to thread
-    transferFromTreasury(reward, to: targetThread)
+    return TokenAmount(reward)
+}
 
-    // Update state
-    updatePriorRecord(priorHash, reward)
-    updateTreasuryBalance(reward)
-    emitPriorEvent(sourceThread, targetThread, reward)
+func strengthenThreadCoupling(_ source: inout ThreadState, _ target: inout ThreadState) {
+    // Citations strengthen both threads through frequency coupling
+    let couplingFactor = 50 // 0.05 in fixed point
+    source.frequency += (target.frequency * couplingFactor) / 1000
+    target.frequency += (source.frequency * couplingFactor) / 1000
 }
 ```
 
-## Reward Properties
+### 3. Treasury Management
 
-### 1. New Message Conservation
-
-```
-PROPERTY new_message_conservation:
-  FORALL reward IN new_message_rewards:
-    reward <= remaining_allocation AND
-    total_distributed + reward <= TOTAL_ALLOCATION AND
-    follows_decay_curve(reward)
-```
-
-### 2. Prior Reward Stability
-
-```
-PROPERTY prior_reward_stability:
-  FORALL reward IN prior_rewards:
-    reward <= treasury.balance AND
-    respects_cooldown(reward) AND
-    strengthens_thread_cavity(reward)
-```
-
-## Combined State Evolution
-
-The system maintains coherence across all state transitions:
-
-1. **Message Flow**
-   - Submission → Approval/Denial → Reward
-   - Each stage preserves invariants
-   - Energy conserved throughout
-   - Phase relationships maintained
-
-2. **Value Flow**
-   - Individual rewards (approvals, new messages)
-   - Collective rewards (denials, prior rewards)
-   - Treasury coupling (split decisions)
-   - System-wide coherence
-
-3. **Reward Flow**
-   - Time-based decay (new messages)
-   - Quality-weighted distribution (priors)
-   - Treasury sustainability
-   - Thread cavity strengthening
-
-## State Verification
+Treasury balance evolution:
 
 ```swift
-func verifyThermodynamicState(thread: Thread) throws -> Bool {
-    guard thread.energy >= 0 else { throw ThermodynamicError.energyConservationViolation }
-    guard thread.temperature > 0 else { throw ThermodynamicError.temperatureInstability }
-    guard thread.frequency > 0 else { throw ThermodynamicError.frequencyDecoherence }
-    guard energyConserved(thread) else { throw ThermodynamicError.energyConservationViolation }
-    return true
+func updateTreasury(event: RewardEvent) {
+    switch event {
+    case .splitDecision(let approverShare):
+        treasury.balance += approverShare
+
+    case .priorReward(let amount):
+        treasury.balance -= amount
+
+    case .systemReward(let amount):
+        treasury.balance += amount
+    }
+
+    // Verify treasury remains solvent
+    require(treasury.balance >= MINIMUM_BALANCE)
 }
 ```
 
-## Temperature Evolution
+## System Properties
+
+### 1. Energy Conservation
 
 ```swift
-func evolveTemperature(thread: Thread, timeDelta: TimeInterval) {
-    // Natural cooling over time
-    let coolingFactor = 1 + sqrt(timeDelta / (86400) * Double(thread.coAuthors.count))
-    thread.temperature /= coolingFactor
+property EnergyConservation {
+    invariant: totalSystemEnergy == constant
+    where: totalSystemEnergy = threads.sum(\.energy) + treasury
 }
 ```
 
-## Frequency Management
+### 2. Temperature Stability
 
 ```swift
-func updateFrequency(thread: Thread) {
-    let messageMode = thread.messageRate / sqrt(Double(thread.coAuthors.count))
-    let valueMode = log(1 + thread.energy / Double(thread.coAuthors.count))
-    let coupling = 1.0 / Double(thread.coAuthors.count)
+property TemperatureStability {
+    invariant: thread.temperature > 0
+    invariant: thread.temperature == thread.energy / thread.coAuthors.count
+}
+```
 
-    thread.frequency = sqrt(
-        (pow(messageMode, 2) + pow(valueMode, 2)) / 2.0 +
-        coupling * Double(thread.coAuthors.count)
-    )
+### 3. Frequency Coherence
+
+```swift
+property FrequencyCoherence {
+    invariant: thread.frequency > 0
+    invariant: thread.frequency increases with organization
 }
 ```
 
 ## Error Handling
 
 ```swift
-enum ThermodynamicError: Error {
+enum StateTransitionError {
     case energyConservationViolation
     case temperatureInstability
     case frequencyDecoherence
     case phaseTransitionFailure
 }
 
-func handleError(_ error: ThermodynamicError) -> Recovery {
-    switch error {
-    case .energyConservationViolation:
-        recomputeEnergy()
-    case .temperatureInstability:
-        stabilizeTemperature()
-    case .frequencyDecoherence:
-        realignFrequency()
-    case .phaseTransitionFailure:
-        reverseTransition()
+func verifyStateTransition(from: ThreadState, to: ThreadState) throws {
+    guard to.energy >= 0 else {
+        throw StateTransitionError.energyConservationViolation
+    }
+    guard to.temperature > 0 else {
+        throw StateTransitionError.temperatureInstability
+    }
+    guard to.frequency > 0 else {
+        throw StateTransitionError.frequencyDecoherence
     }
 }
 ```
@@ -249,13 +260,27 @@ func handleError(_ error: ThermodynamicError) -> Recovery {
 ## Monitoring Points
 
 1. **Thermodynamic Health**
-   - Energy conservation
-   - Temperature stability
-   - Frequency coherence
-   - Phase transition success
+   - Energy conservation across transitions
+   - Temperature evolution patterns
+   - Frequency stability metrics
+   - Phase transition success rates
 
-2. **Performance Metrics**
+2. **System Metrics**
    - Heat flow efficiency
-   - Frequency stability
-   - Phase transition speed
-   - System entropy
+   - Organization coherence
+   - Value distribution patterns
+   - Network effects
+
+This model ensures:
+- Pure state transition logic
+- Energy conservation
+- Natural evolution
+- System stability
+- Pattern emergence
+
+The system maintains:
+- Thermodynamic principles
+- Phase relationships
+- Value coherence
+- Natural selection
+- Collective organization

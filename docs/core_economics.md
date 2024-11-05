@@ -9,9 +9,9 @@ invariants: {
 assumptions: {
 "Swift concurrency",
 "Event-driven flow",
-"Solana source of truth"
+"EVM integration"
 }
-docs_version: "0.4.1"
+docs_version: "0.4.2"
 
 ## Economic Events
 
@@ -29,11 +29,11 @@ enum EconomicEvent: DomainEvent {
     case temperatureDecreased(threadId: ThreadID, delta: Float)
 
     // Equity events (from chain)
-    case equityDistributed(threadId: ThreadID, shares: [PublicKey: Float])
-    case equityDiluted(threadId: ThreadID, newShares: [PublicKey: Float])
+    case equityDistributed(threadId: ThreadID, shares: [Address: Float])
+    case equityDiluted(threadId: ThreadID, newShares: [Address: Float])
 
     // Reward events (from chain)
-    case rewardsIssued(amount: TokenAmount, recipients: [PublicKey])
+    case rewardsIssued(amount: TokenAmount, recipients: [Address])
     case treasuryUpdated(newBalance: TokenAmount)
 
     var id: UUID
@@ -44,34 +44,35 @@ enum EconomicEvent: DomainEvent {
 
 ## Chain State Authority
 
-Solana as source of truth:
+EVM as source of truth:
 
 ```swift
 // Economic state from chain
 actor ChainStateManager {
-    private let solana: SolanaConnection
+    private let web3: Web3
     private let eventStore: EventStore
 
     // Get thread economics from chain
     func getThreadEconomics(_ id: ThreadID) async throws -> ThreadEconomics {
-        // Get authoritative state from chain
-        let account = try await solana.getThreadAccount(id)
+        // Get authoritative state from smart contract
+        let contract = try await web3.contract(at: threadContractAddress)
+        let state = try await contract.method("getThread", parameters: [id]).call()
 
         return ThreadEconomics(
-            temperature: account.temperature,
-            energy: account.energy,
-            tokenBalance: account.balance,
-            equityShares: account.equityMap
+            temperature: state.temperature,
+            energy: state.energy,
+            tokenBalance: state.balance,
+            equityShares: state.equityMap
         )
     }
 
     // Submit economic transaction
     func submitTransaction(_ tx: Transaction) async throws {
         // Submit to chain first
-        let signature = try await solana.submitTransaction(tx)
+        let hash = try await web3.eth.sendRawTransaction(tx)
 
         // Then emit events based on transaction type
-        switch tx.instruction {
+        switch tx.data {
         case .depositStake(let amount):
             try await eventStore.append(.stakeDeposited(
                 threadId: tx.threadId,

@@ -62,7 +62,7 @@ The breakthrough was realizing how collective intelligence emerges through netwo
 - Knowledge couples through citations
 - Understanding emerges through collective resonance
 
-The tech stack (Swift, Solana, vector DB, etc.) is just implementation detail. The real magic is how the system enables natural emergence of:
+The tech stack (Swift, EVM, vector DB, etc.) is just implementation detail. The real magic is how the system enables natural emergence of:
 
 - Collective understanding
 - Team formation
