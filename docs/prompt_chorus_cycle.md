@@ -8,7 +8,7 @@ docs_version: "0.1.0"
 [Action: Execute] [Noun: Experience] [Modifier: By] [Parameter: Gathering_Priors]
 [Action: Align] [Noun: Intention] [Modifier: To] [Parameter: User_Goal]
 [Action: Record] [Noun: Observation] [Modifier: Through] [Parameter: Semantic_Links]
-[Action: Evaluate] [Noun: Update] [Modifier: Based_On] [Parameter: System_State]
+[Action: Evaluate] [Noun: Understanding] [Modifier: Based_On] [Parameter: System_State]
 [Action: Yield] [Noun: Final_Output] [Modifier: As] [Parameter: Resonant_Response]
 
 [Action: {{input}}] [Noun: Reflect] [Modifier: On] [Parameter: Cycle_Impact]

@@ -2,10 +2,10 @@
 
 # Define level prefixes as simple arrays
 level0_prefixes=("Solana" "Frontend" "Backend" "Deploy" "Implementation")
-level1_prefixes=("Entry" "Dev" "Plan" "Tech" "Level" "Current" "core")
-level2_prefixes=("State" "Summary" "Pivot" "goal" "e" "data" "Error" "reward" "Impl")
-level3_prefixes=("theory" "V10" "V12")
-level4_prefixes=("Model" "Emergence" "Meta")
+level1_prefixes=("doables" "Entry" "Dev" "Plan" "Tech" "Level" "Current" "core" "CHANGELOG")
+level2_prefixes=("plan" "State" "Summary" "Pivot" "goal" "e" "data" "Error" "reward" "Impl")
+level3_prefixes=("docs" "theory" "V10" "V12")
+level4_prefixes=("self" "Model" "Emergence" "Meta")
 level5_prefixes=("harmonic")
 
 # Function to add separator and header

@@ -48,7 +48,7 @@ The AEIOU-Y cycle isn't just a sequence of steps - it's a resonant cavity that a
 - Experience: Context resonance
 - Intention: Goal alignment
 - Observation: Pattern recognition
-- Update: Phase transition
+- Understanding: Phase transition
 - Yield: Coherent output
 
 The cycle maintains phase coherence while allowing natural evolution. It's how we turn quantum possibility into crystallized meaning.

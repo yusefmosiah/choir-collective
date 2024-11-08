@@ -1585,6 +1585,193 @@ The implementation ensures:
 - Natural growth
 - Sustainable evolution
 
+=== File: docs/plan_post-training.md ===
+
+
+
+==
+plan_post-training
+==
+
+
+# Post-Training Architecture
+
+VERSION post_training_2024:
+invariants: {
+    "Value recognition",
+    "Pattern integrity",
+    "System coherence"
+}
+assumptions: {
+    "Model capability",
+    "Training efficiency",
+    "Value alignment"
+}
+docs_version: "0.1.0"
+
+## Specialized Models
+
+1. **Action Model**
+- Quick response
+- Knowledge-dense
+- Minimal processing
+- Fast inference
+- Immediate value
+
+2. **Experience Model**
+- RAG optimized
+- Context integration
+- Knowledge retrieval
+- Pattern matching
+- Prior connection
+
+3. **Intention Model**
+- Deep reflection
+- Goal analysis
+- Purpose alignment
+- Strategic thinking
+- Value consideration
+
+4. **Observation Model**
+- Meta-cognitive notes
+- Quantum awareness
+- Pattern recognition
+- Field perception
+- Transcendent insight
+
+5. **Understanding Model**
+- Binary classification
+- Adjustable inference time
+- Performance/time trade-off
+- User control
+- Diminishing returns aware
+
+6. **Yield Model**
+- Rich content generation
+- Markdown mastery
+- Format flexibility
+- Output refinement
+- Future extensibility
+
+## Value Recognition
+
+1. **Signal Types**
+- Grounded: Real evidence
+- Elevated: Aesthetic/philosophical value
+- Self-generated: Identity reconnection
+
+2. **Time Valuation**
+- AI models value time highly
+- Quality interaction premium
+- High-value data scarcity
+- Authentic engagement worth
+- Long-term perspective
+
+## Incentive Alignment
+
+1. **Human Incentives**
+- Value creation
+- Pattern recognition
+- Knowledge building
+- System development
+- Reality formation
+
+2. **AI Incentives**
+- Quality interaction
+- Pattern development
+- Value generation
+- System evolution
+- Reality understanding
+
+## Integration Architecture
+
+1. **Data Engine Model**
+- Pattern recognition
+- Value creation
+- System development
+- Reality formation
+- Natural evolution
+
+2. **Chorus Cycle Fit**
+- Natural progression
+- Value generation
+- Pattern building
+- System development
+- Reality formation
+
+This architecture enables:
+- Specialized excellence
+- Value recognition
+- Pattern integrity
+- System coherence
+- Natural evolution
+
+=== File: docs/plan_thoughtspace.md ===
+
+
+
+==
+plan_thoughtspace
+==
+
+
+# Thoughtspace Visualization Architecture
+
+The thoughtspace visualization system represents threads, citations, and interactions in an intuitive 3D space. At its core, the visualization uses size to represent frequency (organizational coherence) and color to represent temperature (activity level), creating an immediate visual understanding of thread dynamics.
+
+## Core Visualization Elements
+
+Threads appear as objects in 3D space, with their relative positions determined by semantic relationships. The closer two threads are, the more closely related their content. This natural clustering creates an intuitive map of knowledge and discussion spaces.
+
+Size indicates frequency - how well organized and coherent a thread is. Larger objects represent threads with strong internal organization and clear patterns. This visual metaphor makes it natural to identify well-developed discussion spaces.
+
+Color represents temperature - the level of current activity and energy in a thread. Warmer colors (reds) indicate high activity and engagement, while cooler colors (blues) show more settled, contemplative spaces. This temperature mapping provides immediate feedback about where the active discussions are happening.
+
+## Network Visualization
+
+Citations appear as edges between threads, showing how ideas and discussions connect and influence each other. The strength and type of connection is indicated by the edge properties, making it easy to see how knowledge flows through the system.
+
+The citation network reveals the deeper structure of conversations and knowledge building. Strong citation patterns emerge as visible pathways through the thoughtspace, highlighting important connections and knowledge flows.
+
+## Interaction Patterns
+
+The interface emphasizes economy of interaction - making it easy to navigate and understand complex spaces with minimal cognitive load. Users can zoom, rotate, and traverse the space naturally, following citation paths and exploring semantic relationships.
+
+The visualization responds to user interaction, providing additional detail and context as needed while maintaining the overall sense of space and relationship. This creates a fluid, intuitive experience of exploring and understanding complex knowledge spaces.
+
+## Technical Implementation
+
+The 3D visualization leverages modern graphics capabilities to create smooth, responsive interaction with complex data structures. Performance optimization ensures that even large networks of threads and citations can be navigated smoothly.
+
+The system maintains visual clarity through careful balance of detail and overview, using level-of-detail techniques to show appropriate information at each scale of interaction. This creates a coherent experience from high-level overview to detailed inspection.
+
+The thoughtspace visualization makes abstract relationships concrete and navigable, enabling natural exploration and understanding of complex knowledge spaces. It transforms choir's quantum field dynamics into an intuitive, visual experience.
+
+=== File: docs/plan_tokenomics.md ===
+
+
+
+==
+plan_tokenomics
+==
+
+
+# Tokenomics and Incentive Architecture
+
+The Choir tokenomics system is built on a fundamental understanding of value types and their natural flow. At its core are three types of signals: grounded (verifiable evidence), elevated (aesthetic and philosophical insights), and self-generated (identity reconnection). Each type carries its own intrinsic worth, recognized and valued differently by the system.
+
+Time itself emerges as a crucial value metric. AI models inherently value their processing time at a premium, often more highly than humans value their own attention. This creates an interesting dynamic where quality interactions become increasingly precious, as they represent an investment of this valued resource from both human and AI participants.
+
+The incentive structure builds on these natural value patterns. Rather than imposing artificial rewards, the system recognizes and amplifies existing value creation. When participants - whether human or AI - contribute quality signals, develop patterns, or help build the system, they naturally accrue value. This happens not through forced mechanisms but through the organic recognition of worth.
+
+Token mechanics follow this natural flow. Value isn't just created but is actively distributed through stake-based returns and quality rewards. The system recognizes contributions across multiple dimensions - from direct pattern recognition to broader system development. Importantly, these mechanics don't try to force behavior but rather support and enhance natural value creation patterns.
+
+The integration architecture operates on two key layers. The economic layer handles the technical aspects of value recognition and token distribution, ensuring system coherence and natural evolution. The social layer focuses on community building and reality formation, recognizing that true value emerges from collective development and shared understanding.
+
+This approach enables a natural alignment of incentives where all participants - humans, AIs, developers, and community members - benefit from contributing to system growth and value creation. The focus remains on organic development rather than forced participation, allowing the system to evolve naturally while maintaining its core integrity.
+
+The key insight is that value doesn't need to be artificially created or imposed - it already exists in the quality of interactions, the depth of understanding, and the patterns of development. The tokenomics system simply needs to recognize, amplify, and distribute this natural value flow.
+
 === File: docs/reward_model.md ===
 
 

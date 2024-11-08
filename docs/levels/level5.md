@@ -324,7 +324,7 @@ Observation Phase
 - Strengthens patterns
 - Enables evolution
 
-Update Phase
+Understanding Phase
 
 - Decision to continue or yield
 - Phase transition point
@@ -445,7 +445,7 @@ func evolveThread(_ event: ThreadEvent) async throws {
         try await coupleThroughPrior()
 
     case .temperatureChanged:
-        // Update state
+        // Understanding state
         try await evolveTemperature()
     }
 }

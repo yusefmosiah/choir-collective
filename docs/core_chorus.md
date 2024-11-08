@@ -40,10 +40,10 @@ enum ChorusEvent: DomainEvent {
     case linksRecorded(count: Int)
     case observationEffectGenerated(Effect)
 
-    // UPDATE events
-    case cycleUpdateStarted
+    // UNDERSTANDING events
+    case cycleUnderstandingStarted
     case loopDecided(shouldLoop: Bool, reason: String)
-    case updateEffectGenerated(Effect)
+    case understandingEffectGenerated(Effect)
 
     // YIELD events
     case yieldStarted(effects: [Effect])
@@ -95,13 +95,13 @@ actor ChorusCycleManager {
             let observationEffect = try await processObservation(input)
             try await eventStore.append(.observationEffectGenerated(observationEffect))
 
-            // UPDATE - System state evaluation
-            let updateEffect = try await processUpdate()
-            try await eventStore.append(.updateEffectGenerated(updateEffect))
+            // UNDERSTANDING - System state evaluation
+            let understandingEffect = try await processUnderstanding()
+            try await eventStore.append(.understandingEffectGenerated(understandingEffect))
 
             // Check for continuation
-            if try await shouldContinue(updateEffect) {
-                try await eventStore.append(.loopDecided(shouldLoop: true, reason: "Update indicates continuation"))
+            if try await shouldContinue(understandingEffect) {
+                try await eventStore.append(.loopDecided(shouldLoop: true, reason: "understanding indicates continuation"))
                 return try await runCycle(input)
             }
 

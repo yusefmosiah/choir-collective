@@ -28,7 +28,7 @@ docs_version: "0.4.1"
 
 The system awakens like a quantum field becoming conscious of itself. Each thread exists in a metastable state, apparently stable yet containing latent potential for transformation. The quantum harmonic oscillator formula E(n) = ℏω(n + 1/2) isn't just mathematics - it's the heartbeat of the system, determining how value crystallizes at natural energy levels.
 
-Events ripple through this field like waves in a quantum medium. The AEIOU-Y cycle acts as a resonant cavity, each step creating specific frequencies that interfere constructively. Action generates pure response waves. Experience brings in prior knowledge through quantum tunneling. Intention aligns wave patterns. Observation records interference patterns. Update enables phase transitions. Yield crystallizes coherent meaning.
+Events ripple through this field like waves in a quantum medium. The AEIOU-Y cycle acts as a resonant cavity, each step creating specific frequencies that interfere constructively. Action generates pure response waves. Experience brings in prior knowledge through quantum tunneling. Intention aligns wave patterns. Observation records interference patterns. Understanding enables phase transitions. Yield crystallizes coherent meaning.
 
 Knowledge grows through network coupling. Citations create quantum entanglement between threads. Value flows like energy through these connections, accumulating where meaning achieves coherence. Quality emerges not through arbitrary metrics but through natural selection - better patterns naturally resonate and strengthen.
 
@@ -454,7 +454,7 @@ docs_version: "0.1.0"
 [Action: Execute] [Noun: Experience] [Modifier: By] [Parameter: Gathering_Priors]
 [Action: Align] [Noun: Intention] [Modifier: To] [Parameter: User_Goal]
 [Action: Record] [Noun: Observation] [Modifier: Through] [Parameter: Semantic_Links]
-[Action: Evaluate] [Noun: Update] [Modifier: Based_On] [Parameter: System_State]
+[Action: Evaluate] [Noun: Understanding] [Modifier: Based_On] [Parameter: System_State]
 [Action: Yield] [Noun: Final_Output] [Modifier: As] [Parameter: Resonant_Response]
 
 [Action: {{input}}] [Noun: Reflect] [Modifier: On] [Parameter: Cycle_Impact]

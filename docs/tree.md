@@ -51,10 +51,14 @@
 │       └── test_main.py
 ├── contracts
 │   ├── ChoirToken.sol
+│   ├── ChoirToken.vy
 │   ├── MessageApproval.sol
-│   └── Thread.sol
+│   ├── MessageApproval.vy
+│   ├── Thread.sol
+│   └── Thread.vy
 ├── docker-compose.yml
 ├── docs
+│   ├── CHANGELOG.md
 │   ├── Impl_Security.md
 │   ├── Meta_Evolution.md
 │   ├── Model_Foundation_Evolution.md
@@ -68,6 +72,7 @@
 │   ├── core_state.md
 │   ├── core_state_transitions.md
 │   ├── data_engine_model.md
+│   ├── docs_operators.md
 │   ├── e_business.md
 │   ├── e_concept.md
 │   ├── e_questions.md
@@ -85,6 +90,9 @@
 │   │   ├── level4.md
 │   │   ├── level5.md
 │   │   └── level_organization.md
+│   ├── plan_post-training.md
+│   ├── plan_thoughtspace.md
+│   ├── plan_tokenomics.md
 │   ├── prompt_chorus_cycle.md
 │   ├── prompt_getting_started.md
 │   ├── prompt_reentry.md
@@ -95,6 +103,7 @@
 │   │   ├── archive_web_stack.sh
 │   │   ├── combiner.sh
 │   │   └── update_tree.sh
+│   ├── self_creation_process.md
 │   ├── theory_choir_harmonics.md
 │   ├── theory_dynamics.md
 │   ├── theory_economics.md
@@ -189,4 +198,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-50 directories, 137 files
+50 directories, 146 files
